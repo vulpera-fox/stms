@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskRegs})}">
+
+
+<th:block class="taskRegs">
+	
+	<style>
+	
+	/* 공통사항 */
+	.taskRegContainer {
+		width: 1800px;
+		
+	}
+	
+	.taskRegBox {
+	  width: 800px;
+	  height: 800px;
+	  text-align: center;
+	  border: 1px solid #777;
+	  box-shadow: 0 8px 10px #020f37;
+	  margin: 30px 0;
+	}
+
+	.taskRegRow {
+	  border-top: 1px solid rgb(227, 227, 227);
+	  border-collapse: collapse;
+	}
+	
+	.taskRegRow:first-child {
+		border-top: none;
+	}
+	
+	.taskRegHeads, .tastRegBodies {
+	  padding: 10px;
+	  text-align: center;
+	  font-size: large;
+	  font-weight: bold;
+	}
+	
+	.taskRegDates {
+	  padding: 10px;
+	  text-align: left;
+	  
+	}
+	
+	
+	.taskRegTable {
+	  width: 700px;
+	  height: 600px;
+	  line-height: 120px;
+	  border-bottom: 3px solid #020f37;
+	  margin: 0 auto;
+	}
+	
+	
+	.colspanInput {
+	  width: 98%;
+	  block-size: 30px;
+	}
+	
+	.taskRegInput {
+	  width: 95%;
+	  block-size: 30px;
+	}
+	
+	.datetimepicker {
+	  width: 150px;
+	  text-align: left;
+	}
+	
+	.RegBtnBox {
+	  margin: 20px;
+	  text-align: center;
+	}
+	
+	.saveBtn, .listBtn {
+	  width: 100px;
+	  height: 50px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+	}
+	
+	
+	</style>
+	
+	<!--datetimePicker-->
+	<script>
+		
+		//시작일시
+		const startDateTimeInput = document.getElementById("startDateTime");
+		//종료일시
+		const endDateTimeInput = document.getElementById("endDateTime");
+		
+		//현재일시
+		function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, "0");
+            const day = String(now.getDate()).padStart(2, "0");
+            const hours = String(now.getHours()).padStart(2, "0");
+            const minutes = String(now.getMinutes()).padStart(2, "0");
+
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+		
+		//시작일시 입력 필드의 최소값과 기본값 설정
+		const currentDateTime = getCurrentDateTime();
+        startDateTimeInput.min = currentDateTime;
+        startDateTimeInput.value = currentDateTime;
+		
+		//종료일시 입력 필드의 최소값 설정
+		startDateTimeInput.addEventListener("change", function () {
+            endDateTimeInput.min = startDateTimeInput.value;
+        });
+			
+	</script>
+	
+	
+	<body>
+	  <div class="taskRegContainer">
+	    
+      <h3>작업 등록</h3>
+      
+	    <div class="taskRegBox">
+		      <table class="taskRegTable">
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업기간</th>
+		            <td colspan="3" class="taskRegDates">
+						
+						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime">
+						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime">
+						
+		            </td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">고객사</th>
+		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+		            <th class="taskRegHeads">담당자</th>
+		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업장소</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업명</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업내용</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		    </div>
+		    </table>
+	
+	    <!-- 버튼 기능 -->
+	    <div class="RegBtnBox">
+	      <input type="button" class="saveBtn" value="등록">
+	      <input type="button" class="listBtn" value="목록">
+	    </div>
+	
+	  </div>
+
+</th:block>
+	
+</th:block>	
