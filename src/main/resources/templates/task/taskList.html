@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskLists})}">
+
+<th:block class="taskLists">
+	<style>
+
+
+  .taskListBox {
+	  border-top: 1px solid rgb(227, 227, 227);
+	  width: 1200px;
+  }
+
+  .taskListTable{
+    width: 1200px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+    border-collapse: collapse;
+  }
+
+  .taskHeadRow, .taskBodyRow {
+	  border-bottom: 1px solid rgb(227, 227, 227);
+  }
+  
+  .taskHeads {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .taskBodies {
+    padding: 10px;
+    text-align: center;	  
+  }
+
+  .taskHeads:first-child, .taskBodies:first-child {
+    border-left: none;
+    
+  }
+  
+  .taskContainer {
+   
+    width: 1800px;
+    margin: 0 auto;
+  }
+
+  .taskSearchBox {
+	width: 1200px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+    margin: 30px 0;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid #777;
+    box-shadow: 0 2px 2px #020f37;
+  }
+
+  .taskSearchOpt {
+	float: left;
+	width: 330px;
+	padding-right: 3px;
+  }
+
+  .taskSearchOpt > span {
+	  color: black;
+	  font-weight: bold;
+  }
+
+  .taskSerchInput {
+    margin: 0 auto;
+    text-align: center;
+    
+  }
+
+  .taskSearchBtnBox {
+	float: right;
+	width: 150px;
+	padding-right: 2px;
+  }
+
+  .taskSearchBtn {
+    block-size: 30px;
+    background-color: #020f37;
+    color: #fff;
+   	width: 70px;
+   	text-align: center;
+   	font-weight: bold;
+  }
+
+   
+</style>
+
+
+<body>
+	
+<div>
+		
+	
+	<!-- 검색 기능 -->
+	<div class="taskContainer">
+
+	  <h3>작업조회</h3>  
+		
+	  <div class="taskSearchBox">
+		  <div class="taskSearchOpt">					  
+			  <span>작업 검색</span>					 
+			  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요">
+		  </div>
+		  <div class="taskSearchOpt">					  
+			  <span>고객사 검색 </span>
+			  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요">
+		  </div>
+		  <div class="taskSearchOpt">					  
+			  <span>담당자 검색 </span>
+			  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요">
+		  </div>
+	   	  <div class="taskSearchBtnBox">				 
+	      	<input type="button" class="taskSearchBtn" value="검색" style="line-height:0;">
+		  </div>
+	  </div>
+	  
+	  
+	  <div class="taskListBox">
+		  <table class="taskListTable">
+			  <thead class="taskListHead">
+				  <tr class="taskHeadRow">
+					  <th class="taskHeads">작업번호</th>
+					  <th class="taskHeads">작업일</th>
+					  <th class="taskHeads">고객사</th>
+					  <th class="taskHeads">작업시작일</th>
+					  <th class="taskHeads">작업종료일</th>
+					  <th class="taskHeads">담당자</th>
+					  <th class="taskHeads">작업상태</th>
+					  <th class="taskHeads">비고</th>
+				  </tr>
+			  </thead>
+			  
+			  <!--반복 돌릴 것-->
+			  <tbody class="taskListBody">
+				  <tr class="taskBodyRow">
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+					  <td class="taskBodies">1</td>
+				  </tr>
+			  </tbody>
+		  </table> 
+	  </div>
+	  
+	</div>
+	
+	
+	<!-- 페이징 -->
+	
+	<!--<th:block th:replace="~{./include/page :: pageNation(${pageVO})}">-->
+	
+</div>
+	
+</th:block>
+
+
+	
+</th:block>
+
+
+
+
+
+
+
