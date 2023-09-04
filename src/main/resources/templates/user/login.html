@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/login.css" >
+</head>
+<body>
+    <div class="wrap">
+
+        <div class="titleBox">
+            <a href=""><img src="../img/20.png" alt="로고"></a>
+        </div>
+
+               [[${msg}]]
+      
+        <form action="loginForm" method="post">
+
+            <input class="inputText" type="text" name="user_email" placeholder="아이디"></input>
+            <input class="inputText" type="password" name="user_pw" placeholder="패스워드"></input>
+            <input type="submit" class="loginBtn" value="로그인"></input>
+        </form>
+
+            <div class="findInfo">
+                <ul>
+                    <li>
+                        <!--<a th:href="@{/findID}">아이디찾기</a>
+                        <span style="color: #999;"> | </span>-->
+                        <a th:href="@{/findPW}">비밀번호 재설정하기</a>
+                    </li>
+                </ul>
+            </div>
+
+        <div class="joinWrap">
+            <a th:href="@{/joinUser}"><button type="button" class="joinBtn">고객 회원가입</button></a>
+            <a th:href="@{/joinEngineer}"><button type="button" class="joinBtn">작업자 회원가입</button></a>
+        </div>
+
+
+    </div>
+
+</body>
+</html>
