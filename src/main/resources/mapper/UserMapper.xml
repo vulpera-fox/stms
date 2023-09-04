@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.stms.user.UserMapper">
+
+
+	<insert id="join" parameterType="UserVO">
+		insert into user (
+							USER_ID,
+							USER_EMAIL,
+							USER_NM,
+							USER_PW,
+							USER_ROLE,
+							USER_GROUP,
+							USER_AUTH_YN
+						  ) 
+				    values (
+							#{user_id},
+							#{user_email},
+							#{user_nm},
+							#{user_pw},
+							#{user_role},
+							#{user_group},
+							#{user_auth_yn}
+							
+						   )
+	</insert>
+
+
+	<select id="login" resultType="UserVO">
+		select *
+		from user
+		where user_email = #{user_email}
+	</select>
+	
+	<update id="changePW" parameterType="UserVO">
+
+		update user set
+		USER_PW = #{user_pw}
+		where USER_EMAIL = #{user_email};
+
+	</update>
+
+</mapper>
