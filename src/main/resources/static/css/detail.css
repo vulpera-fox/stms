@@ -1,0 +1,228 @@
+/* 기본 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0px;
+  background-color: #f4f4f4;
+}
+
+.card {
+ padding: 15px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin: 20px auto;
+}
+
+.Detail {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.slide {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+}
+
+.slide img {
+  width:100%;
+  height: auto;
+}
+
+.info {
+
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.num {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left:20px;
+  margin-top: 10px;
+}
+
+.num2 {
+  font-weight: bold;
+  margin: 0;
+  margin-right: 10px;
+  background-color: black;
+  color: white;
+  padding:  5px 15px  5px  15px;
+  border-radius: 20px;
+}
+
+.day {
+  margin-left: 580px;
+  transform: translateY(5px);
+}
+
+.where {
+	margin-left: 20px;
+	margin-right: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.where .region {
+  font-weight: bold;
+  margin: 0;
+   margin: 5px;
+}
+
+.where .price {
+  font-size: 1.5rem;
+  margin: 5px;
+}
+
+.where .fee {
+	margin: 5px;
+}
+
+.good svg {
+
+  margin-right: 10px;
+}
+
+
+
+.info_info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+
+.info_info p {
+  margin: 0;
+  font-weight: bold;
+}
+
+
+.info2 {
+	margin-left: 20px;
+	
+}
+
+
+.fee2 {
+	margin-top: 10px;
+	margin-left: 15px;
+	margin-right: 20px;
+	border-top: 1px solid #e2e2e2;
+	padding-top: 20px;
+
+}
+.fee2 h3,
+.fee2 p {
+  margin: 0;
+  padding: 5px;
+}
+
+
+.detail_ex {
+		margin-top: 10px;
+	margin-left: 15px;
+	margin-right: 20px;
+	border-top: 1px solid #e2e2e2;
+	padding-top: 20px;
+}
+
+.detail_ex p {
+  margin: 5px 0;
+  padding: 5px;
+}
+
+
+.region2{
+		margin-top: 10px;
+	margin-left: 15px;
+	margin-right: 20px;
+	border-top: 1px solid #e2e2e2;
+	padding-top: 20px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+
+.orange{
+	margin-top: 40px;
+	margin-left: 15px;
+	margin-right: 20px;
+	border-radius: 10px;
+	padding: 20px;
+	background-color: aliceblue;	
+}
+
+
+.box {
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.box h2 {
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.box2 {
+	width: 40px;
+    height: 40px; 
+    border-radius: 70%;
+    overflow: hidden;
+    border: 1px solid #222;
+      margin-right: 15px;
+	
+}
+
+.box2 img {
+	    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  
+    
+}
+
+
+.imo {
+	display: flex;
+}
+
+
+.imo svg {
+	margin-right: 10px;
+}
+
+.aaa {
+	padding-top: 20px;
+}
+
+
+.foot {
+	display: flex;
+		margin-top: 40px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.foo_info h3{
+	font-weight: 600;
+}
+
+
+.foot_btn {
+	transform:translateX(390px);
+}
+
+
+
+
+
+
+
