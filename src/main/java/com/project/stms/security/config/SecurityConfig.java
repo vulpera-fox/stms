@@ -15,7 +15,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
 		
+		http.csrf().disable(); // 권한 풀어도 POST요청 제한하니까 그냥 disable 설정해라
+		
 		http.authorizeHttpRequests().anyRequest().permitAll();
+		
 		
 		
 		return http.build();
