@@ -51,8 +51,6 @@ public class SecurityConfig {
 		.and()
 		.logout().logoutUrl("/logout").logoutSuccessUrl("/hello");//default로그아웃 경로 /logout, /logout 주소를 직접 작성할 수 있고, 로그아웃 성공시 리다이렉트 할 경로
 
-
-
 		return http.build();
 	}
 }
