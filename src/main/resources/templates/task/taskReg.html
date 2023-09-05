@@ -84,9 +84,62 @@
 	}
 	
 	
-	</style>
+	</style>	
 	
-	<!--datetimePicker-->
+	<body>
+	  <div class="taskRegContainer">
+	    
+      <h3>작업 등록</h3>
+      
+	    <div class="taskRegBox">
+		      <table class="taskRegTable">
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업기간</th>
+		            <td colspan="3" class="taskRegDates">
+						
+						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;">
+						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime">
+						
+		            </td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">고객사</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+		          </tr>
+		          
+		          <tr class="taskRegRow">					  
+		          	<th class="taskRegHeads">담당자</th>
+		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+				  </tr>
+		          
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업장소</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업명</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">작업내용</th>
+		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          </tr>
+		    </div>
+		    </table>
+	
+	    <!-- 버튼 기능 -->
+	    <div class="RegBtnBox">
+	      <input type="button" class="saveBtn" value="등록">
+	      <input type="button" class="listBtn" value="목록">
+	    </div>
+	
+	  </div>
+	  
+	  	<!--datetimePicker-->
 	<script>
 		
 		//시작일시
@@ -117,56 +170,6 @@
         });
 			
 	</script>
-	
-	
-	<body>
-	  <div class="taskRegContainer">
-	    
-      <h3>작업 등록</h3>
-      
-	    <div class="taskRegBox">
-		      <table class="taskRegTable">
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업기간</th>
-		            <td colspan="3" class="taskRegDates">
-						
-						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime">
-						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime">
-						
-		            </td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">고객사</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-		            <th class="taskRegHeads">담당자</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업장소</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업명</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업내용</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		    </div>
-		    </table>
-	
-	    <!-- 버튼 기능 -->
-	    <div class="RegBtnBox">
-	      <input type="button" class="saveBtn" value="등록">
-	      <input type="button" class="listBtn" value="목록">
-	    </div>
-	
-	  </div>
 
 </th:block>
 	
