@@ -56,7 +56,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <img th:src=@{/img/logo.png} style="width: 30px; height: 30px;"></i>
                 </div>
@@ -70,7 +70,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/">
                     <img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
                     <span>홈</span></a>
             </li>
@@ -93,10 +93,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">VIEW MY WORK :</h6>
-                        <a class="collapse-item" href="buttons.html">일정 조회</a>
-                        <a class="collapse-item" href="cards.html">보고서</a>
-                        <a class="collapse-item" href="cards.html">작업 내역 조회</a>
-                        <a class="collapse-item" href="cards.html">템플릿 관리</a>
+                        <a class="collapse-item" th:href="@{/task/taskCalendarEng}">작업 대시보드</a>
+                        <a class="collapse-item" th:href="@{/task/taskList}">작업 조회</a>
+                        <a class="collapse-item" th:href="@{/task/taskReport}">작업 보고서</a>
 
                     </div>
                 </div>
@@ -395,14 +394,14 @@
     <!--<script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
 
     <!-- Custom scripts for all pages-->
-    <script th:src=@{/js/sb-admin-2.min.js}></script>
+    <!--<script th:src=@{/js/sb-admin-2.min.js}></script>-->
 
     <!-- Page level plugins -->
     <!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script th:src=@{/js/demo/datatables-demo.js}></script>
+    <!--<script th:src=@{/js/demo/datatables-demo.js}></script>-->
     
 
     
