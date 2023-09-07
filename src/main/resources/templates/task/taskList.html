@@ -88,6 +88,14 @@
    	font-weight: bold;
   }
 
+	.stateBtn {
+		width: 80px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: blue;
+		color: #fff;
+		font-weight: bold;
+	}
    
 </style>
 
@@ -101,19 +109,19 @@
 	<div class="taskContainer">
 
 	  <h3>작업조회</h3>  
-		
+	<form name="taskSearchForm" action="####" method="###">
 	  <div class="taskSearchBox">
 		  <div class="taskSearchOpt">					  
 			  <span>작업 검색</span>					 
-			  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요">
+			  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요" name="searchTaskName" th:value="${pageVO.cri.searchTaskName}">
 		  </div>
 		  <div class="taskSearchOpt">					  
 			  <span>고객사 검색 </span>
-			  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요">
+			  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요" name="searchCustomer" th:value="${pageVO.cri.searchCustomer}">
 		  </div>
 		  <div class="taskSearchOpt">					  
 			  <span>담당자 검색 </span>
-			  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요">
+			  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요" name="searchEngineer" th:value="${pageVO.cri.searchEngineer}">
 		  </div>
 	   	  <div class="taskSearchBtnBox">				 
 	      	<input type="button" class="taskSearchBtn" value="검색" style="line-height:0;">
@@ -126,10 +134,11 @@
 			  <thead class="taskListHead">
 				  <tr class="taskHeadRow">
 					  <th class="taskHeads">작업번호</th>
-					  <th class="taskHeads">작업일</th>
 					  <th class="taskHeads">고객사</th>
-					  <th class="taskHeads">작업시작일</th>
-					  <th class="taskHeads">작업종료일</th>
+					  <th class="taskHeads">작업제목</th>
+					  <th class="taskHeads">작업일</th>
+					  <th class="taskHeads">시작시간</th>
+					  <th class="taskHeads">예상시간</th>
 					  <th class="taskHeads">담당자</th>
 					  <th class="taskHeads">작업상태</th>
 					  <th class="taskHeads">비고</th>
@@ -138,28 +147,65 @@
 			  
 			  <!--반복 돌릴 것-->
 			  <tbody class="taskListBody">
-				  <tr class="taskBodyRow">
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
-					  <td class="taskBodies">1</td>
+				  <tr th:each="vo, status : ${list}" class="taskBodyRow">
+					  <input type="hidden" name="task_id" th:value="${vo.task_id}" readonly>
+					  <td class="taskBodies">[[${status.count}]]</td>
+					  <td class="taskBodies">[[${vo.user_id}]]</td>
+					  <td class="taskBodies"><a href="/task/taskDetail">[[${vo.task_nm}]]</a></td>
+					  <td class="taskBodies">[[${vo.task_date}]]</td>
+					  <td class="taskBodies">[[${vo.task_st_dt}]]</td>
+					  <td class="taskBodies">[[${vo.task_end_dt}]]</td>
+					  <td class="taskBodies">다시 찾아 넣을 것</td>
+					  <td class="taskBodies">
+						  <input type="button" class="stateBtn" th:value="${vo.status}" style="line-height: initial; background-color: gray;">
+					  </td>
+					  <td class="taskBodies">
+						  <a th:href="@{taskModify}" id="taskModiBtn">수정</a>
+						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>						  
+					  </td>
 				  </tr>
+
 			  </tbody>
 		  </table> 
 	  </div>
 	  
+	  <!-- 페이징 -->
+	  <th:block th:replace="~{./include/page :: pageNation(${pageVO})}"></th:block>
+	  
 	</div>
 	
-	
-	<!-- 페이징 -->
-	
-	<!--<th:block th:replace="~{./include/page :: pageNation(${pageVO})}">-->
+	</form>
+
 	
 </div>
+
+<script>
+	
+	//검색이벤트
+	const taskSearchBtn = document.querySelector(".taskSearchBtn");
+	taskSearchBtn.addEventListener('click', function() {
+		
+		document.taskSearchForm.action = 'taskList';
+		document.taskSearchForm.method = 'get';
+		document.taskSearchForm.submit();
+		
+	});
+	
+	//삭제이벤트
+	const taskDelBtns = document.querySelectorAll(".taskDelBtn");
+	taskDelBtns.forEach(function(taskDelBtn) {
+		taskDelBtn.addEventListener('click', function(event) {
+			event.preventDefault();
+			console.log(event.target);
+			document.taskSearchForm.action = 'taskDeleteForm';
+			document.taskSearchForm.method = 'post';
+			document.taskSearchForm.submit();
+		})
+	})
+	
+	
+	
+</script>
 	
 </th:block>
 

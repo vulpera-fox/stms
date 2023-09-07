@@ -1,56 +1,68 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskRegs})}">
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskDetails})}">
 
-<th:block class="taskRegs">
+<th:block class="taskDetails">
 	
 	<style>
 	
 	/* 공통사항 */
-	.taskRegContainer {
+	.taskDtlContainer {
 		width: 1800px;
 		
 	}
 	
-	.taskRegBox {
+	.taskDtlBox {
 	  width: 800px;
-	  height: 800px;
+	  height: auto;
 	  text-align: center;
 	  border: 1px solid #777;
 	  box-shadow: 0 8px 10px #020f37;
 	  margin: 30px 0;
+	  position: relative;
 	}
 
-	.taskRegRow {
+	.taskDtlRow {
 	  border-top: 1px solid rgb(227, 227, 227);
 	  border-collapse: collapse;
+	  line-height: 20px;
+	  height: 60px;
 	}
 	
-	.taskRegRow:first-child {
+	.taskDtlRow:first-child {
 		border-top: none;
 	}
 	
-	.taskRegHeads, .tastRegBodies {
+	.taskDtlHeads, .tastDtlBodies {
 	  padding: 10px;
 	  text-align: center;
 	  font-size: large;
 	  font-weight: bold;
-	}
-	
-	.taskRegDates {
-	  padding: 10px;
-	  text-align: left;
 	  
 	}
 	
+	.taskDtlBodiesS {
+	  padding: 10px;
+	  text-align: center;
+	  font-size: large;
+	  font-weight: bold;
+	  overflow: hidden;
+	}
+
 	
-	.taskRegTable {
+	.taskDtlDates {
+	  padding: 10px;
+	  text-align: left;
+	}
+	
+	
+	.taskDtlTable {
 	  width: 700px;
 	  height: 600px;
-	  line-height: 120px;
+	  line-height: 90px;
 	  border-bottom: 3px solid #020f37;
-	  margin: 0 auto;
+	  margin: 40px auto;
 	}
 	
 	
@@ -59,9 +71,20 @@
 	  block-size: 30px;
 	}
 	
-	.taskRegInput {
+	.taskDtlInput {
 	  width: 95%;
 	  block-size: 30px;
+	}
+	
+	.taskDtlInputL {
+		width: 98%;
+		block-size: 30px;
+	}
+	
+	.taskDtlInputR {
+		width:65%;
+		block-size: 30px;
+		float: left;
 	}
 	
 	.datetimepicker {
@@ -69,83 +92,184 @@
 	  text-align: left;
 	}
 	
-	.RegBtnBox {
+	.DtlBtnBox {
 	  margin: 20px;
 	  text-align: center;
 	}
 	
 	.saveBtn, .listBtn {
 	  width: 100px;
-	  height: 50px;
+	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
 	}
 	
-	/* 관련 이미지 추가하고 디자인 적용하기*/
-	.taskStatus {
-		
+	.taskDtlBodiesS > .taskDtlBtn {
+	    background-color: #020f37;
+	    color: #fff;
+	   	width: 70px;
+	   	height: 30px;
+	   	font-weight: bold;
+	   	float: right;
+	   	font-size: 15px;
+  	}
+  	
+  	.projectSelectBox {
+		  width: 300px;
+	  }
+	  
+	#startDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+		margin-right: 30px;
 	}
 	
+	#endDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+	}
 	
-	</style>
+	.textInput {
+		width: 550px;
+		height: 200px;
+		border: 1px solid #777;
+		resize: none;
+	}
 	
+	.stateBtn {
+		width: 100px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: blue;
+		color: #fff;
+		font-weight: bold;
+		position: absolute;
+		top: 55px;
+		left: 650px;
+	}
 	
+	</style>	
 	
 	<body>
-	  <div class="taskRegContainer">
+	  <div class="taskDtlContainer">
 	    
-      <h3>작업 상세</h3>
+      <h3>작업 수정</h3>
       
-      <!--input태그의 내용은 그냥 값으로 받을 것-->
-      
-	    <div class="taskRegBox">
-		      <table class="taskRegTable">
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업기간</th>
-		            <td colspan="2" class="taskRegDates">
-		                <input type="text" class="datetimepicker"> ~ 
-		                <input type="text" class="datetimepicker">
-		            </td>
-		            <td class="taskStatus">
-						<img src="#" alt="작업상태표시">
+	    <div class="taskDtlBox">
+			
+			  <input type="button" class="stateBtn" value="작업대기" style="line-height: initial;">
+			  <!--<input type="button" class="stateBtn" value="작업중" style="line-height: initial; background-color: green;">-->
+			  <!--<input type="button" class="stateBtn" value="작업완료" style="line-height: initial; background-color: gray;">-->
+			  <!--<input type="button" class="stateBtn" value="작업중단" style="line-height: initial; background-color: red;">-->
+			  
+		      <table class="taskDtlTable">
+				  
+				  <tr class="taskDtlRow">
+					  <th class="taskDtlHeads">프로젝트</th>
+					  <td colspan="2" class="taskDtlBodies">
+						  <!--반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
+						  <select class="projectSelectBox" readonly>
+							  <option>프로젝트A</option>
+							  <option>프로젝트B</option>
+							  <option>프로젝트C</option>
+							  <option>프로젝트D</option>
+						  </select>
+					  </td>
+				  </tr>
+				  		  
+		          <tr class="taskDtlRow">
+		            <th class="taskDtlHeads">고객사</th>
+		            <td class="taskDtlBodies"><input type="text" class="taskDtlInputL" readonly></td>
+		          	<th class="taskDtlHeads">담당자</th>
+		            <td class="taskDtlBodiesS">
+						<input type="text" class="taskDtlInputR" readonly>
+						<input type="button" class="taskDtlBtn" value="검색" style="line-height: initial;">
 					</td>
+				  </tr>
+		          
+		          <tr class="taskDtlRow">
+		            <th class="taskDtlHeads">작업기간</th>
+		            <td colspan="3" class="taskDtlDates">
+						
+						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;" readonly>
+						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;" readonly>
+						
+		            </td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">고객사</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-		            <th class="taskRegHeads">담당자</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+		  		  
+		          <tr class="taskDtlRow">
+		            <th class="taskDtlHeads">작업장소</th>
+		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업장소</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          <tr class="taskDtlRow">
+		            <th class="taskDtlHeads">작업명</th>
+		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업명</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          <tr class="taskDtlRow">
+		            <th class="taskDtlHeads">작업내용</th>
+		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
 		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업내용</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
+		          
+		          <tr class="taskDtlRow">
+					  <th class="taskDtlHeads">작업결과</th>
+					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" placeholder="작업결과를 입력해주세요"></textarea></td>
+				  </tr>
 		    </div>
 		    </table>
+		
+		
+		
+		<!--댓글 기능-->
+		<div>
+			댓글 기능 들어갈거야
+		</div>
+		
 	
 	    <!-- 버튼 기능 -->
-	    <div class="RegBtnBox">
-	      <input type="button" class="saveBtn" value="수정">
+	    <div class="DtlBtnBox">
 	      <input type="button" class="listBtn" value="목록">
 	    </div>
 	
 	  </div>
 	  
+	  	<!--datetimePicker-->
+	<script>
+		
+		//시작일시
+		const startDateTimeInput = document.getElementById("startDateTime");
+		//종료일시
+		const endDateTimeInput = document.getElementById("endDateTime");
+		
+		//현재일시
+		function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, "0");
+            const day = String(now.getDate()).padStart(2, "0");
+            const hours = String(now.getHours()).padStart(2, "0");
+            const minutes = String(now.getMinutes()).padStart(2, "0");
+
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+		
+		//시작일시 입력 필드의 최소값과 기본값 설정
+		const currentDateTime = getCurrentDateTime();
+        startDateTimeInput.min = currentDateTime;
+        startDateTimeInput.value = currentDateTime;
+		
+		//종료일시 입력 필드의 최소값 설정
+		startDateTimeInput.addEventListener("change", function () {
+            endDateTimeInput.min = startDateTimeInput.value;
+        });
+			
+	</script>
 	  
-	  <!--댓글 기능 넣을 것.....(고객사 문의 관련)-->
+	  
+	  
 	  
 </th:block>	
 	
