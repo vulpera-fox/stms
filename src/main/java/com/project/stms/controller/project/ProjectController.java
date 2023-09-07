@@ -30,6 +30,7 @@ public class ProjectController {
 		
 		List<ProjectVO> pList = projectService.getList();
 		
+		
 		mo.addAttribute("pList", pList);
 		
 		return "/project/ProjectMain";
@@ -55,7 +56,6 @@ public class ProjectController {
 		
 		
 //		System.out.println("1");
-		System.out.println(vo.toString());
 		
 		return "redirect:/project/ProjectMain";
 	}
@@ -66,5 +66,55 @@ public class ProjectController {
 		
 		return "/project/ProjectCreate";
 	}
+	
+	
+	
+	@GetMapping("/getDetail")
+	public String getDetail(@RequestParam("pjt_id") int pjt_id) {
+		
+		System.out.println(pjt_id);
+		
+		projectService.getProjectDetail(pjt_id);
+		
+		projectService.getUserDetail(pjt_id);
+		
+		
+		return "/project/ProjectDetail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

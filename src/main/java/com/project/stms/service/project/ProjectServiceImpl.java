@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.stms.command.FileVO;
 import com.project.stms.command.ProjectVO;
+import com.project.stms.command.UserVO;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
@@ -70,6 +71,18 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		
 		
+	}
+
+
+	@Override
+	public ProjectVO getProjectDetail(int pjt_id) {
+		return projectMapper.getProjectDetail(pjt_id);
+	}
+
+
+	@Override
+	public List<UserVO> getUserDetail(int pjt_id) {
+		return projectMapper.getUserDetail(pjt_id);
 	}
 
 }
