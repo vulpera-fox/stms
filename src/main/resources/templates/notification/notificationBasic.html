@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="notification">
+
+	<style>
+		/* 임의의 영역 생성 */
+		.scrollBar {
+			width: 320px;
+			height: 500px;
+			overflow-y: scroll;
+		}
+
+		/* 아래의 모든 코드는 영역::코드로 사용 */
+		.scrollBar::-webkit-scrollbar {
+			width: 10px;
+			/* 스크롤바의 너비 */
+		}
+
+		.scrollBar::-webkit-scrollbar-thumb {
+			height: 30%;
+			/* 스크롤바의 길이 */
+			background: rgb(192, 192, 192);
+			/* 스크롤바의 색상 */
+
+			border-radius: 10px;
+		}
+
+		.scrollBar::-webkit-scrollbar-track {
+			background: rgba(33, 122, 244, .1);
+			/*스크롤바 뒷 배경 색상*/
+		}
+
+		.close {
+			font-size: 15px;
+		}
+
+		.del_img:hover {
+			background-color: black;
+		}
+
+		.pulse {
+			animation: pulse-animation 1s infinite
+		}
+
+		@keyframes pulse-animation {
+			0% {
+				box-shadow: 0 0 0 0px rgb(255, 0, 0, 0.2);
+			}
+
+			100% {
+				box-shadow: 0 0 0 20px rgb(255, 0, 0, 0);
+			}
+		}
+
+		#unReadTitle,
+		#readTitle {
+			position: sticky;
+			top: 0;
+			z-index: 500;
+
+		}
+	</style>
+
+
+	<!-- Nav Item - Alerts -->
+	<li class="nav-item dropdown no-arrow mx-1">
+		<a class="nav-link dropdown-toggle popOn" href="javascript:void(0);" id="alertsDropdown" data-toggle="dropdown"
+			aria-haspopup="true" style="border-radius: 50%;">
+			<i class="fas fa-bell fa-fw" style="color:rgb(128, 128, 128); font-size: 30px;"></i>
+			<!-- Counter - Alerts -->
+			<span id="notiCount" class="badge badge-danger badge-counter pulse" th:value="${count}"></span>
+		</a>
+
+		<!-- Dropdown - Alerts -->
+		<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+			aria-labelledby="alertsDropdown">
+			<h6 class="dropdown-header" style="font-size: 15px;">
+				Notification
+			</h6>
+			<div class="scrollBar" style="position: relative;">
+				<div id="unRead">
+					<div style="padding: 5px 10px; color: black; font-size: 15px; font-weight:bold; background-color: aliceblue;"
+						id="unReadTitle">
+						안읽음<span id="notiCountt"></span> <button class="btn btn-light btn-sm " id="readAll"
+							style="margin-left:80px">모두 읽음 처리</button></div>
+					<div id="unReadList">
+					</div>
+				</div>
+				<div id="read">
+					<div style="padding: 5px 10px; color: black; font-size: 15px; font-weight:bold; background-color: aliceblue;"
+						id=readTitle>
+						읽음</div>
+					<div id="readList">
+					</div>
+					<div>
+						<div style="text-align: center; margin: 10px;">최근 3일 동안 받은 알림을 모두
+							확인했습니다</div>
+						<div style="text-align: center; margin-bottom:20px">
+							<a href="#" id="notiPopUp">받은 알림함 가기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dropdown-item text-center close">닫기</div>
+		</div>
+	</li>
+
+
+	<script th:inline="javascript">
+
+		var rcv = "CUSTOMER";
+
+		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '';
+
+
+		$(function notiCount() {
+			$.ajax({
+				url: contextPath + "/getNotiCount",
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({rcv_id: rcv}),
+				success: function (data) {
+					if (data > 10) {
+						$("#notiCount").html("10+");
+					} else if (data > 0) {
+						$("#notiCount").html(data);
+					} else {
+						$("#notiCount").hide();
+					}
+
+					$("#notiCountt").html('&nbsp;( ' + data + ' )&nbsp;');
+
+				},
+				error: function (status, error) {
+					console.log(status)
+				}
+			});
+		});
+
+		$('#notiPopUp').click(function () {
+
+			var width = 500;
+			var height = 700;
+
+			var right = (window.screen.width / 2);
+			var top = (window.screen.height / 5);
+
+			var windowStatus = 'width=' + width + ', height=' + height + ', right=' + right + ', top=' + top + ', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
+
+			const url = 'notificationPopUp';
+
+			window.open(url, '_blank', windowStatus);
+
+		});
+
+		function chkNotification(noti_id) {
+			$.ajax({
+				url: contextPath + "/getReadChk",
+				method: "post",
+				contentType: "application/json",
+				data: JSON.stringify({noti_id: noti_id}),
+				success: function (response) {
+					$.ajax({
+						url: contextPath + "/getNotiCount",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify({rcv_id: rcv}),
+						success: function (data) {
+							if (data > 10) {
+								$("#notiCount").html("10+");
+							} else if (data > 0) {
+								$("#notiCount").html(data);
+							} else {
+								$("#notiCount").hide();
+							}
+
+							$("#notiCountt").html('&nbsp;( ' + data + ' )&nbsp;');
+						},
+						error: function (status, error) {
+							console.log(status)
+						}
+					});
+
+				},
+				error: function (status, error) {
+					console.log(error);
+				}
+			})
+		}
+
+		$(".popOn").click(function () {
+
+			$(".popOn").toggleClass('show');
+
+			$('.scrollBar').animate({scrollTop: 0}, 'slow');
+
+			$.ajax({
+				url: contextPath + "/getList",
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({rcv_id: rcv}),
+				success: function (data, status) {
+					var str = '';
+					var str2 = '';
+					var count = 0;
+
+					for (var i = 0; i < data.length; i++) {
+						let row = data[i];
+
+						if (row.pre_noti_id == 1 && row.num >= 1 && row.num <= 3) {
+							str +=
+								`
+		                <div class="dropdown-item d-flex justify-content-between delete" style="cursor: pointer;" > 
+							<div class="check" data-noti-id="${row.noti_id}">                                                                                              
+								<div class="font-weight-bold">${row.send_id}&nbsp;</div>                                   
+								<div class="font-weight-bold" style="font-size:15px;">${row.noti_nm}&nbsp;${row.noti_id}</div>           
+								<span class="small text-gray-500">${row.noti_send_dt}</span>                              
+								<div class="font-weight-bold">${row.noti_dtl}</div>
+							</div>
+							<div style="margin-top: 10px">
+			                    <a href="javascript:void(0)">
+			                    	<i class="fas fa-trash-alt del_btn" style="color:rgb(128, 128, 128); font-size: 20px;"></i>
+			                    </a>
+		                    </div>                                                                                               
+						</div>                                                                                             
+		                `;
+							count++
+
+							if (row.num % 3 == 0 && row.num < row.count_pre_noti) {
+								str += '<div class="btn btn-info btn-block load" style="border-radius:0">더보기</div>';
+							}
+						}
+
+						else if (row.pre_noti_id == 2) {
+							str2 +=
+								`
+							<div class="dropdown-item d-flex justify-content-between delete">
+				                <div class="check" data-noti-id="${row.noti_id}">
+									<div>${row.send_id}&nbsp;</div>
+									<div style="font-size:15px;">${row.noti_nm}&nbsp;${row.noti_id}</div>
+				                    <span class="small text-gray-500">${row.noti_send_dt}</span>
+				                    <div>${row.noti_dtl}</div>
+				                </div>
+				                <div style="margin-top: 10px">
+				                    <a href="javascript:void(0);">
+				                    	<i class="fas fa-trash-alt del_btn" style="color:rgb(128, 128, 128); font-size: 20px;"></i>
+				                    </a>
+			                    </div>
+			            	</div>
+		            	`;
+
+						}
+					}
+
+					$("#unReadList").html(str);
+					$("#readList").html(str2);
+					
+					$("#readAll").on('click', function() {
+						event.stopPropagation();
+						$.ajax({
+							url : contextPath + "/markAllAsRead",
+							type : "post",
+							contentType: "application/json",
+							data: JSON.stringify({rcv_id: rcv}),
+							success : function(data) {
+								
+							},
+							error : function(status, error) {
+								console.log(status);
+							}
+							
+						});
+						
+						$("#notiCountt").html('&nbsp;( 0 )&nbsp;');
+						$("#unReadList").remove();
+						$("#readAll").remove();
+
+					});
+					
+					var start = 1;
+					var end = 3;
+					count = 3;
+
+					$(".load").on('click', function () {
+
+						event.stopPropagation();
+
+						start = end + 1;
+						end = start + 2;
+
+						console.log(data.length);
+
+						var str = '';
+						for (var i = start - 1; i < end; i++) {
+							let row = data[i];
+
+							str +=
+								`
+		                <div class="dropdown-item d-flex justify-content-between delete" style="cursor: pointer;" > 
+							<div class="check" name="${row.pre_noti_id}" data-noti-id="${row.noti_id}">                                                                                              
+								<div class="font-weight-bold">${row.send_id}&nbsp;</div>                                   
+								<div class="font-weight-bold" style="font-size:15px;">${row.noti_nm}&nbsp;${row.noti_id}</div>           
+								<span class="small text-gray-500">${row.noti_send_dt}</span>                              
+								<div class="font-weight-bold">${row.noti_dtl}</div>
+							</div>
+							<div style="margin-top: 10px">
+			                    <a href="javascript:void(0);">
+			                    	<i class="fas fa-trash-alt del_btn" style="color:rgb(128, 128, 128); font-size: 20px;"></i>
+			                    </a>
+		                    </div>                                                                                               
+						</div>                                                                                             
+		                `;
+							count++;
+							console.log(count);
+							if (count >= row.count_pre_noti) {
+								$(".load").remove();
+								break;
+							}
+						}
+						$("#unReadList").append(str);
+						$(".load").appendTo("#unReadList");
+
+						//var unReadNoti = $(event.target).prev().children().first().attr('name');
+
+						$(".check").on("click", function () {
+							event.stopPropagation();
+
+							var noti_id = $(this).data("noti-id");
+							chkNotification(noti_id);
+
+							$(event.currentTarget).children().removeClass("font-weight-bold");
+
+						});
+
+						$(".del_btn").on('click', function () {
+							event.stopPropagation();
+
+							$(event.currentTarget).parents(".delete").remove();
+							var noti_id = $(event.currentTarget).parents(".delete").children().first().data("noti-id");
+							chkNotification(noti_id);
+
+							$.ajax({
+								url: contextPath + "/changeDelStatus",
+								type: 'post',
+								contentType: "application/json",
+								data: JSON.stringify({noti_id: noti_id}),
+								success: function (data) {
+
+								},
+								error: function (status, error) {
+									console.log(status);
+								}
+							})
+						});
+
+					})
+
+
+					$(".check").on("click", function () {
+						event.stopPropagation();
+
+						var noti_id = $(this).data("noti-id");
+						chkNotification(noti_id);
+
+						$(event.currentTarget).children().removeClass("font-weight-bold");
+					});
+
+					$(".del_btn").on('click', function () {
+						event.stopPropagation();
+
+						$(event.currentTarget).parents(".delete").remove();
+						var noti_id = $(event.currentTarget).parents(".delete").children().first().data("noti-id");
+						chkNotification(noti_id);
+
+						$.ajax({
+							url: contextPath + "/changeDelStatus",
+							type: 'post',
+							contentType: "application/json",
+							data: JSON.stringify({noti_id: noti_id}),
+							success: function (data) {
+
+							},
+							error: function (status, error) {
+								console.log(status);
+							}
+						})
+					});
+
+				},
+				error: function (status, error) {
+					console.log(status);
+				}
+			});
+
+		});
+
+	</script>
+</th:block>
+
+</html>
