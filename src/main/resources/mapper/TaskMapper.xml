@@ -5,6 +5,43 @@
 
 <mapper namespace="com.project.stms.task.service.TaskMapper">
 
+	<select id="getTaskList" resultType="TaskVO">
+		select * from task
+		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
+			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+		</if>
+		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
+			where user_id like concat('%', #{cri.searchCustomer}, '%')
+		</if>
+		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
+			where user_id like concat('%', #{cri.searchEngineer}, '%')
+		</if>
+		order by task_id desc
+				
+		limit #{cri.pageStart}, #{cri.amount}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) as total
+		from task
+		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
+			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+		</if>
+		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
+			where user_id like concat('%', #{cri.searchCustomer}, '%')
+		</if>
+		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
+			where user_id like concat('%', #{cri.searchEngineer}, '%')
+		</if>
+	</select>
+	
+	<delete id="deleteTaskList">
+		delete from task where task_id = #{task_id}
+	</delete>
 
+	<select id="getModify" resultType="TaskVO">
+		select * from task
+		where task_id = #{task_id}
+	</select>
 
 </mapper>

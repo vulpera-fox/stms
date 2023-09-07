@@ -16,7 +16,7 @@
 	
 	.taskRegBox {
 	  width: 800px;
-	  height: 800px;
+	  height: 750px;
 	  text-align: center;
 	  border: 1px solid #777;
 	  box-shadow: 0 8px 10px #020f37;
@@ -26,6 +26,7 @@
 	.taskRegRow {
 	  border-top: 1px solid rgb(227, 227, 227);
 	  border-collapse: collapse;
+	  line-height: 20px;
 	}
 	
 	.taskRegRow:first-child {
@@ -39,19 +40,26 @@
 	  font-weight: bold;
 	}
 	
+	.taskRegBodiesS {
+	  padding: 10px;
+	  text-align: center;
+	  font-size: large;
+	  font-weight: bold;
+	  overflow: hidden;
+	}
+	
 	.taskRegDates {
 	  padding: 10px;
 	  text-align: left;
-	  
 	}
 	
 	
 	.taskRegTable {
 	  width: 700px;
 	  height: 600px;
-	  line-height: 120px;
+	  line-height: 90px;
 	  border-bottom: 3px solid #020f37;
-	  margin: 0 auto;
+	  margin: 40px auto;
 	}
 	
 	
@@ -63,6 +71,17 @@
 	.taskRegInput {
 	  width: 95%;
 	  block-size: 30px;
+	}
+	
+	.taskRegInputL {
+		width: 98%;
+		block-size: 30px;
+	}
+	
+	.taskRegInputR {
+		width:65%;
+		block-size: 30px;
+		float: left;
 	}
 	
 	.datetimepicker {
@@ -77,12 +96,36 @@
 	
 	.saveBtn, .listBtn {
 	  width: 100px;
-	  height: 50px;
+	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
 	}
 	
+	.taskRegBodiesS > .taskRegBtn {
+	    background-color: #020f37;
+	    color: #fff;
+	   	width: 70px;
+	   	height: 30px;
+	   	font-weight: bold;
+	   	float: right;
+	   	font-size: 15px;
+  	}
+  	
+  	.projectSelectBox {
+		  width: 90%;
+	  }
+	  
+	#startDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+		margin-right: 30px;
+	}
+	
+	#endDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+	}
 	
 	</style>	
 	
@@ -93,27 +136,42 @@
       
 	    <div class="taskRegBox">
 		      <table class="taskRegTable">
+				  
+				  <tr class="taskRegRow">
+					  <th class="taskRegHeads">프로젝트 선택</th>
+					  <td colspan="3" class="taskRegBodies">
+						  
+						  <!--반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
+						  <select class="projectSelectBox">
+							  <option>프로젝트A</option>
+							  <option>프로젝트B</option>
+							  <option>프로젝트C</option>
+							  <option>프로젝트D</option>
+						  </select>
+					  </td>
+				  </tr>
+				  		  
+		          <tr class="taskRegRow">
+		            <th class="taskRegHeads">고객사</th>
+		            <td class="taskRegBodies"><input type="text" class="taskRegInputL"></td>
+		          	<th class="taskRegHeads">담당자</th>
+		            <td class="taskRegBodiesS">
+						<input type="text" class="taskRegInputR">
+						<input type="button" class="taskRegBtn" value="검색" style="line-height: initial;">
+					</td>
+				  </tr>
+		          
 		          <tr class="taskRegRow">
 		            <th class="taskRegHeads">작업기간</th>
 		            <td colspan="3" class="taskRegDates">
 						
 						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;">
-						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime">
+						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;">
 						
 		            </td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">고객사</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-		          </tr>
-		          
-		          <tr class="taskRegRow">					  
-		          	<th class="taskRegHeads">담당자</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-				  </tr>
-		          
-		  
+		  		  
 		          <tr class="taskRegRow">
 		            <th class="taskRegHeads">작업장소</th>
 		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
