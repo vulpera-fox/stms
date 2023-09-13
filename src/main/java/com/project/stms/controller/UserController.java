@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.stms.command.UserVO;
-import com.project.stms.user.service.UserService;
+import com.project.stms.service.user.UserService;
 
 @Controller
 public class UserController {

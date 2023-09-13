@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.MailVO;
-import com.project.stms.mail.service.MailService;
+import com.project.stms.service.mail.MailService;
 
 import lombok.AllArgsConstructor;
 

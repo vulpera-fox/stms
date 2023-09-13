@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.project.stms.service.notification.NotificationMapper">
+ 
+  	<select id="getCount" resultType="int">
+  		select count(*) from notification 
+  		where NOTI_CHK_DT is null and RCV_ID=#{RCV_ID}
+  	</select>
+	
+	<select id="getList">
+		WITH RECURSIVE CTE AS (
+			SELECT *, 
+				   ROW_NUMBER() OVER (PARTITION BY PRE_NOTI_ID ORDER BY NOTI_SEND_DT DESC) AS NUM,
+		           (SELECT COUNT(*) FROM notification WHERE PRE_NOTI_ID = 1) AS COUNT_PRE_NOTI
+			FROM notification
+		    WHERE PRE_NOTI_ID = 1 AND RCV_ID=#{RCV_ID} AND RCV_DEL_YN is null
+		    UNION ALL
+		    SELECT n.*, 
+				   ROW_NUMBER() OVER (PARTITION BY n.PRE_NOTI_ID ORDER BY n.NOTI_SEND_DT DESC) AS NUM,
+		           (SELECT COUNT(*) FROM notification where n.PRE_NOTI_ID = 2) AS COUNT_PRE_NOTI
+			FROM notification n
+		    WHERE PRE_NOTI_ID = 2 AND RCV_ID=#{RCV_ID} AND RCV_DEL_YN is null
+		) SELECT *
+			FROM CTE
+		    ORDER BY PRE_NOTI_ID, NUM;
+	</select>
+  	
+  	<update id="getReadChk">
+  		update notification set NOTI_CHK_DT = NOW(), PRE_NOTI_ID = 2 where NOTI_ID = #{NOTI_ID}
+  	</update>
+  	
+  	<update id="changeDelStatus">
+  		update notification set RCV_DEL_YN = "Y" where NOTI_ID = #{NOTI_ID}
+  	</update>
+  	
+  	<update id="markAllAsRead">
+  		update notification set NOTI_CHK_DT = NOW(), PRE_NOTI_ID = 2 where RCV_ID=#{RCV_ID}
+  	</update>
+  </mapper>

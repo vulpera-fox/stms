@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.project.stms.user.service.MyUserDetails;
+import com.project.stms.service.user.MyUserDetails;
 
 
 

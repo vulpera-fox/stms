@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="/css/customer_questionWrite.css">
+
+<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+	<!-- Section-->
+	<div class="col-lg-12 subtop_wrap wrap">
+		<div class="col-lg-8 subtop">
+			<h1 class="page_header">Q & A
+				<div class="sub_text">우리 서버에서 제공하는 다양한 소식을 전해드립니다.</div>
+			</h1>
+		</div>
+	</div>
+	<div class="col-lg-8 wrap q_box_wrap">
+
+		<div class="q_box_inner">
+
+			<form name="writeForm" action="" method="post">
+
+				<table class="q_box" width="90%">
+
+					<colgroup>
+						<col style="width: 20%">
+						<col style="width: 80%">
+					</colgroup>
+
+					<tbody>
+						<tr class="q_title q_trclass ">
+							<td class="q_required sub">제목</td>
+							<td><input type="text" required></td>
+
+						</tr>
+
+						<tr class="q_contents_area q_trclass">
+							<td class="q_required sub">내용</td>
+							<td><textarea class="q_contents" placeholder="문의할 내용을 적으세요" required></textarea></td>
+						</tr>
+
+						<tr class="attatch_file_area q_trclass">
+							<td class="sub">첨부파일</td>
+							<td>
+								<input type="text" readonly placeholder="첨부파일을 등록하세요">
+								<button class="file_regi_btn">찾아보기</button>
+
+							</td>
+						</tr>
+
+						<tr class="secret_yn_area q_trclass">
+							<td class="sub">비밀글 설정</td>
+
+							<td class="secret_yn">
+								<div>
+									<input class="secret_r" type="radio" name="chk_secret" value="Y" id="apply" checked>
+									<label for="apply">적용</label>
+								</div>
+								<div>									
+									<input class="secret_r" type="radio" name="chk_secret" value="N" id="unapply">
+									<label for="unapply">미적용</label>
+									
+							</td>
+
+						</tr>
+
+						<tr class="secret_no_area q_trclass">
+							<td class="q_required sub">비밀번호</td>
+							<td>
+								<input type="password" required>
+								<p>비밀번호 4자리를 입력해주세요</p>
+
+							</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+
+				<div class="goto_regi">
+					<button class="regi_refresh">
+						<img th:src="@{/img/refresh.png}" style="width: 25px; height: 25px;">
+					</button>
+					<button class="goto_regi_btn"><a th:href="@{customer_question}">등록하기</a></button>
+
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+</th:block>
+
+</html>

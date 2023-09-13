@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+	<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+    <!-- images swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- 메인(home)화면 css -->
+    <link rel="stylesheet" type="text/css" th:href=@{/css/customer_main.css}>
+    
+     <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+</head>
+
+
+	<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+   
+    <!-- Section-->
+    <section class="px-0 wrap">
+        <!--  <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+ -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img th:src=@{/img/main01.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main02.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main03.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main04.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main05.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main01.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main02.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main03.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main04.png} alt=""></div>
+                <div class="swiper-slide"><img th:src=@{/img/main05.png} alt=""></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        
+            <div id="con03" class="main_row wrap_con_service">
+                <div class="con_service">
+
+                    <h2>회사에 가장 적합한 방식으로 도입하세요</h2>
+                    <p class="sub_text">고객사의 규모, 환경, 예산에 따라 원하는 서비스 형태로 우리 서버만의 모든 기능을 사용하실 수 있습니다.</p>
+                    <ul class="service_list">
+                        <li class="list01 list_one">
+                            <h3>클라우드형</h3>
+                            <div class="detail_area">
+                                <p class="period_text">
+                                    초기 구축 및 인프라 관리 부담없이
+                                    <br>
+                                    1PC부터 필요한 기능만 선택해
+                                    <br>
+                                    합리적으로 사용하길 원하는
+                                    <br>
+                                    소규모 고객사
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="list02 list_two">
+                            <h3>구축형</h3>
+                            <div class="detail_area">
+                                <p class="period_text">
+                                    기능 커스텀과 원하는
+                                    <br>
+                                    서버사양 선택해
+                                    <br>
+                                    기업환경에 최적화하여
+                                    <br>
+                                    영구 사용하길 원하는 고객사
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="btn_area">
+                        <a href="#" class="btn btn_go btn_l btn_blue01_solid_tobl" >
+                            <span class="text">상담 문의</span>
+                        </a>
+                        <a href="#" class="btn btn_go btn_l btn_blue02_solid_tobl">
+                            <span class="text">프로젝트 신청</span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+       
+
+        <div id="con04" class="main_row wrap_con_support">
+            <div class="con_support">
+                <h2>도입 후에도 안심할 수 있습니다.</h2>
+                <p class="sub_text">96% 고객이 연장계약 희망, 88% 고객이 기술지원에 만족한 우리 서버를 믿고 시작하세요.</p>
+                <ul class="support_list">
+                    <li class="list01">
+                        <div class="normal" style="display: block;">
+                            <p class="title">
+                                <a style="color:white" href="#">발 빠른 기술 지원</a>
+                            </p>
+                        </div>
+                        <div class="over" style="display: none;">
+                            <p class="title">
+                                <a style="color:white" href="#">발 빠른 기술 지원</a>
+                            </p>
+                            <p class="text">
+                                <a style="color:white" href="#">
+                                    우리서버 전담 기술 지원팀에서,
+                                    <br>
+                                    사전 대응을 위해 원격점검 및
+                                    <br>
+                                    24시간 관제를 실시하며,
+                                    <br>
+                                    문제 발생 시 유선, 원격, 방문을 통한
+                                    <br>
+                                    발 빠른 기술 지원을 제공합니다.
+                                </a>
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="list02">
+                        <div class="normal" style="display: block;">
+                            <p class="title">
+                                <a style="color:white" href="#">무상 업데이트</a>
+                            </p>
+                        </div>
+
+                        <div class="over" style="display: none;">
+                            <p class="title">무상 업데이트</p>
+                            <p class="text">
+                                <a style="color:white" href="#">
+                                    제품 계약 기간 동안
+                                    <br>
+                                    DB 최신화와
+                                    <br>
+                                    신규 기능 업데이트를
+                                    <br>
+                                    무상으로 지원합니다.
+
+                                </a>
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="list03">
+                        <div class="normal" style="display: block;">
+                            <p class="title">
+                                <a style="color:white" href="#">관리자 교육</a>
+                            </p>
+                        </div>
+
+                        <div class="over" style="display: none;">
+                            <p class="title">관리자 교육</p>
+
+                            <p class="text">
+                                <a style="color:white" href="#">
+                                    우리서버 전담 기술 지원팀에서,
+                                    <br>
+                                    사전 대응을 위해 원격점검 및
+                                    <br>
+                                    24시간 관제를 실시하며,
+                                    <br>
+                                    문제 발생 시 유선, 원격, 방문을 통한
+                                    <br>
+                                    발 빠른 기술 지원을 제공합니다.
+                                </a>
+                            </p>
+                        </div>
+
+                    </li>
+                    <li class="list04">
+                        <div class="normal" style="display: block;">
+                            <p class="title">
+                                <a style="color:white" href="#">보안 세미나</a>
+                            </p>
+                        </div>
+
+                        <div class="over" style="display: none;">
+                            <p class="title">보안 세미나</p>
+                            <p class="text">
+                                <a style="color:white" href="#">
+                                    기업 보안 담당자를 대상으로
+                                    <br>
+                                    외부 전문가의 보안 실무 교육 및
+                                    <br>
+                                    관련 법령 교육을
+                                    <br>
+                                    무료 제공합니다.
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="con05" class="main_row wrap_con_notice">
+            <div class="con_notice">
+                <h2>새소식을 전합니다.</h2>
+                <div class="plus"><a th:href=@{news/customer_news}>+ 더보기</a></div>
+                <p class="sub_text">우리서버 이벤트, 교육 일정, 기능 업데이트 등 주요 소식을 전해드립니다.</p>
+                <ul>
+                                <style>
+                        li.list01 .img_area:after {background-image:url('../img/notice_image01.png') !important;}                            
+                        li.list02 .img_area:after {background-image:url('../img/notice_image02.jpg') !important;}                
+                        li.list03 .img_area:after {background-image:url('../img/notice_image03.jpg') !important;}                
+                        .wrap_con_notice .con_notice > ul > li.list01 .img_area:after{background-image:url('../img/notice_image01.png') !important;}
+                        .wrap_con_notice .con_notice > ul > li.list02 .img_area:after{background-image:url('../img/notice_image02.jpg') !important;}
+                        .wrap_con_notice .con_notice > ul > li.list03 .img_area:after{background-image:url('../img/notice_image03.jpg') !important;}
+                    </style>
+                                <li class="list01">
+                        <a th:href=@{/customer_detail} target="_blank">
+                            <div class="img_area"></div>
+                            <p class="text">이벤트</p>
+                            <p class="title_text">우리서버웨이브 출시 기념 상어 피하기 게임하고 에어팟 받자!</p>
+                        </a>
+                    </li>
+                    
+                    <li class="list03">
+                        <a th:href=@{/customer_detail}>
+                            <div class="img_area"></div>
+                            <p class="text">이벤트</p>
+                            <p class="title_text">보안 담당자 커뮤니티 '보안잇' 오픈 기념 EVENT</p>
+                        </a>
+                    </li>
+        
+                    <li class="list02">
+                        <a href="/support/presentation/online">
+                            <div class="img_area"></div>
+                            <p class="text">사용 설명회</p>
+                            <p class="title_text">20분만에 끝내는 우리서버 완전정복 - 오피스키퍼 온라인 사용 설명회</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 
+                </div>
+            </div>
+        </div> -->
+    </section>
+   
+   
+    <!-- Initialize Swiper -->
+	</th:block>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+
+
+
+</html>
