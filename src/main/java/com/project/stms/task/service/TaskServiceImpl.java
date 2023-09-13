@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.stms.command.ProjectVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.util.Criteria;
 
@@ -41,6 +42,44 @@ public class TaskServiceImpl implements TaskService{
 		
 		return taskMapper.getModify(task_id);
 	}
+
+
+	@Override
+	public int getTemplate(TaskVO vo) {
+		
+		return taskMapper.getTemplate(vo);
+	}
+	
+	
+	@Override
+	public ArrayList<ProjectVO> getPjtList() {
+		
+		return taskMapper.getPjtList();
+	}
+
+
+	@Override
+	public ArrayList<TaskVO> getTemplateList() {
+		
+		return taskMapper.getTemplateList();
+	}
+
+
+	@Override
+	public void deleteTemplate(Integer tem_id) {
+		
+		taskMapper.deleteTaskList(tem_id);
+	}
+
+
+
+
+
+//	@Override
+//	public ArrayList<ProjectVO> getPjtList() {
+//		
+//		return taskMapper.getPjtList();
+//	}
 
 //	@Autowired
 //	private TaskMapper taskMapper;

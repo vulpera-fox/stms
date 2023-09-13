@@ -43,5 +43,35 @@
 		select * from task
 		where task_id = #{task_id}
 	</select>
+	
+	<insert id="getTemplate" parameterType="TaskVO">
+	
+		insert into template (tem_nm,
+                 		  	  task_nm,
+                 		  	  task_dtl,
+                 		  	  pred_time)
+		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
+	
+	</insert>
+	
+	
+	<select id="getTemplateList" resultType="TaskVO">
+		select * from template
+	</select>
+	
+	
+	<delete id="deleteTemplate">
+		delete from template where tem_id = #{tem_id}
+	</delete>
+	
+	
+
+	<select id="getPjtList" resultType="ProjectVO">
+		select pjt_id,
+			   pjt_nm,
+			   req_user_id,
+			   ins_user_id
+		from project
+	</select>
 
 </mapper>
