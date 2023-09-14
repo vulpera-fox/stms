@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.project.stms.service.news.NewsMapper">
+ 
+ 	<sql id="searchCondition">
+ 	
+ 	<if test="searchType != '' and searchType != null">
+ 	
+ 		<if test="searchType == 'searchTitle'.toString()">
+ 		
+ 	and post_title like concat ('%' , #{searchKeyword}, '%')
+ 		
+ 		</if>
+ 		
+ 		<if test="searchType == 'searchContents'.toString()">
+ 		
+ 	and post_contents like concat ('%' , #{searchKeyword}, '%')
+ 		</if>
+ 	
+ 	
+ 	</if>
+ 	
+ 	</sql>
+ 
+ 
+ 
+ 
+ <select id="getNews" resultType="NewsVO">
+ 
+ 	select * from post where board_id = 1 
+ 	
+ 	<include refid="searchCondition"></include>
+ 	
+ 	order by post_id desc
+ 	limit #{pageStart}, #{amount}
+ 
+ </select>
+ 
+ 
+ <select id="getNewsTotal" resultType="int">
+ 
+ 	select count(*) from post where board_id = 1 
+ 	
+ 	<include refid="searchCondition"></include>
+ 	
+ 	
+ </select>
+ 
+ <select id="getNewsDetail">
+ 
+ 	select post_id,
+ 		   board_id,
+ 		   post_title,
+ 		   user_id,
+ 		   post_regdate,
+ 		   post_contents,
+ 		   post_hits from post where board_id=1 and post_id = #{post_id}
+ </select>
+ 
+ <select id="getNewsPrev" resultType="NewsVO">
+ 
+  
+  select
+    *
+  from 
+  post
+  where
+  board_id = 1 and
+    post_id in ( 
+      (select post_id from (select @rownum:=0) r, 
+      (select post_id from post where post_id <![CDATA[ > ]]> #{post_id} 
+      
+      <if test="cri.searchType != '' and cri.searchType != null">
+ 	
+ 		<if test="cri.searchType == 'searchTitle' ">
+ 		
+ 	and post_title like concat ('%' , #{cri.searchKeyword}, '%')
+ 		
+ 		</if>
+ 		
+ 		<if test="cri.searchType == 'searchContents' ">
+ 		
+ 	and post_contents like concat ('%' , #{cri.searchKeyword}, '%')
+ 		</if>
+ 	
+ 	
+ 	</if>
+ 	
+      
+       order by post_id asc limit 1) as prev)
+    )
+    
+ 
+ 
+ </select>
+ 
+ <select id="getNewsNext" resultType="NewsVO">
+ 
+ <if test="post_id != null">
+ 
+ 
+  select
+    *
+  from 
+  post
+  where 
+  board_id = 1 and 
+  post_id in ( 
+      (select post_id from (select @rownum:=0) r, 
+      (select post_id from post where post_id <![CDATA[ < ]]>#{post_id} 
+      
+      
+      <if test="cri.searchType != '' and cri.searchType != null">
+ 	
+ 		<if test="cri.searchType == 'searchTitle' ">
+ 		
+ 			and post_title like concat ('%' , #{cri.searchKeyword}, '%')
+ 		
+ 		</if>
+ 		
+ 		<if test="cri.searchType == 'searchContents' ">
+ 		
+ 			and post_contents like concat ('%' , #{cri.searchKeyword}, '%')
+ 		</if>
+ 	
+ 	
+ 	</if>
+ 	
+      
+      order by post_id desc limit 1) as next)
+    )
+
+ 
+ 
+ 
+ </if>
+ </select>
+ 
+ <update id="updateNewsViewCount" parameterType="int">
+ 
+ 	update post set post_hits = post_hits+1 where post_id = #{post_id};
+ 
+ </update>
+ 
+ 
+ </mapper>
+  
