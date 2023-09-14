@@ -1,56 +1,64 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .taskRegs})}">
+<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .taskModifies})}">
 
-<th:block class="taskRegs">
+<th:block class="taskModifies">
 	
 	<style>
 	
 	/* 공통사항 */
-	.taskRegContainer {
+	.taskModContainer {
 		width: 1800px;
 		
 	}
 	
-	.taskRegBox {
+	.taskModBox {
 	  width: 800px;
-	  height: 800px;
+	  height: 750px;
 	  text-align: center;
 	  border: 1px solid #777;
 	  box-shadow: 0 8px 10px #020f37;
 	  margin: 30px 0;
 	}
 
-	.taskRegRow {
+	.taskModRow {
 	  border-top: 1px solid rgb(227, 227, 227);
 	  border-collapse: collapse;
+	  line-height: 20px;
 	}
 	
-	.taskRegRow:first-child {
+	.taskModRow:first-child {
 		border-top: none;
 	}
 	
-	.taskRegHeads, .tastRegBodies {
+	.taskModHeads, .tastModBodies {
 	  padding: 10px;
 	  text-align: center;
 	  font-size: large;
 	  font-weight: bold;
 	}
 	
-	.taskRegDates {
+	.taskModBodiesS {
+	  padding: 10px;
+	  text-align: center;
+	  font-size: large;
+	  font-weight: bold;
+	  overflow: hidden;
+	}
+	
+	.taskModDates {
 	  padding: 10px;
 	  text-align: left;
-	  
 	}
 	
 	
-	.taskRegTable {
+	.taskModTable {
 	  width: 700px;
 	  height: 600px;
-	  line-height: 120px;
+	  line-height: 90px;
 	  border-bottom: 3px solid #020f37;
-	  margin: 0 auto;
+	  margin: 40px auto;
 	}
 	
 	
@@ -59,9 +67,20 @@
 	  block-size: 30px;
 	}
 	
-	.taskRegInput {
+	.taskModInput {
 	  width: 95%;
 	  block-size: 30px;
+	}
+	
+	.taskModInputL {
+		width: 98%;
+		block-size: 30px;
+	}
+	
+	.taskModInputR {
+		width:65%;
+		block-size: 30px;
+		float: left;
 	}
 	
 	.datetimepicker {
@@ -69,72 +88,151 @@
 	  text-align: left;
 	}
 	
-	.RegBtnBox {
+	.ModBtnBox {
 	  margin: 20px;
 	  text-align: center;
 	}
 	
 	.saveBtn, .listBtn {
 	  width: 100px;
-	  height: 50px;
+	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
 	}
 	
+	.taskModBodiesS > .taskModBtn {
+	    background-color: #020f37;
+	    color: #fff;
+	   	width: 70px;
+	   	height: 30px;
+	   	font-weight: bold;
+	   	float: right;
+	   	font-size: 15px;
+  	}
+  	
+  	.projectSelectBox {
+		  width: 90%;
+	  }
+	  
+	#startDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+		margin-right: 30px;
+	}
 	
-	</style>
+	#endDateTime {
+		block-size: 30px;
+		margin-left: 10px;
+	}
 	
-	
+	</style>	
 	
 	<body>
-	  <div class="taskRegContainer">
+	  <div class="taskModContainer">
 	    
       <h3>작업 수정</h3>
-      
-	    <div class="taskRegBox">
-		      <table class="taskRegTable">
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업기간</th>
-		            <td colspan="3" class="taskRegDates">
-		                <input type="text" class="datetimepicker"> ~ 
-		                <input type="text" class="datetimepicker">
+        <form name="taskModiForm" action="taskModifyForm" method="post">
+	    <div class="taskModBox">
+		      <table class="taskModTable">
+				  
+				  <tr class="taskModRow">
+					  <th class="taskModHeads">프로젝트 선택</th>
+					  <td colspan="3" class="taskModBodies">
+						  
+						  <!--반드시 다시 보고 수정할 것!! 반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
+						  <select class="projectSelectBox">
+							  <option>프로젝트A</option>
+							  <option>프로젝트B</option>
+							  <option>프로젝트C</option>
+							  <option>프로젝트D</option>
+						  </select>
+					  </td>
+				  </tr>
+				  		  
+		          <tr class="taskModRow">
+		            <th class="taskModHeads">고객사</th>
+		            <td class="taskModBodies"><input type="text" class="taskModInputL" th:value="${user_group}"></td>
+		          	<th class="taskModHeads">담당자</th>
+		            <td class="taskModBodiesS">
+						<input type="text" class="taskModInputR">
+						<input type="button" class="taskModBtn" value="검색" style="line-height: initial;">
+					</td>
+				  </tr>
+		          
+		          <tr class="taskModRow">
+		            <th class="taskModHeads">작업기간</th>
+		            <td colspan="3" class="taskModDates">
+						
+						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;">
+						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;">
+						
 		            </td>
 		          </tr>
 		  
-		  		  <!--고객사, 담당자 고정!?-->
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">고객사</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
-		            <th class="taskRegHeads">담당자</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInput"></td>
+		  		  
+		          <tr class="taskModRow">
+		            <th class="taskModHeads">작업장소</th>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업장소</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          <tr class="taskModRow">
+		            <th class="taskModHeads">작업명</th>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
 		          </tr>
 		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업명</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업내용</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
+		          <tr class="taskModRow">
+		            <th class="taskModHeads">작업내용</th>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
 		          </tr>
 		    </div>
 		    </table>
 	
 	    <!-- 버튼 기능 -->
-	    <div class="RegBtnBox">
-	      <input type="button" class="saveBtn" value="저장">
+	    <div class="ModBtnBox">
+	      <input type="button" class="saveBtn" value="수정">
 	      <input type="button" class="listBtn" value="목록">
 	    </div>
-	
+	  </form>
 	  </div>
+	  
+	  	<!--datetimePicker-->
+	<script>
+		
+		//시작일시
+		const startDateTimeInput = document.getElementById("startDateTime");
+		//종료일시
+		const endDateTimeInput = document.getElementById("endDateTime");
+		
+		//현재일시
+		function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, "0");
+            const day = String(now.getDate()).padStart(2, "0");
+            const hours = String(now.getHours()).padStart(2, "0");
+            const minutes = String(now.getMinutes()).padStart(2, "0");
+
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+		
+		//시작일시 입력 필드의 최소값과 기본값 설정
+		const currentDateTime = getCurrentDateTime();
+        startDateTimeInput.min = currentDateTime;
+        startDateTimeInput.value = currentDateTime;
+		
+		//종료일시 입력 필드의 최소값 설정
+		startDateTimeInput.addEventListener("change", function () {
+            endDateTimeInput.min = startDateTimeInput.value;
+        });
+			
+	</script>
+	
+	<script>
+		//업데이트 기능
+		
+		
+	</script>
 	  
 </th:block>	
 	

@@ -1,0 +1,205 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(250, 250, 251);
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+#container {
+  padding: 20px;
+  width: 1300px;
+  margin: 0 auto;
+  background-color: white;
+  border: 1px solid rgb(230, 235, 241);
+  margin-top: 20px;
+}
+
+.searchArea {
+  padding-bottom: 20px;
+  margin-bottom: 20px; 
+  border-bottom: 1px solid rgb(230, 235, 241);
+}
+
+.searchArea .searchBar {
+  position: relative;
+  overflow: hidden;
+}
+
+.searchBarLeft input {
+  width: 400px;
+  height: 30px;
+}
+
+
+.filterArea.hidden {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease;
+}
+
+.filterArea {
+  max-height: 300px;
+  transition: max-height 0.7s ease;
+}
+
+.upperSearchBar {
+  position: relative;
+  width: 100%;
+}
+
+.lowerSearchBar {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lowerSearchBar > div {
+  height: 40px;
+}
+
+.lowerSearchBar > div > p {
+  line-height: 40px;
+}
+
+
+
+.searchArea .searchBar .searchBarLeft {
+  padding-left: 20px;
+  float: left;
+}
+
+.searchArea .searchBar .upperSearchBar a {
+  position: absolute;
+  left: 170px;
+  top: -3px;
+  line-height: 30px;
+}
+
+.searchArea .searchBar .searchBarRight {
+  padding-right: 20px;
+  float: right;
+}
+
+.toggleFilter {
+  margin: 0;
+}
+
+.searchArea .searchBar .searchBarLeft .toggleFilter:hover {
+  cursor: pointer;
+}
+
+.searchFilterArea {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+}
+
+
+
+.projectArea {
+  margin-top: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.projectBoxContainer {
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 30%;
+}
+
+.projectBox {
+  border: 1px solid rgb(230, 235, 241);
+  border-radius: 20px;
+  background-color: white;
+  /* box-shadow: rgba(154, 194, 205, 0.592) 0px 5px 22px, rgba(168, 206, 209, 0.512) 0px 0px 5px 5px; */
+}
+
+.projectBox:hover {
+  
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 5px 5px;
+}
+
+
+
+.projectBox .upperBox {
+  overflow: hidden;
+  height: 20%;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 20px 20px 0 0;
+  background-color: lightblue;
+}
+
+.projectName, .typeOfServer {
+  padding: 20px 0;
+  margin: 0;
+}
+
+
+
+.projectBox .upperBox .companyName {
+  float: left;
+}
+
+.projectBox .lowerBox {
+  padding: 10px;
+  height: 80%;
+}
+
+.lowerBox p { 
+  padding: 10px 5px;
+}
+
+
+.projectBox .upperBox .typeOfServer {
+  float: right;
+}
+
+.projectBox .lowerBox div {
+  overflow: hidden;
+}
+
+.projectBox .lowerBox .lowerBoxLeft {
+  float: left;
+  max-width: 50%;
+}
+
+.projectBox .lowerBox .lowerBoxRight {
+  float: right;
+}
+
+.projectBox .lowerBox .projectPeriod {
+  text-align: center;
+}
+
+.submitBtn {
+  width: 40px;
+  height: 20px;
+  
+}
+
+
+
+
+
+
+
+
+

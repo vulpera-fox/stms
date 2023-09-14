@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.stms.service.project.ProjectMapper">
+
+	<select id="getList" resultType="ProjectVO">
+		select
+		p.pjt_id,
+		p.pjt_nm,
+		p.pjt_dtl,
+		date_format(p.pjt_st_dt, "%Y-%m-%d") as pjt_st_dt,
+		date_format(p.pjt_end_dt, "%Y-%m-%d") as pjt_end_dt,
+		p.req_user_id,
+		p.ins_user_id,
+		p.status,
+		p.server_id,
+		s.server_type
+		from project p left
+		join server s on p.server_id = s.server_id;
+	</select>
+
+	<insert id="insertFiles" parameterType="FileVO">
+		insert into file
+		(file_serial_num, org_file_nm, file_nm, file_path)
+	</insert>
+
+	<select id="getProjectDetail">
+		select
+		p.pjt_id,
+		p.pjt_nm,
+		p.pjt_dtl,
+		date_format(p.pjt_st_dt, "%Y-%m-%d") as pjt_st_dt,
+		date_format(p.pjt_end_dt, "%Y-%m-%d") as pjt_end_dt,
+		p.req_user_id,
+		p.ins_user_id,
+		p.status,
+		p.server_id,
+		s.server_type
+		from project p left join server s on p.server_id = s.server_id where p.pjt_id = ${pjt_id};
+	</select>
+	
+	<select id="getUserDetail">
+		select * from user u left join pjt_mem pm on u.user_id = pm.user_id where pm.pjt_id = ${pjt_id};
+	</select>
+	
+	
+
+</mapper>

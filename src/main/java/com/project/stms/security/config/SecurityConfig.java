@@ -27,6 +27,7 @@ import com.project.stms.security.filter.JwtAuthorizationFilter;
 public class SecurityConfig {
 
 	//비밀번호 암호화객체
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -91,3 +92,4 @@ public class SecurityConfig {
 
 
 }
+
