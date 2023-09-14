@@ -11,6 +11,8 @@ public class QuestionController {
 	@GetMapping("/customer_question")
 	public String QuestionList() {
 		
+		
+		
 		return "question/customer_question";
 		
 	}
