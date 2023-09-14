@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.MailVO;
 import com.project.stms.command.UserVO;
-import com.project.stms.mail.service.MailService;
-import com.project.stms.user.service.UserService;
+import com.project.stms.service.mail.MailService;
+import com.project.stms.service.user.UserService;
 
 import lombok.AllArgsConstructor;
 

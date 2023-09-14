@@ -16,7 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.project.stms.security.config.JWTService;
-import com.project.stms.user.service.MyUserDetails;
+import com.project.stms.service.user.MyUserDetails;
 
 
 public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{

@@ -1,4 +1,4 @@
-package com.project.stms.user.service;
+package com.project.stms.service.user;
 
 import java.util.ArrayList;
 import java.util.Collection;

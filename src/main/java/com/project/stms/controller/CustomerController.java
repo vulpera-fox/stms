@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.project.stms.command.UserVO;
-import com.project.stms.user.service.UserService;
+import com.project.stms.service.user.UserService;
 
 
 @Controller

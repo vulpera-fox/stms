@@ -1,4 +1,4 @@
-package com.project.stms.mail.service;
+package com.project.stms.service.mail;
 
 
 import org.springframework.mail.SimpleMailMessage;

@@ -1,4 +1,4 @@
-package com.project.stms.user.service;
+package com.project.stms.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
