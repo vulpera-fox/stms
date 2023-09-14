@@ -12,7 +12,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 public class JWTService {
 	
 	
-	private static String secretKey = "coding404"; //원래는 어렵게 설정 
+	private static String secretKey = "projectstms"; //원래는 어렵게 설정 
 	
 	//토큰생성
 	public static String createToken(String user_email) {
@@ -27,7 +27,7 @@ public class JWTService {
 		Builder builder = JWT.create().withSubject(user_email)//주제
 					.withIssuedAt(new Date())//발행일
 					.withExpiresAt(new Date(expire))//만료시간
-					.withIssuer("coding404") //발행자
+					.withIssuer("junhee") //발행자
 					.withClaim("admin", "공개클레임~ 부가적으로 원하는거 설정"); // +공개클레임
 		
 		return builder.sign(alg); //객체 생성
