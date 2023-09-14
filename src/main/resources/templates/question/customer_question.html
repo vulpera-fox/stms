@@ -1,0 +1,87 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- customer_news -->
+<link rel="stylesheet" th:href="@{/css/customer_question.css}" />
+
+
+<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+	<div class="wrap">
+		<div class="col-lg-12 subtop_wrap">
+			<div class="col-lg-8 subtop">
+				<h1 class="page_header">Q & A
+					<div class="sub_text">우리 서버에게 묻고 답하기</div>
+				</h1>
+			</div>
+		</div>
+
+		<div class="col-lg-8 q_list_wrap">
+			<div class="search">
+				
+				<div class="total_num">
+						총
+					<span>123</span>
+						건의 게시물 (
+					<span>1</span> / 
+					<span>23</span> pages )
+				</div>
+				<form name="" action="" method="get">
+					<select name="searchType" style="font-size: 14px;" id="searchType">
+						<option value="none" selected>선택</option>
+						<option value="searchTitle"   >제목</option>
+						<option value="searchContents"  >내용</option>
+					</select>
+					<input name="searchKeyword" class="keyword" type="text" placeholder="검색할 키워드를 입력해주세요" value="">
+					<button class="search_btn">검색</button>
+				</form>
+				
+				
+			</div>
+			<table class="q_list">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>제목</thc>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>파일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr >
+						<td>1</td>
+						<td class="title">
+							<a th:href="@{customer_questionDetail}">문의합니다. <img th:src="@{/img/lock.png}" style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
+						</td>
+						
+						<td>유저아이디</td>
+						<td>2023-09-13</td>
+						<td><img th:src="@{/img/file.png}" style="width: 20px; height: 20px;"></td>
+						<td>13</td>
+						
+					</tr>
+					
+				</tbody>
+
+			</table>
+			
+			<div class="goto_write">
+				<button class="goto_write_btn"><a th:href="@{/question/customer_questionWrite}">글쓰기</a></button>
+				
+			</div>
+			
+
+<!--			<th:block th:replace="~{./include/newsPage :: pageNation (${npageVO})}"></th:block>-->
+	</div>
+
+
+<script th:inline="javascript">
+	
+	
+	
+</script>
+
+</th:block>
+
+</html>
