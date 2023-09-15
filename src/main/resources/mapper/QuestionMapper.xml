@@ -5,8 +5,18 @@
   
  <mapper namespace="com.project.stms.service.question.QuestionMapper">
  
+ 	<select id="getQlist" resultType="NewsVO">
+ 	
+ 		select * from post where board_id = 4
+ 	
+ 	</select>
  
- 
+ 	
+ 	<select id="getTotal" resultType="int">
+ 	
+ 		select count(*) from post where board_id=4
+ 	
+ 	</select>
  
  
  

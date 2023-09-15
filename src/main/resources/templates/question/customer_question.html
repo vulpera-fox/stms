@@ -20,11 +20,11 @@
 				
 				<div class="total_num">
 						총
-					<span>123</span>
+					<span>[[${qpageVO.total}]]</span>
 						건의 게시물 (
-					<span>1</span> / 
-					<span>23</span> pages )
-				</div>
+					<span>[[${qpageVO.page}]]</span> / 
+					<span>[[${T(java.lang.Math).round(qpageVO.total.doubleValue() / qpageVO.amount.doubleValue())}]]</span> pages )
+				</div>	
 				<form name="" action="" method="get">
 					<select name="searchType" style="font-size: 14px;" id="searchType">
 						<option value="none" selected>선택</option>
@@ -49,16 +49,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr >
-						<td>1</td>
+					<tr th:each="vo,status :${list}">
+						<td>[[${status.count}]]</td>
 						<td class="title">
-							<a th:href="@{customer_questionDetail}">문의합니다. <img th:src="@{/img/lock.png}" style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
+							<a th:href="@{customer_questionDetail}">[[${vo.post_title}]] <img th:if="${vo.post_secret_yn} == 'Y'" th:src="@{/img/lock.png}" style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
 						</td>
 						
-						<td>유저아이디</td>
-						<td>2023-09-13</td>
+						<td>[[${vo.user_id}]]</td>
+						<td>[[${#temporals.format(vo.post_regdate, 'YYYY-MM-dd')}]]</td>
 						<td><img th:src="@{/img/file.png}" style="width: 20px; height: 20px;"></td>
-						<td>13</td>
+						<td>[[${vo.post_hits}]]</td>
 						
 					</tr>
 					
@@ -72,7 +72,7 @@
 			</div>
 			
 
-<!--			<th:block th:replace="~{./include/newsPage :: pageNation (${npageVO})}"></th:block>-->
+			<th:block th:replace="~{./include/questionPage :: pageNation (${qpageVO})}"></th:block>
 	</div>
 
 
