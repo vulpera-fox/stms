@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.NotificationVO;
 import com.project.stms.service.notification.NotificationService;
+import com.project.stms.util.Criteria;
 
 @RestController
 public class NotificationController {
@@ -22,9 +24,9 @@ public class NotificationController {
 	private NotificationService notificationService;
 	
 	@PostMapping("/getNotiCount")
-	public ResponseEntity<Integer> getNotiCount(@RequestBody NotificationVO vo) {
+	public ResponseEntity<ArrayList<NotificationVO>> getNotiCount(@RequestBody NotificationVO vo) {
 		
-		Integer count = notificationService.getCount(vo.getRcv_id());
+		ArrayList<NotificationVO> count = notificationService.getCount(vo.getRcv_id());
 		
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
@@ -48,7 +50,7 @@ public class NotificationController {
 	@PostMapping("/changeDelStatus")
 	public ResponseEntity<Integer> changeDelStatus(@RequestBody NotificationVO vo) {
 		
-		notificationService.changeDelStatus(vo.getNoti_id());
+		notificationService.changeDelStatus(vo.getNoti_id(), vo.getRcv_del_yn());
 		notificationService.getReadChk(vo.getNoti_id());
 		
 		return new ResponseEntity<>(vo.getNoti_id(), HttpStatus.OK);
@@ -62,5 +64,30 @@ public class NotificationController {
 		return new ResponseEntity<>(vo.getRcv_id(), HttpStatus.OK);
 	}
 	
+	@PostMapping("/getPopUpList")
+	public ResponseEntity<ArrayList<NotificationVO>> getPopUpList(@RequestBody NotificationVO vo) {
+		
+		String rcv_id = vo.getRcv_id();
+		String category = vo.getCategory();
+		
+		ArrayList<NotificationVO> list = notificationService.getPopUpList(rcv_id, category);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	
+//	@PostMapping("/getData")
+//	public ResponseEntity<Integer> getData(@RequestBody PageVO vo){
+//		
+//		ArrayList<NotificationVO> pageNumber = notificationService.getData(vo.getPage());
+//		
+//		return ResponseEntity.ok(1);
+//	}
+	
+	@PostMapping("/getSearchResult")
+	public ResponseEntity<ArrayList<NotificationVO>> getSearchResult(@RequestBody Criteria cri) {		
+		
+		ArrayList<NotificationVO> list = notificationService.getSearchResult(cri, "CUSTOMER");
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }

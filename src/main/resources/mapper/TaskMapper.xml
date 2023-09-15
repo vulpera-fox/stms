@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.stms.service.task.TaskMapper">
+
+	<select id="getTaskList" resultType="TaskVO">
+		select * from task
+		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
+			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+		</if>
+		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
+			where user_id like concat('%', #{cri.searchCustomer}, '%')
+		</if>
+		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
+			where user_id like concat('%', #{cri.searchEngineer}, '%')
+		</if>
+		order by task_id desc
+				
+		limit #{cri.pageStart}, #{cri.amount}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) as total
+		from task
+		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
+			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+		</if>
+		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
+			where user_id like concat('%', #{cri.searchCustomer}, '%')
+		</if>
+		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
+			where user_id like concat('%', #{cri.searchEngineer}, '%')
+		</if>
+	</select>
+	
+	<delete id="deleteTaskList">
+		delete from task where task_id = #{task_id}
+	</delete>
+
+	<select id="getModify" resultType="TaskVO">
+		select * from task
+		where task_id = #{task_id}
+	</select>
+	
+	<insert id="getTemplate" parameterType="TaskVO">
+	
+		insert into template (tem_nm,
+                 		  	  task_nm,
+                 		  	  task_dtl,
+                 		  	  pred_time)
+		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
+	
+	</insert>
+	
+	<select id="getTemplateList" resultType="TaskVO">
+		select * from template
+	</select>
+	
+	
+	<delete id="deleteTemplate">
+		delete from template where tem_id = #{tem_id}
+	</delete>
+	
+	
+
+	<select id="getPjtList" resultType="ProjectVO">
+		select pjt_id,
+			   pjt_nm,
+			   req_user_id,
+			   ins_user_id
+		from project
+	</select>
+
+</mapper>

@@ -60,12 +60,16 @@
 			z-index: 500;
 
 		}
+		
+		.dropdownContent{
+			display: block;
+		}
 	</style>
 
 
 	<!-- Nav Item - Alerts -->
-	<li class="nav-item dropdown no-arrow mx-1">
-		<a class="nav-link dropdown-toggle popOn" href="javascript:void(0);" id="alertsDropdown" data-toggle="dropdown"
+	<li class="nav-item no-arrow mx-1">
+		<a class="nav-link popOn" href="javascript:void(0);" id="alertsDropdown"
 			aria-haspopup="true" style="border-radius: 50%;">
 			<i class="fas fa-bell fa-fw" style="color:rgb(128, 128, 128); font-size: 30px;"></i>
 			<!-- Counter - Alerts -->
@@ -74,7 +78,7 @@
 
 		<!-- Dropdown - Alerts -->
 		<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-			aria-labelledby="alertsDropdown">
+			aria-labelledby="alertsDropdown" id="dropdownContent">
 			<h6 class="dropdown-header" style="font-size: 15px;">
 				Notification
 			</h6>
@@ -114,45 +118,36 @@
 		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '';
 
 
-		$(function notiCount() {
+		function notiCount() {
 			$.ajax({
 				url: contextPath + "/getNotiCount",
 				type: "post",
 				contentType: "application/json",
 				data: JSON.stringify({rcv_id: rcv}),
 				success: function (data) {
-					if (data > 10) {
+
+					var unReadCategory = data.filter(function (categorys) {
+						return categorys.category === 'unread';
+					});
+
+					var unReadCount = unReadCategory.length == 0 ? 0 : unReadCategory[0].count;
+
+					if (unReadCount > 10) {
 						$("#notiCount").html("10+");
-					} else if (data > 0) {
-						$("#notiCount").html(data);
+					} else if (unReadCount > 0) {
+						$("#notiCount").html(unReadCount);
 					} else {
 						$("#notiCount").hide();
 					}
 
-					$("#notiCountt").html('&nbsp;( ' + data + ' )&nbsp;');
+					$("#notiCountt").html('&nbsp;( ' + unReadCount + ' )&nbsp;');
 
 				},
 				error: function (status, error) {
 					console.log(status)
 				}
 			});
-		});
-
-		$('#notiPopUp').click(function () {
-
-			var width = 500;
-			var height = 700;
-
-			var right = (window.screen.width / 2);
-			var top = (window.screen.height / 5);
-
-			var windowStatus = 'width=' + width + ', height=' + height + ', right=' + right + ', top=' + top + ', scrollbars=yes, status=yes, resizable=yes, titlebar=yes';
-
-			const url = 'notificationPopUp';
-
-			window.open(url, '_blank', windowStatus);
-
-		});
+		};
 
 		function chkNotification(noti_id) {
 			$.ajax({
@@ -161,27 +156,7 @@
 				contentType: "application/json",
 				data: JSON.stringify({noti_id: noti_id}),
 				success: function (response) {
-					$.ajax({
-						url: contextPath + "/getNotiCount",
-						type: "post",
-						contentType: "application/json",
-						data: JSON.stringify({rcv_id: rcv}),
-						success: function (data) {
-							if (data > 10) {
-								$("#notiCount").html("10+");
-							} else if (data > 0) {
-								$("#notiCount").html(data);
-							} else {
-								$("#notiCount").hide();
-							}
-
-							$("#notiCountt").html('&nbsp;( ' + data + ' )&nbsp;');
-						},
-						error: function (status, error) {
-							console.log(status)
-						}
-					});
-
+					notiCount();
 				},
 				error: function (status, error) {
 					console.log(error);
@@ -189,52 +164,74 @@
 			})
 		}
 
-		$(".popOn").click(function () {
+		$(function () {
+			notiCount();
 
-			$(".popOn").toggleClass('show');
+			$('#notiPopUp').click(function () {
 
-			$('.scrollBar').animate({scrollTop: 0}, 'slow');
+				var width = 600;
+				var height = 700;
 
-			$.ajax({
-				url: contextPath + "/getList",
-				type: "post",
-				contentType: "application/json",
-				data: JSON.stringify({rcv_id: rcv}),
-				success: function (data, status) {
-					var str = '';
-					var str2 = '';
-					var count = 0;
+				var left = $(window).width() / 3;
+				var top = $(window).height() / 5;
 
-					for (var i = 0; i < data.length; i++) {
-						let row = data[i];
+				var windowStatus = 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', toolbar=no,location=no,status=no,menubar=no,scrollbars=no';
+				
+				console.log(windowStatus);
+				
+				const url = 'notification/notificationPopUp';
 
-						if (row.pre_noti_id == 1 && row.num >= 1 && row.num <= 3) {
-							str +=
-								`
-		                <div class="dropdown-item d-flex justify-content-between delete" style="cursor: pointer;" > 
-							<div class="check" data-noti-id="${row.noti_id}">                                                                                              
-								<div class="font-weight-bold">${row.send_id}&nbsp;</div>                                   
-								<div class="font-weight-bold" style="font-size:15px;">${row.noti_nm}&nbsp;${row.noti_id}</div>           
-								<span class="small text-gray-500">${row.noti_send_dt}</span>                              
-								<div class="font-weight-bold">${row.noti_dtl}</div>
-							</div>
-							<div style="margin-top: 10px">
-			                    <a href="javascript:void(0)">
-			                    	<i class="fas fa-trash-alt del_btn" style="color:rgb(128, 128, 128); font-size: 20px;"></i>
-			                    </a>
-		                    </div>                                                                                               
-						</div>                                                                                             
-		                `;
-							count++
+				window.open(url, '_blank', windowStatus);
+			});
 
-							if (row.num % 3 == 0 && row.num < row.count_pre_noti) {
-								str += '<div class="btn btn-info btn-block load" style="border-radius:0">더보기</div>';
+
+			$(".popOn").click(function () {
+				
+				$('#dropdownContent').toggleClass('dropdownContent');
+				
+				$('.scrollBar').animate({scrollTop: 0}, 'slow');
+
+				$.ajax({
+					url: contextPath + "/getList",
+					type: "post",
+					contentType: "application/json",
+					data: JSON.stringify({rcv_id: rcv}),
+					success: function (data) {
+
+						var str = '';
+						var str2 = '';
+						var count = 0;
+
+						for (var i = 0; i < data.length; i++) {
+							let row = data[i];
+
+							if (row.pre_noti_id == 1 && row.num >= 1 && row.num <= 3) {
+								str +=
+									`
+				                <div class="dropdown-item d-flex justify-content-between delete" style="cursor: pointer;" > 
+									<div class="check" data-noti-id="${row.noti_id}">                                                                                              
+										<div class="font-weight-bold">${row.send_id}&nbsp;</div>                                   
+										<div class="font-weight-bold" style="font-size:15px;">${row.noti_nm}&nbsp;${row.noti_id}</div>           
+										<span class="small text-gray-500">${row.noti_send_dt}</span>                              
+										<div class="font-weight-bold">${row.noti_dtl}</div>
+									</div>
+									<div style="margin-top: 10px">
+					                    <a href="javascript:void(0);">
+					                    	<i class="fas fa-trash-alt del_btn" style="color:rgb(128, 128, 128); font-size: 20px;"></i>
+					                    </a>
+				                    </div>                                                                                               
+								</div>                                                                                             
+				                `;
+								count++
+
+								if (row.num % 3 == 0 && i < row.count_pre_noti - 1) {
+									str += '<div class="btn btn-info btn-block load" style="border-radius:0">더보기</div>';
+								}
 							}
-						}
 
-						else if (row.pre_noti_id == 2) {
-							str2 +=
-								`
+							else if (row.pre_noti_id == 2) {
+								str2 +=
+									`
 							<div class="dropdown-item d-flex justify-content-between delete">
 				                <div class="check" data-noti-id="${row.noti_id}">
 									<div>${row.send_id}&nbsp;</div>
@@ -250,53 +247,65 @@
 			            	</div>
 		            	`;
 
-						}
-					}
-
-					$("#unReadList").html(str);
-					$("#readList").html(str2);
-					
-					$("#readAll").on('click', function() {
-						event.stopPropagation();
-						$.ajax({
-							url : contextPath + "/markAllAsRead",
-							type : "post",
-							contentType: "application/json",
-							data: JSON.stringify({rcv_id: rcv}),
-							success : function(data) {
-								
-							},
-							error : function(status, error) {
-								console.log(status);
 							}
-							
+						}
+
+						$("#unReadList").html(str);
+						$("#readList").html(str2);
+
+						if (data[0].pre_noti_id == 2) {
+							$("#readAll").remove();
+							$("#noMore").remove();
+							$("#unReadList").html('<div style="text-align: center; margin: 10px;">확인할 새로운 알림이 없습니다</div>');
+						}
+
+						$("#readAll").on('click', function () {
+							event.stopPropagation();
+							$.ajax({
+								url: contextPath + "/markAllAsRead",
+								type: "post",
+								contentType: "application/json",
+								data: JSON.stringify({rcv_id: rcv}),
+								success: function (data) {
+
+								},
+								error: function (status, error) {
+									console.log(status);
+								}
+
+							});
+
+							$("#notiCount").html('');
+							$("#notiCountt").html('&nbsp;( 0 )&nbsp;');
+							$("#noMore").remove();
+							$("#unReadList").html('<div style="text-align: center; margin: 10px;">확인할 새로운 알림이 없습니다</div>');
+							$("#readAll").remove();
+
+
 						});
-						
-						$("#notiCountt").html('&nbsp;( 0 )&nbsp;');
-						$("#unReadList").remove();
-						$("#readAll").remove();
 
-					});
-					
-					var start = 1;
-					var end = 3;
-					count = 3;
+						var start = 1;
+						var end = 3;
 
-					$(".load").on('click', function () {
+						$(".load").on('click', function () {
 
-						event.stopPropagation();
+							event.stopPropagation();
 
-						start = end + 1;
-						end = start + 2;
+							start = end + 1;
+							end = start + 2;
 
-						console.log(data.length);
+							if (end > data[0].count_pre_noti) {
+								end = data[0].count_pre_noti;
+							}
 
-						var str = '';
-						for (var i = start - 1; i < end; i++) {
-							let row = data[i];
+							var str = '';
+							for (var i = start - 1; i < end; i++) {
+								let row = data[i];
 
-							str +=
-								`
+								if (row.pre_noti_id == 1) {
+
+									str +=
+										`
 		                <div class="dropdown-item d-flex justify-content-between delete" style="cursor: pointer;" > 
 							<div class="check" name="${row.pre_noti_id}" data-noti-id="${row.noti_id}">                                                                                              
 								<div class="font-weight-bold">${row.send_id}&nbsp;</div>                                   
@@ -311,90 +320,66 @@
 		                    </div>                                                                                               
 						</div>                                                                                             
 		                `;
-							count++;
-							console.log(count);
-							if (count >= row.count_pre_noti) {
-								$(".load").remove();
-								break;
-							}
-						}
-						$("#unReadList").append(str);
-						$(".load").appendTo("#unReadList");
+									count++;
 
-						//var unReadNoti = $(event.target).prev().children().first().attr('name');
-
-						$(".check").on("click", function () {
-							event.stopPropagation();
-
-							var noti_id = $(this).data("noti-id");
-							chkNotification(noti_id);
-
-							$(event.currentTarget).children().removeClass("font-weight-bold");
-
-						});
-
-						$(".del_btn").on('click', function () {
-							event.stopPropagation();
-
-							$(event.currentTarget).parents(".delete").remove();
-							var noti_id = $(event.currentTarget).parents(".delete").children().first().data("noti-id");
-							chkNotification(noti_id);
-
-							$.ajax({
-								url: contextPath + "/changeDelStatus",
-								type: 'post',
-								contentType: "application/json",
-								data: JSON.stringify({noti_id: noti_id}),
-								success: function (data) {
-
-								},
-								error: function (status, error) {
-									console.log(status);
 								}
-							})
-						});
+								if (count == data[0].count_pre_noti) {
+									$(".load").remove();
+									//console.log(event.target);
+									//$("#unReadList").after('<div id="noMore" style="text-align: center; margin: 10px;">더이상 불러올 알림이 없습니다.<div>');
+									//break;
 
-					})
-
-
-					$(".check").on("click", function () {
-						event.stopPropagation();
-
-						var noti_id = $(this).data("noti-id");
-						chkNotification(noti_id);
-
-						$(event.currentTarget).children().removeClass("font-weight-bold");
-					});
-
-					$(".del_btn").on('click', function () {
-						event.stopPropagation();
-
-						$(event.currentTarget).parents(".delete").remove();
-						var noti_id = $(event.currentTarget).parents(".delete").children().first().data("noti-id");
-						chkNotification(noti_id);
-
-						$.ajax({
-							url: contextPath + "/changeDelStatus",
-							type: 'post',
-							contentType: "application/json",
-							data: JSON.stringify({noti_id: noti_id}),
-							success: function (data) {
-
-							},
-							error: function (status, error) {
-								console.log(status);
+								}
 							}
+							$("#unReadList").append(str);
+							$(".load").appendTo("#unReadList");
 						})
-					});
+					},
+					error: function (status, error) {
+						console.log(status);
+					}
+				});
+			});
+
+		$(document).on("click", ".check", function () {
+			
+			event.stopPropagation();
+
+			var noti_id = $(this).data("noti-id");
+			chkNotification(noti_id);
+			$(this).children().removeClass("font-weight-bold");
+
+		});
+
+		$(document).on("click", ".del_btn", function () {
+			
+			event.stopPropagation();
+
+			if (event.target.tagName != 'I') {
+				return;
+			}
+
+			var noti_id = $(this).parents(".delete").children().first().data("noti-id");
+			chkNotification(noti_id);
+			$(this).parents(".delete").remove();
+
+			$.ajax({
+				url: contextPath + "/changeDelStatus",
+				type: 'post',
+				contentType: "application/json",
+				data: JSON.stringify({noti_id: noti_id}),
+				success: function (data) {
 
 				},
 				error: function (status, error) {
 					console.log(status);
 				}
-			});
-
+			})
+			
 		});
-
+		
+		
+		});
 	</script>
 </th:block>
 
