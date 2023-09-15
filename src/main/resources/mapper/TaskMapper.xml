@@ -5,7 +5,6 @@
 
 <mapper namespace="com.project.stms.service.task.TaskMapper">
 
-
 	<select id="getTaskList" resultType="TaskVO">
 		select * from task
 		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
