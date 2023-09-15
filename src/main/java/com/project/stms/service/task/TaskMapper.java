@@ -21,7 +21,6 @@ public interface TaskMapper {
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
 	
-	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
 	//템플릿조회
@@ -42,6 +41,5 @@ public interface TaskMapper {
 	
 	//모달(프로젝트 정보 등록)
 //	public ArrayList<ProjectVO> regPjtList();
-	
-	
+
 }

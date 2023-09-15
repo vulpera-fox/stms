@@ -3,7 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.stms.task.service.TaskMapper">
+<mapper namespace="com.project.stms.service.task.TaskMapper">
+
 
 	<select id="getTaskList" resultType="TaskVO">
 		select * from task
@@ -53,8 +54,7 @@
 		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
 	
 	</insert>
-	
-	
+
 	<select id="getTemplateList" resultType="TaskVO">
 		select * from template
 	</select>
@@ -63,7 +63,6 @@
 	<delete id="deleteTemplate">
 		delete from template where tem_id = #{tem_id}
 	</delete>
-	
 	
 	<select id="getPjtList" resultType="ProjectVO">
 		select * from project

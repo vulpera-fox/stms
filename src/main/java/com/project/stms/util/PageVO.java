@@ -19,8 +19,8 @@ public class PageVO {
 	private int page; //cri에 있는 현재 조회중인 페이지
 	private int amount; //cri에 있는 데이터 개수
 	private Criteria cri; //페이지 기준
-	
-	private int pnCount = 5; //페이지네이션 개수 - 화면에 보여질 페이지 개수
+
+	private int pnCount = 10; //페이지네이션 개수 - 화면에 보여질 페이지 개수
 	
 	private List<Integer> pageList; //페이지네이션을 리스트로 저장
 	
