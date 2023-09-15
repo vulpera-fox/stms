@@ -17,6 +17,7 @@ a {
   text-decoration: none;
 }
 
+
 #container {
   padding: 20px;
   width: 1300px;
@@ -71,8 +72,8 @@ a {
   height: 40px;
 }
 
-.lowerSearchBar > div > p {
-  line-height: 40px;
+.lowerSearchBar > div > p,a {
+  line-height: 35px;
 }
 
 
@@ -81,6 +82,7 @@ a {
   padding-left: 20px;
   float: left;
 }
+
 
 .searchArea .searchBar .upperSearchBar a {
   position: absolute;
@@ -96,6 +98,26 @@ a {
 
 .toggleFilter {
   margin: 0;
+ 
+}
+
+.lowerSearchBarLeft * {
+	display: inline-block;
+	 margin-right: 20px;
+	border: 1px solid black;
+  width: 65px;
+  height: 35px;
+  text-align: center;
+}
+
+.toggleFilter:hover {
+	cursor: pointer;
+	background-color: azure;
+}
+
+.resetBtn:hover {
+	background-color: rgb(247, 235, 237);
+	cursor: pointer;
 }
 
 .searchArea .searchBar .searchBarLeft .toggleFilter:hover {
@@ -132,7 +154,7 @@ a {
 }
 
 .projectBox:hover {
-  
+  cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 5px 22px, rgba(0, 0, 0, 0.03) 0px 0px 5px 5px;
 }
 
@@ -190,11 +212,30 @@ a {
 }
 
 .submitBtn {
-  width: 40px;
-  height: 20px;
+  width: 50px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid rgb(98, 100, 104);
   
 }
 
+.projectListTable {
+	width: 100%;
+}
+
+
+.projectListTable tr > th:first-child,projectListTable tr > td:first-child {
+	width: 15%;
+}
+
+
+.projectCreateBtn {
+}
+
+.projectCreateBtn:hover {
+	color: red;
+	cursor: pointer;
+}
 
 
 

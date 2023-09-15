@@ -25,9 +25,12 @@
 		<div id='container'>
 			<div class='searchArea'>
 				<div class='searchBar'>
+
 					<div class='upperSearchBar'>
-						<input type='text' name="pjt_nm" />
-						<a style="width: 20px; height: 20px;"><span class='searchIcon'>
+						<form action="searchName" method="get" id="searchName">
+							<input type='text' name="pjt_nm" />
+						</form>
+						<a style="width: 20px; height: 20px;" onclick="searchNameSubmit()"><span class='searchIcon'>
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 									class='bi bi-search' viewBox="0 0 16 16">
 									<path
@@ -37,19 +40,21 @@
 					</div>
 					<div class="lowerSearchBar">
 						<div class="lowerSearchBarLeft">
-							<p class='toggleFilter'>검색 필터</p>
+							<p class='toggleFilter'>검색 필터</p><a class="resetBtn" th:href="@{ProjectMain}">초기화</a>
 						</div>
 						<div class="lowerSearchBarRight">
-							<a class="checkRequest" th:href="@{ProjectCreate}">신청 승인</a>
+							<a class="checkRequest" data-bs-toggle="modal" data-bs-target="#reqProjectListModal">신청
+								승인</a>
 						</div>
 					</div>
 				</div>
 				<div class="filterArea hidden">
-					<form action="searchForm" method="post">
+					<form action="searchForm" method="get">
 						<div class='searchFilterArea'>
-							<div class='server_category'>
+							<div class='server_id'>
 								<span>서버 종류 : </span>
-								<select name='server_category'>
+								<select name='server_id'>
+									<option value="">서버를 선택하세요</option>
 									<option value="1">서버1</option>
 									<option value="2">서버2</option>
 									<option value="3">서버3</option>
@@ -74,33 +79,84 @@
 
 
 			<div class='projectArea'>
-				<div class='projectBoxContainer' th:each="vo : ${pList}">
+				<th:block th:each="vo : ${pList}">
+					<th:block th:if="${vo.created_yn} == 1">
 
-					<form action="getDetail" method="get" th:id="getDetail + ${vo.pjt_id}">
-					<input type="hidden" th:value="${vo.pjt_id}" name="pjt_id">
-						<div th:class='projectBox'>
-							<div class='upperBox'>
-								<p class='projectName'>[[${vo.pjt_nm}]]</p>
-								<p class='typeOfServer'>[[${vo.server_type}]]</p>
-							</div>
-							<div class='lowerBox'>
-								<div style="margin: 30px 0; padding: 0 10px;">
-									<div class='lowerBoxLeft'>
-										<p class='companyName'>고객사 이름</p>
-										<p class='projectManager'>[[${vo.ins_user_id}]]</p>
+
+						<div class='projectBoxContainer'>
+							<form action="getDetail" method="get" th:id="getDetail + ${vo.pjt_id}">
+
+								<input type="hidden" th:value="${vo.pjt_id}" name="pjt_id">
+								<div th:class='projectBox'>
+									<div class='upperBox'>
+										<p class='projectName'>[[${vo.pjt_nm}]]</p>
+										<p class='typeOfServer'>[[${vo.server_model}]]</p>
 									</div>
-									<div class='lowerBoxRight'>
-										<p class='projectStatus'>현재상태</p>
+									<div class='lowerBox'>
+										<div style="margin: 30px 0; padding: 0 10px;">
+											<div class='lowerBoxLeft'>
+												<p class='companyName'>[[${vo.user_group}]]</p>
+												<p class='projectManager'>담당자 : [[${vo.user_nm}]]</p>
+											</div>
+											<div class='lowerBoxRight'>
+												<p class='projectStatus'>[[${vo.status == 0 ? '진행예정' : vo.status == 1 ?
+													'진행중' :
+													'완료'}]]</p>
+											</div>
+										</div>
+										<div>
+											<p class='projectPeriod'>마감일 : [[${vo.pjt_end_dt}]]</p>
+										</div>
 									</div>
-									<p></p>
 								</div>
-								<div>
-									<p class='projectPeriod'>마감일 : [[${vo.pjt_end_dt}]]</p>
-								</div>
-							</div>
+							</form>
 						</div>
-					</form>
-					
+					</th:block>
+					</th:block>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div class="modalArea">
+		<div class="modal fade" id="reqProjectListModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">승인 대기 목록</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="projectListContainer">
+							<table class="projectListTable">
+								<thead>
+									<tr style="border-bottom: 1px solid black; margin-bottom: 20px;">
+										<th>고객사</th>
+										<th>프로젝트명</th>
+										<th>서버 분류</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="reqPVO : ${reqPList}">
+										<th:block th:if="${reqPVO.created_yn} == 0">
+											<td>[[${reqPVO.user_group}]]</td>
+											<td>[[${reqPVO.pjt_nm}]]</td>
+											<td>[[${reqPVO.server_model}]]</td>
+											<td style="padding-left: 30px;"><a class="projectCreateBtn"
+													th:href="@{ProjectCreate(pjt_id=${reqPVO.pjt_id})}">생성</a></td>
+										</th:block>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -124,6 +180,11 @@
 		$('.projectBox').click((e) => {
 			e.currentTarget.parentElement.submit();
 		})
+
+
+		var searchNameSubmit = () => {
+			$('#searchName').submit();
+		}
 
 
 
