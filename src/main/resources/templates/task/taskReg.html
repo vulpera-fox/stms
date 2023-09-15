@@ -3,26 +3,40 @@
 
 <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskRegs})}">
 
-
-<th:block class="taskRegs">
-	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<div class="taskRegs">
+	
 
 	<style>
 	
 	/* 공통사항 */
 	.taskRegContainer {
 		width: 1800px;
+		margin: 0 auto;
 		
 	}
 	
+	
 	.taskRegBox {
-	  width: 800px;
-	  height: 750px;
+	  width: 300px;
+	  height: 650px;
 	  text-align: center;
-	  border: 1px solid #777;
+	  
 	  box-shadow: 0 8px 10px #020f37;
-	  margin: 30px 0;
+	  margin: 20px;
+	  float: left;
+	  
+	}
+	
+	.task_listBox {
+	  width: 300px;
+	  height: 650px;
+	  text-align: center;
+	  
+	  box-shadow: 0 8px 10px #020f37;
+	  margin: 20px;
+	  float: left;	
 	}
 
 	.taskRegRow {
@@ -36,14 +50,14 @@
 	}
 	
 	.taskRegHeads, .tastRegBodies {
-	  padding: 10px;
+	  padding: 5px;
 	  text-align: center;
-	  font-size: large;
+	  font-size:medium;
 	  font-weight: bold;
 	}
 	
 	.taskRegBodiesS {
-	  padding: 10px;
+	  padding: 5px;
 	  text-align: center;
 	  font-size: large;
 	  font-weight: bold;
@@ -57,17 +71,25 @@
 	
 	
 	.taskRegTable {
-	  width: 700px;
-	  height: 600px;
-	  line-height: 90px;
-	  border-bottom: 3px solid #020f37;
-	  margin: 40px auto;
+	  width: 580px;
+	  height: 310px;
+	  margin: 5px;
+	  padding: 5px;
 	}
 	
 	
 	.colspanInput {
-	  width: 98%;
-	  block-size: 30px;
+	  width: 100%; 
+	}
+	
+	.colspanInput_selectBox {
+		width:100%;
+		
+	}
+	
+	.colspanTextarea {
+		width: 100%;
+		height : 120px
 	}
 	
 	.taskRegInput {
@@ -96,12 +118,71 @@
 	  text-align: center;
 	}
 	
-	.saveBtn, .listBtn {
-	  width: 100px;
-	  height: 40px;
+	.taskRegTable-wrap {
+		position: relative;
+	}
+	
+	#taskSearchSaveBtn {
+	  width: 40px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
+      position: absolute;
+      top: 0px;
+      left: 500px;
+	}
+	
+	#taskSearchDelBtn {
+	  width: 40px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: 550px;
+	}
+	
+	#taskSearchNewBtn {
+	  width: 40px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      top: 0;
+      left: 450px;		
+	}
+	
+	#pjtListSearchBtn {
+	  width: 40px;
+	  height: 30px;
+	  padding: 0;
+	  margin: 0 auto;
+	  line-height: 30px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;	
+	}
+	
+	#taskSearchRegBtn {
+	  width: 40px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+      position: absolute;
+      top: 0px;
+      left: 550px;
 	}
 	
 	.taskRegBodiesS > .taskRegBtn {
@@ -135,137 +216,248 @@
 		width: 480px;
 	}
 	
-	.taskSearchPjtBtn {
-		float: right;
+	.leftBox {
+		width:300px;
+		height:650px;
+		border: 1px solid #777;
 		display: inline-block;
-		width: 70px;
-		background-color: #020f37;
-		border: none;
-		border-radius: none;
-	    color: #fff;
-	    font-weight: bold;
-	    font-size: 15px;
+		overflow-y: scroll;
+	}
+	
+	.rightBox {
+		width:300px;
+		height:650px;
+		border: 1px solid #777;
+		display: inline-block;
+		overflow-y: scroll;
+		
+	}
+	
+	.taskDetail_searchBox {
+		float: left;
+		width: 600px;
+		height: 310px;
+		display: inline-block;
+		
+		margin: 20px 20px 10px 20px;
+		box-shadow: 0 8px 10px #020f37;
+	}
+	
+	.searchTitles {
+		margin: 10px;
+		padding:3px
+	}
+	
+	.task_searchRegBox {
+		float: left;
+		width: 600px;
+		height: 310px;
+		display: inline-block;
+		
+		margin: 20px 20px 10px 20px;
+		box-shadow: 0 8px 10px #020f37;
+	}
+	
+	.taskStatus {
+		width: 100px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: blue;
+		color: #fff;
+		font-weight: bold;
+	}
+	
+	.engineerName {
+		width:100px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: #999;
+		color: #fff;
+		font-weight: bold;
 	}
 	
 	</style>	
 	
 	<body>
+		
 	  <div class="taskRegContainer">
 	    
       <h3>작업 등록</h3>
-      	
-      	<form name="taskForm" action="taskRegForm" method="post">
-			  
-		
-	    <div class="taskRegBox">
-		      <table class="taskRegTable">
+      	<div class="taskWrapBox">			  
+	      	
 				  
-				  <tr class="taskRegRow">
-					  <th class="taskRegHeads">프로젝트 선택</th>
-					  <td colspan="3" class="taskRegBodiesP">
-						  <!--모달창으로 반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
-						  <input type="text" class="taskRegInputPL">
-						  <input type="button" class="pjtSearchBtn btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" value="검색">
-						  </input>
-					  </td>
-				  </tr>
-				  		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">고객사</th>
-		            <td class="taskRegBodies"><input type="text" class="taskRegInputL"></td>
-		          	<th class="taskRegHeads">담당자</th>
-		            <td class="taskRegBodiesS">
-						<input type="text" class="taskRegInputR">
-						<input type="button" class="taskRegBtn" value="검색" style="line-height: initial;">
-					</td>
-				  </tr>
-		          
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업기간</th>
-		            <td colspan="3" class="taskRegDates">
-						
-						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;">
-						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;">
-						
-		            </td>
-		          </tr>
-		  
-		  		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업장소</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업명</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		  
-		          <tr class="taskRegRow">
-		            <th class="taskRegHeads">작업내용</th>
-		            <td colspan="3" class="taskRegBodies"><input type="text" class="colspanInput"></td>
-		          </tr>
-		    </div>
-		    </table>
-	
-	    <!-- 버튼 기능 -->
-	    <div class="RegBtnBox">
-	      <input type="button" class="saveBtn" value="등록">
-	      <input type="button" class="listBtn" value="목록">
-	    </div>
-		
-		</form>
-	
-		<!--모달-->
-		
-		<form name="pjtsearchModal" action="pjtSearchForm" mothod="get">
-			<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="staticBackdropLabel">프로젝트 검색</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			        
-			        <table>
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>프로젝트ID</th>
-								<th>프로젝트명</th>
-								<th>고객사명</th>
-								<th>담당자명</th>
-								<th>선택</th>
-							</tr>
-						</thead>
-						<tbody class="taskMoalBody">
-							<tr th:each="vo, status : ${list}">
-								<th>[[${status.count}]]</th>
-								<td>[[${vo.pjt_id}]]</td>
-								<td>[[${vo.pjt_nm}]]</td>
-								<td>[[${vo.req_user_id}]]</td>
-								<td>[[${vo.ins_user_id}]]</td>
-								<td><input type="checkbox" style="display: block; text-align: center;" name="선택체크"></td>							
-							</tr>
-						</tbody>
-					</table>
-			        
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-			        <button type="button" class="btn btn-primary">저장</button>
-			      </div>
+			    <div class="taskRegBox">
+					
+			    <!-- 버튼 기능 -->
+			    	<div class="leftBox">						
+					  <h6 class="SearchTitles">프로젝트 목록</h6>
+				    	<div class="RegBtnBox">
+						  <input type="text" placeholder="프로젝트명을 입력해주세요" class="pjtSearch" name="searchPjtName" th:value="${pageVO.cri.searchPjtName}">
+					      <input type="button" id="pjtListSearchBtn" value="조회">
+					    </div>
+				    
+				    	<!--프로젝트목록영역-->
+					    <div class="pjtTreeBox">	
+							<!--조회 누르면 li 반복 돌려서 꺼낼 것-->
+							<ul class="pjtTrees">
+								<li th:each="vo, status : ${list}">
+									<a class="searchTask" href="#" name="pjt_id" th:value="${vo.pjt_id}">[[${vo.pjt_nm}]]</a>
+								</li>
+							</ul>
+						</div>
+					</div>
 			    </div>
-			  </div>
-			</div>
-		</form>
-	
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	
+			    
+			    
+				<!--작업목록영역-->						
+				<div class="task_listBox">					
+					<div class="rightBox">
+						<h6 class="SearchTitles">작업목록</h6>
+						<ul class="task_lists">
+							<!--프로젝트에 따른 작업 목록이 들어가고 있음-->
+						</ul>
+					</div>
+				</div>
+				
+				
+				<!--작업상세영역-->
+				<div class="taskDetail_searchMinContainer">
+					
+				</div>
+				<!--<div class="taskDetail_searchBox">
+					<div class="taskRegTable-wrap">
+						<table class="taskRegTable">
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업상태</th>
+								<td class="taskRegBodies">
+									<select class="colspanInput"> 크기 한번 볼 것.. 여기서 선택하는게 맞을까?
+										<option name="waiting">작업대기</option>
+										<option name="working">작업중</option>
+										<option name="done">작업완료</option>
+										<option name="delay">작업연기</option>
+									</select>
+								</td>
+								<td class="taskRegBodies"><input type="button" name="" value="" style="" class="taskStatus"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업이름</th>
+								<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업일</th>
+								<td class="taskRegBodies"><input type="date" class="colspanInput"></td>
+								<th class="taskRegHeads">작업시간</th>
+								<td class="taskRegBodies">
+									<input type="time">
+									<i>~</i>
+									<input type="time">
+								</td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">담당자</th>
+								<td class="taskRegBodies">
+									<select>
+										<option name="none">담당자</option>
+										<option>배재욱</option> 옵션을 반복 돌려서 뽑아내자!?!
+										<option>김유리</option>
+										<option>안승훈</option>
+										<option>이준희</option>
+										<option>장윤정</option>
+									</select>
+								</td>
+								<td class="taskRegBodies"><input type="button" name="engineerName" value=""></td> 선택된 값이 아이콘처럼 나옴
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업지</th>
+								<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업내용</th>
+								<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea"></textarea></td>
+							</tr>
+
+						</table>
+
+						수정,삭제버튼영역
+						<div class="taskSearchBtnBox">
+							<a href="#" id="taskSearchSaveBtn">수정</a>
+							<a href="#" id="taskSearchDelBtn">삭제</a>
+							<a href="#" id="taskSearchNewBtn">신규</a>							
+						</div>
+					</div>
+				</div>-->
+				
+				<!--작업등록영역-->
+				<div class="taskReg_searchMinContainer">
+					
+				</div>
+				
+				
+				<!--<div class="task_searchRegBox">
+					<div class="taskRegTable-wrap">
+						<table class="taskRegTable">
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업상태</th>
+								<td class="taskRegBodies">
+									<select class="colspanInput"> 크기 한번 볼 것 선택을 넣는게 맞을까?
+										<option name="waiting">작업대기</option>
+										<option name="working">작업중</option>
+										<option name="done">작업완료</option>
+										<option name="delay">작업연기</option>
+									</select>
+								</td>
+								<td class="taskRegBodies"><input type="button" name="" value="" style="" class="taskStatus"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업이름</th>
+								<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업일</th>
+								<td class="taskRegBodies"><input type="date" class="colspanInput"></td>
+								<th class="taskRegHeads">작업시간</th>
+								<td class="taskRegBodies">
+									<input type="time">
+									<i>~</i>
+									<input type="time">
+								</td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">담당자</th>
+								<td class="taskRegBodies">
+									<select>
+										<option name="none">담당자</option>
+										<option>배재욱</option> 옵션을 반복 돌려서 뽑아내자!?!
+										<option>김유리</option>
+										<option>안승훈</option>
+										<option>이준희</option>
+										<option>장윤정</option>
+									</select>
+								</td>
+								<td class="taskRegBodies"><input type="button" name="engineerName" value=""></td> 선택된 값이 아이콘처럼 나옴
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업지</th>
+								<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>
+							</tr>
+							<tr class="taskRegRow">
+								<th class="taskRegHeads">작업내용</th>
+								<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea"></textarea></td>
+							</tr>
+
+						</table>
+						
+						작업버튼영역
+						<div class="taskSearchBtnBox">
+							<a href="#" id="taskSearchRegBtn">등록</a>
+						</div>
+						
+					</div>
+				</div>-->
+				
+		</div>
+	    
+			
 	
 	  </div>
 	  
@@ -304,20 +496,360 @@
 	<script>
 		
 		//프로젝트 검색
+		var pjtListSearchBtn = document.getElementById("pjtListSearchBtn");
+		pjtListSearchBtn.addEventListener('click', function(event) {
+			
+			event.preventDefault();
+			document.pjtSearchForm.action = 'taskReg';
+			document.pjtSearchForm.method = 'get';
+			document.pjtSearchForm.submit();
+			
+		})	
+	
+		//프로젝트 선택
+		$(".searchTask").on("click", function(e) {
+			
+			e.preventDefault();
+			let target = e.target;
+			
+			console.log(target);
+			
+			let pjtId = $(this).attr("value");
+			console.log(pjtId);
+			
+			$.ajax({
+				url:"../taskSearch",
+				type: "get",
+				contentType: "application/json",
+				data:{"pjt_id": pjtId},
+				success:function(data) {
+					console.log(data);
+					alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
+					
+					let str = '';
+					
+					for(let i = 0; i < data.length; i++) {
+						
+						str += '<li>';
+						str += '<a href="#" class="taskResults" name="task_id" value="'+ data[i].task_id +'">'+ data[i].task_nm +'</a>';
+						str += '</li>';
+					}
+					
+					console.log(str);
+					
+					$(".task_lists").html(str);
+					
+
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+					alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
+				}
+			})
+			
+		})
+		
+		
+		//작업 상세 띄우기
+		$(document).on("click", ".taskResults", function(e) {
+			
+			e.preventDefault();
+			
+			let target = e.target;
+			console.log(target);
+			
+			let taskId = $(this).attr("value");
+			console.log(taskId);
+			
+			$.ajax({
+				url: "../taskDetailSearch",
+				type: "get",
+				contentType: "application/json",
+				data: {"task_id": taskId},
+				success: function(data) {
+					console.log(data);
+					alert("상세내역을 성공적으로 받았습니다")
+					
+					str= '';
+					
+					str += '<div class="taskDetail_searchBox">';
+					str += '<div class="taskRegTable-wrap">';
+					str += '<table class="taskRegTable">';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업상태</th>';
+					str += '<td class="taskRegBodies">';
+					str += '<select class="colspanInput_selectBox">';
+					str += '<option name="taskDelay">작업연기</option>';
+					str += '<option name="taskStop">작업중지</option>';
+					str += '</select>';
+					str += '</td>';
+					str += '<td class="taskRegBodies"><input type="button" name="readyTask" value="작업대기" style="line-height:initial" class="taskStatus"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업이름</th>';
+					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" name="task_nm" value="'+ data.task_nm +'"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업일</th>';
+					str += '<td class="taskRegBodies"><input type="date" class="colspanInput" name="task_date" value="'+ data.task_date +'"></td>';
+					str += '<th class="taskRegHeads">작업시간</th>'
+					str += '<td class="taskRegBodies">';
+					str += '<input type="time" name="task_st_dt" value="'+ data.task_st_dt +'">';
+					str += '</td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">담당자</th>'
+					str += '<td class="taskRegBodies">';
+					str += '<select>';
+					str += '<option name="none">담당자</option>';
+					str += '<option>배재욱</option>';
+					str += '<option>김유리</option>';
+					str += '<option>안승훈</option>';
+					str += '<option>이준희</option>';
+					str += '<option>장윤정</option>';
+				    str += '</select>';
+					str += '</td>';
+					str += '<td class="taskRegBodies"><input type="button" class="engineerName" name="engineerName" value="작업자이름" style="line-height:initial"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업지</th>';
+					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" name="user_adr" value="'+ data.user_adr +'" readonly></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업내용</th>';
+					str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" name="task_dtl">'+ data.task_dtl +'</textarea></td>';
+					str += '</tr>';
+					str += '</table>';
+					str += '<!--수정,삭제버튼영역-->';
+					str += '<div class="taskSearchBtnBox">';
+					str += '<a href="#" id="taskSearchSaveBtn">수정</a>';
+					str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="'+ data.task_id +'">삭제</a>';
+					str += '<a href="#" id="taskSearchNewBtn">신규</a>';							
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					
+					console.log(str);
+					
+					$(".taskDetail_searchMinContainer").html(str);					
+
+										
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+					alert("다시 시도해보세요!!")
+				}
+			})
+			
+		})
+		
+		
+		//작업상태 option onChange 이벤트
+		//$(document).on("change", ".colspanInput_selectBox", function(e) {
+			
+			//e.preventDefault();
+			
+			//let target = e.target;
+			
+			//let name = $(target).attr("name");
+			
+			//if($(target).attr("name") == 'taskDelay') {
+				//$(".taskStatus").css("backgroundColor", orange).attr("value", "작업연기");
+			//} else if($(target).attr("name") == 'taskStop') {
+				//$(".taskStatus").css("backgroundColor", red).attr("value", "작업중지");
+			//}
+			
+		//})
+		
+		
+		
+		
+		
+		//작업등록박스 불러내기
+		$(document).on("click", "#taskSearchNewBtn", function(e) {
+			
+			e.preventDefault();
+			
+			let target = e.target;
+			console.log(target);
+			
+			str = '';
+			
+			str += '<div class="task_searchRegBox">';
+			str += '<div class="taskRegTable-wrap">';
+			str += '<table class="taskRegTable">';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">작업상태</th>';
+			str += '<td class="taskRegBodies">';
+			str += '<select class="colspanInput">';
+			str += '<option name="waiting">작업대기</option>';
+			str += '<option name="working">작업중</option>';
+			str += '<option name="done">작업완료</option>';
+			str += '<option name="delay">작업연기</option>';
+			str += '</select>';
+			str += '</td>';
+			str += '<td class="taskRegBodies"><input type="button" name="" value="" style="" class="taskStatus"></td>';
+			str += '</tr>';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">작업이름</th>';
+			str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>';
+			str += '</tr>';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">작업일</th>';
+			str += '<td class="taskRegBodies"><input type="date" class="colspanInput"></td>';
+			str += '<th class="taskRegHeads">작업시간</th>';
+			str += '<td class="taskRegBodies">';
+			str += '<input type="time">';
+			str += '<i>~</i>';
+			str += '<input type="time">';
+			str += '</td>';
+			str += '</tr>';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">담당자</th>';
+			str += '<td class="taskRegBodies">';
+			str += '<select>';
+			str += '<option name="none">담당자</option>';
+			str += '<option>배재욱</option>';
+			str += '<option>김유리</option>';
+			str += '<option>안승훈</option>';
+			str += '<option>이준희</option>';
+			str += '<option>장윤정</option>';
+			str += '</select>';
+			str += '</td>';
+			str += '<td class="taskRegBodies"><input type="button" name="engineerName" value=""></td>';
+			str += '</tr>';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">작업지</th>';
+			str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput"></td>';
+			str += '</tr>';
+			str += '<tr class="taskRegRow">';
+			str += '<th class="taskRegHeads">작업내용</th>';
+			str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea"></textarea></td>';
+			str += '</tr>';
+			str += '</table>';			
+			str += '<!--작업버튼영역-->';
+			str += '<div class="taskSearchBtnBox">';
+			str += '<a href="#" id="taskSearchRegBtn">등록</a>';
+			str += '</div>';
+			str += '</div>';
+			str += '</div>';
+			
+			
+			$(".taskReg_searchMinContainer").html(str);
+		})
 
 		
+		//작업 수정기능
+		
+		$(document).on("click", "#taskSearchSaveBtn", function(e) {
 			
-		//프로젝트 선택
-		//const pjtSaveBtn = document.querySelector(".pjtSaveBtn");
-		//pjtSaveBtn.addEventListener('click', function() {
+			e.preventDefault();
 			
-			//document.taskForm.submit();
-						
-		//}) 
+			let target = e.target;
+			console.log(target);
+			
+			taskId = $(this).closest("div").find("#taskSearchDelBtn");
+			taskNm = $
+			
+			
+			$.ajax({
+				url: "../taskModifyForm",
+				type: "post",
+				contentType: "application/json",
+				data: {
+					"task_id" : taskId,
+					"task_nm" : taskNm,
+					"task_dtl" : taskDtl,
+					"status" : status,
+					"task_date" : taskDate,
+					"task_st_dt" : taskStDt,
+				},
+				success: function(data) {
+					console.log(data);
+					alert("성공적으로 작업내용이 수정되었습니다");
+					
+					str = '';
+					
+					str += '<div class="taskDetail_searchBox">';
+					str += '<div class="taskRegTable-wrap">';
+					str += '<table class="taskRegTable">';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업상태</th>';
+					str += '<td class="taskRegBodies">';
+					str += '<select class="colspanInput">';
+					str += '<option name="waiting">작업연기</option>';
+					str += '<option name="working">작업중지</option>';
+					str += '</select>';
+					str += '</td>';
+					str += '<td class="taskRegBodies"><input type="button" name="readyTask" value="작업대기" style="line-height:initial" class="taskStatus"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업이름</th>';
+					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" name="task_nm" value="'+ data.task_nm +'"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업일</th>';
+					str += '<td class="taskRegBodies"><input type="date" class="colspanInput" name="task_date" value="'+ data.task_date +'"></td>';
+					str += '<th class="taskRegHeads">작업시간</th>'
+					str += '<td class="taskRegBodies">';
+					str += '<input type="time" name="task_st_dt" value="'+ data.task_st_dt +'">';
+					str += '</td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">담당자</th>'
+					str += '<td class="taskRegBodies">';
+					str += '<select>';
+					str += '<option name="none">담당자</option>';
+					str += '<option>배재욱</option>';
+					str += '<option>김유리</option>';
+					str += '<option>안승훈</option>';
+					str += '<option>이준희</option>';
+					str += '<option>장윤정</option>';
+				    str += '</select>';
+					str += '</td>';
+					str += '<td class="taskRegBodies"><input type="button" class="engineerName" name="engineerName" value="작업자이름" style="line-height:initial"></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업지</th>';
+					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" name="user_adr" value="'+ data.user_adr +'" readonly></td>';
+					str += '</tr>';
+					str += '<tr class="taskRegRow">';
+					str += '<th class="taskRegHeads">작업내용</th>';
+					str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" name="task_dtl">'+ data.task_dtl +'</textarea></td>';
+					str += '</tr>';
+					str += '</table>';
+					str += '<!--수정,삭제버튼영역-->';
+					str += '<div class="taskSearchBtnBox">';
+					str += '<a href="#" id="taskSearchSaveBtn">수정</a>';
+					str += '<a href="#" id="taskSearchDelBtn" name="task_id" name="task_id" value="'+ data.task_id +'">삭제</a>';
+					str += '<a href="#" id="taskSearchNewBtn">신규</a>';							
+					str += '</div>';
+					str += '</div>';
+					str += '</div>';
+					
+					console.log(str);
+					
+					$(".taskDetail_searchMinContainer").html(str);
+					
+				},
+				error: function(status,error) {
+					console.log(status);
+					console.log(error);
+					alert("수정실패! 다시확인하세요")
+				}
+			})
+			
+			
+		})
+		
+		
+		 
 		
 	</script>
 
 
-</th:block>
+</div>
 	
-</th:block>	
+</th:block>

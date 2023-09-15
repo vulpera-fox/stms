@@ -23,13 +23,16 @@ public class TaskVO {
 	
 	private String user_group; //고객사 이름(회사명)
 	private String user_id; //작업자 이름
+	private String user_adr; //작업지
 	
 	private String status; //작업상태
-	private LocalDateTime task_date; //작업일
-	private LocalDateTime task_st_dt; //작업시작일시
+	private String task_date; //작업일
+	private String task_st_dt; //작업시작일시
 	private LocalDateTime task_end_dt; //작업종료일시
 	private Integer task_al_t; //작업예상시간
 	private Integer task_oper_t; //작업생성시간
+	
+	private Integer completed_task;
 	
 	private Integer tem_id;
 	private String tem_nm;
