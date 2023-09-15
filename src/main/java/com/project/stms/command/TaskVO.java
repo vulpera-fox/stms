@@ -1,8 +1,7 @@
 package com.project.stms.command;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
-import com.project.stms.util.Criteria;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,8 +29,11 @@ public class TaskVO {
 	private LocalDateTime task_end_dt; //작업종료일시
 	private Integer task_al_t; //작업예상시간
 	private Integer task_oper_t; //작업생성시간
-	
-	private Integer completed_task;
+
+	private Integer tem_id;
+	private String tem_nm;
+	private String pred_time;
+
 	
 	
 }

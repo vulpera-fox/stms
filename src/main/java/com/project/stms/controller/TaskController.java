@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.stms.command.ProjectVO;
 import com.project.stms.command.TaskVO;
-import com.project.stms.task.service.TaskService;
+import com.project.stms.service.task.TaskService;
 import com.project.stms.util.Criteria;
 import com.project.stms.util.PageVO;
 
@@ -53,6 +55,16 @@ public class TaskController {
 		return "task/taskReg";
 	}
 	
+	//검색된 정보를 담아 등록화면에 표시하기(다시 생각할 것)
+	@GetMapping("pjtSearchForm")
+	public String pjtSearchForm(Model model) {
+		
+		ArrayList<ProjectVO> list = taskService.getPjtList();
+		model.addAttribute("list", list);
+		
+		return "task/taskReg";
+	}
+	
 	//작업상세
 	@GetMapping("taskDetail")
 	public String taskDetail() {
@@ -69,8 +81,10 @@ public class TaskController {
 		return "task/taskModify";
 	}
 	
+	//작업삭제
 	@PostMapping("taskDeleteForm")
 	public String taskDeleteForm(@RequestParam("task_id") int task_id) {
+		
 		
 		taskService.deleteTaskList(task_id);
 		
@@ -78,7 +92,7 @@ public class TaskController {
 	}
 	
 	
-	//작업템플릿등록
+	//작업템플릿등록(없어도 될듯!!!)
 	@GetMapping("taskTemplateReg")
 	public String taskTemplateReg() {
 		return "task/tasktemplateReg";
@@ -86,9 +100,41 @@ public class TaskController {
 	
 	//작업템플릿관리
 	@GetMapping("taskTemplateList")
-	public String taskTemplateList() {
+	public String taskTemplateList(Model model) {
+		
+		ArrayList<TaskVO> list = taskService.getTemplateList();
+		model.addAttribute("list", list);
+		
+		System.out.println(list.toString());
+		
+		
 		return "task/taskTemplateList";
 	}
+	
+	//작업템플릿등록(모달)
+	@PostMapping("tempRegForm")
+	public String tempRegForm(TaskVO vo, RedirectAttributes ra) {
+		
+		int result = taskService.getTemplate(vo);
+		String msg = result == 1 ? "등록되었습니다" : "등록실패";
+		ra.addFlashAttribute("msg", msg);
+		
+		
+		return "redirect:/task/taskTemplateList";
+	}
+	
+	//작업템플릿 삭제
+	@PostMapping("/tempDelForm")
+	public String tempDelForm(@RequestParam("tem_id") Integer tem_id) {
+		
+		System.out.println(tem_id);
+		taskService.deleteTemplate(tem_id);
+		
+		
+		return "redirect:/task/taskTemplateList";
+	}
+	
+	
 	
 	//메인화면(캘린더 뷰)
 	@GetMapping("taskCalendar")

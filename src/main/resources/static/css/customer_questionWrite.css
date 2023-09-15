@@ -1,0 +1,282 @@
+* {
+
+	margin: 0;
+	padding: 0;
+}
+
+.subtop_wrap {
+
+	background-color: powderblue;
+	background: url(../img/news_banner.jpeg) no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 230px;
+	justify-content: center;
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+}
+
+.subtop .page_header {
+
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	font-size: 40px;
+	letter-spacing: 3px;
+	font-weight: 500;
+
+}
+
+.subtop_wrap .subtop .sub_text {
+
+	color: white;
+	font-size: 18px;
+	line-height: 24px;
+	padding-top: 15px;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+/* 게시글 */
+.q_box_wrap {
+
+	min-height: 500px;
+	border-top: 2px solid #020f37;
+	margin: auto;
+	align-items: center;
+/*	padding: 50px;*/
+	margin-top: 100px;
+	
+}
+
+.q_box_wrap .q_box {
+	
+	margin:auto 0;
+	text-align: left;
+	
+}
+
+
+
+
+.q_box > tbody {
+	
+	margin: auto 0;
+	align-items: center;
+}
+
+.q_box_inner .sub{
+	
+/*	border-right : 1px solid rgb(55, 65, 72);*/
+	width: 100px;
+	box-sizing: border-box;
+	text-align: left;
+	
+	
+}
+
+table {
+	
+	table-layout: fixed;
+	width: 100%;
+	
+}
+
+.q_box .sub {
+	
+	font-size: 16px;
+}
+.q_box .q_required::after {
+	
+	font-size: 16px !important;
+	
+}
+
+.q_box .q_trclass  >td:nth-child(2) > input {
+
+	width: 500px !important;
+	height: 35px;
+	
+}
+
+.q_box .q_trclass .q_contents {
+
+	width: 500px !important;
+}
+
+
+
+
+tr{
+	
+	width: 1000px;
+	box-sizing: border-box;
+}
+
+.q_trclass {
+	
+	box-sizing: border-box;
+	
+}
+
+.q_trclass > td:nth-child(2){
+	
+	padding: 20px 10px 0px 10px !important;
+	width: 500px;
+}
+
+.q_box_wrap .q-box{
+	
+	padding:100px;
+	margin: auto;
+	
+}
+
+.q_box .q_required::after  {
+	
+	content:"*";
+	display: inline-block;
+	color: red;
+	line-height: 1;
+	vertical-align: middle;
+	padding: 5px 0 1px 7px;
+	
+}
+
+.q_box .q_contents_area .q_contents {
+
+	resize: none;
+	width: 300px;
+	height: 300px;
+	border: 1px solid rgb(42, 47, 55);
+	
+}
+
+
+
+
+.attatch_file_area > td:nth-child(3) .file_regi_btn {
+	
+	width: 100px;
+}
+
+
+.attatch_file_area .file_regi_btn {
+	
+	all: unset;
+	background-color: #020f37;
+	color: white;
+	border: 1px solid #020f37;
+	border-radius: 10px;
+	padding: 5px;
+	text-align: center;
+	margin-left: 15px;
+	height: 25px;
+	
+}
+
+.q_box .secret_yn_area .secret_yn {
+	
+	height: 50px;
+	display: flex;
+	align-items: center;
+}
+
+
+.q_box .secret_yn_area .secret_yn > div {
+	
+	width: 25%;
+}
+
+
+
+.q_box .secret_yn_area .secret_yn .secret_r{
+	
+	
+	height: 16px !important;
+	padding: 10px;
+	margin-right: 3px;
+	border: 1px solid #020f37;
+	display: inline-block;
+}
+
+.secret_no_area >td:nth-child(2) > input {
+	
+	letter-spacing: 4px;
+	font-size: 25px;
+	
+	
+/*	max-width: 100px;*/
+}
+
+.secret_no_area > td:nth-child(3) {
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.goto_regi {
+
+	padding: 20px;
+	text-align: right;
+
+}
+
+.goto_regi .regi_refresh {
+
+	all: unset;
+	border: 1px solid #020f37;
+	background-color: white;
+	border-radius: 10px;
+	padding: 10px;
+	cursor: pointer;
+	width: 30px;
+	height: 25px;
+	text-align: center;
+
+
+}
+
+
+.goto_regi .goto_regi_btn {
+
+	all: unset;
+	border: 1px solid #020f37;
+	background-color: #020f37;
+	border-radius: 10px;
+	padding: 10px;
+	color: white;
+	font-size: 15px;
+	cursor: pointer;
+	width: 70px;
+	height: 25px;
+	text-align: center;
+
+
+}
+
+.goto_regi .goto_regi_btn a {
+	text-decoration: none;
+	color: white;
+}
