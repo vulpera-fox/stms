@@ -30,6 +30,7 @@ public class TaskVO {
 	private Integer task_al_t; //작업예상시간
 	private Integer task_oper_t; //작업생성시간
 
+	private Integer completed_task;
 	
 	private Integer tem_id;
 	private String tem_nm;
