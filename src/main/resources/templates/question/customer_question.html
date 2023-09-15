@@ -5,7 +5,7 @@
 <link rel="stylesheet" th:href="@{/css/customer_question.css}" />
 
 
-<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .wrap})}">
 	<div class="wrap">
 		<div class="col-lg-12 subtop_wrap">
 			<div class="col-lg-8 subtop">
@@ -23,7 +23,7 @@
 					<span>[[${qpageVO.total}]]</span>
 						건의 게시물 (
 					<span>[[${qpageVO.page}]]</span> / 
-					<span>[[${T(java.lang.Math).round(qpageVO.total.doubleValue() / qpageVO.amount.doubleValue())}]]</span> pages )
+					<span>[[${T(java.lang.Math).ceil(qpageVO.total.doubleValue() / qpageVO.amount.doubleValue())}]]</span> pages )
 				</div>	
 				<form name="" action="" method="get">
 					<select name="searchType" style="font-size: 14px;" id="searchType">

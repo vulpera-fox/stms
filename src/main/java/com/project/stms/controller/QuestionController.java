@@ -36,6 +36,9 @@ public class QuestionController {
 		System.out.println(qpageVO.getRealEnd());
 		System.out.println(qpageVO.getEnd());
 		
+		System.out.println((double)qpageVO.getTotal() / (double)qpageVO.getAmount());
+		
+		System.out.println(list.toString());
 		return "question/customer_question";
 		
 	}
