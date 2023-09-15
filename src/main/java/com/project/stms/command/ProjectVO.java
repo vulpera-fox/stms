@@ -20,6 +20,11 @@ public class ProjectVO {
 	private String pjt_end_dt;
 	private String req_user_id;
 	private String ins_user_id;
-	private Integer stat;
-	private String server_type;
+	private Integer status;
+	private String server_id;
+	private String server_model;
+	private String user_group;
+	private String user_nm;
+	private String created_yn;
+	
 }
