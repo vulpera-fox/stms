@@ -23,6 +23,7 @@ public class ProjectVO {
 	private Integer status;
 	private String server_id;
 	private String server_model;
+	private String server_type;
 	private String user_group;
 	private String user_nm;
 	private String created_yn;

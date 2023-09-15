@@ -18,6 +18,8 @@
 </head>
 <body>
 
+<th:block th:replace=" ~{/include/layout_engineer :: setContent(~{ :: #container})}">
+
   <div id="container">
     <div class="titleZone">
       <div class="titleArea">
@@ -205,6 +207,8 @@
 
     </div>
   </div>
+  
+  </th:block>
 
   <script th:inline="javascript">
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.TaskVO;
-import com.project.stms.task.service.TaskService;
+import com.project.stms.service.task.TaskService;
 
 @RestController
 public class TaskRestController {
