@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" th:href="@{/css/customer_questionDetail.css}">
+
+<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+	<!-- Section-->
+	<div class="col-lg-12 subtop_wrap wrap">
+		<div class="col-lg-8 subtop">
+			<h1 class="page_header">Q & A
+				<div class="sub_text">우리 서버에서 제공하는 다양한 소식을 전해드립니다.</div>
+			</h1>
+		</div>
+	</div>
+	<div class="col-lg-8 wrap detail_container">
+		<div class="q_detail">
+			<div class="q_detail_header">
+				<header>
+					<h2>질문합니다.</h2>
+					<div class="q_info">
+						<div class="q_info_d">
+							<p style="margin-bottom: 0;">작성자 </p>
+						</div>
+						<div class="q_info_d">
+
+							<p style="margin-bottom: 0;">유저아이디</p>
+						</div>
+
+						<div class="q_info_d">
+							<p style="margin-bottom: 0;"> | 작성일 </p>
+						</div>
+
+						<div class="q_info_d">
+							<p style="margin-bottom: 0;">2023-08-31</p>
+
+						</div>
+
+						<div class="q_info_d">
+							<p style="margin-bottom: 0;"> | 조회수 </p>
+
+						</div>
+						<div class="q_info_d">
+
+							<p style="margin-bottom: 0;">23</p>
+						</div>
+					</div>
+				</header>
+			</div>
+		</div>
+
+		<div class="q_body" style="min-height: 500px;">
+			<div class="content">
+
+				2022학년도 즐거운 글쓰기 i-樂(LAC) 산문 백일장 결과 발표는 아직 안 한 건가요?
+				i-LAC 홈페이지에서 결과 발표한다고 했는데 어디서 확인할 수 있나요?
+			</div>
+
+		</div>
+
+
+		<div class="goto_list">
+			<button class="goto_list_btn"><a th:href="@{customer_question}">목록</a></button>
+		</div>
+	</div>
+
+
+</th:block>
+
+</html>

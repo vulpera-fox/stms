@@ -1,0 +1,238 @@
+/* 공통부분 */
+body{
+	background-color: #020f37;
+	/*background-image: url("../img/1.png");
+	background-repeat: no-repeat;
+	background-size: 100%;*/
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.bigWrap{
+	margin: 0 auto;
+	margin-top: 130px;
+	width:1198px;
+	height: 700px;
+	border-radius: 25px;
+	box-shadow:0px 8px 16px  #020f37;
+
+}
+
+.wrap {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(255, 255, 255);
+  width: 500px;
+  height: 800px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0px 8px 16px #020f37;
+}
+
+
+.titleBox {
+  width: 250px;
+  text-align: center;
+  font-size: 100px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 120px;
+
+}
+
+
+
+.titleBox > a > img {
+  width: 100px; height: 100px;
+}
+
+
+
+
+
+
+/* 로그인인풋 */
+
+.wrap1 {
+  float: left;   
+  background-color: rgb(255, 255, 255);
+  /*border: 1px solid #020f37;*/
+  width: 700px;
+  height: 700px;
+  text-align: center;
+  border-top-left-radius: 23px;
+  border-bottom-left-radius: 23px;
+  border-right: transparent;
+}
+
+.wrap2 {
+  float: left;   
+  background-color: rgb(255, 255, 255);
+  /*border: 1px solid #020f37;*/
+  border-left: transparent;
+  width: 498px;
+  height: 700px;
+  text-align: center;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.int-area {
+	margin: 0 auto;
+	width: 400px;
+	position: relative;
+}
+
+.int-area input {
+	width: 75%;
+	height: 50px;
+	padding:20px 10px 10px;
+	margin-top: 10px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #999;
+	font-size: 15px; color: #020f37;
+	outline: none;
+	box-sizing: border-box;
+	border-radius: 40px;
+}
+
+.int-area select {
+	width: 75%;
+	height: 50px;
+	padding:20px 10px 10px;
+	margin-top: 10px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #999;
+	font-size: 15px; color: #020f37;
+	outline: none;
+	box-sizing: border-box;
+	border-radius: 40px;
+}
+	
+	
+
+.int-area label {
+    position: absolute; left: 60px; top: 15px;
+    font-size: 15px; color: #999;
+    transition: all .5s ease;
+}
+
+.int-area input:focus + label,
+.int-area input:valid + label {
+    top: 5;
+    font-size: 11px; color: rgb(0, 128, 255);
+}
+
+/*로그인 버튼*/
+.loginBtn {
+  width: 60%;
+  margin-top: 90px;
+  margin-bottom: 20px;
+  height: 50px;
+  background-color: #020f37;
+  color: rgb(255, 255, 255);
+  border: 1px solid #020f37;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+
+
+/* 가입인풋 */
+.inputText2 {
+  box-sizing: border-box;
+  width: 60%;
+  height: 50px;
+  padding: 6px 9px 7px;
+  color: #000;
+  font-size: 14px;
+  line-height: 21px;
+  background: none;
+  border: 1px solid #020f37;
+  outline: none;
+}
+
+
+.joinBtn {
+  width: 300px;
+  margin-top: 10px;
+  height: 50px;
+  background-color: #020f37;
+  color: #fff;
+  border-color: #020f37;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.joinWrap {
+  margin-top: 15px;
+}
+
+.findInfo {
+  margin-top: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: #999;
+}
+
+
+
+
+/* 경고 */
+.warning {
+  height: 22px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /*width: 60%;
+  margin: 0 auto;
+  color: red;
+  font-size: 13px;
+  text-align: left;
+  padding-left: 25px;*/
+  
+}
+
+
+
+
+
+/* 비번바꾸기 */
+.changeBtn {
+  width: 60%;
+  margin-top: 10px;
+  height: 50px;
+  background-color: #020f37;
+  color: #fff;
+  border-color: #020f37;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.changeWrap {
+  margin-top: 10px;
+}
+
+.btn {
+ width: 60%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 50px;
+  background-color: #020f37;
+  color: #fff;
+  border-color: #020f37;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+}
+

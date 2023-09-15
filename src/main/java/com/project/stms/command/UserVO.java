@@ -28,5 +28,6 @@ public class UserVO {
 	private String user_id; //유저 식별번호 이메일 아이디와 다름
 	private String user_role; //customer, engineer, admin
 	private String user_auth_yn; //이메일 인증 여부
+	private String user_adr;
 	
 }

@@ -11,7 +11,15 @@ body {
 
 ul, li {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
 
 .contentAreaBox {
   margin: 0 auto;
@@ -53,7 +61,7 @@ ul, li {
   border-bottom: 1px solid rgb(230, 235, 241);
 }
 
-.server_type {
+.server_id {
   width: 100px;
   height: 100px;
 }
@@ -105,4 +113,54 @@ ul, li {
 
 .submitBtn:hover {
   background-color: lightgray;
+}
+
+.memberProfileZone {
+	border: 1px solid black;
+	height: 200px;
+	margin-bottom: 15px;
+	overflow: scroll;
+}
+
+.memberListContainer {
+}
+
+.memberListZone {
+	padding-left: 20px;
+}
+
+.memberListZone ul li {
+	padding: 10px 0;
+}
+
+.memberListZone ul li p {
+	display: inline-block;
+	width: 20%;
+}
+
+.email {
+	margin-right: 200px;
+}
+
+.memberAddBtn {
+}
+
+.memberProfileList {
+	line-height: 40px;
+	padding: 0 10px;
+	text-align: center;
+}
+
+.memberProfileList li p {
+	display: inline-block;
+	padding: 0 50px;
+}
+
+.pageNation ul {
+	text-align: center;
+}
+
+.pageNation ul li {
+	display: inline-block;
+	
 }

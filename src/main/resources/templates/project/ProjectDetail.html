@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <script src="/js/jquery-3.7.0.min.js"></script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  
+ 
   <title>Document</title>
 </head>
 <body>
@@ -18,7 +21,7 @@
   <div id="container">
     <div class="titleZone">
       <div class="titleArea">
-        <p class="projectTitle">프로젝트이름</p>
+        <p class="projectTitle">[[${pVO.pjt_nm}]]</p>
       </div>
 
         <div class="tabMenuArea">
@@ -35,15 +38,18 @@
       <!-- 개요 탭에서 보여질 부분 -->
       <div class="taskInfoArea">
         <div class="taskProgressArea">
-          <div class="taskProgress">
-            <p>Graph Here</p>
+          <div class="taskProgress" style="line-height: 400px;">
+			  <p class="errMsg">[[${errMsg}]]</p>
+			  <div id="taskGraph">
+			  </div>
           </div>
         </div>
         <div class="taskCardArea">
-          <div class="taskCardContainer">
+			
+          <div class="taskCardContainer" th:each="tVO : ${tList}">
             <div class="taskCard">
               <div class="taskTitleArea">
-                <p class="taskTitle">작업 이름</p>
+                <p class="taskTitle">[[${tVO.task_nm}]]</p>
                 <a class="taskOption"><i class="bi bi-three-dots-vertical"></i></a>
                 <div class="taskOptionMenu hidden">
                   <p style="border-bottom: 1px solid rgb(230, 235, 241);">작업 수정</p>
@@ -52,11 +58,11 @@
               </div>
               <div class="taskContentArea">
                 <div class="taskDetailArea">
-                  <p class="taskDetail">작업 설명 ~~~</p>
+                  <p class="taskDetail">[[${tVO.task_dtl}]]</p>
                 </div>
                 <div class="taskStatusDateArea">
-                  <p class="taskStatus">대기중</p>
-                  <p class="taskDate">작업 기간</p>
+                  <p class="taskStatus">[[${tVO.status}]]</p>
+                  <p class="taskDate">[[${#temporals.format(tVO.task_end_dt, 'MM/dd HH:mm')}]]</p>
                 </div>
               </div>
             </div>
@@ -71,18 +77,18 @@
             <div class="shortFormArea">
               <ul>
                 <li>
-                  <p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" readonly/>
+                  <p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" readonly th:value="${pVO.pjt_nm}"/>
                 </li>
                 <li>
                   <p>서버 종류</p>
-                  <input type="text" readonly name="server_type" class="server_type"/>
+                  <input type="text" readonly name="server_model" class="server_model" th:value="${pVO.server_model}"/>
                 </li>
                 <li>
                   <div>
-                    <p>시작일</p><input type="date" name="pjt_st_dt" readonly/>
+                    <p>시작일</p><input type="date" name="pjt_st_dt" readonly th:value="${pVO.pjt_st_dt}"/>
                   </div>
                   <div>
-                    <p>마감일</p><input type="date" name="pjt_end_dt" readonly/>
+                    <p>마감일</p><input type="date" name="pjt_end_dt" readonly th:value="${pVO.pjt_end_dt}"/>
                   </div>
                 </li>
               </ul>
@@ -95,7 +101,7 @@
                   <div class="detailFormAreaRight">
                   </div>
                 </div>
-                <textarea name="pjt_dtl" class="pjt_dtl" readonly></textarea>
+                <textarea name="pjt_dtl" class="pjt_dtl" readonly>[[${pVO.pjt_dtl}]]</textarea>
     
               </div>
           </div>
@@ -113,8 +119,8 @@
             <div class="requestUserList">
               <ul>
                 <li>
-                  <p>위지언</p>
-                  <p>abcde@google.com</p>
+                  <p>[[${cusUList.user_group}]]</p>
+                  <p>[[${cusUList.user_email}]]</p>
                 </li>
               </ul>
             </div>
@@ -124,10 +130,10 @@
             <div class="adminUserList">
               <ul>
                 <li>
-                  <p>홍길동</p>
-                  <p>abcde@google.com</p>
-                  <p>위지언</p>
-                  <p>관리자</p>
+                  <p>[[${adUList.user_nm}]]</p>
+                  <p>[[${adUList.user_email}]]</p>
+                  <p>[[${adUList.user_group}]]</p>
+                  <p>[[${adUList.user_role}]]</p>
                 </li>
               </ul>
             </div>
@@ -137,11 +143,11 @@
             <p class="normalUser">작업자<i class="bi bi-plus-square memberAdd" data-bs-toggle="modal" data-bs-target="#addMemberModal"></i></p>
             <div class="normalUserList">
               <ul>
-                <li>
-                  <p>홍길동</p>
-                  <p>abcde@google.com</p>
-                  <p>위지언</p>
-                  <p>작업자</p>
+                <li th:each="eVO : ${engiUList}">
+                  <p>[[${eVO.user_nm}]]</p>
+                  <p>[[${eVO.user_email}]]</p>
+                  <p>[[${eVO.user_group}]]</p>
+                  <p>[[${eVO.user_role}]]</p>
                 </li>
               </ul>
             </div>
@@ -152,38 +158,47 @@
       </div>
 
       <div class="modalArea">
-        <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">멤버 추가</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="memberContainer">
-                  <div class="upperMemberContainer">
-                    <ul class="memberProfileZone">
-                    </ul>
-                  </div>
-                  <div class="lowerMemberContainer">
-                    <div class="memberListZone">
-                      <ul>
-                        <li>
-                          <p class="memname">이름</p><p>이메일</p><i class="bi bi-check-square memberAddBtn"></i>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">업로드</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+		<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">작업자 추가</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="memberListContainer">
+							<div class="memberProfileZone">
+								<form method="post" action="updateMemberForm" id="updateMemberForm">
+									<input hidden type="text" th:value="${pVO.pjt_id}" name="pjt_id"/>
+									<ul class="memberProfileList"></ul>
+								</form>
+							</div>
+							<div class="memberListZone">
+								<ul>
+									<li th:each="notUVO : ${notAddedList}">
+										<p th:class="${notUVO.user_id}">[[${notUVO.user_nm}]]</p>
+										<p class="email">[[${notUVO.user_email}]]</p><i class="bi bi-check-square memberAddBtn"></i>
+										<p class="user_idHidden" hidden>[[${notUVO.user_id}]]</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="pageNation">
+							<ul>
+								<th:block th:each="page : ${pageVO.pageList}">
+									<li><a class="pages">[[${page}]]</a></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary updateMemBtn" data-bs-dismiss="modal">추가</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -191,7 +206,7 @@
     </div>
   </div>
 
-  <script>
+  <script th:inline="javascript">
 
     window.onload = () => {
       $('.taskInfoArea').toggle(true);
@@ -223,13 +238,10 @@
 
 
     // 작업 옵션 열기
-    $('.taskOption').click(() => {
-      $('.taskOption').toggleClass('optionOpen');
-      if($('.taskOption').hasClass('optionOpen')){
-        $('.taskOptionMenu').removeClass('hidden');
-      } else {
-        $('.taskOptionMenu').addClass('hidden')
-      }
+    $('.taskOption').click((e) => {
+		console.log(e.target);
+		e.target.parentElement.nextElementSibling.classList.toggle("hidden");
+		e.target.parentElement.classList.toggle("optionOpen");
     })
 
     // 멤버 추가 버튼
@@ -244,13 +256,71 @@
     })
 
 
-    // 모달창 띄우기
-    $('.memberAddBtn').click((e) => {
-      $('.memberAddBtn').toggleClass('bi-check-square').toggleClass('bi-check-square-fill');
-      if ($('.memberAddBtn').hasClass("bi-check-square-fill")) {
-        $('.memberProfileZone').append('<div class="memberProfileContainer"><li class="memberProfile"><p>' + e.target.parentElement.firstElementChild.innerHTML + '</p></li></div>');
+	$('.memberAddBtn').click((e) => {
+
+		var currName = $(e.target).parent().children().first().attr("class");
+
+		if ($(e.target).hasClass('bi-check-square-fill')) {
+			$('.memberProfileList').children('.' + currName).remove();
+		} else {
+			$('.memberProfileList').append('<li class="' + $(e.target).parent().children().first().attr("class") + '"><p>' + $(e.target).parent().children().first().text() + '</p><p>' + $(e.target).parent().children('.email').text() + '</p><input type="text" hidden name="users" value="' + $(e.target).parent().children('.user_idHidden').text() +'"/></li>');
+
+		}
+
+		$(e.target).toggleClass('bi-check-square bi-check-square-fill');
+
+	});    
+    
+    
+      
+      var chartPjt_date = [[${chartPjt_date}]];
+      var chartCompleteTask = [[${chartCompleteTask}]];
+      
+      
+      if(!chartCompleteTask.includes(null)){
+		  
+      google.charts.load('current', {'packages':['corechart'], 'language' : 'kr'});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      
+	
+		  
+      var exchart = [ ['date', '진행도'] ];
+      for(var i = 0; i < chartPjt_date.length; i++){
+		  exchart.push([chartPjt_date[i], chartCompleteTask[i]] );
+	  }
+		  
+
+      function drawChart() {
+		  
+        var data = google.visualization.arrayToDataTable(exchart);
+
+        var options = {
+          title: '작업 진행',
+          curveType: 'none',
+          
+          legend: { position: 'bottom' },
+           vAxis: {
+            viewWindow: {
+                max: 100, // Set the maximum value for the y-axis
+                min: 0
+            }
+        }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('taskGraph'));
+
+        chart.draw(data, options);
       }
-    });
+		  
+	  }
+    
+      
+	$('.updateMemBtn').click(function(){
+		alert('작업자 정보가 업데이트 되었습니다.');
+		$('#updateMemberForm').submit();
+	});
+    
 
   </script>
 

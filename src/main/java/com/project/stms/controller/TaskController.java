@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.TaskVO;
-import com.project.stms.task.service.TaskService;
+import com.project.stms.service.task.TaskService;
 import com.project.stms.util.Criteria;
 import com.project.stms.util.PageVO;
 

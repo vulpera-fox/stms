@@ -38,6 +38,10 @@ a {
 }
 
 
+#taskGraph > div > div {
+	margin: 0 auto;
+}
+
 
 
 .tabMenuArea {
@@ -67,7 +71,7 @@ a {
 }
 
 .taskProgressArea {
-  width: 70%;
+	width: 100%;
   height: 400px;
   margin-bottom: 20px;
 }
@@ -83,12 +87,14 @@ a {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  padding-right: 10px;
 }
 
 .taskCardContainer {
   padding-top: 10px;
   padding-left: 10px;
   min-width: 300px;
+  width: 25%;
 }
 
 .taskCard {
@@ -215,7 +221,7 @@ a {
   border-bottom: 1px solid rgb(230, 235, 241);
 }
 
-.server_type {
+.server_model {
   width: 200px;
   height: 30px;
 }
@@ -255,12 +261,14 @@ a {
 
 
 .memberInfoArea {
-  background-color: white;
-  border: 1px solid rgb(230, 235, 241);
+
+  padding: 20px;
 }
 
 .memberInfoAreaContainer {
-  padding: 20px;
+    background-color: white;
+  border: 1px solid rgb(230, 235, 241);
+  padding: 30px 30px;
 }
 
 .requestUserInfo {
@@ -333,11 +341,12 @@ a {
 }
 
 
+
 .memberProfileZone {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0 auto;
+	border: 1px solid black;
+	height: 200px;
+	margin-bottom: 15px;
+	overflow: scroll;
 }
 
 
@@ -349,5 +358,25 @@ a {
   text-align: center;
   line-height: 40px;
   background-color: lightcyan;
+}
+
+.memberProfileList {
+	line-height: 40px;
+	padding: 0 10px;
+	text-align: center;
+}
+
+.memberProfileList li p {
+	display: inline-block;
+	padding: 0 50px;
+}
+
+.pageNation ul {
+	text-align: center;
+}
+
+.pageNation ul li {
+	display: inline-block;
+	
 }
 
