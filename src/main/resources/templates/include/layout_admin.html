@@ -59,10 +59,10 @@ f
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img th:src=@{/img/logo.png} style="width: 30px; height: 30px;"></i>
+                    <img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(14deg);"></i>
                 </div>
                 <!--<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>-->
-                <div class="sidebar-brand-text mx-3">LOGO</div>
+                <div class="sidebar-brand-text mx-3" style="margin-left: 0.5rem !important;">LOGO</div>
             </a>
 
             <!-- Divider -->
@@ -72,33 +72,22 @@ f
             <li class="nav-item">
                 <a class="nav-link" href="/">
                     <img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
-                    <span>홈</span></a>
+                    <span style="margin: 5px">홈</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading" style="letter-spacing: 1px;">
                 MENU
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <img th:src=@{/img/check_mark.png} alt="" style="width: 20px; height: 20px;" />
-                    <span>프로젝트 관리</span>
+             <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <img th:src=@{/img/check_mark.png} style="width: 20px; height: 20px;" />
+                    <span style="letter-spacing: 1px;">프로젝트 관리</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">PROJECT MANAGEMENT :</h6>
-                        <a class="collapse-item" href="/project/ProjectMain">프로젝트 조회</a>
-                        <a class="collapse-item" href="">프로젝트 등록</a>
-                        <a class="collapse-item" href="cards.html">보고서</a>
-
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -106,7 +95,7 @@ f
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <img th:src=@{/img/question_mark.png} style="width: 20px; height: 20px;" />
-                    <span>작업 관리</span>
+                    <span style="letter-spacing: 1px;">작업 관리</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
@@ -129,7 +118,7 @@ f
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <img th:src=@{/img/add_member.png} style="width: 20px; height: 20px;" />
-                    <span>직원 관리</span>
+                    <span style="letter-spacing: 1px;">직원 관리</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -144,7 +133,7 @@ f
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <img th:src=@{/img/customer.png} style="width: 20px; height: 20px;" />
-                    <span>고객 관리</span>
+                    <span style="letter-spacing: 1px;">고객 관리</span>
                 </a>
             </li>
 
@@ -153,7 +142,7 @@ f
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <img th:src=@{/img/question_mark.png} style="width: 20px; height: 20px;" />
-                    <span>Q&A</span></a>
+                    <span style="letter-spacing: 1px;">Q&A</span></a>
             </li>
 
 
@@ -194,90 +183,7 @@ f
                             <!-- Topbar Navbar -->
                             <ul class="navbar-nav ml-auto">
                                 <!-- Nav Item - Alerts -->
-                                <li class="nav-item dropdown no-arrow mx-1">
-                                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-bell fa-fw" style="color:#414348b1"></i>
-                                        <!-- Counter - Alerts -->
-                                        <span class="badge badge-danger badge-counter">3+</span>
-                                    </a>
-                                    <!-- Dropdown - Alerts -->
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                        aria-labelledby="alertsDropdown">
-                                        <h6 class="dropdown-header">
-                                            Alerts Center
-                                        </h6>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-file-alt text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 12, 2019</div>
-                                                <span class="font-weight-bold">A new monthly report is ready to
-                                                    download!</span>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-success">
-                                                    <i class="fas fa-donate text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 7, 2019</div>
-                                                $290.29 has been deposited into your account!
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-warning">
-                                                    <i class="fas fa-exclamation-triangle text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">December 2, 2019</div>
-                                                Spending Alert: We've noticed unusually high spending for your account.
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                            Alerts</a>
-                                    </div>
-                                </li>
-
-                                <!-- Nav Item - Messages -->
-                          <!--       <li class="nav-item dropdown no-arrow mx-1">
-                                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-envelope fa-fw"></i> -->
-                                        <!-- Counter - Messages -->
-                                       <!--  <span class="badge badge-danger badge-counter">7</span>
-                                    </a> -->
-                                    <!-- Dropdown - Messages -->
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                        aria-labelledby="messagesDropdown">
-                                        <h6 class="dropdown-header">
-                                            Message Center
-                                        </h6>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image mr-3">
-                                                <img class="rounded-circle" th:src="@{/img/undraw_profile_1.svg}"
-                                                    alt="...">
-                                                <div class="status-indicator bg-success"></div>
-                                            </div>
-                                            
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            
-                                               
-                                               
-                                           
-                                        </a>
-                                        <a class="dropdown-item text-center small text-gray-500" href="#">Read More
-                                            Messages</a>
-                                    </div>
-                                </li>
+                                <th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
 
                                 <div class="topbar-divider d-none d-sm-block"></div>
 

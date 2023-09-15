@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class NewsVO {
+public class NewsVO { // post 테이블..
 
 	private Integer post_id;
 	private Integer board_id;
