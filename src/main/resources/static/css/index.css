@@ -181,8 +181,8 @@ input[type='text'].datepicker{width:100px; background:url('../img/calander.png')
 .page{padding:30px 0 20px 0;position:relative;}
 .page ul{text-align:center;}
 .page ul li{display:inline;  padding:0px!important;}
-.page ul li a{display:inline-block; zoom:1;*display:inline; width: 35px; height: 35px; line-height: 35px; color:#777777; border:1px solid #dddddd;transition:all 0.25s ease-in-out;-webkit-transition:all 0.25s ease-in-out;font-size:15px;}
-.page ul li a:hover, .page ul li.on a{display:inline-block;zoom:1;*display:inline; border:1px solid #7866c9;background:#fff;color:#7866c9;}
+.page ul li a{display:inline-block; zoom:1;display:inline; width: 35px; height: 35px; line-height: 35px; color:#777777; border:1px solid #dddddd;transition:all 0.25s ease-in-out;-webkit-transition:all 0.25s ease-in-out;font-size:15px;}
+.page ul li a:hover, .page ul li.on a{display:inline-block;zoom:1;display:inline; border:1px solid #7866c9;background:#fff;color:#7866c9;}
 .page ul li a i{color:#777777;}
 .page ul li a:hover i{color:#7866c9;}
 

@@ -13,9 +13,11 @@ public class Criteria {
 	private String searchCustomer; //고객사 검색
 	private String searchEngineer; //담당자 검색
 	
+
+	private String searchType;
+	private String searchKeyword;
 	private String searchPjtName; //작업등록 시 프로젝트 목록 검색
-	
-	
+
 	//기본 값(기본 생성자로 만들어졌을 때 1, 10)
 	public Criteria() {
 		this.page = 1;

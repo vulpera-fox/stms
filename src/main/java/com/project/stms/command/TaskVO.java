@@ -18,8 +18,8 @@ public class TaskVO {
 	private Integer server_id;
 	private String task_nm; //작업제목
 	private String task_dtl; //작업내용
-	
-	private String user_group; //고객사 이름(회사명)
+
+  private String user_group; //고객사 이름(회사명)
 	private String user_id; //작업자 이름
 	private String user_adr; //작업지
 	
@@ -35,7 +35,5 @@ public class TaskVO {
 	private Integer tem_id;
 	private String tem_nm;
 	private String pred_time;
-
-	
 	
 }

@@ -48,7 +48,6 @@ public class SecurityConfig {
 		//1. 크로스오리진 필터 생성 cors
 		http.cors(Customizer.withDefaults());
 		
-		
 		//3. 로그인 시도에 AuthenticationManager가 필요함
 		//AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 		//++UserDetailService객체 and PasswordEncoder 가 반드시 필요

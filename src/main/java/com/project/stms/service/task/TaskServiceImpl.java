@@ -52,6 +52,7 @@ public class TaskServiceImpl implements TaskService{
 	
 	
 	@Override
+
 	public ArrayList<ProjectVO> getPjtList(Criteria cri) {
 		
 		return taskMapper.getPjtList(cri);
