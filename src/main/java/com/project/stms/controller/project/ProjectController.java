@@ -82,7 +82,7 @@ public class ProjectController {
 	public String registForm(ProjectVO vo,
 							 @RequestParam(required = false, name = "file") List<MultipartFile> list) {
 		
-		if(list.size() > 0) {
+		if(list != null) {
 			projectService.insertFiles(list);
 		}
 		
@@ -262,7 +262,6 @@ public class ProjectController {
 			mo.addAttribute("tList", tList);
 		} else {
 			
-			System.out.println("작업이 없다");
 			mo.addAttribute("errMsg", "작업이 없습니다");
 		}
 		
@@ -281,10 +280,11 @@ public class ProjectController {
 		
 		projectService.updateProjectInfo(pVO);
 		
-		for(int i = 0; i < users.size(); i++) {
-			
-			
-			projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
+		
+		if(users != null) {
+			for(int i = 0; i < users.size(); i++) {
+				projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
+			}
 		}
 		
 		

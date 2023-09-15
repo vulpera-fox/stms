@@ -22,6 +22,10 @@
 
 <body>
 	<div>
+		<th:block th:replace="  ~{/include/layout_admin :: setContent(~{ :: #container})}">
+			
+		
+		
 		<div id='container'>
 			<div class='searchArea'>
 				<div class='searchBar'>
@@ -53,12 +57,14 @@
 						<div class='searchFilterArea'>
 							<div class='server_id'>
 								<span>서버 종류 : </span>
-								<select name='server_id'>
-									<option value="">서버를 선택하세요</option>
-									<option value="1">서버1</option>
-									<option value="2">서버2</option>
-									<option value="3">서버3</option>
-									<option value="4">서버4</option>
+								<select name='server_type'>
+									<option value="none">서버를 선택하세요</option>
+									<option value="web">웹 서버</option>
+									<option value="app">어플리케이션 서버</option>
+									<option value="proxy">프록시 서버</option>
+									<option value="mail">메일 서버</option>
+									<option value="db">데이터베이스 서버</option>
+									<option value="file">파일 서버</option>
 								</select>
 							</div>
 							<div class='pjt_end_dt'>
@@ -161,6 +167,8 @@
 			</div>
 		</div>
 	</div>
+	
+	</th:block>
 
 	<script th:inline="javascript">
 
