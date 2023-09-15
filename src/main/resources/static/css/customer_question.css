@@ -1,0 +1,267 @@
+* {
+
+	margin: 0;
+	padding: 0;
+}
+
+.subtop_wrap {
+
+	background-color: powderblue;
+	background: url(../img/question_banner.jpeg) no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 230px;
+	justify-content: center;
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+}
+
+.subtop .page_header {
+
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	font-size: 40px;
+	letter-spacing: 3px;
+	font-weight: 500;
+
+}
+
+.subtop_wrap .subtop .sub_text {
+
+	color: white;
+	font-size: 18px;
+	line-height: 24px;
+	padding-top: 15px;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.search {
+
+	text-align: right;
+	margin-top: 10px;
+	padding: 10px;
+	overflow: hidden;
+}
+
+.search .total_num {
+
+	float: left;
+	font-size: 14px;
+	padding-top: 9.5px;
+}
+
+.total_num span {
+
+	color: #020f37;
+}
+
+select {
+
+	border: none !important;
+	width: 77px;
+	height: 20px;
+	padding: 1px 13px;
+	border-radius: 40px;
+	margin-right: 10px;
+	background-color: #fafafa;
+}
+
+
+
+.search .keyword {
+	border: none;
+	border-bottom: 1.5px solid #020f37;
+	width: 176px;
+	height: 24px;
+	/* border-radius: 18px; */
+	font-size: 15px;
+	padding: 5px;
+	background-color: #fafafa;
+
+
+}
+
+.search .keyword:focus {
+
+	outline: none;
+	font-size: 16px;
+}
+
+input[name=search_box]::placeholder {
+
+	color: #afabab;
+	font-size: 13px;
+	text-align: center;
+
+}
+
+.search .search_btn {
+
+	border: none;
+	cursor: pointer;
+	background-color: #020f37;
+	color: white;
+	width: 50px;
+	height: 36px;
+	border-radius: 20px;
+	box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.306);
+	transition-duration: 0.3s;
+
+}
+
+.search .search_btn:active {
+
+	box-shadow: none;
+	margin-left: 5px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+table {
+
+	border-collapse: collapse;
+}
+
+a {
+
+	text-decoration: none;
+	color: inherit;
+
+}
+
+.q_list_wrap {
+
+	padding: 50px;
+	text-align: center;
+	margin: auto;
+	padding: 35px;
+
+}
+
+.q_list {
+
+	border-top: 2px solid #020f37;
+	width: 100%
+}
+
+.q_list_wrap .q_list tr {
+
+	border-bottom: 1px solid #020f3766;
+
+}
+
+.q_list_wrap .q_list th,
+.q_list_wrap .q_list td {
+
+	padding: 10px;
+	font-size: 13px;
+}
+
+
+
+.q_list th {
+	text-align: center;
+	color: #020f37;
+}
+
+.q_list td {
+
+	text-align: center;
+	font-size: 14px;
+	color: black;
+}
+
+.q_list td a {
+	color: black;
+}
+
+.q_list .title {
+
+	text-align: left;
+}
+
+.q_list .title:hover {
+
+	text-decoration: underline;
+}
+
+.q_list_wrap .paging {
+	margin-top: 30px;
+	font-size: 0;
+	text-align: center;
+
+}
+
+.q_list_wrap .paging a {
+
+	display: inline-block;
+	/* border: brown 1px solid; */
+	font-size: 15px;
+	margin-left: 10px;
+	border-radius: 20px;
+	padding: 5px 10px;
+	color: black !important;
+}
+
+
+
+
+.q_list_wrap .paging a.page_btn:hover {
+
+	background-color: #020f37;
+	color: white !important;
+}
+
+
+
+.q_list_wrap .paging a.page_num {
+
+
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+	font-weight: 600px;
+
+}
+
+.q_list_wrap .paging a.page_num:hover {
+
+	background-color: #020f37;
+	color: white !important;
+}
+
+/* 글쓰기 버튼 */
+
+.goto_write{
+	
+	text-align: right;
+	padding:20px;
+}
+.goto_write .goto_write_btn {
+
+	all: unset;
+	text-decoration: none;
+	background-color: #020f37;
+	color: white;
+	padding: 10px;
+	width: 40px;
+	height: 25px;
+	text-align: center;
+	border-radius: 10px;
+
+}
+
+.goto_write .goto_write_btn >  a {
+
+	text-decoration: none;
+	color: white;
+	text-align: center;
+	font-size: 15px;
+}
+
+
+
+

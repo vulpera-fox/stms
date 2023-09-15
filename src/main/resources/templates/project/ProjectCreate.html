@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="/css/ProjectCreate.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="/js/jquery-3.7.0.min.js"></script>
+	<title>Document</title>
+</head>
+
+<body>
+	
+	
+<form method="post" action="submitForm">
+	<input type="text" th:value="${pVO.pjt_id}" hidden name="pjt_id"/>
+	<input type="text" th:value="${ins_user_id}" hidden name="ins_user_id"/>
+	<div class="container">
+
+		<div class="contentAreaBox">
+
+			<div class="contentArea">
+				<div class="topArea">
+					<span>프로젝트 생성</span>
+				</div>
+				<div class="shortFormArea">
+					<ul>
+						<li>
+							<p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" th:value="${pVO.pjt_nm}" />
+						</li>
+						<li>
+							<p>서버 종류</p>
+							<select name="server_id" class="server_id">
+								<option th:value="${pVO.server_id}">[[${pVO.server_model}]]</option>
+							</select>
+						</li>
+						<li>
+							<div>
+								<p>시작일</p><input type="date" name="pjt_st_dt" th:value="${pVO.pjt_st_dt}" />
+							</div>
+							<div>
+								<p>마감일</p><input type="date" name="pjt_end_dt" th:value="${pVO.pjt_end_dt}" />
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				
+					<div class="detailFormArea">
+						<div class="upperDetailFormArea">
+							<div class="detailFormAreaLeft">
+								<p style="margin-bottom: 20px; font-size: 20px;">프로젝트 내용</p>
+							</div>
+							<div class="detailFormAreaRight">
+								<a data-bs-toggle="modal" data-bs-target="#addMemberModal" style="font-size: 15px;"><svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-person-add" viewBox="0 0 16 16">
+										<path
+											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
+										<path
+											d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+									</svg>멤버 추가</a>
+							</div>
+						</div>
+						<textarea name="pjt_dtl" class="pjt_dtl">[[${pVO.pjt_dtl}]]</textarea>
+						<div class="formBtnArea">
+							<div>
+								<button class="submitBtn" type="submit">생성</button>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modalArea">
+		<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">작업자 추가</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="memberListContainer">
+							<div class="memberProfileZone">
+								<ul class="memberProfileList">
+
+								</ul>
+							</div>
+							<div class="memberListZone">
+								<ul>
+									<li th:each="norUVO : ${norUList}">
+										<p th:class="${norUVO.user_id}">[[${norUVO.user_nm}]]</p>
+										<p class="email">[[${norUVO.user_email}]]</p><i class="bi bi-check-square memberAddBtn"></i>
+										<p class="user_idHidden" hidden>[[${norUVO.user_id}]]</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="pageNation">
+							<ul>
+								<th:block th:each="page : ${pageVO.pageList}">
+									<li><a class="pages">[[${page}]]</a></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">추가</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+
+	<script th:inline="javascript">
+
+		$('.memberAddBtn').click((e) => {
+
+			var currName = $(e.target).parent().children().first().attr("class");
+
+			if ($(e.target).hasClass('bi-check-square-fill')) {
+				$('.memberProfileList').children('.' + currName).remove();
+			} else {
+				$('.memberProfileList').append('<li class="' + $(e.target).parent().children().first().attr("class") + '"><p>' + $(e.target).parent().children().first().text() + '</p><p>' + $(e.target).parent().children('.email').text() + '</p><input type="text" hidden name="users" value="' + $(e.target).parent().children('.user_idHidden').text() +'"/></li>');
+
+			}
+
+			$(e.target).toggleClass('bi-check-square bi-check-square-fill');
+
+		});
+
+		var pages = document.getElementsByClassName('pages');
+
+		for (var i = 0; i < pages.length; i++) {
+
+			pages[i].addEventListener('click', function (e) {
+				console.log(this.innerHTML);
+
+
+			})
+		}
+
+	</script>
+
+
+</body>
+
+</html>

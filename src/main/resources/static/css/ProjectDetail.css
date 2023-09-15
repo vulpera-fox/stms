@@ -1,0 +1,382 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Nanum Gothic Coding', cursive;
+}
+
+body {
+  background-color: rgb(250, 250, 251);
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: black;
+}
+
+#container {
+  border: 1px solid rgb(230, 235, 241);
+  padding: 20px;
+}
+
+.titleArea {
+  margin-bottom: 10px;
+}
+
+.projectTitle {
+  font-size: 30px;
+}
+
+
+#taskGraph > div > div {
+	margin: 0 auto;
+}
+
+
+
+.tabMenuArea {
+  border-bottom: 1px solid black;
+}
+
+.tabList p {
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.tabList p:hover {
+  color: red;
+}
+
+.on {
+  color: red;
+  border-bottom: 1px solid black;
+  background-color: white;
+}
+
+.contentZone {
+  margin-top: 30px;
+}
+
+.taskProgressArea {
+	width: 100%;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.taskProgress {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.taskCardArea {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-right: 10px;
+}
+
+.taskCardContainer {
+  padding-top: 10px;
+  padding-left: 10px;
+  min-width: 300px;
+  width: 25%;
+}
+
+.taskCard {
+  width: 100%;
+  background-color: white;
+  display: inline-block;
+  height: 350px;
+}
+
+.taskTitleArea {
+  text-align: center;
+  border-bottom: 1px solid rgb(230, 235, 241);
+  padding: 10px 20px;
+  position: relative;
+}
+
+.taskTitle {
+  font-size: 18px;
+}
+
+.taskOption {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+}
+
+.taskOption:hover, .taskOption.optionOpen {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+}
+
+.taskOptionMenu.hidden {
+  display: none;
+}
+
+.taskOptionMenu {
+  position: absolute;
+  right: 10px;
+  top: 32px;
+  border: 1px solid rgb(230, 235, 241);
+  background-color: rgb(250, 250, 251);
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
+
+}
+
+
+.taskContentArea {
+  padding: 0 30px;
+  padding-top: 15px;
+  height: 302px;
+}
+
+.taskDetailArea {
+  margin-bottom: 20px;
+  height: 75%;
+  border-bottom: 1px solid rgb(230, 235, 241);
+}
+
+.taskDetail {
+  width: 80%;
+}
+
+.taskStatusDateArea {
+  overflow: hidden;
+  line-height: 40px;
+}
+
+.taskStatus, .taskDate {
+  display: inline-block;
+}
+
+.taskStatus {
+  border: 1px solid blue;
+  border-radius: 20px;
+  background-color: blue;
+  color: white;
+  width: 80px;
+  text-align: center;
+}
+
+.taskDate {
+  float: right;
+}
+
+.projectInfoContainer {
+  padding: 20px;
+}
+
+.contentArea {
+  background-color: white;
+  border: 1px solid rgb(230, 235, 241);
+}
+
+
+.detailFormArea {
+  padding: 20px 40px;
+}
+
+.upperDetailFormArea {
+  overflow: hidden;
+}
+
+.detailFormAreaLeft {
+  float: left;
+}
+
+.detailFormAreaRight {
+  float: right;
+  width: 150px;
+  text-align: right;
+}
+
+.topArea {
+  padding: 20px;
+  border-bottom: 1px solid rgb(230, 235, 241);
+}
+
+.shortFormArea {
+  padding: 20px 40px;
+  border-bottom: 1px solid rgb(230, 235, 241);
+}
+
+.server_model {
+  width: 200px;
+  height: 30px;
+}
+
+
+.shortFormArea p {
+  font-size: 13px;
+}
+
+.shortFormArea li {
+  padding: 10px 0;
+}
+
+.shortFormArea ul {
+  padding: 0;
+}
+
+.shortFormArea li:last-child div{
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.pjt_nm { 
+  width: 100%;
+}
+
+.pjt_dtl {
+  width: 100%;
+  height: 500px;
+  padding: 10px;
+}
+
+.shortFormArea {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+
+.memberInfoArea {
+
+  padding: 20px;
+}
+
+.memberInfoAreaContainer {
+    background-color: white;
+  border: 1px solid rgb(230, 235, 241);
+  padding: 30px 30px;
+}
+
+.requestUserInfo {
+  margin-bottom: 30px;
+}
+
+.adminUserInfo {
+  margin-bottom: 30px;
+}
+
+.requestUser, .adminUser, .normalUser {
+  font-size: 23px;
+  padding-bottom: 10px;
+}
+
+.requestUserList ul li p, 
+.adminUserList ul li p, 
+.normalUserList ul li p {
+  display: inline-block;
+  width: 20%;
+}
+
+.requestUserList ul li p:first-child 
+.adminUserList ul li p:first-child 
+.normalUserList ul li p:first-child 
+{
+  width: 10%;
+}
+
+.memberAdd {
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+.upperMemberContainer {
+  min-height: 40px;
+  border: 1px solid black;
+  display: flex;
+}
+
+.memberListZone ul {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.memberListZone ul li {
+  padding: 0 10px;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.memberListZone ul li > * {
+  display: inline-block;
+  padding: 0 10px;
+  margin: 0;
+  line-height: 40px;
+}
+
+.memberListZone ul li > button {
+  line-height: 0;
+  width: 30px;
+  height: 30px;
+  float: right;
+}
+
+.memberAddBtn {
+  float: right;
+}
+
+
+
+.memberProfileZone {
+	border: 1px solid black;
+	height: 200px;
+	margin-bottom: 15px;
+	overflow: scroll;
+}
+
+
+.memberProfile p {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(230, 235, 241);
+  border-radius: 20px;
+  text-align: center;
+  line-height: 40px;
+  background-color: lightcyan;
+}
+
+.memberProfileList {
+	line-height: 40px;
+	padding: 0 10px;
+	text-align: center;
+}
+
+.memberProfileList li p {
+	display: inline-block;
+	padding: 0 50px;
+}
+
+.pageNation ul {
+	text-align: center;
+}
+
+.pageNation ul li {
+	display: inline-block;
+	
+}
+

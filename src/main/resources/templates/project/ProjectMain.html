@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+</html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../css/ProjectMain.css">
+	<script src="../js/jquery-3.7.0.min.js"></script>
+	<title>Document</title>
+</head>
+
+<body>
+	<div>
+		<th:block th:replace="  ~{/include/layout_admin :: setContent(~{ :: #container})}">
+			
+		
+		
+		<div id='container'>
+			<div class='searchArea'>
+				<div class='searchBar'>
+
+					<div class='upperSearchBar'>
+						<form action="searchName" method="get" id="searchName">
+							<input type='text' name="pjt_nm" />
+						</form>
+						<a style="width: 20px; height: 20px;" onclick="searchNameSubmit()"><span class='searchIcon'>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									class='bi bi-search' viewBox="0 0 16 16">
+									<path
+										d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+								</svg>
+							</span></a>
+					</div>
+					<div class="lowerSearchBar">
+						<div class="lowerSearchBarLeft">
+							<p class='toggleFilter'>검색 필터</p><a class="resetBtn" th:href="@{ProjectMain}">초기화</a>
+						</div>
+						<div class="lowerSearchBarRight">
+							<a class="checkRequest" data-bs-toggle="modal" data-bs-target="#reqProjectListModal">신청
+								승인</a>
+						</div>
+					</div>
+				</div>
+				<div class="filterArea hidden">
+					<form action="searchForm" method="get">
+						<div class='searchFilterArea'>
+							<div class='server_id'>
+								<span>서버 종류 : </span>
+								<select name='server_type'>
+									<option value="none">서버를 선택하세요</option>
+									<option value="web">웹 서버</option>
+									<option value="app">어플리케이션 서버</option>
+									<option value="proxy">프록시 서버</option>
+									<option value="mail">메일 서버</option>
+									<option value="db">데이터베이스 서버</option>
+									<option value="file">파일 서버</option>
+								</select>
+							</div>
+							<div class='pjt_end_dt'>
+								<span>마감일 : </span><input type='date' name='pjt_end_dt' />
+							</div>
+							<div class='ins_user_id'>
+								<span>담당자 : </span><input type='text' placeholder='담당자를 입력하세요' name='ins_user_id' />
+							</div>
+							<div class='filterSubmit'>
+								<button type='submit' class="submitBtn">검색</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+
+
+			<div class='projectArea'>
+				<th:block th:each="vo : ${pList}">
+					<th:block th:if="${vo.created_yn} == 1">
+
+
+						<div class='projectBoxContainer'>
+							<form action="getDetail" method="get" th:id="getDetail + ${vo.pjt_id}">
+
+								<input type="hidden" th:value="${vo.pjt_id}" name="pjt_id">
+								<div th:class='projectBox'>
+									<div class='upperBox'>
+										<p class='projectName'>[[${vo.pjt_nm}]]</p>
+										<p class='typeOfServer'>[[${vo.server_model}]]</p>
+									</div>
+									<div class='lowerBox'>
+										<div style="margin: 30px 0; padding: 0 10px;">
+											<div class='lowerBoxLeft'>
+												<p class='companyName'>[[${vo.user_group}]]</p>
+												<p class='projectManager'>담당자 : [[${vo.user_nm}]]</p>
+											</div>
+											<div class='lowerBoxRight'>
+												<p class='projectStatus'>[[${vo.status == 0 ? '진행예정' : vo.status == 1 ?
+													'진행중' :
+													'완료'}]]</p>
+											</div>
+										</div>
+										<div>
+											<p class='projectPeriod'>마감일 : [[${vo.pjt_end_dt}]]</p>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</th:block>
+					</th:block>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div class="modalArea">
+		<div class="modal fade" id="reqProjectListModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">승인 대기 목록</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="projectListContainer">
+							<table class="projectListTable">
+								<thead>
+									<tr style="border-bottom: 1px solid black; margin-bottom: 20px;">
+										<th>고객사</th>
+										<th>프로젝트명</th>
+										<th>서버 분류</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="reqPVO : ${reqPList}">
+										<th:block th:if="${reqPVO.created_yn} == 0">
+											<td>[[${reqPVO.user_group}]]</td>
+											<td>[[${reqPVO.pjt_nm}]]</td>
+											<td>[[${reqPVO.server_model}]]</td>
+											<td style="padding-left: 30px;"><a class="projectCreateBtn"
+													th:href="@{ProjectCreate(pjt_id=${reqPVO.pjt_id})}">생성</a></td>
+										</th:block>
+									</tr>
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</th:block>
+
+	<script th:inline="javascript">
+
+		var toggleFilter = document.querySelector(".toggleFilter");
+		var filterArea = document.querySelector(".filterArea");
+
+		// toggleFilter.addEventListener('click', (e) => {
+		//   filterArea.classList.toggle("hidden");
+		// })
+
+		// 필터 열고닫기
+		$('.toggleFilter').click((e) => {
+			$('.filterArea').toggleClass('hidden');
+		})
+
+
+		$('.projectBox').click((e) => {
+			e.currentTarget.parentElement.submit();
+		})
+
+
+		var searchNameSubmit = () => {
+			$('#searchName').submit();
+		}
+
+
+
+	</script>
+
+</body>
+
+</html>

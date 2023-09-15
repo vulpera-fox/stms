@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<th:block th:fragment="pageNation(pageVO)">
+		
+		<div class="page">
+			<ul>
+				<!--첫페이지-->
+				<li><a th:href="@{taskList(page=1,
+										   amount=${pageVO.amount},
+										   searchTaskName=${pageVO.cri.searchTaskName},
+										   searchCustomer=${pageVO.cri.searchCustomer},
+										   searchEngineer=${pageVO.cri.searchEngineer}
+										   )}"><i class="fa fa-angle-double-left" aria-hidden="true">
+				</i></a></li>
+				
+				<!--이전버튼-->
+				<th:block th:if="${pageVO.prev}">
+					<li style="margin-right:5px"><a th:href="@{taskList(page=${pageVO.start - 1},
+																		amount=${pageVO.amount},
+																		searchTaskName=${pageVO.cri.searchTaskName},
+																		searchCustomer=${pageVO.cri.searchCustomer},
+																		searchEngineer=${pageVO.cri.searchEngineer})}">
+												<i class="fa fa-angle-left" aria-hidden="true"></i></a>
+					</li>
+				</th:block>
+				
+				<!--페이지반복-->
+				<th:block th:each="page:${pageVO.pageList}">
+					<li th:class="${page == pageVO.page ? 'on' : ''}">
+						<a th:href="@{taskList(page=${page},
+											   amount=${pageVO.amount},
+											   searchTaskName=${pageVO.cri.searchTaskName},
+											   searchCustomer=${pageVO.cri.searchCustomer},
+											   searchEngineer=${pageVO.cri.searchEngineer})}">[[${page}]]</a>
+					</li>	
+				</th:block>
+				
+				<!--다음버튼-->
+				<th:block th:if="${pageVO.next}">
+					<li style="margin-left:5px"><a th:href="@{taskList(page=${pageVO.end + 1},
+																	   amount=${pageVO.amount},
+																	   searchTaskName=${pageVO.cri.searchTaskName},
+																	   searchCustomer=${pageVO.cri.searchCustomer},
+																	   searchEngineer=${pageVO.cri.searchEngineer})}">
+												<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</li>
+				</th:block>
+				
+				<!--가장 마지막페이지-->
+				<li><a th:href="@{taskList(page=${pageVO.realEnd},
+												  amount=${pageVO.amount},
+												  searchTaskName=${pageVO.cri.searchTaskName},
+												  searchCustomer=${pageVO.cri.searchCustomer},
+												  searchEngineer=${pageVO.cri.searchEngineer})}">
+					<i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>		
+			</ul>
+		</div>	
+		
+	</th:block>
+	
+</html>

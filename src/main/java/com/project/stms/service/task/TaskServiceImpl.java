@@ -52,9 +52,10 @@ public class TaskServiceImpl implements TaskService{
 	
 	
 	@Override
-	public ArrayList<ProjectVO> getPjtList() {
+
+	public ArrayList<ProjectVO> getPjtList(Criteria cri) {
 		
-		return taskMapper.getPjtList();
+		return taskMapper.getPjtList(cri);
 	}
 
 
@@ -66,9 +67,30 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public void deleteTemplate(int tem_id) {
+	public void deleteTemplate(Integer tem_id) {
 		
-		taskMapper.deleteTemplate(tem_id);
+		taskMapper.deleteTaskList(tem_id);
+	}
+
+
+	@Override
+	public ArrayList<TaskVO> getTaskSearch(Integer pjt_id) {
+		
+		return taskMapper.getTaskSearch(pjt_id);
+	}
+
+
+	@Override
+	public TaskVO getTaskDetailSearch(Integer task_id) {
+		
+		return taskMapper.getTaskDetailSearch(task_id);
+	}
+
+
+	@Override
+	public TaskVO getTaskModify(TaskVO vo) {
+		
+		return taskMapper.getTaskModify(vo);
 	}
 
 

@@ -26,12 +26,20 @@ public interface TaskMapper {
 	//템플릿조회
 	public ArrayList<TaskVO> getTemplateList();
 	//템플릿삭제
-	public void deleteTemplate(@Param("tem_id") int tem_id);	
+	public void deleteTemplate(@Param("tem_id") Integer tem_id);	
+
+	//관리자 작업관리 페이지
+	//프로젝트 목록 조회
+	public ArrayList<ProjectVO> getPjtList(@Param("cri") Criteria cri);
+	//프로젝트에 맞는 작업 목록 조회
+	public ArrayList<TaskVO> getTaskSearch(Integer pjt_id);
+	//작업 상세내용 불러오기
+	public TaskVO getTaskDetailSearch(Integer task_id);
+	//작업 수정
+	public TaskVO getTaskModify(TaskVO vo);	
+	
 	
 	//모달(프로젝트 정보 등록)
 //	public ArrayList<ProjectVO> regPjtList();
-	//모달(프로젝트 정보 검색)
-	public ArrayList<ProjectVO> getPjtList();
-	
-	
+
 }

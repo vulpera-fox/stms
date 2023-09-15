@@ -5,6 +5,7 @@
 
 <mapper namespace="com.project.stms.service.task.TaskMapper">
 
+
 	<select id="getTaskList" resultType="TaskVO">
 		select * from task
 		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
@@ -53,7 +54,7 @@
 		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
 	
 	</insert>
-	
+
 	<select id="getTemplateList" resultType="TaskVO">
 		select * from template
 	</select>
@@ -63,14 +64,42 @@
 		delete from template where tem_id = #{tem_id}
 	</delete>
 	
-	
-
 	<select id="getPjtList" resultType="ProjectVO">
-		select pjt_id,
-			   pjt_nm,
-			   req_user_id,
-			   ins_user_id
-		from project
+		select * from project
+		<if test="cri.searchPjtName != '' and cri.searchPjtName != null">
+			where pjt_nm like concat('%', #{cri.searchPjtName}, '%')
+		</if>
 	</select>
+	
+	
+	<select id="getTaskSearch" resultType="TaskVO">
+		select * from task
+		where pjt_id = #{pjt_id}
+	</select>
+	
+	<select id="getTaskDetailSearch" resultType="TaskVO">
+		select t.task_id,
+			   t.task_nm,
+		       t.task_dtl,
+		       t.status,
+		       date_format(t.task_date, '%Y-%m-%d') as task_date,
+		       date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+			   u.user_nm,
+		       u.user_group,
+		       u.user_adr
+		from task t
+		left join user u
+		on t.user_id = u.user_id
+		where task_id = #{task_id};
+	</select>
+	
+	<update id="getTaskModify" parameterType="TaskVO">
+		update task set task_nm = #{task_nm},
+					 	task_dtl = #{task_dtl},
+					 	status = #{status},
+					 	task_date = #{task_date},
+					 	task_st_dt = #{task_st_dt}
+					where task_id = #{task_id}
+	</update>
 
 </mapper>

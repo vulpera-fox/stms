@@ -51,27 +51,27 @@ public class TaskController {
 	
 	//작업등록
 	@GetMapping("taskReg")
-	public String taskReg() {
-		return "task/taskReg";
-	}
-	
-	//검색된 정보를 담아 등록화면에 표시하기(다시 생각할 것)
-	@GetMapping("pjtSearchForm")
-	public String pjtSearchForm(Model model) {
-		
-		ArrayList<ProjectVO> list = taskService.getPjtList();
+	public String taskReg(Model model, Criteria cri) {
+
+		ArrayList<ProjectVO> list = taskService.getPjtList(cri);
 		model.addAttribute("list", list);
+		System.out.println(list.toString());
+		
+		int total = taskService.getTotal(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		System.out.println(pageVO.toString());
+		model.addAttribute("pageVO", pageVO);
 		
 		return "task/taskReg";
 	}
-	
-	//작업상세
+
 	@GetMapping("taskDetail")
 	public String taskDetail() {
 		return "task/taskDetail";
 	}
 	
 	//작업수정페이지
+
 	@GetMapping("taskModify")
 	public String taskModify(int task_id) {
 		
@@ -80,8 +80,7 @@ public class TaskController {
 		
 		return "task/taskModify";
 	}
-	
-	//작업삭제
+
 	@PostMapping("taskDeleteForm")
 	public String taskDeleteForm(@RequestParam("task_id") int task_id) {
 		

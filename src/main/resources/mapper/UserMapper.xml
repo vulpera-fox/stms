@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.stms.user.service.UserMapper">
+
+
+	<insert id="join" parameterType="UserVO">
+		insert into user (
+							USER_ID,
+							USER_EMAIL,
+							USER_NM,
+							USER_PW,
+							USER_ROLE,
+							USER_GROUP,
+							USER_AUTH_YN,
+							USER_ADR
+							
+						  ) 
+							select concat(
+											'U',
+											DATE_FORMAT(NOW(), '%Y%m'),
+											lpad((max(IFNULL(substr(user_id,8,4), '0')) +1), 4, '0')
+										  ) AS user_id,
+							#{user_email},
+							#{user_nm},
+							#{user_pw},
+							#{user_role},
+							#{user_group},
+							#{user_auth_yn},
+							#{user_adr}
+			   from user
+			   where user_id like 'U'||DATE_FORMAT(NOW(), '%Y%m')
+	</insert>
+
+
+	<select id="login" resultType="UserVO">
+		select *
+		from user
+		where USER_EMAIL = #{user_email}
+	</select>
+	
+	<update id="changePW" parameterType="UserVO">
+
+		update user set
+		USER_PW = #{user_pw}
+		where USER_EMAIL = #{user_email};
+
+	</update>
+	
+	<select id="userInfo" resultType="UserVO">
+		select *
+		from user
+		where USER_EMAIL = #{user_email}
+	</select>
+	
+	
+	<select id="checkId" resultType="UserVO">
+		select *
+		from user
+		where USER_EMAIL = #{user_email}
+	</select>
+
+	<select id="changePE" resultType="UserVO">
+		select *
+		from user
+		where USER_EMAIL = #{user_email}
+	</select>
+
+</mapper>
