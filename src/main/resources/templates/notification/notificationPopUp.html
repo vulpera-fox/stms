@@ -399,6 +399,8 @@
 		$("#searchBtn").click(function () {
 			event.preventDefault();
 			$('.scrollBar').animate({scrollTop: 0}, 'slow');
+			
+			$(".list").removeClass('focus');
 
 			var searchType = $('#search_block option:selected').val();
 			var searchKeyword = $('.search-bar__input').val();

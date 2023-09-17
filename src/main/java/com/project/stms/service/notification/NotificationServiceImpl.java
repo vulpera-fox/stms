@@ -1,6 +1,7 @@
 package com.project.stms.service.notification;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,24 @@ public class NotificationServiceImpl implements NotificationService{
 	public ArrayList<NotificationVO> getSearchResult(Criteria cri, String rcv_id) {
 		return notificationMapper.getSearchResult(cri, rcv_id);
 	}
+
+	@Override
+	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm) {
+		
+		System.out.println("[받는사람 : " + rcv_id + "]\n[보내는 사람 : " + send_id + "]\n[프로젝트명 : " + pjt_nm + "]");
+		
+		notificationMapper.createProjectNotification(rcv_id, send_id, pjt_nm);
+		
+	}
+
+	@Override
+	public void addProjectMemberNotification(List<String> users) {
+		notificationMapper.addProjectMemberNotification(users);
+		
+	}
+
+	
+	
 
 //	@Override
 //	public ArrayList<NotificationVO> getData(int pageNumber) {

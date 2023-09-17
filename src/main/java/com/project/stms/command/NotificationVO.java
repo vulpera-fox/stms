@@ -27,4 +27,6 @@ public class NotificationVO {
 	private String stat;
 	private Integer count;
 	
+	
+	
 }

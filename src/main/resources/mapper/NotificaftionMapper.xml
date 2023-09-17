@@ -40,7 +40,7 @@
 			SELECT NOTI_ID,
 				   PRE_NOTI_ID, 
 				   ROW_NUMBER() OVER (PARTITION BY PRE_NOTI_ID ORDER BY NOTI_SEND_DT DESC) AS NUM,
-		           (SELECT COUNT(*) FROM notification WHERE PRE_NOTI_ID = 1) AS COUNT_PRE_NOTI,
+		           (SELECT COUNT(*) FROM notification WHERE PRE_NOTI_ID = 1 AND RCV_ID=#{RCV_ID}) AS COUNT_PRE_NOTI,
 		           RCV_ID,
 		           SEND_ID,
 		           NOTI_NM,
@@ -56,7 +56,7 @@
 		    SELECT n.NOTI_ID,
 				   n.PRE_NOTI_ID, 
 				   ROW_NUMBER() OVER (PARTITION BY n.PRE_NOTI_ID ORDER BY n.NOTI_SEND_DT DESC) AS NUM,
-		           (SELECT COUNT(*) FROM notification where n.PRE_NOTI_ID = 2) AS COUNT_PRE_NOTI,
+		           (SELECT COUNT(*) FROM notification where n.PRE_NOTI_ID = 2 AND RCV_ID=#{RCV_ID}) AS COUNT_PRE_NOTI,
 		    	   n.RCV_ID,
 		           n.SEND_ID,
 		           n.NOTI_NM,
@@ -124,11 +124,11 @@
 		           n.RCV_DEL_YN,
 		           n.SEND_DEL_YN
 			FROM notification n
-		    WHERE PRE_NOTI_ID = 2 
+		    WHERE PRE_NOTI_ID = 2
 		) SELECT *,
 			ROW_NUMBER() OVER(ORDER BY NOTI_SEND_DT DESC, NOTI_ID) AS NUM
 			FROM CTE
-			WHERE rcv_id=#{rcv_id}
+			WHERE RCV_ID = #{rcv_id}
 			<if test="category == null">
 				AND (RCV_DEL_YN is null or RCV_DEL_YN = "Y")
 			</if>
@@ -165,5 +165,31 @@
 		and RCV_DEL_YN is null
   	</select>
   	
+  	<insert id="createProjectNotification">
+  		<selectKey order="BEFORE" keyProperty="user_role" resultType="String">
+  			select user_role from user where user_id = #{rcv_id}
+  		</selectKey>
+  		insert into notification (RCV_ID, SEND_ID, NOTI_NM, NOTI_DTL)
+  		<if test="rcv_id == 'ADMIN' ">
+  			values(#{rcv_id}, 
+  				   #{send_id}, 
+  				   concat(#{pjt_nm}, " 프로젝트 요청 알림"),
+           		   concat(#{send_id}, "님이 ", #{pjt_nm}, "프로젝트 생성을 요청하였습니다."))
+        </if>
+        <if test="rcv_id != 'ADMIN' ">
+        	<if test="user_role == 'ROLE_CUSTOMER'">
+	        	values(#{rcv_id}, 
+	  				   #{send_id}, 
+	  				   concat(#{pjt_nm}, " 프로젝트 승인 알림"),
+	           		   concat("고객님께서 요청하신 ", #{pjt_nm}, " 프로젝트가 승인 되었습니다."))
+	        </if>
+            <if test="user_role == 'ROLE_ENGINEER'">
+	        	values(#{rcv_id}, 
+	  				   #{send_id}, 
+	  				   concat(#{pjt_nm}, " 프로젝트 할당 알림"),
+	           		   concat(#{pjt_nm}, " 프로젝트가 할당 되었습니다."))
+	        </if>
+        </if>
+  	</insert>	
   
   </mapper>
