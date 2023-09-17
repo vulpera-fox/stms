@@ -1,6 +1,7 @@
 package com.project.stms.service.notification;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.project.stms.command.NotificationVO;
 import com.project.stms.util.Criteria;
@@ -21,6 +22,9 @@ public interface NotificationService {
 	
 	public ArrayList<NotificationVO> getSearchResult(Criteria cri, String rcv_id);
 	
+	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm);
+	
+	public void addProjectMemberNotification(List<String> users);
 	
 //	public ArrayList<NotificationVO> getData(int pageNumber);
 }

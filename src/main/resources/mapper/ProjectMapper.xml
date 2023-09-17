@@ -219,9 +219,6 @@
 		select * from server where user_id = #{user_id}
 	</select>
 	
-	
-	
-	
 	<select id="getUserByProject">
 		select * from user u join pjt_mem pm on u.user_id = pm.user_id where pm.pjt_id = #{pjt_id};
 	</select>

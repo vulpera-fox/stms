@@ -33,6 +33,7 @@
 
 		.close {
 			font-size: 15px;
+			cursor: pointer;
 		}
 
 		.del_img:hover {
@@ -177,9 +178,7 @@
 
 				var windowStatus = 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top + ', toolbar=no,location=no,status=no,menubar=no,scrollbars=no';
 				
-				console.log(windowStatus);
-				
-				const url = 'notification/notificationPopUp';
+				const url = '/notification/notificationPopUp';
 
 				window.open(url, '_blank', windowStatus);
 			});
@@ -327,7 +326,7 @@
 									$(".load").remove();
 									//console.log(event.target);
 									//$("#unReadList").after('<div id="noMore" style="text-align: center; margin: 10px;">더이상 불러올 알림이 없습니다.<div>');
-									//break;
+									break;
 
 								}
 							}
@@ -378,6 +377,9 @@
 			
 		});
 		
+		$(".close").on('click', function() {
+			$('#dropdownContent').toggleClass('dropdownContent');
+		})
 		
 		});
 	</script>
