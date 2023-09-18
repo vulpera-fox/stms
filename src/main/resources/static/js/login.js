@@ -5,6 +5,7 @@ const address_kakao = document.querySelector('.address_kakao');
 const address_detail = document.querySelector('.address_detail');
 const user_adr = document.querySelector('.user_adr');
 const user_role = document.querySelector('.user_role');
+const user_auth_yn = document.querySelector('#user_auth_yn');
 
 const join_email = document.getElementById('join_email');
 const join_pw = document.getElementById('join_pw');
@@ -15,6 +16,70 @@ const user_group = document.getElementById('user_group');
 const pw = document.querySelector(".pw");
 const pw2 = document.querySelector(".pw2");
 const warning = document.querySelector(".warning");
+
+const dropbox = document.querySelector('.file_box');
+const input_filename = document.querySelector('.file_name');
+const file_btn = document.querySelector('.upload_btn');
+let file_data;
+
+const authBtn = document.querySelector('.authBtn');
+const authInput = document.querySelector('.authInput');
+
+//박스 안에 drag 하고 있을 때
+dropbox.addEventListener('dragover', function(e) {
+	e.preventDefault();
+	this.style.backgroundColor = 'rgb(13 110 253 / 25%)';
+});
+
+//박스 밖으로 drag가 나갈 때
+dropbox.addEventListener('dragleave', function(e) {
+	this.style.backgroundColor = 'white';
+});
+
+//박스 안에 drop 했을 때
+dropbox.addEventListener('drop', function(e) {
+	e.preventDefault();
+	//데이터 크기 검사  
+	let byteSize = e.dataTransfer.files[0].size;
+	let maxSize = 50;
+
+	if (byteSize / 1000000 > maxSize) {
+		alert("파일은 최대 50MB이하만 허용됩니다");
+		return;
+	} else {
+		//백그라운드 색상변경
+		this.style.backgroundColor = 'white';
+		this.style.border = "2px solid rgb(10 128 255)";
+		//파일 이름을 text로 표시
+		let filename = e.dataTransfer.files[0].name;
+		input_filename.innerHTML = filename;
+
+		//파일 데이터를 변수에 저장
+		file_data = e.dataTransfer.files[0];
+	}
+
+});
+
+
+//객체업로드
+/*file_btn.addEventListener('click', function(e) {
+	
+	let formData = new FormData();
+	formData.append('file_data' , file_data);
+	
+	input_filename.dataset.value=file_data.name;//div태그 벨류 바꿔주기
+	
+	fetch('/cloudUpload', {method: 'post', body: formData})
+	.then(response => response.text() )
+	.then(data => {
+		alert(data);
+	})
+	.catch(err => alert('업로드에 실패했습니다:' + err) );
+		
+		
+});*/
+
+
 
 
 
@@ -32,6 +97,8 @@ for (var i = 0; i < inputs.length; i++) {
 //이메일패턴
 const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 let checkId = "";
+let authCheck = '';
+
 
 join_email.addEventListener('focusout', async function() {
 
@@ -58,16 +125,54 @@ join_email.addEventListener('focusout', async function() {
 
 	//중복체크
 	if (checkId === "overlap") {
-		
+
 		join_email.focus();
-		join_email.value ='';
+		join_email.value = '';
 		join_email.style.fontSize = "15px";
 		join_email.placeholder = "중복된 아이디 입니다.";
 		join_email.style.borderBottom = "1px solid red";
-	
+
 	} else {
 
 		if (regex.test(join_email.value)) {
+
+			openModal3();
+
+
+			fetch("http://localhost:8181/random")
+
+				.then((response) => {
+					return response.json();
+				})
+
+				.then((result) => {
+					console.log(result);
+					authCheck = result;
+					console.log(authCheck);
+				});
+
+			const data = {
+				recipient: join_email.value,
+				message: authCheck,
+			};
+
+
+			fetch("http://localhost:8181/send_email", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			})
+			
+			authBtn.addEventListener('click', function(){
+				if(authInput.value == authCheck){
+					alert("일치합니다.");
+					user_auth_yn.value = 'y';
+					closeModal3();
+				} else
+					alert("일치하지 않습니다.");
+			})
 
 		} else {
 			join_email.style.fontSize = "15px";
@@ -133,13 +238,13 @@ const cp_email = document.querySelector(".cp_email");
 const changeBtn = document.querySelector(".changeBtn");
 var changeNum = "";
 
-address.addEventListener('focusout', function(){
-	
+address.addEventListener('focusout', function() {
+
 	const data = {
 		user_email: address.value,
 	};
-	
-	
+
+
 	fetch("http://localhost:8181/changePE", {
 		method: "POST",
 		headers: {
@@ -147,17 +252,17 @@ address.addEventListener('focusout', function(){
 		},
 		body: JSON.stringify(data),
 	}).then((response) => {
-			return response.text();
-		})
+		return response.text();
+	})
 		.then((result) => {
 			console.log(result);
-			if(result!=="exist"){
-				address.value="";
-				address.placeholder="존재하지 않는 이메일 입니다.";
+			if (result !== "exist") {
+				address.value = "";
+				address.placeholder = "존재하지 않는 이메일 입니다.";
 				address.focus();
 			}
 		});
-	
+
 })
 
 
