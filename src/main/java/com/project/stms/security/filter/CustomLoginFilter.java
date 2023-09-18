@@ -90,7 +90,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 			response.sendRedirect("/api/engineer/main");
 			
 		} else if(principal.getUser_role().equals("ROLE_CUSTOMER")){
-			response.sendRedirect("/api/customer/main");
+			response.sendRedirect("/api/customer_main");
 			
 		} else if(principal.getUser_role().equals("ROLE_ADMIN")) {
 			response.sendRedirect("/api/admin/main");

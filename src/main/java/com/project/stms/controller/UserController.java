@@ -26,13 +26,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
-
-
-	@GetMapping("/join")
-	public String join() {
-		return "user/join";
-	}
 	
 
 	@PostMapping("/joinForm")
@@ -56,6 +49,7 @@ public class UserController {
 					model.addAttribute("valid_" + err.getField() , err.getDefaultMessage());								
 				}
 			}
+			
 
 			return "/user/log"; //실패시 원래 화면으로
 
