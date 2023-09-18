@@ -141,7 +141,7 @@
  
  <update id="updateNewsViewCount" parameterType="int">
  
- 	update post set post_hits = post_hits+1 where post_id = #{post_id};
+ 	update post set post_hits = post_hits+1 where post_id = #{post_id}
  
  </update>
  
