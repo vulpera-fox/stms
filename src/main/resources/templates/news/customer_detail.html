@@ -61,14 +61,14 @@
 				<span>이전 글 <img th:src=@{/img/next_arrow.png} alt=""
 						style="width: 9px; height: 9px;transform: rotate(-180deg); margin-left: 5px;"></span>
 						
-				<span><a th:href=@{customer_detail(post_id=${prev.post_id})}
+				<span><a th:href=@{customer_detail(post_id=${prev.post_id},searchType=${cri.searchType},searchKeyword=${cri.searchKeyword})}
 				     th:classappend="${prev.post_id} == 0 ? 'disabled'">[[${prev.post_id == 0 ? '이전 글이 존재하지 않습니다.' : prev.post_title}]]</a></span>
 			</div>
 
 			<div class="next_article">
 				<span>다음 글 <img th:src=@{/img/next_arrow.png} alt=""
 						style="width: 9px; height: 9px; margin-left: 5px;"></span>
-				<span><a th:href=@{customer_detail(post_id=${next.post_id})}
+				<span><a th:href=@{customer_detail(post_id=${next.post_id},,searchType=${cri.searchType},searchKeyword=${cri.searchKeyword})}
 						th:classappend="${next.post_id} == 0? 'disabled'">[[${next.post_id == 0 ? '다음 글이 존재하지 않습니다.' : next.post_title}]]</a></span>
 			</div>
 		</div>

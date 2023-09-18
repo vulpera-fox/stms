@@ -186,12 +186,13 @@
 .goto_list {
 
   padding: 20px;
-  text-align: right;
+  text-align: center;
   
 }
 
+/* 수정 */
 
-.goto_list .goto_list_btn {
+.goto_list .goto_modify_btn {
 
   all: unset;
   border: 1px solid #020f37;
@@ -208,11 +209,83 @@
  
 }
 
-.goto_list .goto_list_btn a {
+.goto_list a {
   text-decoration: none;
   color: white;
 }
 
+.goto_list .goto_modify_btn:hover {
+
+  background-color: white;
+  color: #020f37;
+  text-decoration: none;
+ 
+}
+.goto_list a:hover {
+  text-decoration: none;
+}
+
+/* 삭제 */
+
+.goto_list .goto_delete_btn {
+
+  all: unset;
+  border: 1px solid #020f37;
+  background-color: #020f37;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  width: 70px;
+  height: 25px;
+  text-align: center;
+
+ 
+}
+
+.goto_list a .goto_delete_btn{
+  text-decoration: none;
+  color: white;
+}
+
+.goto_list .goto_delete_btn:hover {
+
+  background-color: white;
+  color: #020f37;
+  text-decoration: none;
+ 
+}
+
+/* 목록 */
+.goto_list .goto_list_btn {
+
+  all: unset;
+  border: 1px solid #020f37;
+  background-color: #020f37;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  width: 70px;
+  height: 25px;
+  text-align: center;
+
+}
+
+.goto_list a {
+  text-decoration: none;
+  color: white;
+}
+
+.goto_list .goto_list_btn:hover {
+
+  background-color: white;
+  color: #020f37;
+  text-decoration: none;
+ 
+}
 .goto_none {
 	
 	display: none;
