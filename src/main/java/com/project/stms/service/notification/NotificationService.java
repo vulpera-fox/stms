@@ -1,13 +1,12 @@
 package com.project.stms.service.notification;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.project.stms.command.NotificationVO;
 import com.project.stms.util.Criteria;
 
 public interface NotificationService {
-	
+	// 알림기능
 	public ArrayList<NotificationVO> getCount(String rcv_id);
 	
 	public ArrayList<NotificationVO> getList(String rcv_id);
@@ -24,7 +23,6 @@ public interface NotificationService {
 	
 	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm);
 	
-	public void addProjectMemberNotification(List<String> users);
-	
 //	public ArrayList<NotificationVO> getData(int pageNumber);
+		
 }

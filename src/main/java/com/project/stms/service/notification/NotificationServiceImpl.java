@@ -1,7 +1,7 @@
 package com.project.stms.service.notification;
 
+
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,9 @@ public class NotificationServiceImpl implements NotificationService{
 	@Autowired
 	private NotificationMapper notificationMapper;
 	
+	
+	@Autowired
+	private SseServiceImple SseServiceImple;
 	
 	@Override
 	public ArrayList<NotificationVO> getCount(String rcv_id) {
@@ -57,23 +60,14 @@ public class NotificationServiceImpl implements NotificationService{
 		
 		System.out.println("[받는사람 : " + rcv_id + "]\n[보내는 사람 : " + send_id + "]\n[프로젝트명 : " + pjt_nm + "]");
 		
+		SseServiceImple.send("CUSTOMER", pjt_nm + "알림");
+		
 		notificationMapper.createProjectNotification(rcv_id, send_id, pjt_nm);
 		
 	}
-
-	@Override
-	public void addProjectMemberNotification(List<String> users) {
-		notificationMapper.addProjectMemberNotification(users);
-		
-	}
-
-	
-	
-
+}
 //	@Override
 //	public ArrayList<NotificationVO> getData(int pageNumber) {
 //		return notificationMapper.getData(pageNumber);
 //	}
-
-
-}
+	

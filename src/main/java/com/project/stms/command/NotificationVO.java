@@ -26,6 +26,7 @@ public class NotificationVO {
 	private String category;
 	private String stat;
 	private Integer count;
+	private String url;
 	
 	
 	
