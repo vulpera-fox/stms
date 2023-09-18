@@ -1,192 +1,220 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../css/login.css" >
-<link rel="stylesheet" href="../css/modal.css" >
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="../css/modal.css">
 
 </head>
 
 <body>
-	
+
 	<div class="bigWrap">
 		<div class="wrap1">
-			<img th:src="@{/img/toon4.jpg}" alt="사진" height="700px;" width="700px;" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; opacity: 0.7;">
+			<img th:src="@{/img/toon4.jpg}" alt="사진" height="700px;" width="700px;"
+				style="border-top-left-radius: 20px; border-bottom-left-radius: 20px; opacity: 0.7;">
 		</div>
-	    <div class="wrap2">
-	        <div class="titleBox">
-	            <a href="#"><img src="../img/22.png" alt="로고"></a>
-	        </div>	
-	      		<form action="login" method="post"><!--UsernamePasswordAuthenticationFilter를 이용할려고 login경로로 post요청 보냄-->
+		<div class="wrap2">
+			<div class="titleBox">
+				<a href="#"><img src="../img/logo2.png" alt="로고"></a>
+			</div>
+			<form action="login" method="post"><!--UsernamePasswordAuthenticationFilter를 이용할려고 login경로로 post요청 보냄-->
 				<div class="int-area">
-	            	<input class="inputText" id="user_email" type="text" name="user_email" autocomplete="off" required>
-	            	<label for="user_email">YOUR EMAIL</label>
-	            </div>
-	            <div class="int-area">
-	            	<input class="inputText" id="user_pw" type="password" name="user_pw" autocomplete="off" required>
-	            	<label for="user_pw">YOUR PASSWORD</label>
-	            </div>
-	            <input type="submit" class="loginBtn" value="LOGIN">
-				</form>
-	            <div class="findInfo">
-	                <ul>
-	                    <li>
-	                        <!--<a th:href="@{/findID}">아이디찾기</a>
+					<input class="inputText" id="user_email" type="text" name="user_email" autocomplete="off" required>
+					<label for="user_email">YOUR EMAIL</label>
+				</div>
+				<div class="int-area">
+					<input class="inputText" id="user_pw" type="password" name="user_pw" autocomplete="off" required>
+					<label for="user_pw">YOUR PASSWORD</label>
+				</div>
+				<input type="submit" class="loginBtn" value="LOGIN">
+			</form>
+			<div class="findInfo">
+				<ul>
+					<li>
+						<!--<a th:href="@{/findID}">아이디찾기</a>
 	                        <span style="color: #999;"> | </span>-->
-	                        <a onclick="openModal2()"; style="cursor: pointer;">Change Your Password</a>
-	                    </li>
-	                </ul>
-	            </div>
-	
-	        <div class="joinWrap">
-	           <button type="button" onclick="openModal()"; class="joinBtn">SIGN UP</button>
-	        </div>
-	    </div>
-    </div>
-    
-    <!--모달로 비번변경창 열기-->
-    <div class="modal2">
-	    <div class="modal2-content">
-	    	<a class="btn-close" href="#none" onclick="closeModal2();">X</a>
-	        
-	        <div class="wrap">
-	
-	        	<div class="titleBox">
-	    			<a href="#"><img src="../img/22.png" alt="로고"></a>
-	       		</div>
-	    
-	        <form action="mail" method="post">
-	        	<div class="int-area">
-	        		<input class="address" id="address" type="text" name="address" autocomplete="off" required>
-	        		<label for="address">인증받을 이메일을 입력하세요</label>
-	        	</div>
-	        	<button type ="button" class="submitBtn btn random" >전송</button>
-	        	<input type="hidden" class="title" name="title" value="SMTS 인증번호 메일입니다." readonly > <br>
-	        </form>
-	    
-	        <div class="int-area">
-	        	<input class="message" id="message" type="text" name="message" autocomplete="off" required>
-	        	<label for="message">인증번호를 입력하세요</label>
-	        </div>
-	        <button type="button" class="checkBtn btn">확인</button>
-	    
-	        <div class="warning">
-	    
-	        </div>
-	            
-	        <div>
-	        	<form action="changePW" method="post">
-	        	<div class="int-area">
-	        		<input class="hidden1" type="hidden" name="user_pw" autocomplete="off" required>
-	        		<label class="pw_label" display:"none;" for="user_pw"></label>
-	       		</div>
-	        	<div class="int-area">
-	        		<input class="hidden2" type="hidden" id="user_pw2" name="user_pw2" autocomplete="off" required>
-	        		<label class="pw_label2" display:"none;" for="user_pw2"></label>
-	        	</div>
-	        	<input type="hidden" class="cp_email" name="user_email" value="">
-	        	<div class="changeWrap">
-	        		<input type="hidden" class="changeBtn hidden3" value="비밀번호 재설정하기">
-	        	</div>
-	    		</form>
-	    	</div>
-		    </div>
+						<a onclick="openModal2()" ; style="cursor: pointer;">Change Your Password</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="joinWrap">
+				<button type="button" onclick="openModal()" ; class="joinBtn">SIGN UP</button>
+			</div>
 		</div>
 	</div>
-	
-    <!-- 모달로 회원가입창 -->
-    <div class="modal">
-        <div class="modal-content">
-            <a class="btn-close" href="#none" onclick="closeModal();">X</a>
-            <div class="wrap">
+
+	<!--모달로 비번변경창 열기-->
+	<div class="modal2" tabindex="0">
+		<div class="modal2-content">
+			<a class="btn-close" href="#none" onclick="closeModal2();">X</a>
+
+			<div class="wrap">
+
 				<div class="titleBox">
-	            	<a href="#"><img src="../img/22.png" alt="로고"></a>
-	        	</div>
+					<a href="#"><img src="../img/logo2.png" alt="로고"></a>
+				</div>
 
-		<form action="joinForm" method="post">
-			<div class="int-area">
-			<input class="email" type="text" id="join_email" name="user_email" autocomplete="off" required placeholder="">
-			<label for="join_email">YOUR EMAIL</label>
-			</div>
-			<div class="int-area">
-			<input class="pw" type="password" id="join_pw" name="user_pw" autocomplete="off" required placeholder="">
-			<label for="join_pw">YOUR PASSWORD</label>
-			</div>
-			<div class="int-area">
-			<input class="pw2" type="password" id="join_pw2" name="user_pw2" autocomplete="off" required placeholder="">
-			<label for="join_pw2">SIGN PASSWORD</label>
-			</div>
+				<form action="mail" method="post">
+					<div class="int-area">
+						<input class="address" id="address" type="text" name="address" autocomplete="off" required>
+						<label for="address">인증받을 이메일을 입력하세요</label>
+					</div>
+					<button type="button" class="submitBtn btn random">전송</button>
+					<input type="hidden" class="title" name="title" value="SMTS 인증번호 메일입니다." readonly> <br>
+				</form>
 
-			<div class="int-area">
-			<input class="inputText2" type="text" id="user_nm" name="user_nm" autocomplete="off" required>
-			<label for="user_nm">YOUR NAME</label>
+				<div class="int-area">
+					<input class="message" id="message" type="text" name="message" autocomplete="off" required>
+					<label for="message">인증번호를 입력하세요</label>
+				</div>
+				<button type="button" class="checkBtn btn">확인</button>
+
+				<div class="warning">
+
+				</div>
+
+				<div>
+					<form action="changePW" method="post">
+						<div class="int-area">
+							<input class="hidden1" type="hidden" name="user_pw" autocomplete="off" required>
+							<label class="pw_label" display:"none;" for="user_pw"></label>
+						</div>
+						<div class="int-area">
+							<input class="hidden2" type="hidden" id="user_pw2" name="user_pw2" autocomplete="off"
+								required>
+							<label class="pw_label2" display:"none;" for="user_pw2"></label>
+						</div>
+						<input type="hidden" class="cp_email" name="user_email" value="">
+						<div class="changeWrap">
+							<input type="hidden" class="changeBtn hidden3" value="비밀번호 재설정하기">
+						</div>
+					</form>
+				</div>
 			</div>
-			<div class="int-area">
-			<input class="inputText2" type="text" id="user_group" name="user_group" autocomplete="off" required>
-			<label for="user_group">YOUR GROUP</label>
-			</div>
-			<div class="int-area">
-			<select class="user_role" name="user_role">
-    		</div>
-				<option value="none">USER의 유형을 골라주세요</option>
-      			<option value="ROLE_CUSTOMER">회원</option>
-    			<option value="ROLE_ENGINEER">작업자</option>
-    		</select>
-			<!--<input class="inputText2 inputText2Bottom" type="text" name="user_role" value="ROLE_CUSTOMER" readonly>-->
-			<input type="hidden" name="user_auth_yn" value="y">
-			<input type="hidden" name="user_id" value="미정">
-			
-    		<div class="int-area">
-            <input type="text" class="address_kakao" id="address_kakao" name="address_kakao" readonly>
-            <label for="address_kakao">YOUR ADDRESS</label>
-    		</div>
-            <div class="int-area">
-            <input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
-            <label for="address_detail">DETAIL ADDRESS</label>
-    		</div>
-    		
-    		<input type="hidden" class="user_adr" name="user_adr">
-       
-
-			<button type="submit" class="joinBtn">가입하기</button>
-
-		</form>
-
 		</div>
-       </div>
-    </div>
-    
+	</div>
+
+	<!-- 모달로 회원가입창 -->
+	<div class="modal" tabindex="0">
+		<div class="modal-content">
+			<a class="btn-close" href="#none" onclick="closeModal();">X</a>
+			<div class="wrap">
+				<div class="profileBox">
+					<h3>회원가입</h3>
+					<div class="file_box">
+						<div class="file_name" name="org_file_nm" data-value=""><img src="../img/profile.png"
+								style="width: 100%; border-radius: 10px; opacity: 0.5;"></div>
+					</div>
+					<div>
+						<button type="button" class="upload_btn regBtn">등록하기</button>
+					</div>
+				</div>
+
+				<form action="joinForm" method="post">
+					<div class="int-area">
+						<input class="email" type="text" id="join_email" name="user_email" autocomplete="off" required
+							placeholder="">
+						<label for="join_email">YOUR EMAIL</label>
+					</div>
+					<div class="int-area">
+						<input class="pw" type="password" id="join_pw" name="user_pw" autocomplete="off" required
+							placeholder="">
+						<label for="join_pw">YOUR PASSWORD</label>
+					</div>
+					<div class="int-area">
+						<input class="pw2" type="password" id="join_pw2" name="user_pw2" autocomplete="off" required
+							placeholder="">
+						<label for="join_pw2">SIGN PASSWORD</label>
+					</div>
+
+					<div class="int-area">
+						<input class="inputText2" type="text" id="user_nm" name="user_nm" autocomplete="off" required>
+						<label for="user_nm">YOUR NAME</label>
+					</div>
+					<div class="int-area">
+						<input class="inputText2" type="text" id="user_group" name="user_group" autocomplete="off"
+							required>
+						<label for="user_group">YOUR GROUP</label>
+					</div>
+					<div class="int-area">
+						<select class="user_role" name="user_role">
+					</div>
+					<option value="none">USER의 유형을 골라주세요</option>
+					<option value="ROLE_CUSTOMER">회원</option>
+					<option value="ROLE_ENGINEER">작업자</option>
+					</select>
+					<!--<input class="inputText2 inputText2Bottom" type="text" name="user_role" value="ROLE_CUSTOMER" readonly>-->
+					<input type="hidden" name="user_auth_yn" id="user_auth_yn" value="n">
+					<input type="hidden" name="user_id" value="미정">
+
+					<div class="int-area">
+						<input type="text" class="address_kakao" id="address_kakao" name="address_kakao" required>
+						<label for="address_kakao">YOUR ADDRESS</label>
+					</div>
+					<div class="int-area">
+						<input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
+						<label for="address_detail">DETAIL ADDRESS</label>
+					</div>
+
+					<input type="hidden" class="user_adr" name="user_adr">
+
+
+					<button type="submit" class="joinBtn">가입하기</button>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal3" tabindex="0">
+		<div class="modal3-content">
+			<a class="btn-close3" href="#none" onclick="closeModal3();">X</a>
+			<div class="mail-check">
+				<h3>메일로 인증 번호를 보냈습니다.</h3>
+				<div class="int-area">
+					<input class="inputText authInput" type="text" name="authInput" autocomplete="off" required>
+					<label for="authInput">인증번호를 입력해주세요</label>
+				</div>
+				<button type="submit" class="joinBtn authBtn">인증하기</button>
+			</div>
+		</div>
+	</div>
+
 
 
 
 
 
 </body>
-	<script src="/js/modal.js"></script>
-	<script src="/js/login.js"></script>
-	
-	
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-	window.onload = function(){
-	    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-	        //카카오 지도 발생
-	        new daum.Postcode({
-	            oncomplete: function(data) { //선택시 입력값 세팅
-	                document.getElementById("address_kakao").value = data.address; // 주소 넣기
-	                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
-	            }
-	        }).open();
-	    });
+<script src="/js/modal.js"></script>
+<script src="/js/login.js"></script>
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	window.onload = function () {
+		document.getElementById("address_kakao").addEventListener("click", function () {
+			new daum.Postcode({
+				oncomplete: function (data) { //선택시 입력값 세팅
+					document.getElementById("address_kakao").value = data.address; // 주소 넣기
+					document.getElementById("address_kakao").focus();
+				}
+			}).open();
+		});
 	}
-	
-	</script>
-	
-	
-	
-	
-	
-	
+
+</script>
+
+
+
+
+
+
 
 </html>

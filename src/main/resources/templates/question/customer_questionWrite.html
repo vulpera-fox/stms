@@ -16,7 +16,7 @@
 
 		<div class="q_box_inner">
 
-			<form name="writeForm" action="" method="post">
+			<form name="writeForm" action="" method="post" enctype="multipart/form-data">
 
 				<table class="q_box" width="90%">
 
@@ -25,23 +25,23 @@
 						<col style="width: 80%">
 					</colgroup>
 
-					<tbody>
+					<tbody id="q_contents">
 						<tr class="q_title q_trclass ">
 							<td class="q_required sub">제목</td>
-							<td><input type="text" required></td>
+							<td><input type="text" required name="post_title" id="post_title"></td>
 
 						</tr>
 
 						<tr class="q_contents_area q_trclass">
 							<td class="q_required sub">내용</td>
-							<td><textarea class="q_contents" placeholder="문의할 내용을 적으세요" required></textarea></td>
+							<td><textarea class="q_contents" placeholder="문의할 내용을 적으세요" required name="post_contents" id="post_contents" ></textarea></td>
 						</tr>
 
 						<tr class="attatch_file_area q_trclass">
 							<td class="sub">첨부파일</td>
 							<td>
-								<input type="text" readonly placeholder="첨부파일을 등록하세요">
-								<button class="file_regi_btn">찾아보기</button>
+								<input type="file" id="file_input" multiple>
+								<label for="file_input">파일 첨부</label>
 
 							</td>
 						</tr>
@@ -51,11 +51,11 @@
 
 							<td class="secret_yn">
 								<div>
-									<input class="secret_r" type="radio" name="chk_secret" value="Y" id="apply" checked>
+									<input class="secret_r" type="radio" name="post_secret_yn" value="Y" id="apply" checked>
 									<label for="apply">적용</label>
 								</div>
 								<div>									
-									<input class="secret_r" type="radio" name="chk_secret" value="N" id="unapply">
+									<input class="secret_r" type="radio" name="post_secret_yn" value="N" id="unapply">
 									<label for="unapply">미적용</label>
 									
 							</td>
@@ -65,8 +65,8 @@
 						<tr class="secret_no_area q_trclass">
 							<td class="q_required sub">비밀번호</td>
 							<td>
-								<input type="password" required>
-								<p>비밀번호 4자리를 입력해주세요</p>
+								<input type="password" required name="post_pw" id="post_pw">
+								<p style="color: red; font-size: 12.5px; margin-top:12px; margin-bottom:2.5;">숫자 4자리를 입력해주세요</p>
 
 							</td>
 						</tr>
@@ -76,11 +76,11 @@
 				</table>
 
 				<div class="goto_regi">
-					<button class="regi_refresh">
-						<img th:src="@{/img/refresh.png}" style="width: 25px; height: 25px;">
+					<button class="regi_refresh" id="refresh">
+						<img th:src="@{/img/refresh.png}">
 					</button>
-					<button class="goto_regi_btn"><a th:href="@{customer_question}">등록하기</a></button>
-
+					<a th:href="@{customer_question}"><button class="goto_list_btn">목록으로</button></a>
+					<a th:href="@{customer_question}"><button class="goto_regi_btn">등록하기</button></a>
 				</div>
 
 			</form>
@@ -89,5 +89,37 @@
 	</div>
 
 </th:block>
+
+<script th:inline="javascript">
+	
+	$('#refresh').click(function(e){
+		
+		e.preventDefault();
+		$('#post_title').val('');
+		$('#post_contents').val('');
+		$('#post_pw').val('');
+		
+	});
+	
+	$('.goto_regi_btn').click(function(e){
+		
+		e.preventDefault();
+		document.writeForm.action='regiQuestion';
+		document.writeForm.submit();
+	});
+	
+	$('.goto_list_btn').click(function(e){
+		
+		e.preventDefault();
+		document.writeForm.action='customer_question';
+		document.writeForm.method='get';
+		document.writeForm.submit();
+		
+		
+	})
+	
+	
+	
+</script>
 
 </html>

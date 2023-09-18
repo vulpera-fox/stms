@@ -77,7 +77,7 @@ select {
 	width: 176px;
 	height: 24px;
 	/* border-radius: 18px; */
-	font-size: 15px;
+	font-size: 14px;
 	padding: 5px;
 	background-color: #fafafa;
 
@@ -87,7 +87,7 @@ select {
 .search .keyword:focus {
 
 	outline: none;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 input[name=search_box]::placeholder {
@@ -189,7 +189,8 @@ a {
 }
 
 .q_list_wrap .paging {
-	margin-top: 30px;
+	
+	margin-top: 0px;
 	font-size: 0;
 	text-align: center;
 
@@ -237,7 +238,7 @@ a {
 
 .goto_write{
 	
-	text-align: right;
+	text-align: center;
 	padding:20px;
 }
 .goto_write .goto_write_btn {
@@ -247,20 +248,35 @@ a {
 	background-color: #020f37;
 	color: white;
 	padding: 10px;
-	width: 40px;
+	width: 58px;
 	height: 25px;
 	text-align: center;
 	border-radius: 10px;
+	border: 1px solid #020f37;
 
 }
 
-.goto_write .goto_write_btn >  a {
+.goto_write a {
 
 	text-decoration: none;
 	color: white;
 	text-align: center;
 	font-size: 15px;
 }
+
+.goto_write .goto_write_btn:hover {
+
+	background-color: white;
+	color: #020f37;
+
+}
+.goto_write a:hover {
+
+	text-decoration: none;
+	
+}
+
+
 
 
 
