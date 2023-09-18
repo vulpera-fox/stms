@@ -14,7 +14,7 @@ public class MainController {
 //		return "Main";
 //	}
 //	
-	@GetMapping("/customer_main")
+	@GetMapping("api/customer_main")
 	public String customer_main() {
 		
 		return "customer_main";
@@ -38,5 +38,10 @@ public class MainController {
 	@GetMapping("/notification/notificationPopUp")
 	public String notificationPopUp() {
 		return "notification/notificationPopUp";
+	}
+	
+	@GetMapping("/test/SseSubscribe")
+	public String SseSubscribe() {
+		return "test/SseSubscribe";
 	}
 }
