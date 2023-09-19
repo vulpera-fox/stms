@@ -13,7 +13,7 @@ public interface UserMapper {
 	public int join(UserVO userVO);
 	public UserVO login(String user_email);
 	public int changePW(UserVO userVO);
-	public List<UserVO> userInfo(String user_email);
+	public UserVO userInfo(String user_email);
 	public UserVO checkId(String user_email);
 	public UserVO changePE(String user_email);
 }
