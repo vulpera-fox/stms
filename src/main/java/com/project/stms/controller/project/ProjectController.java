@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -46,9 +48,12 @@ public class ProjectController {
 	NotificationService notificationService;
 	
 	
+	
 	private String ins_user_id = "50";
 	
 	private String req_user_id = "33";
+	
+	
 	
 	
 	@GetMapping("/ProjectMain")
@@ -72,9 +77,17 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo) {
+	public String ProjectRegist(Model mo, HttpSession session) {
 		
-		List<ServerVO> sList = projectService.getMyServer(req_user_id);
+		String myEmail = (String) session.getAttribute("user_email");
+		
+		System.out.println(myEmail + " 나의 이메일");
+		
+		String myId = projectService.getMyId(myEmail);
+		
+		System.out.println(myId + " 나의 아이디");
+		
+		List<ServerVO> sList = projectService.getMyServer(myId);
 		
 		System.out.println(sList.toString());
 		
