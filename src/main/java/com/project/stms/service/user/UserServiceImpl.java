@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public List<UserVO> userInfo(String user_email) {
+	public UserVO userInfo(String user_email) {
 		return userMapper.userInfo(user_email);
 	}
 
