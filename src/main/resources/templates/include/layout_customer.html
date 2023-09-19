@@ -109,29 +109,32 @@
 										<div style="text-align: center;">
 											<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
 										</div>
-										<div class="mr-2 d-none d-lg-inline text-gray-600 small">장윤정
-											<br />(CUSTOMER)
+										<div class="mr-2 d-none d-lg-inline text-gray-600 small"><button th:onclick="|location.href='@{/log}'|" style="all:unset !important">로그인</button>
 										</div>
+										
+<!--로그인했을때								<div class="mr-2 d-none d-lg-inline text-gray-600 small">장윤정-->
+<!--											<br />(CUSTOMER)-->
+<!--										</div>-->
 									</a>
 									<!-- Dropdown - User Information -->
-									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#">
-											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profile
-										</a>
-										<a class="dropdown-item" href="#">
-											<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											내 문의
-										</a>
+<!--로그인했을때,								<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"-->
+<!--										aria-labelledby="userDropdown">-->
+<!--										<a class="dropdown-item" href="#">-->
+<!--											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--											Profile-->
+<!--										</a>-->
+<!--										<a class="dropdown-item" th:href="@{/question/customer_myQuestion}">-->
+<!--											<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--											내 문의-->
+<!--										</a>-->
 
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#" data-toggle="modal"
-											data-target="#logoutModal">
-											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-											Logout
-										</a>
-									</div>
+<!--										<div class="dropdown-divider"></div>-->
+<!--										<a class="dropdown-item" href="#" data-toggle="modal"-->
+<!--											data-target="#logoutModal">-->
+<!--											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--											Logout-->
+<!--										</a>-->
+<!--									</div>-->
 								</li>
 
 							</form>
@@ -180,5 +183,6 @@
 	
 
 </th:block>
+
 
 </html>
