@@ -62,32 +62,16 @@ public class TaskController {
 		System.out.println(pageVO.toString());
 		model.addAttribute("pageVO", pageVO);
 		
-		
 		return "task/taskReg";
 	}
-	
-	//작업등록처리
-//	@PostMapping("newTaskRegA")
-//	public String newTaskRegA(TaskVO vo, RedirectAttributes ra) {
-//	
-//		
-//		int result = taskService.taskRegist(vo);
-//		String msg = result == 1 ? "작업이 등록되었습니다" : "작업등록이 실패했습니다";
-//		ra.addFlashAttribute("msg", msg);
-//		
-//		return "redirect:/task/taskReg";
-//	}
 
-	
-	
-	
-	//작업상세(작업자 화면)
 	@GetMapping("taskDetail")
 	public String taskDetail() {
 		return "task/taskDetail";
 	}
 	
-	//작업수정페이지(작업자 화면... 상세랑 합칠지 고민해볼 것)
+	//작업수정페이지
+
 	@GetMapping("taskModify")
 	public String taskModify(int task_id) {
 		
@@ -96,8 +80,7 @@ public class TaskController {
 		
 		return "task/taskModify";
 	}
-	
-	//작업삭제(작업자 화면)
+
 	@PostMapping("taskDeleteForm")
 	public String taskDeleteForm(@RequestParam("task_id") int task_id) {
 		
@@ -141,7 +124,7 @@ public class TaskController {
 	
 	//작업템플릿 삭제
 	@PostMapping("/tempDelForm")
-	public String tempDelForm(@RequestParam("tem_id") Integer tem_id) {
+	public String tempDelForm(@RequestParam("tem_id") int tem_id) {
 		
 		System.out.println(tem_id);
 		taskService.deleteTemplate(tem_id);

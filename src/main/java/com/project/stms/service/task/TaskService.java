@@ -18,14 +18,12 @@ public interface TaskService {
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
 	
-	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
 	//템플릿조회
 	public ArrayList<TaskVO> getTemplateList();
 	//템플릿삭제
 	public void deleteTemplate(Integer tem_id);
-
 	
 	//관리자 작업관리 페이지
 	//프로젝트 목록 조회
@@ -52,7 +50,7 @@ public interface TaskService {
 	
 	//작업삭제
 	public void delTask(int task_id);
-	
+
 	//모달(프로젝트 정보 등록)
 	//public ArrayList<ProjectVO> regPjtList();
 	

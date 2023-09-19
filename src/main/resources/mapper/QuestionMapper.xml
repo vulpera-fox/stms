@@ -5,11 +5,83 @@
   
  <mapper namespace="com.project.stms.service.question.QuestionMapper">
  
+ <sql id="searchCondition">
+
+	<if test="searchType != '' and searchType != null">
+
+		<if test="searchType == 'searchTitle'.toString()">
+
+			and post_title like concat ('%' , #{searchKeyword}, '%')
+
+		</if>
+
+		<if test="searchType == 'searchContents'.toString()">
+
+			and post_contents like concat ('%' , #{searchKeyword},
+			'%')
+		</if>
+
+	</if>
+
+</sql>
+ 
+ 	<select id="getQlist" resultType="NewsVO">
+ 	
+ 		select * from post where board_id = 4 
+ 		
+ 		<include refid="searchCondition"></include>
+ 		
+ 		order by post_id desc limit #{pageStart}, #{amount}
+ 	
+ 	</select>
+ 
+ 	
+ 	<select id="getTotal" resultType="int">
+ 	
+ 		select count(*) from post where board_id=4 
+ 		
+ 		<include refid="searchCondition"></include>
+ 	
+ 	</select>
+ 	
+ 	<select id="getQdetail" resultType="NewsVO">
+ 		
+ 		select * from post where board_id = 4 and post_id = #{post_id}
+ 	
+ 	</select>
+ 	
+ 	<update id="updateQviewCount" parameterType="int">
+ 	
+ 		update post set post_hits = post_hits+1 where board_id = 4 and post_id=#{post_id}
+ 	</update>
+ 	
+ 	<insert id="regiQuestion" parameterType="NewsVO">
+ 		
+ 		insert into post ( board_id, 
+ 						   post_secret_yn, 
+ 						   post_pw,
+ 						   post_title,
+ 						   user_id,
+ 						   post_regdate,
+ 						   post_contents,
+ 						   file_id
+ 						   ) 
+ 					 values ( 4,
+ 					 		  #{post_secret_yn},
+ 					 		  #{post_pw},
+ 					 		  #{post_title},
+ 					 		  #{user_id},
+ 					 		  #{post_regdate},
+ 					 		  #{post_contents},
+ 					 		  #{file_id})
+ 	</insert>
  
  
- 
- 
- 
+ 	<delete id="deleteQ">
+ 	
+ 		delete from post where board_id = 4 and post_id = #{post_id}
+ 	
+ 	</delete>
  
  
  

@@ -26,13 +26,6 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
-
-
-	@GetMapping("/join")
-	public String join() {
-		return "user/join";
-	}
 	
 
 	@PostMapping("/joinForm")
@@ -56,6 +49,7 @@ public class UserController {
 					model.addAttribute("valid_" + err.getField() , err.getDefaultMessage());								
 				}
 			}
+			
 
 			return "/user/log"; //실패시 원래 화면으로
 
@@ -72,9 +66,9 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	
 
-	@GetMapping("/")
+
+	@GetMapping("/log")
 	public String log(@RequestParam (value = "err", required = false)String err, Model model) {
 
 		if(err != null) {
@@ -83,8 +77,6 @@ public class UserController {
 
 		return "/user/log";
 	}
-
-
 
 	@PostMapping("/changePW")
 	public String changePW(UserVO userVO) {

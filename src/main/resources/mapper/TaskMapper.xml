@@ -53,8 +53,7 @@
 		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
 	
 	</insert>
-	
-	
+
 	<select id="getTemplateList" resultType="TaskVO">
 		select * from template
 	</select>
@@ -63,7 +62,6 @@
 	<delete id="deleteTemplate">
 		delete from template where tem_id = #{tem_id}
 	</delete>
-	
 	
 	<select id="getPjtList" resultType="ProjectVO">
 		select * from project

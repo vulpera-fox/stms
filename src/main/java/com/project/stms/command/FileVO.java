@@ -19,8 +19,7 @@ public class FileVO {
 	private String file_serial_num;
 	private String org_file_nm;
 	private String file_nm;
-	private String file_path;
-	private Integer file_size;
 	private Timestamp regdate;
+	private Integer pjt_id;
 
 }

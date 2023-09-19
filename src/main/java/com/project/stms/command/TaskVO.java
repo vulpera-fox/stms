@@ -21,6 +21,7 @@ public class TaskVO {
 	
 	private String user_group; //고객사 이름(회사명)
 	private String user_id; //작업자 아이디
+
 	private String user_adr; //작업지
 	private String user_nm; //작업자 이름
 	
@@ -36,7 +37,5 @@ public class TaskVO {
 	private Integer tem_id;
 	private String tem_nm;
 	private String pred_time;
-
-	
 	
 }

@@ -10,7 +10,6 @@
 
     <title>서버관리</title>
     <link rel="stylesheet" type="text/css" th:href=@{/css/detail.css} />
-    <link rel="stylesheet" th:href=@{/css/user.css} >
     <link rel="stylesheet" th:href=@{/css/main.css}>
 	<link rel="stylesheet" type="text/css" th:href=@{/css/index.css} />
 	<link rel="stylesheet" type="text/css" th:href=@{/css/jquery-ui.min.css} />
@@ -38,7 +37,7 @@
 
     <!-- Page level plugins -->
     <script th:src=@{/vendor/datatables/jquery.dataTables.min.js}></script>
-    <script src=@{/vendor/datatables/dataTables.bootstrap4.min.js}></script>
+    <script th:src=@{/vendor/datatables/dataTables.bootstrap4.min.js}></script>
 
     <!-- Page level custom scripts -->
     <!-- <script src="js/demo/datatables-demo.js"></script>-->
@@ -46,7 +45,24 @@
 	<script th:src=@{/js/jquery-ui.min.js}></script>
 	<script th:src=@{/js/style.js}></script>
 	
+	
 </head>
+
+<style>
+	
+	#wrapper{
+			
+			overflow-y: scroll !important;
+			height: 100vh !important;
+		}
+		
+		#accordionSidebar{
+			
+			position: sticky !important;
+			top:-60px !important;
+			
+		}
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -58,10 +74,10 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img th:src=@{/img/logo.png} style="width: 30px; height: 30px;"></i>
+                    <img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(14deg);"></i>
                 </div>
                 <!--<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>-->
-                <div class="sidebar-brand-text mx-3">LOGO</div>
+                <div class="sidebar-brand-text mx-3"style="margin-left: 0.5rem !important;">LOGO</div>
             </a>
 
             <!-- Divider -->
@@ -72,7 +88,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">
                     <img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
-                    <span>홈</span></a>
+                    <span style="margin: 5px">홈</span></a>
             </li>
 
             <!-- Divider -->
@@ -84,18 +100,25 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+             <li class="nav-item">
+                <a class="nav-link" href="/project/ProjectMain" >
+                <a class="nav-link" th:href="@{/project/ProjectMain}" >
+                    <img th:src=@{/img/check_mark.png} style="width: 20px; height: 20px;"/>
+                    <span style="letter-spacing: 1px;">내 프로젝트</span>
+                </a>
+               
+            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <img th:src=@{/img/check_mark.png} alt="" style="width: 20px; height: 20px;"/>
-                    <span>내 작업</span>
+                    <span style="letter-spacing: 1px;">내 작업</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">VIEW MY WORK :</h6>
                         <a class="collapse-item" th:href="@{/task/taskCalendarEng}">작업 대시보드</a>
                         <a class="collapse-item" th:href="@{/task/taskList}">작업 조회</a>
-                        <a class="collapse-item" th:href="@{/task/taskReport}">작업 보고서</a>
 
                     </div>
                 </div>
@@ -103,9 +126,9 @@
 
             <!-- Nav Item - Q&A Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" >
+                <a class="nav-link" th:href="@{/question/customer_question}" >
                     <img th:src=@{/img/question_mark.png} style="width: 20px; height: 20px;"/>
-                    <span>Q&A</span>
+                    <span style="letter-spacing: 1px;">Q&A</span>
                 </a>
                
             </li>
@@ -138,9 +161,6 @@
                         </button>
                     </form>
 
-                   
-                   
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -150,116 +170,8 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw" style="color:#414348b1"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                       
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" th:src="@{/img/undraw_profile_1.svg}"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" th:src="@{/img/undraw_profile_2.svg}"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" th:src="@{/img/undraw_profile_3.svg}"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
+                        <th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
+                        
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -292,9 +204,6 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                       
-
-                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
 
                         <!-- Nav Item - User Information -->
                         
@@ -324,22 +233,12 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <!--<h1 class="h3 mb-2 text-gray-800">등록</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>-->
-
-                    <!-- DataTales Example -->
-                    <div th:replace="${content}">
-		
+				<div class="container-fluid">
+				
+					<div th:replace="${content}">
+				
 					</div>
-                        
-                    
-
-                </div>
+				</div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -380,32 +279,15 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="agentLogout">Logout</a>
+                    <a class="btn btn-primary" th:href="@{/customer_main}">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <!--<script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
-
-    <!-- Core plugin JavaScript-->
-    <!--<script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
-
-    <!-- Custom scripts for all pages-->
-    <!--<script th:src=@{/js/sb-admin-2.min.js}></script>-->
-
-    <!-- Page level plugins -->
-    <!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
-
-    <!-- Page level custom scripts -->
-    <!--<script th:src=@{/js/demo/datatables-demo.js}></script>-->
-    
-
-    
 </body>
+
+<script th:src=@{/js/sb-admin-2.min.js}></script>
+
 </html>
 
 

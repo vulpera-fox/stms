@@ -1,7 +1,6 @@
 package com.project.stms.command;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class NewsVO {
+public class NewsVO { // post 테이블..
 
 	private Integer post_id;
 	private Integer board_id;
 	private char post_secret_yn;
-	private char post_pw;
+	private String post_pw;
 	private String post_title;
 	private String user_id;
 	private LocalDateTime post_regdate;

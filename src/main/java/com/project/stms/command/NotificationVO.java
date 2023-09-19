@@ -23,5 +23,11 @@ public class NotificationVO {
 	private String send_del_yn;
 	private Integer num;
 	private Integer count_pre_noti;
+	private String category;
+	private String stat;
+	private Integer count;
+	private String url;
+	
+	
 	
 }

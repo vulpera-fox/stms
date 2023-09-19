@@ -14,21 +14,7 @@ a {
     display: none;
 }
 
-.modal2{
-    position: fixed;
-    background-color: rgb(0,0,0,0.4);
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    display: none;
-}
-
 .modal.active{
-    display: block;
-}
-
-.modal2.active{
     display: block;
 }
 
@@ -45,6 +31,16 @@ a {
     animation: slidefade 0.5s linear;
 }
 
+.modal2{
+    position: fixed;
+    background-color: rgb(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+
 .modal2-content {
     background-color: #fff;
     width: 503px;
@@ -58,7 +54,46 @@ a {
     animation: slidefade 0.5s linear;
 }
 
+.modal2.active{
+    display: block;
+}
+
+.modal3{
+    position: fixed;
+    background-color: rgb(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+
+.modal3-content {
+    background-color: #fff;
+    width: 400px;
+    height: 200px;
+    border-radius: 21px;
+    position: absolute;
+    top: 45.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    animation: slidefade 0.5s linear;
+}
+
+
+.modal3.active{
+    display: block;
+}
+
+
 .btn-close {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+
+.btn-close3 {
     position: absolute;
     top: 8px;
     right: 15px;

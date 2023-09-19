@@ -1,0 +1,42 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<th:block th:fragment="pageNation( qpageVO )">
+		
+		<div class="paging">
+				<a class="page_btn" th:href="@{customer_question(page=1, amount=${qpageVO.amount}, searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}"><<</a>
+						<th:block th:if="${qpageVO.prev}">
+							
+						<a class="page_btn" th:href="@{customer_question(page=${qpageVO.page-1},
+																	amount=${qpageVO.amount},
+																	searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}"><</a>
+							
+						</th:block>
+						
+						<th:block th:each="page : ${qpageVO.pageList}">
+								<a class="page_num" 
+								th:href="@{customer_question(page=${page}, amount=${qpageVO.amount},searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}">[[${page}]]</a>
+						</th:block>
+						
+						<th:block th:if="${qpageVO.next}">
+							
+								<a class="page_btn" th:href="@{customer_question(page=${qpageVO.page+1},
+																			 amount=${qpageVO.amount},
+																			 searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}">></a>
+							
+						</th:block>
+						
+						<th:block>
+							
+								<a class="page_btn" th:href="@{customer_question(page=${qpageVO.realEnd},
+																			 amount=${qpageVO.amount},
+																			 searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}">>></a>
+							
+						</th:block>
+								
+
+			</div>
+		
+		
+	</th:block>
+</html>
