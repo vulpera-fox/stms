@@ -66,8 +66,6 @@ public class UserController {
 		return "redirect:/";
 	}
 
-
-
 	@GetMapping("/log")
 	public String log(@RequestParam (value = "err", required = false)String err, Model model) {
 

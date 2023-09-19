@@ -1,6 +1,7 @@
 package com.project.stms.service.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,8 +37,24 @@ public interface TaskMapper {
 	//작업 상세내용 불러오기
 	public TaskVO getTaskDetailSearch(Integer task_id);
 	//작업 수정
-	public TaskVO getTaskModify(TaskVO vo);	
+	public void updateTask(TaskVO vo);
 	
+	//작업등록카드(타입A:작업목록 있는 경우)생성
+	public ArrayList<TaskVO> getRegBoxA(Integer pjt_id);
+	
+	
+	//프로젝트 멤버(엔지니어) 조회
+	public ArrayList<TaskVO> getPjtMembers(@Param("pjt_id") Integer pjt_id);
+	
+	
+	//작업등록시 템플릿 리스트 조회
+	public ArrayList<TaskVO> getTaskTemp(Integer user_id);
+	
+	//작업등록
+	public int taskRegist(TaskVO vo);
+	
+	//작업삭제
+	//public void delTask(int task_id);
 	
 	//모달(프로젝트 정보 등록)
 //	public ArrayList<ProjectVO> regPjtList();
