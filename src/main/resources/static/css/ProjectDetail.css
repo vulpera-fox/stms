@@ -56,8 +56,10 @@ a {
   text-align: center;
 }
 
+
 .tabList p:hover {
   color: red;
+  cursor: pointer;
 }
 
 .on {
@@ -152,7 +154,7 @@ a {
 }
 
 .taskDetailArea {
-  margin-bottom: 20px;
+  margin-bottom: 7px;
   height: 75%;
   border-bottom: 1px solid rgb(230, 235, 241);
 }

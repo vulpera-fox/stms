@@ -22,7 +22,7 @@ public interface ProjectMapper {
 	
 	public void requestProject(ProjectVO vo);
 	
-	public void insertFiles(List<FileVO> list);
+	public void insertFiles(FileVO list);
 	
 	public ProjectVO getProjectDetail(int pjt_id);
 	
@@ -71,4 +71,7 @@ public interface ProjectMapper {
 	
 	// 세부창에서 프로젝트에 참여하는 멤버 업데이트
 	public void updateMemberAtProject(@Param("user_id") String user_id, @Param("pjt_id") int pjt_id);
+	
+	// 파일업로드시 필요한 정보 가져오기
+	public ProjectVO getProjectInfoForFiles();
 }
