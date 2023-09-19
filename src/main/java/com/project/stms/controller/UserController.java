@@ -68,7 +68,7 @@ public class UserController {
 
 	
 
-	@GetMapping("/")
+	@GetMapping("/log")
 	public String log(@RequestParam (value = "err", required = false)String err, Model model) {
 
 		if(err != null) {
