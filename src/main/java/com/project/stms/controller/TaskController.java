@@ -49,7 +49,7 @@ public class TaskController {
 		return "task/taskList";
 	}
 	
-	//작업등록
+	//작업등록(프로젝트목록 및 검색기능)
 	@GetMapping("taskReg")
 	public String taskReg(Model model, Criteria cri) {
 
