@@ -104,7 +104,8 @@
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <form class="d-flex">
-                        <th:block th:if="${session.user_id}==null">
+								<th:block th:if="${session.user_id}==null">
+
                                 <li class="nav-item dropdown no-arrow">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -115,17 +116,20 @@
                                             
                                     </a>
                                 </li>
-                        </th:block>
-                        <th:block th:if="${session.user_role}=='ROLE_CUSTOMER'">
-                        <li class="nav-item dropdown no-arrow">
+								</th:block>
+								<th:block th:if="${session.user_role}=='ROLE_CUSTOMER'">
+								<li class="nav-item dropdown no-arrow">
+
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <div style="text-align: center;">
                                             <img class="img-profile rounded-circle profile" th:src=@{/img/undraw_profile.svg}>
                                         </div>
                                         <div class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
-                                 <br />[[${#strings.substringAfter(session.user_role, '_')}]]
-                              </div>                                            
+
+											<br />[[${#strings.substringAfter(session.user_role, '_')}]]
+										</div>                                            
+
                                     </a>
                                     <!-- Dropdown - User Information-->
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -148,7 +152,8 @@
                                     </div>
 
                                 </li>
-                        </th:block>
+								</th:block>
+
                             </form>
                         </ul>
                     </nav>
@@ -176,6 +181,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
                 <a class="btn btn-primary" th:href="@{/}">Logout</a>
             </div>
         </div>
