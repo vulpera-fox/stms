@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 </html>
@@ -23,8 +23,8 @@
 <body>
 	<div>
 		<th:block th:replace=" ${session.user_role} == 'ROLE_ADMIN' ? ~{/include/layout_admin :: setContent(~{ :: #container})} : ~{/include/layout_engineer :: setContent(~{ :: #container})}">
-			
-		
+
+
 		<div id='container'>
 		[[${session.user_email}]]
 			<div class='searchArea'>
@@ -167,7 +167,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	</th:block>
 
 	<script th:inline="javascript">
@@ -199,5 +199,3 @@
 	</script>
 
 </body>
-
-</html>

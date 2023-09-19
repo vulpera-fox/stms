@@ -6,6 +6,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +43,12 @@ public class ProjectController {
 	@Autowired
 	private S3Service s3Service;
 	
+	@Autowired
 	@Qualifier("notificationService")
 	NotificationService notificationService;
 	
 	@Autowired
 	SseService sseService;
-	
-	
 	
 	private String ins_user_id = "50";
 	
@@ -77,13 +78,16 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo, HttpSession session) {
+	public String ProjectRegist(Model mo, HttpServletRequest request) {
 		
-		String myEmail = (String) session.getAttribute("user_email");
+		HttpSession session = request.getSession();
 		
-		System.out.println(myEmail + " 나의 이메일");
+		//String myEmail = (String) session.getAttribute("userName");
 		
-		String myId = projectService.getMyId(myEmail);
+		//System.out.println(myEmail + " 나의 이메일");
+		
+		String myId = (String) session.getAttribute("user_id");
+//		String myId = ;
 		
 		System.out.println(myId + " 나의 아이디");
 		
@@ -102,8 +106,10 @@ public class ProjectController {
 	
 	@PostMapping("/registForm")
 	public String registForm(ProjectVO vo,
-							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list) {
+							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list,
+							 HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
 		
 		System.out.println(vo.toString());
 		
@@ -113,7 +119,7 @@ public class ProjectController {
 			System.out.println("리스트가있어요");
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
-		notificationService.createProjectNotification("ADMIN", req_user_id, vo.getPjt_nm());
+		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
 		
 //		System.out.println("1");
 		

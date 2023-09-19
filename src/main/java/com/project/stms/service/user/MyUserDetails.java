@@ -34,10 +34,10 @@ public class MyUserDetails implements UserDetails{
 		return userVO.getUser_nm();
 	}
 	
+
 	public String getUser_adr() {
 		return userVO.getUser_adr();
 	}
-
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
