@@ -23,11 +23,11 @@
 			<form action="login" method="post"><!--UsernamePasswordAuthenticationFilter를 이용할려고 login경로로 post요청 보냄-->
 				<div class="int-area">
 					<input class="inputText" id="user_email" type="text" name="user_email" autocomplete="off" required>
-					<label for="user_email">YOUR EMAIL</label>
+					<label for="user_email">이메일</label>
 				</div>
 				<div class="int-area">
 					<input class="inputText" id="user_pw" type="password" name="user_pw" autocomplete="off" required>
-					<label for="user_pw">YOUR PASSWORD</label>
+					<label for="user_pw">비밀번호</label>
 				</div>
 				<input type="submit" class="loginBtn" value="LOGIN">
 			</form>
@@ -36,13 +36,13 @@
 					<li>
 						<!--<a th:href="@{/findID}">아이디찾기</a>
 	                        <span style="color: #999;"> | </span>-->
-						<a onclick="openModal2()" ; style="cursor: pointer;">Change Your Password</a>
+						<a onclick="openModal2()" ; style="cursor: pointer;">비밀번호 변경</a>
 					</li>
 				</ul>
 			</div>
 
 			<div class="joinWrap">
-				<button type="button" onclick="openModal()" ; class="joinBtn">SIGN UP</button>
+				<button type="button" onclick="openModal()" ; class="joinBtn">회원가입</button>
 			</div>
 		</div>
 	</div>
@@ -118,27 +118,27 @@
 					<div class="int-area">
 						<input class="email" type="text" id="join_email" name="user_email" autocomplete="off" required
 							placeholder="">
-						<label for="join_email">YOUR EMAIL</label>
+						<label for="join_email">이메일</label>
 					</div>
 					<div class="int-area">
 						<input class="pw" type="password" id="join_pw" name="user_pw" autocomplete="off" required
 							placeholder="">
-						<label for="join_pw">YOUR PASSWORD</label>
+						<label for="join_pw">비밀번호</label>
 					</div>
 					<div class="int-area">
 						<input class="pw2" type="password" id="join_pw2" name="user_pw2" autocomplete="off" required
 							placeholder="">
-						<label for="join_pw2">SIGN PASSWORD</label>
+						<label for="join_pw2">비밀번호 확인</label>
 					</div>
 
 					<div class="int-area">
 						<input class="inputText2" type="text" id="user_nm" name="user_nm" autocomplete="off" required>
-						<label for="user_nm">YOUR NAME</label>
+						<label for="user_nm">이름</label>
 					</div>
 					<div class="int-area">
 						<input class="inputText2" type="text" id="user_group" name="user_group" autocomplete="off"
 							required>
-						<label for="user_group">YOUR GROUP</label>
+						<label for="user_group">단체명</label>
 					</div>
 					<div class="int-area">
 						<select class="user_role" name="user_role">
@@ -153,11 +153,11 @@
 
 					<div class="int-area">
 						<input type="text" class="address_kakao" id="address_kakao" name="address_kakao" required>
-						<label for="address_kakao">YOUR ADDRESS</label>
+						<label for="address_kakao">주소</label>
 					</div>
 					<div class="int-area">
 						<input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
-						<label for="address_detail">DETAIL ADDRESS</label>
+						<label for="address_detail">상세주소</label>
 					</div>
 
 					<input type="hidden" class="user_adr" name="user_adr">

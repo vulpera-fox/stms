@@ -1,6 +1,7 @@
 package com.project.stms.service.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public void deleteTemplate(Integer tem_id) {
 		
-		taskMapper.deleteTaskList(tem_id);
+		taskMapper.deleteTemplate(tem_id);
 	}
 
 
@@ -88,24 +89,48 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public TaskVO getTaskModify(TaskVO vo) {
+	public void updateTask(TaskVO vo) {
 		
-		return taskMapper.getTaskModify(vo);
+		System.out.println("서비스에서"+ vo.toString());
+		
+		taskMapper.updateTask(vo);
+	}
+
+	
+	@Override
+	public ArrayList<TaskVO> getRegBoxA(Integer pjt_id) {
+		
+		return taskMapper.getRegBoxA(pjt_id);
+	}
+	
+
+	@Override
+	public ArrayList<TaskVO> getPjtMembers(Integer pjt_id) {
+		
+		return taskMapper.getPjtMembers(pjt_id);
 	}
 
 
+	@Override
+	public ArrayList<TaskVO> getTaskTemp(Integer user_id) {
+		
+		return taskMapper.getTaskTemp(user_id);
+	}
 
+
+	@Override
+	public int taskRegist(TaskVO vo) {
+		
+		
+		return taskMapper.taskRegist(vo);
+	}
 
 
 //	@Override
-//	public ArrayList<ProjectVO> getPjtList() {
-//		
-//		return taskMapper.getPjtList();
+//	public void delTask(int task_id) {
+//		taskMapper.delTask(task_id);
 //	}
-
-//	@Autowired
-//	private TaskMapper taskMapper;
 	
 	
-	
+		
 }

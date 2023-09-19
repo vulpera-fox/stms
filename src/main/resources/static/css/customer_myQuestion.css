@@ -1,0 +1,337 @@
+* {
+
+	margin: 0;
+	padding: 0;
+}
+
+.subtop_wrap {
+
+	background-color: powderblue;
+	background: url(../img/question_banner.jpeg) no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 230px;
+	justify-content: center;
+	flex-direction: row;
+	display: flex;
+	align-items: center;
+}
+
+.subtop .page_header {
+
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	font-size: 40px;
+	letter-spacing: 3px;
+	font-weight: 500;
+
+}
+
+.subtop_wrap .subtop .sub_text {
+
+	color: white;
+	font-size: 18px;
+	line-height: 24px;
+	padding-top: 15px;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+
+/* 상담 절차 ui*/
+
+.q_sub {
+	
+	margin: 38px 65px 30px;
+}
+
+.divider {
+	
+	border: 1px solid #020f37 !important;
+	width: 90%;
+	text-align: center;
+	margin: auto;
+	opacity: 1;
+}
+
+.divider02 {
+	
+	border-bottom: 0.1px solid #020f37 !important;
+	width: 90%;
+	text-align: center;
+	margin: auto;
+	opacity: 0.3;
+	margin-bottom: 50px;
+}
+
+.info_con {
+	
+	padding: 50px 30px 50px;
+}
+
+.info_con ol {
+	
+	overflow: hidden;
+	position: relative;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+
+.info_con ol > li {
+	
+	position: relative;
+	display: table-cell;
+	text-align: center;
+}
+
+.info_con ol > li > span {
+	
+	display: block;
+}
+
+.info_con ol > li:nth-child(1):before {
+	
+	background-position: 0 0;
+	
+}
+.info_con ol > li:nth-child(2):before {
+	
+	
+	background-position: -60px 0;
+}
+
+
+
+
+.info_con ol > li:before {
+	
+	content: '';
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+	line-height: 60px;
+	background:url(../img/inquiry_set.png) no-repeat;
+	display: block;
+}
+
+
+.info_con ol > li:after {
+	
+	content: '';
+	display: block;
+}
+
+.info_con ol > li + li:after {
+	
+	position: absolute;
+	left: 0;
+	top:50%;
+	width: 12px;
+	height: 12px;
+	margin: -10px 0 0;
+	border-top: 2px solid #7b7b7b;
+	border-right: 2px solid #7b7b7b;
+	transform: rotate(45deg);
+}
+
+
+/* 총 게시글 수  */
+.search {
+
+	text-align: right;
+	margin-top: 10px;
+	padding: 10px;
+	overflow: hidden;
+}
+
+.search .total_num {
+
+	float: left;
+	font-size: 14px;
+	padding-top: 9.5px;
+}
+
+.total_num span {
+
+	color: #020f37;
+}
+
+select {
+
+	border: none !important;
+	width: 77px;
+	height: 20px;
+	padding: 1px 13px;
+	border-radius: 40px;
+	margin-right: 10px;
+	background-color: #fafafa;
+}
+
+
+
+
+table {
+
+	border-collapse: collapse;
+}
+
+a {
+
+	text-decoration: none;
+	color: inherit;
+
+}
+
+.q_list_wrap {
+
+	padding: 50px;
+	text-align: center;
+	margin: auto;
+	padding: 6px;
+
+}
+
+.q_list {
+
+	border-top: 2px solid #020f37;
+	width: 100%
+}
+
+.q_list_wrap .q_list tr {
+
+	border-bottom: 1px solid #020f3766;
+
+}
+
+.q_list_wrap .q_list th,
+.q_list_wrap .q_list td {
+
+	padding: 10px;
+	font-size: 13px;
+}
+
+
+
+.q_list th {
+	text-align: center;
+	color: #020f37;
+}
+
+.q_list td {
+
+	text-align: center;
+	font-size: 14px;
+	color: black;
+}
+
+.q_list td a {
+	color: black;
+}
+
+.q_list .title {
+
+	text-align: left;
+}
+
+.q_list .title:hover {
+
+	text-decoration: underline;
+}
+
+.q_list_wrap .paging {
+	
+	margin-top: 10px;
+	font-size: 0;
+	text-align: center;
+	margin-bottom: 50px;
+
+}
+
+.q_list_wrap .paging a {
+
+	display: inline-block;
+	/* border: brown 1px solid; */
+	font-size: 15px;
+	margin-left: 10px;
+	border-radius: 20px;
+	padding: 5px 10px;
+	color: black !important;
+}
+
+
+
+
+.q_list_wrap .paging a.page_btn:hover {
+
+	background-color: #020f37;
+	color: white !important;
+}
+
+
+
+.q_list_wrap .paging a.page_num {
+
+
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+	font-weight: 600px;
+
+}
+
+.q_list_wrap .paging a.page_num:hover {
+
+	background-color: #020f37;
+	color: white !important;
+}
+
+/* 글쓰기 버튼 */
+
+.goto_write{
+	
+	text-align: center;
+	padding:20px;
+	margin-top: 20px;
+}
+.goto_write .goto_write_btn {
+
+	all: unset;
+	text-decoration: none;
+	background-color: #020f37;
+	color: white;
+	padding: 10px;
+	width: 58px;
+	height: 25px;
+	text-align: center;
+	border-radius: 10px;
+	border: 1px solid #020f37;
+
+}
+
+.goto_write a {
+
+	text-decoration: none;
+	color: white;
+	text-align: center;
+	font-size: 15px;
+}
+
+.goto_write .goto_write_btn:hover {
+
+	background-color: white;
+	color: #020f37;
+
+}
+.goto_write a:hover {
+
+	text-decoration: none;
+	
+}
+
+
+
+
+
+
