@@ -73,4 +73,14 @@ public interface ProjectMapper {
 	
 	// 파일업로드시 필요한 정보 가져오기
 	public ProjectVO getProjectInfoForFiles();
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getMyId(String user_email);
+	
 }
