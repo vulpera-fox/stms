@@ -27,6 +27,7 @@ import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.project.ProjectMapper;
 import com.project.stms.service.project.ProjectService;
+import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
 import com.project.stms.util.PageVO;
 
@@ -39,6 +40,8 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	@Autowired
+	private S3Service s3Service;
+	
 	@Qualifier("notificationService")
 	NotificationService notificationService;
 	
@@ -58,6 +61,8 @@ public class ProjectController {
 		mo.addAttribute("pList", pList);
 		
 		mo.addAttribute("reqPList", reqPList);
+		
+//		s3Service.getMyBucket();
 		
 		return "/project/ProjectMain";
 	}
@@ -84,16 +89,17 @@ public class ProjectController {
 	
 	@PostMapping("/registForm")
 	public String registForm(ProjectVO vo,
-							 @RequestParam(required = false, name = "file") List<MultipartFile> list) {
+							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list) {
 		
-		if(list != null) {
-			projectService.insertFiles(list);
-		}
 		
 		System.out.println(vo.toString());
 		
 		projectService.requestProject(vo);
 		
+		if(list != null) {
+			System.out.println("리스트가있어요");
+			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
+		}
 		notificationService.createProjectNotification("ADMIN", req_user_id, vo.getPjt_nm());
 		
 //		System.out.println("1");
@@ -247,6 +253,8 @@ public class ProjectController {
 		UserVO adUList = projectService.getAdminUserDetail(pjt_id);
 		List<UserVO> engiUList = projectService.getUserByProject(pjt_id);
 		List<UserVO> notAddedUList = projectService.getMemberNotAdded(pjt_id, new Criteria());
+		
+		System.out.println(notAddedUList.size() + " 추가될 작업자의 명 수");
 		
 		int total = projectService.getNotAddedTotal(pjt_id);
 		

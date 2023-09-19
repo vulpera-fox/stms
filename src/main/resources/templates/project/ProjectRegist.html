@@ -1,184 +1,218 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="../css/ProjectRegist.css">
-	<script src="../js/jquery-3.7.0.min.js"></script>
-	<script src="../js/ProjectRegist.js"></script>
-	<title>Document</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/ProjectDetail.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+	crossorigin="anonymous"></script>
+<script src="/js/jquery-3.7.0.min.js"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
-<body>
+
+
+<th:block th:replace=" ~{/include/layout_engineer :: setContent(~{ :: .container})}">
 
 	<div>
+		<div class="container">
+			<form method="post" action="registForm" enctype="multipart/form-data">
+				<input type="text" hidden name="req_user_id" value="33" />
+			
 
-
-
-		<th:block th:replace=" ~{/include/layout_engineer :: setContent(~{ :: .container})}">
-
-			<div class="container">
-				<form method="post" action="registForm" enctype="multipart/form-data">
-					<input type="text" hidden name="req_user_id" value="33" />
-
-					<div class="contentAreaBox">
-						<div class="contentArea">
-							<div class="topArea">
-								<span>프로젝트 등록</span>
-							</div>
-							<div class="shortFormArea">
-								<ul>
-									<li>
-										<p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" />
-									</li>
-									<li>
-										<p>서버 종류</p>
-										<select name="server_id" class="server_id">
-											<th:block th:each="sVO : ${sList}">
-												<option th:value="${sVO.server_id}">[[${sVO.server_model}]]</option>
-											</th:block>
-										</select>
-									</li>
-									<li>
-										<div>
-											<p>시작일</p><input type="date" name="pjt_st_dt" required />
-										</div>
-										<div>
-											<p>마감일</p><input type="date" name="pjt_end_dt" required />
-										</div>
-									</li>
-								</ul>
-							</div>
-
-
-							<div class="detailFormArea">
-								<div class="upperDetailFormArea">
-									<div class="detailFormAreaLeft">
-										<p style="margin-bottom: 20px; font-size: 20px;">프로젝트 내용</p>
+				<div class="contentAreaBox">
+					<div class="contentArea">
+						<div class="topArea">
+							<span>프로젝트 등록</span>
+						</div>
+						<div class="shortFormArea">
+							<ul>
+								<li>
+									<p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" />
+								</li>
+								<li>
+									<p>서버 종류</p>
+									<select name="server_id" class="server_id">
+										<th:block th:each="sVO : ${sList}">
+											<option th:value="${sVO.server_id}">[[${sVO.server_model}]]</option>
+										</th:block>
+									</select>
+								</li>
+								<li>
+									<div style="position: relative; width: 150px;">
+										<p>시작일</p>
+										<input type="date" id="pjt_st_dt" name="pjt_st_dt" min="" max="" required />
+										<p id="errorMsg" style="display: none; position: absolute; ">시작일은 오늘 이후여야 합니다.
+										</p>
 									</div>
-									<div class="detailFormAreaRight">
-										<a data-bs-toggle="modal" data-bs-target="#fileUploadModal"
-											style="font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-												height="16" fill="currentColor" class="bi bi-file-text-fill"
-												viewBox="0 0 16 16">
-												<path
-													d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
-											</svg>파일 업로드</a>
-									</div>
-								</div>
-								<textarea name="pjt_dtl" class="pjt_dtl"></textarea>
-
-								<div class="formBtnArea">
 									<div>
-										<button class="submitBtn" type="submit">신청</button>
+										<p>마감일</p><input type="date" id="pjt_end_dt" name="pjt_end_dt" min="" max=""
+											required readonly />
 									</div>
+								</li>
+							</ul>
+						</div>
+
+
+						<div class="detailFormArea">
+							<div class="upperDetailFormArea">
+								<div class="detailFormAreaLeft">
+									<p style="margin-bottom: 20px; font-size: 20px;">프로젝트 내용</p>
+								</div>
+								<div class="detailFormAreaRight">
+									<a data-bs-toggle="modal" data-bs-target="#fileUploadModal"
+										style="font-size: 15px;"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+											height="16" fill="currentColor" class="bi bi-file-text-fill"
+											viewBox="0 0 16 16">
+											<path
+												d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1zm0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1z" />
+										</svg>파일 업로드</a>
 								</div>
 							</div>
+							<textarea name="pjt_dtl" class="pjt_dtl"></textarea>
 
+							<div class="formBtnArea">
+								<div>
+									<button class="submitBtn" type="submit">신청</button>
+								</div>
+							</div>
 						</div>
 
 					</div>
 
-			</div>
+				</div>
 
-			<div class="modalArea">
-				<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="exampleModalLabel">파일 업로드</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<div class="input-group mb-3">
-									<div style="width: 100%;">
-										<input type="file" multiple class="form-control" id="inputGroupFile02"
-											name="file">
-									</div>
-									<div>
-										<ul class="fileThumbnailZone" style="width: 100%;">
+		</div>
 
-										</ul>
-									</div>
+</th:block>
+
+		<div class="modalArea">
+			<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">파일 업로드</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="input-group mb-3">
+								<div style="width: 100%;">
+									<input type="file" multiple class="form-control" id="inputGroupFile02" name="fileList">
+								</div>
+								<div>
+									<ul class="fileThumbnailZone" style="width: 100%;">
+
+									</ul>
 								</div>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-primary" data-bs-dismiss="modal">업로드</button>
-								<!--<button type="button" class="btn btn-primary">업로드</button>-->
-							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">업로드</button>
+							<!--<button type="button" class="btn btn-primary">업로드</button>-->
 						</div>
 					</div>
 				</div>
 			</div>
-			</form>
+		</div>
+		</form>
 
-		</th:block>
 	</div>
 
-	<script>
+
+<script th:inline="javascript">
 
 
-		const handler = {
-			init() {
+	const fileHandler = {
+		init() {
 
-				const fileInput = $('#inputGroupFile02');
-				const preview = $('.fileThumbnailZone');
-				$('#inputGroupFile02').change(() => {
-					$('.fileThumbnailZone').children().remove();
-					const files = Array.from($('#inputGroupFile02')[0].files);
-					files.forEach(file => {
-						var previewText = $(`<li><p id="${file.lastModified}">${file.name}<button data-index='${file.lastModified}' class='file-remove' style="margin-left:20px;">X</button></p></li>`);
-						preview.append(previewText);
-					});
+			const fileInput = $('#inputGroupFile02');
+			const preview = $('.fileThumbnailZone');
+			$('#inputGroupFile02').change(() => {
+				$('.fileThumbnailZone').children().remove();
+				const files = Array.from($('#inputGroupFile02')[0].files);
+				files.forEach(file => {
+					var previewText = $(`<li><p id="${file.lastModified}">${file.name}<button data-index='${file.lastModified}' class='file-remove' style="margin-left:20px;">X</button></p></li>`);
+					preview.append(previewText);
 				});
-			},
+			});
+		},
 
-			removeFile: () => {
-				document.addEventListener('click', (e) => {
-					if (e.target.className !== 'file-remove') return;
-					const removeTargetId = e.target.dataset.index;
-					const removeTarget = document.getElementById(removeTargetId);
-					const files = document.querySelector('#inputGroupFile02').files;
-					const dataTranster = new DataTransfer();
+		removeFile: () => {
+			document.addEventListener('click', (e) => {
+				if (e.target.className !== 'file-remove') return;
+				const removeTargetId = e.target.dataset.index;
+				const removeTarget = document.getElementById(removeTargetId);
+				const files = document.querySelector('#inputGroupFile02').files;
+				const dataTranster = new DataTransfer();
 
 
-					Array.from(files)
-						.filter(file => file.lastModified != removeTargetId)
-						.forEach(file => {
-							dataTranster.items.add(file);
-						});
+				Array.from(files)
+					.filter(file => file.lastModified != removeTargetId)
+					.forEach(file => {
+						dataTranster.items.add(file);
+					});
 
-					document.querySelector('#inputGroupFile02').files = dataTranster.files;
+				document.querySelector('#inputGroupFile02').files = dataTranster.files;
 
-					removeTarget.remove();
-				})
-			}
+				removeTarget.remove();
+			})
 		}
+	}
 
-		handler.init();
-		handler.removeFile();
+	fileHandler.init();
+	fileHandler.removeFile();
 
-		$('.submitBtn').click((e) => {
-			if ($('.pjt_nm').val() === "") {
-				e.preventDefault();
+	$('.submitBtn').click((e) => {
+		if ($('.pjt_nm').val() === "") {
+			e.preventDefault();
 
-				$('.pjt_nm').focus().attr('placeholder', "제목은 필수입니다.");
+			$('.pjt_nm').focus().attr('placeholder', "제목은 필수입니다.");
+		}
+	});
+
+
+
+	// 오늘 날짜 가져오기
+
+	function getToday() {
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	}
+
+	const startDateInput = document.getElementById('pjt_st_dt');
+	const endDateInput = document.getElementById('pjt_end_dt');
+	const errorMessage = document.getElementById('errorMsg');
+
+	startDateInput.min = getToday();
+
+	// 시작일 선택 시, 마감일은 시작일 이전의 날짜 선택 불가능
+	startDateInput.addEventListener('change', function () {
+		if (this.value) {
+			if (this.value < getToday()) {
+				errorMessage.style.display = 'block';
+			} else {
+				errorMessage.style.display = 'none';
+				endDateInput.removeAttribute('readonly');
+				endDateInput.min = this.value;
 			}
-		})
+		} else {
+			errorMessage.style.display = 'none';
+			endDateInput.setAttribute('readonly', 'true');
+			endDateInput.value = '';
+		}
+	});
 
-	</script>
+</script>
 
-</body>
 
 </html>

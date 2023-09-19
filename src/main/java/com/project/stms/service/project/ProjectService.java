@@ -20,7 +20,7 @@ public interface ProjectService {
 	
 	public void requestProject(ProjectVO vo);
 	
-	public void insertFiles(List<MultipartFile> list);
+	public void insertFiles(List<MultipartFile> list, int pjt_id);
 	
 	public ProjectVO getProjectDetail(int pjt_id);
 	
@@ -55,5 +55,7 @@ public interface ProjectService {
 	public List<UserVO> getMemberNotAdded(int pjt_id, Criteria cri);
 	
 	public void updateMemberAtProject(String user_id, int pjt_id);
+	
+	public ProjectVO getProjectInfoForFiles();
 	
 }
