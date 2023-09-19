@@ -26,6 +26,9 @@ public class MyUserDetails implements UserDetails{
 		return userVO.getUser_role();
 	}
 	
+	public String getUser_id() {
+		return userVO.getUser_id();
+	}
 	
 	
 	@Override

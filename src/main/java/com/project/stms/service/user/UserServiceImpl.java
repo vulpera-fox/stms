@@ -1,7 +1,5 @@
 package com.project.stms.service.user;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public List<UserVO> userInfo(String user_email) {
+	public UserVO userInfo(String user_email) {
 		return userMapper.userInfo(user_email);
 	}
 

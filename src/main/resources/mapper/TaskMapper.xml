@@ -72,27 +72,34 @@
 	
 	
 	<select id="getTaskSearch" resultType="TaskVO">
-		select * from task
-		where pjt_id = #{pjt_id}
+		select *
+		from project p
+		left join
+		task t
+		on p.pjt_id = t.pjt_id
+		where t.pjt_id = #{pjt_id};
 	</select>
 	
 	<select id="getTaskDetailSearch" resultType="TaskVO">
-		select t.task_id,
+		select t.pjt_id,
+			   t.task_id,
 			   t.task_nm,
 		       t.task_dtl,
 		       t.status,
 		       date_format(t.task_date, '%Y-%m-%d') as task_date,
 		       date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+			   t.server_id,
 			   u.user_nm,
 		       u.user_group,
-		       u.user_adr
+		       u.user_adr,
+		       u.user_id
 		from task t
 		left join user u
 		on t.user_id = u.user_id
 		where task_id = #{task_id};
 	</select>
 	
-	<update id="getTaskModify" parameterType="TaskVO">
+	<update id="updateTask">
 		update task set task_nm = #{task_nm},
 					 	task_dtl = #{task_dtl},
 					 	status = #{status},
@@ -100,5 +107,53 @@
 					 	task_st_dt = #{task_st_dt}
 					where task_id = #{task_id}
 	</update>
+	
+	
+	<select id="getRegBoxA" resultType="TaskVO">
+		select t.*,
+			   u.*
+		from task t
+		left join
+		user u
+		on t.user_id = u.user_id
+		where t.pjt_id = #{pjt_id}
+	</select>
+	
+	<select id="getPjtMembers" resultType="TaskVO">
+		select *
+		from user u
+		left join
+		pjt_mem pm
+		on u.user_id = pm.user_id
+		where pjt_id = #{pjt_id}
+	</select>
+	
+	<select id="getTaskTemp" resultType="TaskVO">
+		select * from template
+		where user_id = #{user_id}
+	</select>
+	
+	<insert id="taskRegist" parameterType="TaskVO">
+		insert into task (status,
+						  task_nm,
+						  task_date,
+						  task_st_dt,
+						  user_id,
+						  task_dtl,
+						  pjt_id,
+						  server_id)
+				values(#{status},
+					   #{task_nm},
+					   #{task_date},
+					   #{task_st_dt},
+					   #{user_id},
+					   #{task_dtl},
+					   #{pjt_id},
+					   #{server_id})
+	</insert>
+	
+	<delete id="delTask" parameterType="int">
+		delete from task where task_id = #{task_id}
+	</delete>
 
 </mapper>

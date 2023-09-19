@@ -29,8 +29,6 @@ public interface NotificationMapper {
 	
 	public void createProjectNotification(@Param("rcv_id")String rcv_id, @Param("send_id")String send_id, @Param("pjt_nm")String pjt_nm);
 	
-	public void addProjectMemberNotification(List<String> users);
-	
 //	public ArrayList<NotificationVO> getData(int pageNumber);
 	
 }

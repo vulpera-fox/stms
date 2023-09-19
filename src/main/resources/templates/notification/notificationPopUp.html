@@ -296,7 +296,7 @@
 								<div class="check" data-noti-id="${row.noti_id}" data-rcv-del-yn="${row.rcv_del_yn}">
 					   			<div style="overflow:hidden;">
 									<div style="display:block; float:left;">
-					              		<div style="font-size: small;">${row.send_id}&nbsp;</div>                                   
+					              		<div data-rcv-id="${row.rvc_id}" style="font-size: small;">${row.send_id}&nbsp;</div>                                   
 					             		<span style="font-weight: bold;">${row.noti_nm}&nbsp;${row.noti_id}</span>           
 					              		<span class="send_time" style="font-size: small; color: gray; font-weight: 500;">${row.noti_send_dt}</span>                              
 					              	</div>
@@ -315,13 +315,57 @@
 				$('#content-wrap').html(str);
 
 				$(".check").on('click', function () {
+
 					event.stopPropagation();
+
+					var rcv_id = $(event.currentTarget).children().children().children().first().data("rcv-id");
+
 					$(event.currentTarget).addClass("read");
 					var noti_id = $(this).data("noti-id");
 					chkNotification(noti_id);
 
 					var category = $(event.currentTarget).parents(".list").data("value");
 					updateNotificationCount(category);
+
+					const eventSource = new EventSource(`/subscribe` + rcv_id);
+
+					eventSource.addEventListener("sse", function (event) {
+
+						const noti_data = JSON.parse(event.data);
+						(async () => {
+							// 브라우저 알림
+							const showNotification = () => {
+
+								const notification = new Notification('코드 봐줘', {
+									body: data.content
+								});
+
+								setTimeout(() => {
+									notification.close();
+								}, 10 * 1000);
+
+								notification.addEventListener('click', () => {
+									window.open(data.url, '_blank');
+								});
+							}
+
+							// 브라우저 알림 허용 권한
+							let granted = false;
+
+							if (Notification.permission === 'granted') {
+								granted = true;
+							} else if (Notification.permission !== 'denied') {
+								let permission = await Notification.requestPermission();
+								granted = permission === 'granted';
+							}
+
+							// 알림 보여주기
+							if (granted) {
+								showNotification();
+							}
+						})();
+
+					})
 
 				});
 
@@ -399,7 +443,7 @@
 		$("#searchBtn").click(function () {
 			event.preventDefault();
 			$('.scrollBar').animate({scrollTop: 0}, 'slow');
-			
+
 			$(".list").removeClass('focus');
 
 			var searchType = $('#search_block option:selected').val();

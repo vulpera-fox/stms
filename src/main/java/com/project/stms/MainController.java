@@ -2,14 +2,13 @@ package com.project.stms;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
 
+
 	@GetMapping("/")
-	public String customer_main() {
-		
+	public String customer_main() {		
 		return "main";
 	}
 	
@@ -31,5 +30,10 @@ public class MainController {
 	@GetMapping("/notification/notificationPopUp")
 	public String notificationPopUp() {
 		return "notification/notificationPopUp";
+	}
+	
+	@GetMapping("/test/SseSubscribe")
+	public String SseSubscribe() {
+		return "test/SseSubscribe";
 	}
 }

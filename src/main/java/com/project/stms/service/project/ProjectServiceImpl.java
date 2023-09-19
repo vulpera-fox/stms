@@ -14,6 +14,7 @@ import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
+import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
 
 @Service("projectService")
@@ -23,7 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	private ProjectMapper projectMapper;
 	
-	private String file_path = "/Users/uwu/Desktop/pjtImg";
+	@Autowired
+	private S3Service s3Service;
+	
 	
 
 	@Override
@@ -48,42 +51,33 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public void insertFiles(List<MultipartFile> list) {
+	public void insertFiles(List<MultipartFile> list, int pjt_id) {
 		
-		List<FileVO> fileList = new ArrayList<FileVO>();
 		
 		for(MultipartFile file : list) {
-			System.out.println(file.getOriginalFilename());
 			
+			String originName = file.getOriginalFilename();
 			
 			// 무작위 난수
 			String rdmID = UUID.randomUUID().toString();
 			
 			// 저장될 파일의 이름
-			String file_nm = rdmID + "_" + file.getOriginalFilename();
+			String file_nm = rdmID + "_" + originName;
 			
-			// 파일이 저장된 경로
-			String save_path = file_path + "/" + file_nm;
+			System.out.println(file_nm);
 			
-			System.out.println(save_path);
+			
+			FileVO uploadFile = FileVO.builder().file_serial_num(rdmID).org_file_nm(originName).file_nm(file_nm).pjt_id(pjt_id).build();
+			
+			System.out.println(uploadFile);
+			
+			projectMapper.insertFiles(uploadFile);
 			
 			try {
-				File saveFile = new File(save_path);
-				
-				file.transferTo(saveFile);
+				s3Service.uploadFiles(file_nm, file.getBytes());
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("업로드 실패");
 			}
-			
-			
-			FileVO vo = FileVO.builder().org_file_nm(file.getOriginalFilename())
-										.file_serial_num(rdmID)
-										.file_nm(file_nm)
-										.file_path(file_path)
-										.build();
-			
-			fileList.add(vo);
 		}
 		
 		
@@ -189,6 +183,20 @@ public class ProjectServiceImpl implements ProjectService {
 	public void updateMemberAtProject(String user_id, int pjt_id) {
 		projectMapper.updateMemberAtProject(user_id, pjt_id);
 	}
+
+
+	@Override
+	public ProjectVO getProjectInfoForFiles() {
+		return projectMapper.getProjectInfoForFiles();
+	}
+
+
+	@Override
+	public String getMyId(String user_email) {
+		return projectMapper.getMyId(user_email);
+	}
+
+
 	
 	
 	
