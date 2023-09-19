@@ -6,6 +6,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.notification.SseService;
 import com.project.stms.service.project.ProjectService;
+import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
 import com.project.stms.util.PageVO;
 
@@ -36,6 +39,8 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	@Autowired
+	private S3Service s3Service;
+	
 	@Qualifier("notificationService")
 	NotificationService notificationService;
 	
@@ -43,9 +48,12 @@ public class ProjectController {
 	SseService sseService;
 	
 	
+	
 	private String ins_user_id = "50";
 	
 	private String req_user_id = "33";
+	
+	
 	
 	
 	@GetMapping("/ProjectMain")
@@ -59,6 +67,8 @@ public class ProjectController {
 		
 		mo.addAttribute("reqPList", reqPList);
 		
+//		s3Service.getMyBucket();
+		
 		return "/project/ProjectMain";
 	}
 	
@@ -67,9 +77,17 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo) {
+	public String ProjectRegist(Model mo, HttpSession session) {
 		
-		List<ServerVO> sList = projectService.getMyServer(req_user_id);
+		String myEmail = (String) session.getAttribute("user_email");
+		
+		System.out.println(myEmail + " 나의 이메일");
+		
+		String myId = projectService.getMyId(myEmail);
+		
+		System.out.println(myId + " 나의 아이디");
+		
+		List<ServerVO> sList = projectService.getMyServer(myId);
 		
 		System.out.println(sList.toString());
 		
@@ -84,16 +102,17 @@ public class ProjectController {
 	
 	@PostMapping("/registForm")
 	public String registForm(ProjectVO vo,
-							 @RequestParam(required = false, name = "file") List<MultipartFile> list) {
+							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list) {
 		
-		if(list != null) {
-			projectService.insertFiles(list);
-		}
 		
 		System.out.println(vo.toString());
 		
 		projectService.requestProject(vo);
 		
+		if(list != null) {
+			System.out.println("리스트가있어요");
+			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
+		}
 		notificationService.createProjectNotification("ADMIN", req_user_id, vo.getPjt_nm());
 		
 //		System.out.println("1");
@@ -247,6 +266,8 @@ public class ProjectController {
 		UserVO adUList = projectService.getAdminUserDetail(pjt_id);
 		List<UserVO> engiUList = projectService.getUserByProject(pjt_id);
 		List<UserVO> notAddedUList = projectService.getMemberNotAdded(pjt_id, new Criteria());
+		
+		System.out.println(notAddedUList.size() + " 추가될 작업자의 명 수");
 		
 		int total = projectService.getNotAddedTotal(pjt_id);
 		

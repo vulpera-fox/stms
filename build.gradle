@@ -47,6 +47,8 @@ dependencies {
 
 	implementation 'com.auth0:java-jwt:4.4.0'
 	
+	implementation 'software.amazon.awssdk:aws-sdk-java:2.20.43'
+	
 	//분산 캐시 라이브러리
 	
 	implementation 'org.infinispan:infinispan-core:12.0.1.Final'

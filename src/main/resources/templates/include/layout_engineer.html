@@ -43,6 +43,8 @@
     <!-- <script src="js/demo/datatables-demo.js"></script>-->
 	<script th:src=@{/js/jquery-1.12.1.min.js}></script>
 	<script th:src=@{/js/jquery-ui.min.js}></script>
+	<script th:src=@{/js/style.js}></script>
+	
 	
 </head>
 
@@ -99,6 +101,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
              <li class="nav-item">
+                <a class="nav-link" href="/project/ProjectMain" >
                 <a class="nav-link" th:href="@{/project/ProjectMain}" >
                     <img th:src=@{/img/check_mark.png} style="width: 20px; height: 20px;"/>
                     <span style="letter-spacing: 1px;">내 프로젝트</span>

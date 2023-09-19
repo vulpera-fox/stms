@@ -85,6 +85,10 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		HttpSession session = request.getSession();//아이디를 세션에 저장해서 넘겼음
 		session.setAttribute("user_email", principal.getUsername());
+
+		session.setAttribute("user_role", principal.getUser_role());
+
+		session.setAttribute("user_id", principal.getUser_id());
 		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
 			response.sendRedirect("/api/engineer/main");
