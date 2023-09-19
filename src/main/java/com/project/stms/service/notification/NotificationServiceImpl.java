@@ -15,10 +15,6 @@ public class NotificationServiceImpl implements NotificationService{
 	@Autowired
 	private NotificationMapper notificationMapper;
 	
-	
-	@Autowired
-	private SseServiceImple SseServiceImple;
-	
 	@Override
 	public ArrayList<NotificationVO> getCount(String rcv_id) {
 		return notificationMapper.getCount(rcv_id);
@@ -60,10 +56,7 @@ public class NotificationServiceImpl implements NotificationService{
 		
 		System.out.println("[받는사람 : " + rcv_id + "]\n[보내는 사람 : " + send_id + "]\n[프로젝트명 : " + pjt_nm + "]");
 		
-		SseServiceImple.send("CUSTOMER", pjt_nm + "알림");
-		
 		notificationMapper.createProjectNotification(rcv_id, send_id, pjt_nm);
-		
 	}
 }
 //	@Override
