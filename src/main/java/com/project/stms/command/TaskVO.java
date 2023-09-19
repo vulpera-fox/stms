@@ -18,10 +18,12 @@ public class TaskVO {
 	private Integer server_id;
 	private String task_nm; //작업제목
 	private String task_dtl; //작업내용
+	
+	private String user_group; //고객사 이름(회사명)
+	private String user_id; //작업자 아이디
 
-  private String user_group; //고객사 이름(회사명)
-	private String user_id; //작업자 이름
 	private String user_adr; //작업지
+	private String user_nm; //작업자 이름
 	
 	private String status; //작업상태
 	private String task_date; //작업일

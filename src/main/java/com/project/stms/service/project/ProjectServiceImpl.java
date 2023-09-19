@@ -189,6 +189,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public ProjectVO getProjectInfoForFiles() {
 		return projectMapper.getProjectInfoForFiles();
 	}
+
+
+	@Override
+	public String getMyId(String user_email) {
+		return projectMapper.getMyId(user_email);
+	}
+
+
 	
 	
 	

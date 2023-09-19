@@ -236,5 +236,19 @@
 		select * from project where pjt_id = (select max(pjt_id) from project)
 	</select>
 	
+	
+	
+	
+	
+	
+	
+	<select id="getMyId">
+		select user_id from user where user_email = #{user_email}
+	</select>
+	
+	
+	
+	
+	
 
 </mapper>

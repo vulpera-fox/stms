@@ -99,6 +99,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		session.setAttribute("userVO", userVO);
 		
+
 		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
 			response.sendRedirect("/api/engineer/main");

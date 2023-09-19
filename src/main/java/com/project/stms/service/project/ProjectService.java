@@ -58,4 +58,15 @@ public interface ProjectService {
 	
 	public ProjectVO getProjectInfoForFiles();
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getMyId(String user_email);
+	
 }

@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.stms.command.FileVO;
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
-import com.project.stms.service.project.ProjectMapper;
+import com.project.stms.service.notification.SseService;
 import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
@@ -45,10 +44,16 @@ public class ProjectController {
 	@Qualifier("notificationService")
 	NotificationService notificationService;
 	
+	@Autowired
+	SseService sseService;
+	
+	
 	
 	private String ins_user_id = "50";
 	
 	private String req_user_id = "33";
+	
+	
 	
 	
 	@GetMapping("/ProjectMain")
@@ -72,9 +77,17 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo) {
+	public String ProjectRegist(Model mo, HttpSession session) {
 		
-		List<ServerVO> sList = projectService.getMyServer(req_user_id);
+		String myEmail = (String) session.getAttribute("user_email");
+		
+		System.out.println(myEmail + " 나의 이메일");
+		
+		String myId = projectService.getMyId(myEmail);
+		
+		System.out.println(myId + " 나의 아이디");
+		
+		List<ServerVO> sList = projectService.getMyServer(myId);
 		
 		System.out.println(sList.toString());
 		
