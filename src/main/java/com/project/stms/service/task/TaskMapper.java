@@ -54,7 +54,7 @@ public interface TaskMapper {
 	public int taskRegist(TaskVO vo);
 	
 	//작업삭제
-	public void delTask(int task_id);
+	//public void delTask(int task_id);
 	
 	//모달(프로젝트 정보 등록)
 //	public ArrayList<ProjectVO> regPjtList();
