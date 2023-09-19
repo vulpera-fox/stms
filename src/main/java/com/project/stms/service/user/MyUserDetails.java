@@ -30,6 +30,10 @@ public class MyUserDetails implements UserDetails{
 		return userVO.getUser_id();
 	}
 	
+	public String getUser_nm() {
+		return userVO.getUser_nm();
+	}
+	
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

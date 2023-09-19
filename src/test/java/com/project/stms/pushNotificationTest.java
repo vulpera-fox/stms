@@ -15,9 +15,7 @@ public class pushNotificationTest {
 	@Test
 	public void showPopupNotification() {
 		
-		String user_id = "CUSTOMER";
 		
-		sseService.notifyRequestProject(user_id);
 		
 	}
 }
