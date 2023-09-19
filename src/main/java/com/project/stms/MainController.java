@@ -11,7 +11,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main() {
-		return "Main";
+		return "main";
 	}
 	
 	@GetMapping("api/customer_main")
