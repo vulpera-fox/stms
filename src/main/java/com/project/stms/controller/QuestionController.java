@@ -40,6 +40,23 @@ public class QuestionController {
 		
 	}
 	
+	@GetMapping("/customer_myQuestion")
+	public String myQuestion (Model model, NewsCriteria cri) {
+		
+		
+		ArrayList<NewsVO> list = questionService.getQlist(cri);
+		model.addAttribute("list", list);
+		
+		int total = questionService.getTotal(cri);
+		
+		NewsPageVO qpageVO = new NewsPageVO(cri,total);
+		model.addAttribute("qpageVO", qpageVO);
+		
+		return "/question/customer_myQuestion";
+		
+	}
+	
+	
 	@GetMapping("/customer_questionDetail")
 	public String QuestionDetail(@RequestParam("post_id") int post_id, Model model) {
 		
