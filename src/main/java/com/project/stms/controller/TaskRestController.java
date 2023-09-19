@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -88,13 +88,13 @@ public class TaskRestController {
 	
 	//작업 삭제
 	@PostMapping("delTask")
-	public String delTask(@RequestParam("task_id") int task_id) {
+	public ResponseEntity<String> delTask(@RequestParam("task_id") Integer task_id) {
 		
 		System.out.println("삭제 파라미터:" + task_id);
 		
-		taskService.delTask(task_id);
+		taskService.deleteTaskList(task_id);
 		
-		return "";
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	

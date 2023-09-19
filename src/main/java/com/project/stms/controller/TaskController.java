@@ -136,9 +136,9 @@ public class TaskController {
 	
 	
 	//메인화면(캘린더 뷰)
-	@GetMapping("taskCalendar")
+	@GetMapping("taskDashboard")
 	public String taskCalendar() {
-		return "task/taskCalendar";
+		return "task/taskDashboard";
 	}
 	
 	//작업 리포트

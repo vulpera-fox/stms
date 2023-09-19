@@ -11,7 +11,7 @@
 	
 	/* 공통사항 */
 	.taskRegContainer {
-		width: 1800px;
+		
 		margin: 0 auto;
 		
 	}
@@ -22,7 +22,7 @@
 	  height: 650px;
 	  text-align: center;
 	  
-	  box-shadow: 0 8px 10px #020f37;
+	  box-shadow: 0 3px 3px #020f37;
 	  margin: 20px;
 	  float: left;
 	  
@@ -33,7 +33,7 @@
 	  height: 650px;
 	  text-align: center;
 	  
-	  box-shadow: 0 8px 10px #020f37;
+	  box-shadow: 0 3px 3px #020f37;
 	  margin: 20px;
 	  float: left;	
 	}
@@ -206,6 +206,16 @@
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
+      position:absolute;
+      top: 0;
+      left: 250px;
+	}
+	
+	#tempSelectBtn:hover, #taskSearchRegBtn:hover,
+	#pjtListSearchBtn:hover, #taskSearchNewBtn:hover,
+	.taskSearchNewBtnA:hover, #taskSearchDelBtn:hover, #taskSearchSaveBtn:hover {
+		text-decoration: none;
+		color: #fff;
 	}
 	
 	.taskRegBodiesS > .taskRegBtn {
@@ -263,7 +273,7 @@
 		display: inline-block;
 		
 		margin: 20px 20px 10px 20px;
-		box-shadow: 0 8px 10px #020f37;
+		box-shadow: 0 3px 3px #020f37;
 	}
 	
 	.searchTitles {
@@ -278,7 +288,7 @@
 		display: inline-block;
 		
 		margin: 20px 20px 10px 20px;
-		box-shadow: 0 8px 10px #020f37;
+		box-shadow: 0 3px 3px #020f37;
 	}
 	
 	.taskStatus {
@@ -313,6 +323,24 @@
 		margin-top: 70px;
 	}
 	
+	.searchTask, .taskResults {
+		color: #020f37;
+		font-size: 15px;
+	}
+	
+	.searchTask:hover, .taskResults:hover {
+		color: #020f37;
+	}
+	
+	.searchTaskBox {
+		width: 180px;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		margin: 0 auto;
+		border-bottom: 1px solid #E6E6E6;
+	}
+	
 	</style>	
 	
 	<body>
@@ -340,8 +368,8 @@
 							<!--조회 누르면 li 반복 돌려서 꺼낼 것-->
 							<ul class="pjtTrees">
 								<li th:each="vo, status : ${list}">
-									<div name="user_id" th:value="${vo.ins_user_id}">										
-										<a class="searchTask" href="#" name="pjt_id" th:value="${vo.pjt_id}">[[${vo.pjt_nm}]]</a>
+									<div name="user_id" th:value="${vo.ins_user_id}" class="searchTaskBox">										
+										<a class="searchTask" href="#" name="pjt_id" th:value="${vo.pjt_id}" style="text-decoration: none;">[[${vo.pjt_nm}]]</a>
 										<input class="taskHiddenData" type="hidden" name="server_id" th:value="${vo.server_id}">
 									</div>
 								</li>
@@ -457,8 +485,10 @@
 						for(let i = 0; i < data.length; i++) {
 							
 							str += '<li>';
+							str += '<div class="searchTaskBox">';
 							str += '<input type="hidden" name="server_id" value="'+ data[i].server_id +'">';
-							str += '<a href="#" class="taskResults" name="task_id" value="'+ data[i].task_id +'">'+ data[i].task_nm +'</a>';
+							str += '<a href="#" class="taskResults" name="task_id" value="'+ data[i].task_id +'" style="text-decoration:none">'+ data[i].task_nm +'</a>';
+							str += '</div>';
 							str += '</li>';
 						
 						}
@@ -466,7 +496,7 @@
 
 						if(data.length === 0) {
 							str += '<div name="user_id" value="'+ user_id +'">';
-							str += '<a href="#" id="taskSearchNewBtn" value="'+ pjt_id +'">신규등록</a>';								
+							str += '<a href="#" id="taskSearchNewBtn" value="'+ pjt_id +'">신규</a>';								
 							str += '<input type="hidden" name="server_id" class="serverData" value="'+ serverId +'">';
 							str += '</div>';
 						}
@@ -676,7 +706,7 @@
 				str += '<select class="tempSelect" name="user_id" value="'+ userId +'">';
 				str += '<option name="none" value="none">템플릿 선택</option>';
 				str += '</select>';
-				str += '<input type="button" value="선택" name="" id="tempSelectBtn" style=line-height:initial>';
+			    str += '<a href="#" id="tempSelectBtn">선택</a>';
 				str += '</td>';
 				str += '</tr>';
 				str += '<tr class="taskRegRow">';
@@ -755,10 +785,10 @@
 					str += '<tr class="taskRegRow">';	
 					str += '<th class="taskRegHeads">템플릿 선택</th>';
 					str += '<td class="taskRegBodies" colspan="3">';
-					str += '<select class="tempSelectB" name="user_id" value="'+ data[0].user_id +'">';
+					str += '<select class="tempSelectB" name="user_id" value="'+ data.user_id +'">';
 					str += '<option name="none" value="none">템플릿 선택</option>';
 					str += '</select>';
-					str += '<input type="button" value="" id="tempSelectBtn" style=line-height:initial>';
+					str += '<a href="#" id="tempSelectBtn">선택</a>';
 					str += '</td>';
 					str += '</tr>';
 					str += '<tr class="taskRegRow">';
@@ -784,7 +814,7 @@
 					str += '<option name="none" value="none">담당자</option>';
 					str += '</select>';
 					str += '</td>';
-					str += '<td class="taskRegBodies"><div class="engineerNameS" name="pjt_id" value="'+ data[0].pjt_id +'"></div></td>';
+					str += '<td class="taskRegBodies"><div class="engineerName" name="pjt_id" value="'+ data[0].pjt_id +'"></div></td>';
 					str += '</tr>';
 					str += '<tr class="taskRegRow">';
 					str += '<th class="taskRegHeads">작업내용</th>';
@@ -944,13 +974,14 @@
 		//템플릿 불러오기(작업목록이 비어있을 경우)
 		function getTempB() {
 			
-			$(".tempSelectB").one("click", function(e) {
+			$(".tempSelect").one("click", function(e) {
 				
 				e.preventDefault();
 				let target = e.target;
 				console.log(target);
 				
-				let user_id = $("#taskSearchNewBtn").closest("div").attr("value");
+				let user_id = $(".taskSearchBtnBox").attr("value");
+				console.log(user_id);
 				
 				$.ajax({
 					url: "../getTaskTemp",
@@ -964,10 +995,10 @@
 						let str = '';
 						
 						for(let i = 0; i < data.length; i++) {
-							str += '<option name="템플릿'+ i +'" class="option'+ i +'" value="'+ data[i].tem_id +'">템플릿A</option>';
+							str += '<option name="템플릿'+ i +'" class="option'+ i +'" value="'+ data[i].tem_id +'">'+ data[i].tem_nm +'</option>';
 						}
 						
-						let firstChild = $(".tempSelectB").children().first();
+						let firstChild = $(".tempSelect").children().first();
 						firstChild.after(str);
 						
 					},
@@ -988,13 +1019,14 @@
 		//템플릿 불러오기(작업목록이 있을 경우)
 		function getTemp() {
 			
-			$(".tempSelect").one("click", function(e) {
+			$(".tempSelectB").one("click", function(e) {
 				
 				e.preventDefault();
 				let target = e.target;
 				console.log(target);
 				
 				let user_id = $(".taskSearchBtnBox").attr("value");
+				console.log(user_id);
 				
 				$.ajax({
 					url: "../getTaskTemp",
@@ -1008,10 +1040,10 @@
 						let str = '';
 						
 						for(let i = 0; i < data.length; i++) {
-							str += '<option name="템플릿'+ i +'" class="option'+ i +'" value="'+ data[i].tem_id +'">템플릿A</option>';
+							str += '<option name="템플릿'+ i +'" class="option'+ i +'" value="'+ data[i].tem_id +'">'+ data[i].tem_nm +'</option>';
 						}
 						
-						let firstChild = $(".tempSelect").children().first();
+						let firstChild = $(".tempSelectB").children().first();
 						firstChild.after(str);
 						
 					},
@@ -1100,7 +1132,7 @@
 					str += '<option name="none" value="none">담당자</option>';	
 				    str += '</select>';
 					str += '</td>';
-					str += '<td class="taskRegBodies"><div class="engineerNameD"></div></td>';
+					str += '<td class="taskRegBodies"><div class="engineerName"></div></td>';
 					str += '</tr>';
 					str += '<tr class="taskRegRow">';
 					str += '<th class="taskRegHeads">작업지</th>';
@@ -1237,17 +1269,20 @@
 		$(document).on("click", "#taskSearchDelBtn", function(e) {
 			e.preventDefault();
 			
-			let pjtId = $(this).val();
-			console.log(pjtId);
+			let taskId = $("#taskSearchDelBtn").attr("value");
+			console.log(taskId);
 			
 			$.ajax({
 				url: "../delTask",
 				type: "post",
 				contentType: "application/json",
-				data: {"pjt_id": pjtId},
+				data: JSON.stringify({task_id: taskId}),
 				success: function(data) {
-											
-					alert("성공적으로 삭제되었습니다");
+					if(data) {						
+						alert("성공적으로 삭제되었습니다");
+					} else {
+						alert("값이 안넘어감");
+					}
 					
 					resetLists();
 				},
