@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
 	
-//	@GetMapping("/")
-//	public String main() {
-//		return "Main";
-//	}
-//	
+	@GetMapping("/")
+	public String main() {
+		return "Main";
+	}
+	
 	@GetMapping("api/customer_main")
 	public String customer_main() {
 		
