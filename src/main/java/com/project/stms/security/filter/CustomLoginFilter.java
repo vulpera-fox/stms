@@ -16,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.project.stms.command.UserVO;
 import com.project.stms.security.config.JWTService;
 import com.project.stms.service.user.MyUserDetails;
 
@@ -85,10 +86,20 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		HttpSession session = request.getSession();//아이디를 세션에 저장해서 넘겼음
 		session.setAttribute("user_email", principal.getUsername());
-
-		session.setAttribute("user_role", principal.getUser_role());
-
 		session.setAttribute("user_id", principal.getUser_id());
+		session.setAttribute("user_role", principal.getUser_role());
+		
+		
+		UserVO userVO = new UserVO();
+		userVO.setUser_email(principal.getUsername());
+		userVO.setUser_id(principal.getUser_id());
+		userVO.setUser_role(principal.getUser_role());
+		userVO.setUser_adr(principal.getUser_adr());
+		userVO.setUser_nm(principal.getUser_nm());
+		
+		session.setAttribute("userVO", userVO);
+		
+
 		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
 			response.sendRedirect("/api/engineer/main");
