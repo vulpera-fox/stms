@@ -17,7 +17,7 @@ import com.project.stms.service.question.QuestionService;
 import com.project.stms.util.NewsCriteria;
 import com.project.stms.util.NewsPageVO;
 
-@RequestMapping("/question")
+@RequestMapping("/api/question")
 @Controller
 public class QuestionController {
 	

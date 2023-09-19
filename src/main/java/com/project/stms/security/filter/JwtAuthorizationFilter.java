@@ -67,7 +67,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 			e.printStackTrace();
 			//토큰이 위조거나 토큰 만료
 			response.setContentType("text/plain; charset=UTF-8");
-			response.sendError(403, "토큰위조");
+			//response.sendError(403, "토큰위조");
+			response.sendRedirect("/log?error=true");
 		}
 		
 //		super.doFilterInternal(request, response, chain);
