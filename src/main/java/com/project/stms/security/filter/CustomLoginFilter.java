@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.project.stms.security.config.JWTService;
@@ -90,15 +91,13 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 			response.sendRedirect("/api/engineer/main");
 			
 		} else if(principal.getUser_role().equals("ROLE_CUSTOMER")){
-			response.sendRedirect("/api/customer/main");
+			response.sendRedirect("/api/customer_main");
 			
 		} else if(principal.getUser_role().equals("ROLE_ADMIN")) {
 			response.sendRedirect("/api/admin/main");
 			
 		}
 	}
-
-
 
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
@@ -110,7 +109,5 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		response.sendRedirect("/?error=true");
 
 	}
-	
-	
 
 }

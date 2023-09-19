@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.stms.user.service.UserMapper">
+<mapper namespace="com.project.stms.service.user.UserMapper">
 
 
 	<insert id="join" parameterType="UserVO">

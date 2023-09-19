@@ -24,6 +24,7 @@ import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
+import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.project.ProjectMapper;
 import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
@@ -40,6 +41,9 @@ public class ProjectController {
 	
 	@Autowired
 	private S3Service s3Service;
+	
+	@Qualifier("notificationService")
+	NotificationService notificationService;
 	
 	
 	private String ins_user_id = "50";
@@ -70,7 +74,6 @@ public class ProjectController {
 	@GetMapping("/ProjectRegist")
 	public String ProjectRegist(Model mo) {
 		
-		
 		List<ServerVO> sList = projectService.getMyServer(req_user_id);
 		
 		System.out.println(sList.toString());
@@ -97,10 +100,7 @@ public class ProjectController {
 			System.out.println("리스트가있어요");
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
-		
-		
-		
-		
+		notificationService.createProjectNotification("ADMIN", req_user_id, vo.getPjt_nm());
 		
 //		System.out.println("1");
 		
@@ -293,10 +293,15 @@ public class ProjectController {
 		
 		projectService.updateProjectInfo(pVO);
 		
+		//고객에게 승인 알림전송
+		notificationService.createProjectNotification(req_user_id, "ADMIN", pVO.getPjt_nm());
 		
 		if(users != null) {
 			for(int i = 0; i < users.size(); i++) {
 				projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
+				
+				//작업자에게 할당 알림전송
+				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
 			}
 		}
 		

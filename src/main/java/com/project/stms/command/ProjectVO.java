@@ -31,6 +31,5 @@ public class ProjectVO {
 	private String user_group;
 	private String user_nm;
 	private String created_yn;
-	
-	
+
 }

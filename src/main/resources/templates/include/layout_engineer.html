@@ -10,7 +10,6 @@
 
     <title>서버관리</title>
     <link rel="stylesheet" type="text/css" th:href=@{/css/detail.css} />
-    <link rel="stylesheet" th:href=@{/css/user.css} >
     <link rel="stylesheet" th:href=@{/css/main.css}>
 	<link rel="stylesheet" type="text/css" th:href=@{/css/index.css} />
 	<link rel="stylesheet" type="text/css" th:href=@{/css/jquery-ui.min.css} />
@@ -38,7 +37,7 @@
 
     <!-- Page level plugins -->
     <script th:src=@{/vendor/datatables/jquery.dataTables.min.js}></script>
-    <script src=@{/vendor/datatables/dataTables.bootstrap4.min.js}></script>
+    <script th:src=@{/vendor/datatables/dataTables.bootstrap4.min.js}></script>
 
     <!-- Page level custom scripts -->
     <!-- <script src="js/demo/datatables-demo.js"></script>-->
@@ -48,6 +47,22 @@
 	
 	
 </head>
+
+<style>
+	
+	#wrapper{
+			
+			overflow-y: scroll !important;
+			height: 100vh !important;
+		}
+		
+		#accordionSidebar{
+			
+			position: sticky !important;
+			top:-60px !important;
+			
+		}
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -86,7 +101,11 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
              <li class="nav-item">
+<<<<<<< HEAD
                 <a class="nav-link" href="/project/ProjectMain" >
+=======
+                <a class="nav-link" th:href="@{/project/ProjectMain}" >
+>>>>>>> master
                     <img th:src=@{/img/check_mark.png} style="width: 20px; height: 20px;"/>
                     <span style="letter-spacing: 1px;">내 프로젝트</span>
                 </a>
@@ -103,7 +122,6 @@
                         <h6 class="collapse-header">VIEW MY WORK :</h6>
                         <a class="collapse-item" th:href="@{/task/taskCalendarEng}">작업 대시보드</a>
                         <a class="collapse-item" th:href="@{/task/taskList}">작업 조회</a>
-                        <a class="collapse-item" th:href="@{/task/taskReport}">작업 보고서</a>
 
                     </div>
                 </div>
@@ -111,7 +129,7 @@
 
             <!-- Nav Item - Q&A Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" >
+                <a class="nav-link" th:href="@{/question/customer_question}" >
                     <img th:src=@{/img/question_mark.png} style="width: 20px; height: 20px;"/>
                     <span style="letter-spacing: 1px;">Q&A</span>
                 </a>
@@ -145,9 +163,6 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     </form>
-
-                   
-                   
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -192,9 +207,6 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                       
-
-                        <!--<div class="topbar-divider d-none d-sm-block"></div>-->
 
                         <!-- Nav Item - User Information -->
                         
@@ -224,22 +236,12 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <!--<h1 class="h3 mb-2 text-gray-800">등록</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>-->
-
-                    <!-- DataTales Example -->
-                    <div th:replace="${content}">
-		
+				<div class="container-fluid">
+				
+					<div th:replace="${content}">
+				
 					</div>
-                        
-                    
-
-                </div>
+				</div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -280,32 +282,16 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="agentLogout">Logout</a>
+                    <a class="btn btn-primary" th:href="@{/customer_main}">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <!--<script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
-
-    <!-- Core plugin JavaScript-->
-    <!--<script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
-
-    <!-- Custom scripts for all pages-->
-    <!--<script th:src=@{/js/sb-admin-2.min.js}></script>-->
-
-    <!-- Page level plugins -->
-    <!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
-
-    <!-- Page level custom scripts -->
-    <!--<script th:src=@{/js/demo/datatables-demo.js}></script>-->
-    
-
-    
 </body>
+
+<script th:src=@{/js/sb-admin-2.min.js}></script>
+
+
 </html>
 
 
