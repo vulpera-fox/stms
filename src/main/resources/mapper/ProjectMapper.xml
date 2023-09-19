@@ -24,6 +24,7 @@
 		join server s on p.server_id = s.server_id
 		join user u1 on p.req_user_id = u1.user_id
 		join user u2 on p.ins_user_id = u2.user_id
+		order by pjt_end_dt
 	</select>
 	
 	
@@ -55,9 +56,8 @@
 
 
 
-	<insert id="insertFiles" parameterType="FileVO">
-		insert into file
-		(file_serial_num, org_file_nm, file_nm, file_path)
+	<insert id="insertFiles">
+		insert into file (file_serial_num, org_file_nm, file_nm, pjt_id) values (#{file_serial_num}, #{org_file_nm}, #{file_nm}, #{pjt_id})
 	</insert>
 
 
@@ -230,6 +230,25 @@
 	<insert id="updateMemberAtProject">
 		insert into pjt_mem (pjt_id, user_id) values (#{pjt_id} , #{user_id})
 	</insert>
+	
+	
+	<select id="getProjectInfoForFiles">
+		select * from project where pjt_id = (select max(pjt_id) from project)
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<select id="getMyId">
+		select user_id from user where user_email = #{user_email}
+	</select>
+	
+	
+	
+	
 	
 
 </mapper>
