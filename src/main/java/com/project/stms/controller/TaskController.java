@@ -49,7 +49,7 @@ public class TaskController {
 		return "task/taskList";
 	}
 	
-	//작업등록
+	//작업등록(프로젝트목록 및 검색기능)
 	@GetMapping("taskReg")
 	public String taskReg(Model model, Criteria cri) {
 
@@ -66,7 +66,17 @@ public class TaskController {
 		return "task/taskReg";
 	}
 	
-	
+	//작업등록처리
+//	@PostMapping("newTaskRegA")
+//	public String newTaskRegA(TaskVO vo, RedirectAttributes ra) {
+//	
+//		
+//		int result = taskService.taskRegist(vo);
+//		String msg = result == 1 ? "작업이 등록되었습니다" : "작업등록이 실패했습니다";
+//		ra.addFlashAttribute("msg", msg);
+//		
+//		return "redirect:/task/taskReg";
+//	}
 
 	
 	
