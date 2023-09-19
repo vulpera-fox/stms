@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.stms.command.FileVO;
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
-import com.project.stms.service.project.ProjectMapper;
+import com.project.stms.service.notification.SseService;
 import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
@@ -46,6 +43,9 @@ public class ProjectController {
 	
 	@Qualifier("notificationService")
 	NotificationService notificationService;
+	
+	@Autowired
+	SseService sseService;
 	
 	
 	
