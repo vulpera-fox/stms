@@ -1,89 +1,164 @@
 package com.project.stms.service.notification;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.project.stms.command.NotificationVO;
 
 @Service
-public class SseServiceImple {
+public class SseServiceImple implements SseService{
 
-	
 	@Autowired
-	private SseRepository sseRepository;
-	
-	private static final Long DEFAULT_TIMEOUT = 60L * 1000 * 60;
+    private SseRepositoryImpl emitterRepository;
 
-    public SseServiceImple(SseRepository sseRepository) {
-        this.sseRepository = sseRepository;
-    }
+    public SseEmitter subscribe(String user_id, String lastEventId) {
 
-    public SseEmitter subscribe(String rcv_id, String lastEventId) {
-        // 1
-        String id = rcv_id + "_" + System.currentTimeMillis();
-        
-        // 2
-        SseEmitter emitter = sseRepository.save(id, new SseEmitter(DEFAULT_TIMEOUT));
+        String emitterId = makeTimeIncludeId(user_id);
 
-        emitter.onCompletion(() -> sseRepository.deleteById(id));
-        emitter.onTimeout(() -> sseRepository.deleteById(id));
+        SseEmitter emitter;
 
-	// 3
+      //글쓴이가 버그 방지용으로 만든 코드입니다.
+        if (emitterRepository.findAllEmitterStartWithById(user_id) != null){
+            emitterRepository.deleteAllEmitterStartWithId(user_id);
+            emitter = emitterRepository.save(emitterId, new SseEmitter(Long.MAX_VALUE)); //id가 key, SseEmitter가 value
+        }
+        else {
+            emitter = emitterRepository.save(emitterId, new SseEmitter(Long.MAX_VALUE)); //id가 key, SseEmitter가 value
+        }
+
+       //오류 종류별 구독 취소 처리
+        emitter.onCompletion(() -> emitterRepository.deleteById(emitterId)); //네트워크 오류
+        emitter.onTimeout(() -> emitterRepository.deleteById(emitterId)); //시간 초과
+        emitter.onError((e) -> emitterRepository.deleteById(emitterId)); //오류
+
         // 503 에러를 방지하기 위한 더미 이벤트 전송
-        sendToClient(emitter, id, "{rcv_id:" + rcv_id+ "}");
+        String eventId = makeTimeIncludeId(user_id);
+        sendNotification(emitter, eventId, emitterId, "EventStream Created. [userId=" + user_id + "]");
 
-	// 4
         // 클라이언트가 미수신한 Event 목록이 존재할 경우 전송하여 Event 유실을 예방
-        if (!lastEventId.isEmpty()) {
-            Map<String, Object> events = sseRepository.findAllEventCacheStartWithById(String.valueOf(rcv_id));
-            events.entrySet().stream()
-                  .filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
-                  .forEach(entry -> sendToClient(emitter, entry.getKey(), entry.getValue()));
+        if (hasLostData(lastEventId)) {
+            sendLostData(lastEventId, user_id, emitterId, emitter);
         }
 
         return emitter;
     }
+    
+  //단순 알림 전송
+    private void sendNotification(SseEmitter emitter, String eventId, String emitterId, Object data) {
 
-    // 3
-    private void sendToClient(SseEmitter emitter, String rcv_id, Object data) {
         try {
             emitter.send(SseEmitter.event()
-                                   .id(rcv_id)
-                                   .name("sse")
-                                   .data(data));
+                    .id(eventId)
+                    .name("sse")
+                    .data(data, MediaType.APPLICATION_JSON));
         } catch (IOException exception) {
-        	sseRepository.deleteById(rcv_id);
-            throw new RuntimeException("연결 오류!");
+            emitterRepository.deleteById(emitterId);
+            emitter.completeWithError(exception);
         }
     }
+
+    private String makeTimeIncludeId(String user_id) { 
+    	return user_id + "_" + System.currentTimeMillis(); 
+    }//Last-Event-ID의 값을 이용하여 유실된 데이터를 찾는데 필요한 시점을 파악하기 위한 형태
+  
+  //Last-Event-Id의 존재 여부 boolean 값
+    private boolean hasLostData(String lastEventId) {
+        return !lastEventId.isEmpty();
+    }
     
-    public void send(String rcv_id, String noti_nm) {
-        NotificationVO vo = createNotification(rcv_id, noti_nm);
-        String id = String.valueOf(vo.getRcv_id());
-        
+  //유실된 데이터 다시 전송
+    private void sendLostData(String lastEventId, String user_id, String emitterId, SseEmitter emitter) {
+
+        Map<String, Object> eventCaches = emitterRepository.findAllEventCacheStartWithById(user_id);
+        eventCaches.entrySet().stream()
+                .filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
+                .forEach(entry -> sendNotification(emitter, entry.getKey(), emitterId, entry.getValue()));
+    }
+    
+//    sse연결 요청 응답
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
+//    서버에서 클라이언트로 일방적인 데이터 보내기
+
+  //1ㄷ1로 특정 유저에게 알림 전송
+    public void send(String receiver, String content) {
+
+        NotificationVO notification = createNotification(receiver, content);
+
         // 로그인 한 유저의 SseEmitter 모두 가져오기
-        Map<String, SseEmitter> sseEmitters = sseRepository.findAllStartWithById(id);
+        Map<String, SseEmitter> sseEmitters = emitterRepository.findAllEmitterStartWithById(receiver);
+
         sseEmitters.forEach(
                 (key, emitter) -> {
                     // 데이터 캐시 저장(유실된 데이터 처리하기 위함)
-                	sseRepository.saveEventCache(key, vo);
+                    emitterRepository.saveEventCache(key, notification);
                     // 데이터 전송
-                    sendToClient(emitter, key, vo);
+                    sendToClient(emitter, key, notification);
                 }
         );
     }
+  //1ㄷ1로 List에 존재하는 특정 유저에게 알림 전송
+    public void sendList(List receiverList, String content, String type, String urlValue) {
 
-    private NotificationVO createNotification(String rcv_id, String noti_nm) {
-        return NotificationVO.builder()
-                           .rcv_id(rcv_id)
-                           .noti_nm(noti_nm)
-                           .noti_dtl(noti_nm + "요청이 생성되었습니다.")
-                           .build();
+        List<NotificationVO> notifications = new ArrayList<>();
+
+        Map<String, SseEmitter> sseEmitters;
+
+        for (int i = 0; i < receiverList.size(); i++) {
+
+            int finalI = i;
+
+            sseEmitters = new HashMap<>();
+
+            notifications.add(createNotification(receiverList.get(i).toString(), content));
+
+            sseEmitters.putAll(emitterRepository.findAllEmitterStartWithById(receiverList.get(i).toString()));
+
+            sseEmitters.forEach(
+                    (key, emitter) -> {
+                        // 데이터 캐시 저장(유실된 데이터 처리하기 위함)
+                        emitterRepository.saveEventCache(key, notifications.get(finalI));
+                        // 데이터 전송
+                        sendToClient(emitter, key, notifications.get(finalI));
+                    }
+            );
+        }
     }
-    
 
+  //타입별 알림 생성
+    public NotificationVO createNotification(String receiver, String content) {
+
+            return NotificationVO.builder()
+                    .rcv_id(receiver)
+                    .noti_nm(content)
+                    .noti_dtl(content)
+                    .build();
+    }
+
+  //알림 전송
+    public void sendToClient(SseEmitter emitter, String id, Object data) {
+
+        try {
+            emitter.send(SseEmitter.event()
+                    .id(id)
+                    .name("sse")
+                    .data(data, MediaType.APPLICATION_JSON)
+                    .reconnectTime(0));
+
+            emitter.complete();
+
+            emitterRepository.deleteById(id);
+
+        } catch (Exception exception) {
+            emitterRepository.deleteById(id);
+            emitter.completeWithError(exception);
+        }
+    }
 }

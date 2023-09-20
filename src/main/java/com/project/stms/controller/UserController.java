@@ -66,8 +66,6 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	
-
 	@GetMapping("/log")
 	public String log(@RequestParam (value = "err", required = false)String err, Model model) {
 
@@ -77,8 +75,6 @@ public class UserController {
 
 		return "/user/log";
 	}
-
-
 
 	@PostMapping("/changePW")
 	public String changePW(UserVO userVO) {
@@ -91,7 +87,11 @@ public class UserController {
 	}
 
 	
-	
+	@GetMapping("/mypage")
+	public String myPage() {
+
+		return "/user/mypage";
+	}
 
 
 

@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.stms.command.FileVO;
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
-import com.project.stms.service.project.ProjectMapper;
+import com.project.stms.service.notification.SseService;
 import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
@@ -45,10 +44,12 @@ public class ProjectController {
 	@Autowired
 	private S3Service s3Service;
 	
+	@Autowired
 	@Qualifier("notificationService")
 	NotificationService notificationService;
 	
-	
+	@Autowired
+	SseService sseService;
 	
 	
 	@GetMapping("/ProjectMain")
@@ -82,9 +83,13 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo, HttpSession session) {
+	public String ProjectRegist(Model mo, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
+		
+
 		String myId = (String)session.getAttribute("user_id");
+
 		
 		System.out.println(myId + " 나의아이디");
 		
@@ -104,8 +109,13 @@ public class ProjectController {
 	@PostMapping("/registForm")
 	public String registForm(ProjectVO vo,
 							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list,
-							 HttpSession session) {
+
+							 HttpSession session,
+
+							 HttpServletRequest request) {
+
 		
+		HttpSession session = request.getSession();
 		
 		System.out.println(vo.toString());
 		
@@ -115,7 +125,9 @@ public class ProjectController {
 			System.out.println("리스트가있어요");
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
+
 //		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+
 		
 		
 		return "redirect:/main";

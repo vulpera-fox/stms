@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Notification Test Page</title>
+	<meta charset="UTF-8">
+	<title>Notification Test Page</title>
 </head>
+
 <body>
 	<h3>알림 전송</h3>
-    <input type="text" id="rcv_id"/>
-    <button type="button" onclick="login()">로그인</button>
+	<input type="text" id="rcv_id" />
+	<button type="button" onclick="login()">로그인</button>
 </body>
+
 </html>
 <script type="text/javaScript">
-    function login() {
-        const id = document.getElementById('rcv_id').value;
+function login() {
+        const rcv_id = document.getElementById('rcv_id').value;
 
-        const eventSource = new EventSource(`/test/subscribe/` + id);
-
+        const eventSource = new EventSource(`/test/subscribe/` + rcv_id);
+		
+		var session_user_id = `[[${session.user_id}]]`;
+		
         eventSource.addEventListener("sse", function (event) {
-            //console.log(event.data);
+            console.log(event.data);
             //const data = JSON.stringify(event.data);
 
             
@@ -26,7 +31,8 @@
                 const showNotification = () => {
                     
                     const notification = new Notification('프로젝트 승인 안내', {
-                        body: id + "님이 요청하신 프로젝트가 승인되었습니다."
+                        body: rcv_id + "님이 요청하신 프로젝트가 승인되었습니다.",
+                        badge: `/img/alarm.png`
                     });
                     
                     setTimeout(() => {
@@ -34,7 +40,7 @@
                     }, 10 * 1000);
                     
                     notification.addEventListener('click', () => {
-                        window.open(`/test/subscribe/` + id, '_blank');
+                        window.open(`/test/subscribe/` + rcv_id, '_blank');
                     });
                 }
                 

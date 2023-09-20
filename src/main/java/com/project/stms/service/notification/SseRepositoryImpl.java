@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
-public class SseRepositoryImpl implements SseRepository{
+public class SseRepositoryImpl implements SseRepository {
 	
-    private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
+	private final Map<String, SseEmitter> emitters = new ConcurrentHashMap<>();
     private final Map<String, Object> eventCache = new ConcurrentHashMap<>();
-	
-	@Override
+    
+    @Override
     public SseEmitter save(String emitterId, SseEmitter sseEmitter) {
         emitters.put(emitterId, sseEmitter);
         return sseEmitter;
@@ -25,10 +25,10 @@ public class SseRepositoryImpl implements SseRepository{
         eventCache.put(eventCacheId, event);
     }
 
-    
-    public Map<String, SseEmitter> findAllStartWithById(String rcv_id) {
+    @Override
+    public Map<String, SseEmitter> findAllEmitterStartWithById(String user_id) {
         return emitters.entrySet().stream() //여러개의 Emitter가 존재할 수 있기떄문에 stream 사용
-                .filter(entry -> entry.getKey().startsWith(rcv_id))
+                .filter(entry -> entry.getKey().startsWith(user_id))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -38,9 +38,9 @@ public class SseRepositoryImpl implements SseRepository{
     }
 
     @Override
-    public Map<String, Object> findAllEventCacheStartWithById(String rcv_id) {
+    public Map<String, Object> findAllEventCacheStartWithById(String user_id) {
         return emitters.entrySet().stream()
-                .filter(entry -> entry.getKey().startsWith(rcv_id))
+                .filter(entry -> entry.getKey().startsWith(user_id))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -50,22 +50,20 @@ public class SseRepositoryImpl implements SseRepository{
     }
 
     @Override
-    public void deleteAllEmitterStartWithId(String email) {
+    public void deleteAllEmitterStartWithId(String user_id) {
         emitters.forEach((key, emitter) -> {
-            if (key.startsWith(email)){
+            if (key.startsWith(user_id)){
                 emitters.remove(key);
             }
         });
     }
 
     @Override
-    public void deleteAllEventCacheStartWithId(String email) {
+    public void deleteAllEventCacheStartWithId(String user_id) {
         emitters.forEach((key, emitter) -> {
-            if (key.startsWith(email)){
+            if (key.startsWith(user_id)){
                 emitters.remove(key);
             }
         });
     }
-	
-	
 }

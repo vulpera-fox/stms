@@ -29,4 +29,3 @@ public class ProjectVO {
 	private String created_yn;
 	private String user_id;
 
-}

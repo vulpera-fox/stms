@@ -1,12 +1,8 @@
 package com.project.stms.service.user;
 
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.stms.command.UserVO;
-
 
 @Mapper	
 public interface UserMapper {	

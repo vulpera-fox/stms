@@ -1,8 +1,6 @@
 package com.project.stms.service.user;
 
 
-import java.util.List;
-
 import com.project.stms.command.UserVO;
 
 public interface UserService {
