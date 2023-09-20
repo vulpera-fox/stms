@@ -234,6 +234,106 @@ a {
 	color: white !important;
 }
 
+
+/* 모달 창 */
+
+#modal {
+	
+/*	display: none; */
+	position: relative;
+    top: -620px;
+    left: -130px;
+}
+
+#modal p {
+	
+	margin: 0 auto;
+    padding: 20px
+}
+
+#modal button{
+	
+	display: inline-block;
+	width: 100px;
+	margin-left: calc(100% - 100px -10px);
+	
+}
+
+#modal .modal_content{
+	
+	display: none;
+	position: relative;
+    top: 20px;
+    left: 122px;
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px 10px;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 8px;
+
+}
+
+.modal_content #cnxl {
+	
+	all: unset;
+    font-size: 13.5px;
+    position: relative;
+    top: -13px;
+    right: -124px;
+    height: 20px;
+    border: 1px solid #00000059;
+    width: 20px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+}
+
+
+.modal_content > input {
+	
+	margin-bottom: 20px !important;
+	padding: 10px !important;
+	
+}
+
+.modal_content #confirm_modal {
+	
+/*	all: unset;*/
+	text-decoration: none;
+    background-color: #263463;
+    width: 50px;
+    border: 1px solid #020f373d;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+    color: white;
+    cursor: pointer;
+}
+
+
+.modal_content #confirm_modal:focus {
+	
+		outline: none;
+}
+
+
+/*#modal .modal_layer {*/
+	
+/*	position: fixed;*/
+/*	top:0;*/
+/*	left:0;*/
+/*	width:100%;*/
+/*	height: 100%;*/
+/*	background:rgba(0,0,0,0.3);*/
+/*	z-index: 2;*/
+	
+/*}*/
+
+
+
+
+
 /* 글쓰기 버튼 */
 
 .goto_write{

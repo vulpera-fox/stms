@@ -3,6 +3,9 @@ package com.project.stms.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.stms.command.NewsVO;
+import com.project.stms.command.UserVO;
 import com.project.stms.service.question.QuestionService;
 import com.project.stms.util.NewsCriteria;
 import com.project.stms.util.NewsPageVO;
@@ -25,6 +29,7 @@ public class QuestionController {
 	//@Qualifier("questionService")
 	private QuestionService questionService;
 	
+	/* 게시글 조회 */
 	@GetMapping("/customer_question")
 	public String QuestionList(Model model, NewsCriteria cri) {
 		
@@ -39,7 +44,7 @@ public class QuestionController {
 		return "question/customer_question";
 		
 	}
-	
+	 /* 나의문의글 보기 */
 	@GetMapping("/customer_myQuestion")
 	public String myQuestion (Model model, NewsCriteria cri) {
 		
@@ -56,11 +61,16 @@ public class QuestionController {
 		
 	}
 	
-	
+	 /* 게시글 상세 보기 */
 	@GetMapping("/customer_questionDetail")
-	public String QuestionDetail(@RequestParam("post_id") int post_id, Model model) {
+	public String QuestionDetail(@RequestParam("post_id") int post_id, Model model,HttpServletRequest request) {
 		
 		NewsVO vo = questionService.getQdetail(post_id);
+		
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+		
+		
 		
 		model.addAttribute("vo",vo);
 		
@@ -70,6 +80,7 @@ public class QuestionController {
 		return "question/customer_questionDetail";
 	}
 	
+	/* 게시글 작성 */
 	@GetMapping("/customer_questionWrite")
 	public String RegiPost() {
 		
