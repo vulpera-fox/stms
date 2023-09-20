@@ -26,7 +26,6 @@
 
 
 		<div id='container'>
-		[[${session.user_email}]]
 			<div class='searchArea'>
 				<div class='searchBar'>
 
@@ -44,11 +43,12 @@
 					</div>
 					<div class="lowerSearchBar">
 						<div class="lowerSearchBarLeft">
-							<p class='toggleFilter'>검색 필터</p><a class="resetBtn" th:href="@{ProjectMain}">초기화</a>
+							<p class='toggleFilter'>검색 필터</p><a class="resetBtn" th:href="@{ProjectMain}" style="text-decoration: none; color: black;">필터 초기화</a>
 						</div>
 						<div class="lowerSearchBarRight">
-							<a class="checkRequest" data-bs-toggle="modal" data-bs-target="#reqProjectListModal">신청
-								승인</a>
+							<th:block th:if="${session.user_role} == 'ROLE_ADMIN'">
+								<a class="checkRequest" data-bs-toggle="modal" data-bs-target="#reqProjectListModal" style="text-decoration: none; color: black;">신청 승인</a>
+							</th:block>
 						</div>
 					</div>
 				</div>

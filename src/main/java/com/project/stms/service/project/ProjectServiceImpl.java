@@ -34,11 +34,15 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		return projectMapper.getList();
 	}
-	
 
 	@Override
 	public List<ProjectVO> getRequestList() {
 		return projectMapper.getRequestList();
+	}
+	
+	@Override
+	public List<ProjectVO> getRoledList(String user_id) {
+		return projectMapper.getRoledList(user_id);
 	}
 
 	@Override
@@ -132,8 +136,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public List<UserVO> getNormalUserDetailByPage(int pjt_id, Criteria cri) {
-		return projectMapper.getNormalUserDetailByPage(pjt_id, cri);
+	public List<UserVO> getNormalUserDetailByPage(int pjt_id) {
+		return projectMapper.getNormalUserDetailByPage(pjt_id);
 	}
 
 
@@ -195,6 +199,14 @@ public class ProjectServiceImpl implements ProjectService {
 	public String getMyId(String user_email) {
 		return projectMapper.getMyId(user_email);
 	}
+
+	@Override
+	public List<FileVO> getFileName(int pjt_id) {
+		return projectMapper.getFileName(pjt_id);
+	}
+
+
+	
 
 
 	

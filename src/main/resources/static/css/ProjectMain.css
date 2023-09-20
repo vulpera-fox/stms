@@ -43,6 +43,14 @@ a {
   height: 30px;
 }
 
+.checkRequest {
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.checkRequest:hover {
+	cursor: pointer;
+}
 
 .filterArea.hidden {
   max-height: 0;
