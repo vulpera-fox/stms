@@ -152,8 +152,8 @@
 					   #{server_id})
 	</insert>
 	
-	<!-- <delete id="delTask" parameterType="int">
+	<delete id="delTask" parameterType="int">
 		delete from task where task_id = #{task_id}
-	</delete> -->
+	</delete>
 
 </mapper>
