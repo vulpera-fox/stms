@@ -16,7 +16,7 @@
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   
 
-<th:block th:replace=" ~{/include/layout_engineer :: setContent(~{ :: #container})}">
+<th:block th:replace=" ${session.user_role} == 'ROLE_ADMIN' ? ~{/include/layout_admin :: setContent(~{ :: #container})} : ~{/include/layout_engineer :: setContent(~{ :: #container})}">
 	
 
   <div id="container">
@@ -105,7 +105,22 @@
                 <textarea name="pjt_dtl" class="pjt_dtl" readonly>[[${pVO.pjt_dtl}]]</textarea>
     
               </div>
+	          <div class="attachment">
+				  <p style="font-size: 20px;">첨부파일</p>
+				  <div class="attachmentZone">
+					  <ul>
+						  <li th:each="fVO : ${fList}">
+							  <a th:href="@{getFile(keyName=${fVO.file_nm})}"><p>[[${fVO.org_file_nm}]]</p></a>
+						  </li>
+					  </ul>
+				  </div>
+				  
+			  </div>
           </div>
+          
+          
+          
+          
         </div>
       </div>
 
@@ -141,7 +156,7 @@
 
           </div>
           <div class="normalUserInfo">
-            <p class="normalUser">작업자<i class="bi bi-plus-square memberAdd" data-bs-toggle="modal" data-bs-target="#addMemberModal"></i></p>
+            <p class="normalUser">작업자<i class="bi bi-plus-square memberAdd" data-bs-toggle="modal" data-bs-target="#addMemberModal" th:hidden="${session.user_role == 'ROLE_ENGINEER'}"></i></p>
             <div class="normalUserList">
               <ul>
                 <li th:each="eVO : ${engiUList}">

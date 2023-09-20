@@ -27,8 +27,6 @@ public class TaskController {
 	@Qualifier("taskService")
 	private TaskService taskService;
 	
-	
-	
 	//작업조회
 	@GetMapping("/taskList")
 	public String taskList(Model model, Criteria cri) {
@@ -136,9 +134,9 @@ public class TaskController {
 	
 	
 	//메인화면(캘린더 뷰)
-	@GetMapping("taskCalendar")
+	@GetMapping("taskDashboard")
 	public String taskCalendar() {
-		return "task/taskCalendar";
+		return "task/taskDashboard";
 	}
 	
 	//작업 리포트
