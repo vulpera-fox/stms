@@ -29,12 +29,16 @@ public class ProjectInterceptor implements HandlerInterceptor {
 		
 		String user_role = (String) session.getAttribute("user_role");
 		
+		String user_id = (String) session.getAttribute("user_id");
 
+		
+		
 		request.setAttribute("user_email", user_email);
+		request.setAttribute("user_role", user_role);
+		request.setAttribute("user_id", user_id);
 		
-		System.out.println(user_email + " 유저이메일");
 		
-		System.out.println(user_role + " 유저권한");
+		
 		
 		return true;
 

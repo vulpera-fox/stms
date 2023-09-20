@@ -18,6 +18,8 @@ public interface ProjectService {
 	
 	public List<ProjectVO> getRequestList();
 	
+	public List<ProjectVO> getRoledList(String user_id);
+	
 	public void requestProject(ProjectVO vo);
 	
 	public void insertFiles(List<MultipartFile> list, int pjt_id);
@@ -30,7 +32,7 @@ public interface ProjectService {
 	
 	public List<UserVO> getNormalUserDetail(int pjt_id);
 	
-	public List<UserVO> getNormalUserDetailByPage(int pjt_id, Criteria cri);
+	public List<UserVO> getNormalUserDetailByPage(int pjt_id);
 	
 	public List<TaskVO> getTaskDetail(int pjt_id);
 	
@@ -58,7 +60,7 @@ public interface ProjectService {
 	
 	public ProjectVO getProjectInfoForFiles();
 	
-	
+	public List<FileVO> getFileName(int pjt_id);
 	
 	
 	

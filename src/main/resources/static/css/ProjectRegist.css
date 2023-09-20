@@ -94,6 +94,21 @@ ul, li {
 .fileThumbnailZone {
   padding: 10px;
   width: 100%;
+  
+}
+
+.fileThumbnailZone li {
+	overflow: hidden;
+	width: 100%;
+}
+
+.fileThumbnailZone li p {
+	width: 80%;
+	float: left;
+}
+
+.fileThumbnailZone li button {
+	float: right;
 }
 
 .submitBtn {

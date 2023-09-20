@@ -9,7 +9,7 @@ group = 'com.project'
 version = '0.0.1'
 
 java {
-	sourceCompatibility = '11'
+	sourceCompatibility = '17'
 }
 
 configurations {

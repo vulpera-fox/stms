@@ -32,9 +32,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public int deleteTaskList(int task_id) {
+	public void deleteTaskList(int task_id) {
 		
-		return taskMapper.deleteTaskList(task_id);
+		taskMapper.deleteTaskList(task_id);
 	}
 
 
@@ -70,7 +70,7 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public void deleteTemplate(Integer tem_id) {
 		
-		taskMapper.deleteTaskList(tem_id);
+		taskMapper.deleteTemplate(tem_id);
 	}
 
 
@@ -126,10 +126,10 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 
-	@Override
-	public void delTask(int task_id) {
-		taskMapper.delTask(task_id);
-	}
+//	@Override
+//	public void delTask(int task_id) {
+//		taskMapper.delTask(task_id);
+//	}
 	
 	
 		

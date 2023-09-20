@@ -14,7 +14,7 @@ public interface TaskService {
 	//데이터 총 개수 구하기
 	public int getTotal(Criteria cri);
 	//리스트 삭제
-	public int deleteTaskList(int task_id);
+	public void deleteTaskList(int task_id);
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
 	
@@ -49,7 +49,7 @@ public interface TaskService {
 	public int taskRegist(TaskVO vo);
 	
 	//작업삭제
-	public void delTask(int task_id);
+	//public void delTask(int task_id);
 
 	//모달(프로젝트 정보 등록)
 	//public ArrayList<ProjectVO> regPjtList();
