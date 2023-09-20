@@ -1,9 +1,5 @@
 package com.project.stms.command;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,5 +27,6 @@ public class ProjectVO {
 	private String user_group;
 	private String user_nm;
 	private String created_yn;
+	private String user_id;
 
 }

@@ -9,6 +9,10 @@ body {
   background-color: rgb(250, 250, 251);
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 ul, li {
   list-style: none;
   padding: 0;
@@ -186,12 +190,12 @@ a {
 }
 
 .projectInfoContainer {
-  padding: 20px;
+  background-color: white;
+  border: 1px solid rgb(230, 235, 241);
 }
 
 .contentArea {
-  background-color: white;
-  border: 1px solid rgb(230, 235, 241);
+  
 }
 
 
@@ -311,6 +315,7 @@ a {
   display: flex;
 }
 
+
 .memberListZone ul {
   padding: 0;
   position: relative;
@@ -380,5 +385,9 @@ a {
 .pageNation ul li {
 	display: inline-block;
 	
+}
+
+.attachment {
+	padding: 0 40px;
 }
 

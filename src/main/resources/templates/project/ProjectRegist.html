@@ -23,8 +23,8 @@
 	<div>
 		<div class="container">
 			<form method="post" action="registForm" enctype="multipart/form-data">
-				<input type="text" hidden name="req_user_id" value="33" />
-			
+				<input type="text" hidden name="req_user_id" th:value="${session.user_id}" />
+
 
 				<div class="contentAreaBox">
 					<div class="contentArea">
@@ -88,42 +88,42 @@
 
 				</div>
 
-		</div>
-
+			</div>
 </th:block>
 
-		<div class="modalArea">
-			<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">파일 업로드</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<div class="input-group mb-3">
-								<div style="width: 100%;">
-									<input type="file" multiple class="form-control" id="inputGroupFile02" name="fileList">
-								</div>
-								<div>
-									<ul class="fileThumbnailZone" style="width: 100%;">
 
-									</ul>
-								</div>
-							</div>
+<div class="modalArea">
+	<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">파일 업로드</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="input-group mb-3">
+						<div style="width: 100%;">
+							<input type="file" multiple class="form-control" id="inputGroupFile02" name="fileList">
+							<p id="errorMessage" style="color: red;"></p>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">업로드</button>
-							<!--<button type="button" class="btn btn-primary">업로드</button>-->
+						<div style="width: 100%;">
+							<ul class="fileThumbnailZone" style="width: 100%;">
+
+							</ul>
 						</div>
 					</div>
 				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">업로드</button>
+					<!--<button type="button" class="btn btn-primary">업로드</button>-->
+				</div>
 			</div>
 		</div>
-		</form>
-
 	</div>
+</div>
+</form>
+
+</div>
 
 
 <script th:inline="javascript">
@@ -138,7 +138,7 @@
 				$('.fileThumbnailZone').children().remove();
 				const files = Array.from($('#inputGroupFile02')[0].files);
 				files.forEach(file => {
-					var previewText = $(`<li><p id="${file.lastModified}">${file.name}<button data-index='${file.lastModified}' class='file-remove' style="margin-left:20px;">X</button></p></li>`);
+					var previewText = $(`<li><p id="${file.lastModified}">${file.name}</p><button data-index='${file.lastModified}' class='file-remove' style="margin-left:20px;">X</button></li>`);
 					preview.append(previewText);
 				});
 			});
@@ -162,12 +162,16 @@
 				document.querySelector('#inputGroupFile02').files = dataTranster.files;
 
 				removeTarget.remove();
+				e.target.remove();
 			})
 		}
 	}
 
 	fileHandler.init();
 	fileHandler.removeFile();
+
+
+
 
 	$('.submitBtn').click((e) => {
 		if ($('.pjt_nm').val() === "") {
@@ -211,6 +215,18 @@
 			endDateInput.value = '';
 		}
 	});
+
+	var maxFileNameLength = 10;
+
+	var fileInput = document.getElementById("fileInput");
+	var erm = document.getElementById("errorMessage");
+
+
+
+
+
+
+
 
 </script>
 
