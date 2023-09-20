@@ -430,14 +430,14 @@
         }
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
-		//const currentDateTime = getCurrentDateTime();
-        //startDateTimeInput.min = currentDateTime;
-        //startDateTimeInput.value = currentDateTime;
+		const currentDateTime = getCurrentDateTime();
+        startDateTimeInput.min = currentDateTime;
+        startDateTimeInput.value = currentDateTime;
 		
 		//종료일시 입력 필드의 최소값 설정
-		//startDateTimeInput.addEventListener("change", function () {
-            //endDateTimeInput.min = startDateTimeInput.value;
-        //});
+		startDateTimeInput.addEventListener("change", function () {
+            endDateTimeInput.min = startDateTimeInput.value;
+        });
 			
 	</script>
 
