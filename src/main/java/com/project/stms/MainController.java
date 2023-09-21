@@ -1,14 +1,41 @@
 package com.project.stms;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.project.stms.command.UserVO;
 
 @Controller
 public class MainController {
 
 
 	@GetMapping("/")
-	public String customer_main() {		
+	public String customer_main(HttpServletRequest request) {	
+		
+		HttpSession session = request.getSession();
+		
+		if(session != null) {
+		
+			UserVO userVO = (UserVO)session.getAttribute("userVO");
+				if(userVO.getUser_role().equals("ROLE_ADMIN")) {
+					
+					/* 메인페이지 재로딩하면 userVO가 null이라는 에러떠서 저장함 */
+					userVO.setUser_role("ROLE_ADMIN");
+					
+					return "redirect:/project/ProjectMain";
+					
+				} else if(userVO.getUser_role().equals("ROLE_ENGINEER")) {
+					
+					userVO.setUser_role("ROLE_ENGINEER");
+					
+					return "redirect:/task/taskDashboard";
+					
+				} 
+			} 
+			
 		return "main";
 
 	}

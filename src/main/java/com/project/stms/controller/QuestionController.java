@@ -21,7 +21,7 @@ import com.project.stms.service.question.QuestionService;
 import com.project.stms.util.NewsCriteria;
 import com.project.stms.util.NewsPageVO;
 
-@RequestMapping("/api/question")
+@RequestMapping("/question")
 @Controller
 public class QuestionController {
 	
@@ -69,8 +69,6 @@ public class QuestionController {
 		
 		HttpSession session = request.getSession();
 		UserVO userVO = (UserVO)session.getAttribute("userVO");
-		
-		
 		
 		model.addAttribute("vo",vo);
 		

@@ -114,7 +114,7 @@ public class ProjectController {
 							 HttpServletRequest request) {
 
 		
-		HttpSession session = request.getSession();
+		session = request.getSession();
 		
 		System.out.println(vo.toString());
 		
