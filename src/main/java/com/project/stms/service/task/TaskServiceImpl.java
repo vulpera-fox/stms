@@ -32,9 +32,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public int deleteTaskList(int task_id) {
+	public void deleteTaskList(int task_id) {
 		
-		return taskMapper.deleteTaskList(task_id);
+		taskMapper.deleteTaskList(task_id);
 	}
 
 

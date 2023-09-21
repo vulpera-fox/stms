@@ -1278,11 +1278,8 @@
 				contentType: "application/json",
 				data: JSON.stringify({task_id: taskId}),
 				success: function(data) {
-					if(data) {						
-						alert("성공적으로 삭제되었습니다");
-					} else {
-						alert("값이 안넘어감");
-					}
+					
+					alert("삭제되었습니다!");
 					
 					resetLists();
 				},

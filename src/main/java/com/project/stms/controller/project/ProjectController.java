@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.stms.command.FileVO;
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
@@ -50,25 +50,29 @@ public class ProjectController {
 	@Autowired
 	SseService sseService;
 	
-	private String ins_user_id = "50";
-	
-	private String req_user_id = "33";
-	
-	
-	
 	
 	@GetMapping("/ProjectMain")
-	public String ProjectMain(ProjectVO vo, Model mo) {
+	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session) {
 		
-		List<ProjectVO> pList = projectService.getList();
+		String myRole = (String)session.getAttribute("user_role");
+		System.out.println(myRole);
+		String myId = (String)session.getAttribute("user_id");
+		
+		if(myRole.equals("ROLE_ADMIN")) {
+			List<ProjectVO> pList = projectService.getList();
+			mo.addAttribute("pList", pList);
+		} else if(myRole.equals("ROLE_ENGINEER")) {
+			List<ProjectVO> pList = projectService.getRoledList(myId);
+			mo.addAttribute("pList", pList);
+		}
+		
 		
 		List<ProjectVO> reqPList = projectService.getRequestList();
 		
-		mo.addAttribute("pList", pList);
 		
 		mo.addAttribute("reqPList", reqPList);
 		
-//		s3Service.getMyBucket();
+		
 		
 		return "/project/ProjectMain";
 	}
@@ -82,14 +86,11 @@ public class ProjectController {
 		
 		HttpSession session = request.getSession();
 		
-		//String myEmail = (String) session.getAttribute("userName");
+
+		String myId = (String)session.getAttribute("user_id");
+
 		
-		//System.out.println(myEmail + " 나의 이메일");
-		
-		String myId = (String) session.getAttribute("user_id");
-//		String myId = ;
-		
-		System.out.println(myId + " 나의 아이디");
+		System.out.println(myId + " 나의아이디");
 		
 		List<ServerVO> sList = projectService.getMyServer(myId);
 		
@@ -107,9 +108,13 @@ public class ProjectController {
 	@PostMapping("/registForm")
 	public String registForm(ProjectVO vo,
 							 @RequestParam(required = false, name = "fileList") List<MultipartFile> list,
+
+							 HttpSession session,
+
 							 HttpServletRequest request) {
+
 		
-		HttpSession session = request.getSession();
+		session = request.getSession();
 		
 		System.out.println(vo.toString());
 		
@@ -119,11 +124,12 @@ public class ProjectController {
 			System.out.println("리스트가있어요");
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
-		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+
+//		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+
 		
-//		System.out.println("1");
 		
-		return "redirect:/project/ProjectMain";
+		return "redirect:/main";
 	}
 	
 	
@@ -160,12 +166,12 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectCreate")
-	public String ProjectCreate(@RequestParam("pjt_id") int pjt_id, Model mo, Criteria cri) {
+	public String ProjectCreate(@RequestParam("pjt_id") int pjt_id, Model mo, Criteria cri, HttpSession session) {
 		
 		
 		ProjectVO pVO = projectService.getProjectDetail(pjt_id);
 		
-		List<UserVO> norUList = projectService.getNormalUserDetailByPage(pjt_id, new Criteria());
+		List<UserVO> norUList = projectService.getNormalUserDetailByPage(pjt_id);
 		
 		int total = projectService.getTotal();
 		
@@ -181,7 +187,7 @@ public class ProjectController {
 		
 		mo.addAttribute("pageVO", pageVO);
 		
-		mo.addAttribute("ins_user_id", ins_user_id);
+		mo.addAttribute("ins_user_id", (String) session.getAttribute("user_id"));
 		
 		
 		return "/project/ProjectCreate";
@@ -191,15 +197,20 @@ public class ProjectController {
 	
 	@GetMapping("/getDetail")
 	public String getDetail(@RequestParam("pjt_id") int pjt_id,
-							Model mo, Criteria cri) {
+							Model mo, Criteria cri, HttpSession session) {
 		
-		System.out.println(pjt_id);
+		System.out.println(session.getAttribute("user_role"));
 		
 		
+		
+		// 프로젝트 세부정보
 		ProjectVO pVO = projectService.getProjectDetail(pjt_id);
 		
 		System.out.println(pVO.toString());
 		
+		
+		
+		// 각 기간 별 작업 진행도
 		String startDateStr = pVO.getPjt_st_dt();
         String endDateStr = pVO.getPjt_end_dt();
 
@@ -268,20 +279,24 @@ public class ProjectController {
         
 		mo.addAttribute("pVO", pVO);
 		
+		// 고객사 정보
 		UserVO cusUList = projectService.getCustomerUserDetail(pjt_id);
+		// 관리자 정보
 		UserVO adUList = projectService.getAdminUserDetail(pjt_id);
+		// 작업자 정보
 		List<UserVO> engiUList = projectService.getUserByProject(pjt_id);
+		// 프로젝트에 참여하지 않은 작업자 리스트
 		List<UserVO> notAddedUList = projectService.getMemberNotAdded(pjt_id, new Criteria());
 		
 		System.out.println(notAddedUList.size() + " 추가될 작업자의 명 수");
 		
+		// 사용안함
 		int total = projectService.getNotAddedTotal(pjt_id);
-		
 		PageVO pageVO = new PageVO(cri, total);
-		
 		pageVO.setPnCount(5);
-		
 		mo.addAttribute("pageVO", pageVO);
+		
+		
 		mo.addAttribute("cusUList", cusUList);
 		mo.addAttribute("adUList", adUList);
 		mo.addAttribute("engiUList", engiUList);
@@ -297,7 +312,13 @@ public class ProjectController {
 			mo.addAttribute("errMsg", "작업이 없습니다");
 		}
 		
+		List<FileVO> fList = projectService.getFileName(pjt_id);
 		
+		for(FileVO fVO : fList) {
+			System.out.println(fVO.toString());
+		}
+		
+		mo.addAttribute("fList", fList);
 		
 		
 		return "/project/ProjectDetail";
@@ -305,22 +326,23 @@ public class ProjectController {
 	
 	
 	@PostMapping("/submitForm")
-	public String submitForm(ProjectVO pVO, @RequestParam(required = false, value = "users") List<String> users) {
+	public String submitForm(ProjectVO pVO, @RequestParam(required = false, value = "users") List<String> users, HttpSession session) {
 		
 		
 		System.out.println(pVO.toString());
 		
 		projectService.updateProjectInfo(pVO);
 		
+		
 		//고객에게 승인 알림전송
-		notificationService.createProjectNotification(req_user_id, "ADMIN", pVO.getPjt_nm());
+//		notificationService.createProjectNotification((String)session.getAttribute("user_id"), pVO.getReq_user_id(), pVO.getPjt_nm());
 		
 		if(users != null) {
 			for(int i = 0; i < users.size(); i++) {
 				projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
 				
 				//작업자에게 할당 알림전송
-				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
+//				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
 			}
 		}
 		
@@ -348,8 +370,26 @@ public class ProjectController {
 	
 	
 	
-	
-	
+	@GetMapping("/getFile")
+	public String getFile(@RequestParam("keyName") String keyName, RedirectAttributes ra) {
+		
+		System.out.println(keyName + " 키네임========");
+		
+		boolean result = s3Service.readFiles(keyName);
+		
+//			s3Service.checkFile(keyName);
+		if(result) {
+			s3Service.downloadFiles(keyName);
+		} else {
+			ra.addFlashAttribute("noFileMsg", "다운로드 하려는 파일이 없습니다. 문의를 남겨 주세요.");
+		}
+		
+		
+		
+		
+		
+		return "redirect:/project/ProjectMain";
+	}
 	
 	
 	

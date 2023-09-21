@@ -88,13 +88,15 @@ public class TaskRestController {
 	
 	//작업 삭제
 	@PostMapping("delTask")
-	public ResponseEntity<String> delTask(@RequestParam("task_id") Integer task_id) {
+	public ResponseEntity delTask(@RequestBody TaskVO vo) {
+		
+		int task_id = vo.getTask_id();
 		
 		System.out.println("삭제 파라미터:" + task_id);
 		
 		taskService.deleteTaskList(task_id);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	
