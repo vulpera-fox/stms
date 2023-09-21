@@ -8,23 +8,23 @@
 
 		<style>
 			.task_temp_container {
-				width: 1500px;
+				width: 100%;
 				margin: 0 auto;
+				padding : 30px;
 			}
 
 			.task_temp_box {
 				border-radius: 10px;
 				box-shadow: 0 5px 5px #020f37;
-				width: 450px;
+				width: 300px;
 				height: 300px;
 				display: inline-block;
-				margin: 15px auto;
-
+				margin: 15px;
+				position: relative;
 
 			}
 
 			.tempTable {
-				width: 420px;
 				height: 300px;
 				margin: 0 auto;
 			}
@@ -36,7 +36,8 @@
 			}
 
 			.tempRow {
-				border-collapse: collapse;
+				text-align: center;
+				width: 25px;
 			}
 
 
@@ -46,7 +47,6 @@
 				width: 450px;
 				height: 300px;
 				display: inline-block;
-				margin-left: 10px;
 			}
 
 			.tempImgBox {
@@ -62,17 +62,13 @@
 
 			}
 
-			#tempSaveDelBox {
-				position: relative
-			}
-
-			.tempDelBtnA {
+			.tempSaveDelBox {
 				position: absolute;
-				top: -285px;
-				left: 400px;
+				top: 20px;
+				right: 10px;
 				width: 8%;
-
 			}
+
 		</style>
 
 		<div class="task_temp_container">
@@ -92,7 +88,7 @@
 					<a href="#" class="tempPlus">
 						<img src="/img/add_btn.png" alt="추가" id="tempBtn" class="btn btn-primary" data-toggle="modal"
 							data-target="#registTempModal" style="background-color: initial; border: none;">
-					</a>
+					</a>`
 				</div>
 			</div>
 
@@ -143,7 +139,7 @@
 
 					</table>
 					<!--수정, 삭제 버튼-->
-					<div id="tempSaveDelBox">
+					<div class="tempSaveDelBox">
 						<a href="#" class="tempDelBtnA delete" name="tem_id" th:value="${vo.tem_id}">
 							<img src="/img/red-x-cross.png" alt="삭제">
 						</a>

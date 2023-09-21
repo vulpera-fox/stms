@@ -206,8 +206,9 @@
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+	
 	<script>
+		
 		const timeOut = document.querySelector(".time-out");
 		let second = 0;
 		let minutes = 0;
@@ -218,7 +219,7 @@
 					return response.json();
 				})
 				.then((result) => {
-					console.log(result);
+					//console.log(result);
 					second = result;
 					minutes = second/60;
 					seconds = second%60;
@@ -231,7 +232,7 @@
 				});
 		};
 		intervalId = setInterval(timeFunction, 1000);
-
+		
 
 	</script>
 
