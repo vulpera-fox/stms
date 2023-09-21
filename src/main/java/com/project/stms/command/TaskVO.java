@@ -31,7 +31,10 @@ public class TaskVO {
 	private LocalDateTime task_end_dt; //작업종료일시
 	private Integer task_al_t; //작업예상시간
 	private Integer task_oper_t; //작업생성시간
-
+	private Integer status_id; //작업상태 기준
+	private String status_dtl; //작업상태 코드명칭
+	private String status_color; //작업상태 코드색상
+	
 	private Integer completed_task;
 	
 	private Integer tem_id;

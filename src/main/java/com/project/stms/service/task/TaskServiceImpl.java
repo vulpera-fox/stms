@@ -32,9 +32,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public int deleteTaskList(int task_id) {
+	public void deleteTaskList(int task_id) {
 		
-		return taskMapper.deleteTaskList(task_id);
+		taskMapper.deleteTaskList(task_id);
 	}
 
 
@@ -112,7 +112,7 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public ArrayList<TaskVO> getTaskTemp(Integer user_id) {
+	public ArrayList<TaskVO> getTaskTemp(String user_id) {
 		
 		return taskMapper.getTaskTemp(user_id);
 	}
@@ -123,6 +123,13 @@ public class TaskServiceImpl implements TaskService{
 		
 		
 		return taskMapper.taskRegist(vo);
+	}
+
+
+	@Override
+	public TaskVO applyTemp(Integer tem_id) {
+		
+		return taskMapper.applyTemp(tem_id);
 	}
 
 
