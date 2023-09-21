@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .taskModifies})}">
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskModifies})}">
 
-<th:block class="taskModifies">
+<div class="taskModifies">
 	
 	<style>
 	
@@ -137,17 +137,8 @@
 		      <table class="taskModTable">
 				  
 				  <tr class="taskModRow">
-					  <th class="taskModHeads">프로젝트 선택</th>
-					  <td colspan="3" class="taskModBodies">
-						  
-						  <!--반드시 다시 보고 수정할 것!! 반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
-						  <select class="projectSelectBox">
-							  <option>프로젝트A</option>
-							  <option>프로젝트B</option>
-							  <option>프로젝트C</option>
-							  <option>프로젝트D</option>
-						  </select>
-					  </td>
+					  <th class="taskModHeads">프로젝트명</th>
+					  <td colspan="3" class="taskModBodies"></td>
 				  </tr>
 				  		  
 		          <tr class="taskModRow">
@@ -234,6 +225,6 @@
 		
 	</script>
 	  
-</th:block>	
+</div>	
 	
 </th:block>	

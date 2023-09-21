@@ -184,7 +184,7 @@
       font-weight: bold;	
 	}
 	
-	#taskSearchRegBtn {
+	#taskSearchRegBtn, #taskSearchRegBtnB {
 		
 	  width: 40px;
 	  height: 30px;
@@ -309,7 +309,25 @@
 		font-weight: bold;
 	}
 	
-	.engineerNameBox, .engineerNameBoxS, .engineerNameBoxD {
+	#engineerNameBox {
+		width:100px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: rgb(72, 175, 148);
+		color: #fff;
+		font-weight: bold;
+	}
+	
+	#engineerNameBoxS {
+		width:100px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: rgb(72, 175, 148);
+		color: #fff;
+		font-weight: bold;
+	}
+	
+	#engineerNameBoxD {
 		width:100px;
 		text-align: center;
 		border-radius: 20px;
@@ -495,7 +513,7 @@
 						
 
 						if(data.length === 0) {
-							str += '<div name="user_id" value="'+ user_id +'">';
+							str += '<div id="taskNewBtnBox" name="user_id" value="'+ user_id +'">';
 							str += '<a href="#" id="taskSearchNewBtn" value="'+ pjt_id +'">신규</a>';								
 							str += '<input type="hidden" name="server_id" class="serverData" value="'+ serverId +'">';
 							str += '</div>';
@@ -587,8 +605,8 @@
 					str += '</td>';
 					
 					str += '<td class="taskRegBodies">';
-					str += '<div class="engineerNameBoxD"></div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineers">';
+					str += '<div id="engineerNameBoxD">'+ data.user_nm +'</div>';
+					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersD">';
 					str += '</td>';
 					
 					str += '</tr>';
@@ -646,11 +664,11 @@
 				hiddenStatus.value="1";
 				taskStatus.innerHTML = "작업대기";
 			} else if(selectedStatus == 2) {
-				taskStatus.style.backgroundColor = "gray";
+				taskStatus.style.backgroundColor = "green";
 				hiddenStatus.value="2";
 				taskStatus.innerHTML = "작업중";
 			} else if(selectedStatus == 3) {
-				taskStatus.style.backgroundColor = "green";
+				taskStatus.style.backgroundColor = "gray";
 				hiddenStatus.value="3";
 				taskStatus.innerHTML = "작업완료";
 			} else if(selectedStatus == 4) {
@@ -672,43 +690,52 @@
 			
 			let selectedEngineer = e.options[e.selectedIndex].innerHTML;
 			
+			let selectedEngId = e.options[e.selectedIndex].value;
 			
+			console.log("찾아야할 작업자 값:", selectedEngId);
 			
-			console.log("찾아야할 작업자 값:", selectedEngineer);
-			
-			let engineerNameBox = document.querySelector(".engineerNameBox")
+			let engineerNameBox = document.getElementById("engineerNameBox")
+			let hiddenEngineers = document.getElementById("hiddenEngineers")
 			
 			console.log(selectedEngineer);
 			
 			engineerNameBox.innerHTML = selectedEngineer;
+			hiddenEngineers.value = selectedEngId;
 			
 			
 			
 		}
 		
-		//작업자 option onChange(작업목록 없을 때 신규카드!)
+		//작업자 option onChange(작업목록 있을 때 신규카드!?)
 		function handleEngChangeS(e) {
 			
-			let selectedEngineer = e.options[e.selectedIndex].innerHTML;
+			let selectedEngineerS = e.options[e.selectedIndex].innerHTML;
 			
-			let selectedEngId = e.options[e.selectedIndex];
+			let selectedEngIdS = e.options[e.selectedIndex].value;
 			
-			console.log("찾아야할 작업자 값:", selectedEngId);
+			console.log("찾아야할 작업자 값 S :", selectedEngIdS);
 			
-			let engineerName = document.querySelector(".engineerNameBoxS")
-			engineerName.innerHTML = selectedEngineer;
+			let engineerNameBoxS = document.getElementById("engineerNameBoxS")
+			let hiddenEngineersS = document.getElementById("hiddenEngineersS")
+			
+			engineerNameBoxS.innerHTML = selectedEngineerS;
+			hiddenEngineersS.value = selectedEngIdS;
 			
 		}
 		//작업자 option onChange(상세카드)
 		function handleEngChangeD(e) {
 			
-			let selectedEngineer = e.options[e.selectedIndex].innerHTML;
+			let selectedEngineerD = e.options[e.selectedIndex].innerHTML;
 			
-			console.log("찾아야할 작업자 값:", selectedEngineer);
+			let selectedEngIdD = e.options[e.selectedIndex].value;
 			
-			let engineerName = document.querySelector(".engineerNameBoxD")
-			engineerName.innerHTML = selectedEngineer;
+			console.log("찾아야할 작업자 값 D :", selectedEngIdD);
 			
+			let engineerNameBoxD = document.getElementById("engineerNameBoxD")
+			let hiddenEngineersD = document.getElementById("hiddenEngineersD")
+			
+			engineerNameBoxD.innerHTML = selectedEngineerD;
+			hiddenEngineersD.value = selectedEngIdD;
 		}
 		
 		
@@ -775,13 +802,13 @@
 					str += '<tr class="taskRegRow">';
 					str += '<th class="taskRegHeads">담당자</th>';
 					str += '<td class="taskRegBodies selectBoxTd">';
-					str += '<select class="engSelectBoxS" onChange="handleEngChangeS(this)">';
+					str += '<select class="engSelectBox" onChange="handleEngChange(this)">';
 					str += '<option name="none" value="none">담당자</option>';
 					str += '</select>';
 					str += '</td>';
 		
 					str += '<td class="taskRegBodies">';
-					str += '<div class="engineerNameBoxS" name="user_id" value="'+ data.user_id +'"></div>';
+					str += '<div id="engineerNameBox" name="user_id" value="'+ data.user_id +'"></div>';
 					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineers">';
 					str += '</td>';
 					
@@ -792,7 +819,7 @@
 					str += '</tr>';
 					str += '</table>';			
 					str += '<!--작업버튼영역-->';
-					str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="'+ pjtId +'">등록</a>';	
+					str += '<a href="#" id="taskSearchRegBtnB" name="pjt_id" value="'+ pjtId +'">등록</a>';	
 					str += '</div>';
 					str += '</div>';
 					
@@ -881,8 +908,8 @@
 					str += '</td>';
 					
 					str += '<td class="taskRegBodies">';
-					str += '<div class="engineerNameBoxS" name="pjt_id" value="'+ data[0].pjt_id +'"></div>';
-		
+					str += '<div id="engineerNameBoxS" name="user_id" value="'+ data.user_id +'"></div>';
+					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersS">';
 					str += '</td>';
 					
 					str += '</tr>';
@@ -939,7 +966,7 @@
 						let str2 ='';
 						
 						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" id="option'+ i +'" value="'+ userId +'">'+ data[i].user_nm +'</option>';
+							str2 += '<option name="담당자'+ i +'" onClick="handleClickMember(this)" id="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
 													
 						}
 						
@@ -968,7 +995,7 @@
 				console.log(target); //select태그 걸림
 				
 				let pjtId = $(".taskSearchNewBtnA").attr("value");
-				let userId = $(".searchTask").closest("div").attr("value");
+				//let userId = $(".searchTask").closest("div").attr("value");
 				
 				$.ajax({
 					url: "../getPjtMembers",
@@ -983,7 +1010,7 @@
 						let str2 ='';
 						
 						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" id="option'+ i +'" value="'+ userId +'">'+ data[i].user_nm +'</option>';
+							str2 += '<option name="담당자'+ i +'" id="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
 													
 						}
 						
@@ -1012,7 +1039,7 @@
 				console.log(target); //select태그 걸림
 				
 				let pjtId = $("#taskSearchNewBtn").attr("value");
-				let userId = $(".searchTask").closest("div").attr("value");
+				//let userId = $(".searchTask").closest("div").attr("value");
 				
 				$.ajax({
 					url: "../getPjtMembers",
@@ -1027,9 +1054,11 @@
 						let str2 ='';
 						
 						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" class="option'+ i +'" value="'+ userId +'">'+ data[i].user_nm +'</option>';
+							str2 += '<option name="담당자'+ i +'" class="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
 													
 						}
+						
+						console.log(data.user_id);
 						
 						let firstChild = $(".engSelectBox").children().first();
 						
@@ -1047,7 +1076,7 @@
 		}
 		
 		
-		//템플릿 불러오기(작업목록이 비어있을 경우)
+		//템플릿 불러오기(작업목록이 없을 경우)
 		function getTempB() {
 			
 			$(".tempSelect").one("click", function(e) {
@@ -1056,8 +1085,8 @@
 				let target = e.target;
 				console.log(target);
 				
-				let user_id = $(".taskSearchBtnBox").attr("value");
-				console.log(user_id);
+				let user_id = $("#taskNewBtnBox").attr("value");
+				console.log("템플릿아이디: ", user_id);
 				
 				$.ajax({
 					url: "../getTaskTemp",
@@ -1099,7 +1128,7 @@
 				console.log(target);
 				
 				let user_id = $(".taskSearchBtnBox").attr("value");
-				console.log(user_id);
+				console.log("템플릿아이디: ", user_id);
 				
 				$.ajax({
 					url: "../getTaskTemp",
@@ -1126,51 +1155,6 @@
 						alert("템플릿 불러오지 못했습니다. 확인해주세요")
 					}
 				})
-				
-			})
-			
-		}
-		
-		
-		//템플릿 불러오기(작업목록이 있을 경우)
-		function getTemp() {
-			
-			$(".tempSelectB").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target);
-				
-				let user_id = $(".taskSearchBtnBox").attr("value");
-				console.log(user_id);
-				
-				$.ajax({
-					url: "../getTaskTemp",
-					type:"get",
-					contentType:"application/json",
-					data: {user_id: user_id},
-					success: function(data) {
-						
-						console.log(data);
-						
-						let str = '';
-						
-						for(let i = 0; i < data.length; i++) {
-							str += '<option name="템플릿'+ i +'" id="option'+ i +'" value="'+ data[i].tem_id +'">'+ data[i].tem_nm +'</option>';
-						}
-						
-						let firstChild = $(".tempSelectB").children().first();
-						firstChild.after(str);
-						
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("템플릿 불러오지 못했습니다. 확인해주세요")
-					}
-				})
-				
-				
 				
 			})
 			
@@ -1259,6 +1243,7 @@
 			let status_id = $("#hiddenStatus").val();
 			let taskDate = $("#taskDate").val();
 			let taskStDt = $("#taskStDt").val();
+			let user_id = $("#hiddenEngineersD").val();
 			
 			let serverId = $(".taskHiddenData").attr("value");
 			
@@ -1273,6 +1258,7 @@
 					"status_id" : status_id,
 					"task_date" : taskDate,
 					"task_st_dt" : taskStDt,
+					"user_id" : user_id
 				}),
 				success: function(data) {
 					console.log(data);
@@ -1326,8 +1312,8 @@
 					str += '</td>';
 					
 					str += '<td class="taskRegBodies">';
-					str += '<div class="engineerNameBoxD" style=""></div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineers">';
+					str += '<div id="engineerNameBoxD"></div>';
+					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersD">';
 					str += '</td>';
 					
 					str += '</tr>';
@@ -1341,7 +1327,7 @@
 					str += '</tr>';
 					str += '</table>';
 					str += '<!--수정,삭제버튼영역-->';
-					str += '<div class="taskSearchBtnBox" name="user_id" value="'+ data.user_id +'">';
+					str += '<div class="taskSearchBtnBox">';
 					str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="'+ data.pjt_id +'">신규</a>';
 					str += '<a href="#" id="taskSearchSaveBtn" value="'+ data.pjt_id +'">수정</a>';
 					str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="'+ data.task_id +'">삭제</a>';							
@@ -1427,7 +1413,50 @@
 				let task_nm = $("#newTaskNm").val();
 				let task_date = $(".newTaskDate").val();
 				let task_st_dt = $("#newTaskStDt").val();
-				let user_id = $(".tempSelectB").val(); //고쳐야할 듯....!!!!
+				let user_id = $("#hiddenEngineersS").val();
+				let task_dtl = $("#newTaskDtl").html();
+				let pjt_id = $(this).attr("value");
+				
+				let server_id= $(".serverData").attr("value");
+				
+				$.ajax({
+					url: "../newTaskRegA",
+					type: "post",
+					contentType: "application/json",
+					data: JSON.stringify({
+					    "task_nm": task_nm,
+					    "task_date": task_date,
+					    "task_st_dt": task_st_dt,
+					    "user_id": user_id,
+					    "task_dtl": task_dtl,
+					    "pjt_id": pjt_id,
+					    "server_id": server_id,
+					    }),
+					success: function(data) {
+						console.log(data);
+						//alert("등록성공!")
+						
+						resetLists();
+					},
+					error: function(status, error) {
+						console.log(status);
+						console.log(error);
+						alert("등록실패")
+					}
+				})
+			});
+			
+			//등록 기능(기존 작업목록 없는 경우)
+			$(document).on("click", "#taskSearchRegBtnB", function(e) {
+			
+				e.preventDefault();
+				
+				
+				let status = $(".taskStatusDefault").attr("value");
+				let task_nm = $("#newTaskNm").val();
+				let task_date = $(".newTaskDate").val();
+				let task_st_dt = $("#newTaskStDt").val();
+				let user_id = $("#hiddenEngineers").val();
 				let task_dtl = $("#newTaskDtl").html();
 				let pjt_id = $(this).attr("value");
 				
