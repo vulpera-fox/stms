@@ -110,7 +110,6 @@ public class UserController {
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				cookie.setMaxAge(0);
-				//response.addCookie(cookie);
 			}
 		}
 		return "redirect:/";

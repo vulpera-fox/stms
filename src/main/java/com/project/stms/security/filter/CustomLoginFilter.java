@@ -123,7 +123,6 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		System.out.println("===로그인 실패 핸들러===");
 		
-		//response.setContentType("text/html; charset=UTF-8");
 		response.sendRedirect("/log?error=true");
 
 	}
