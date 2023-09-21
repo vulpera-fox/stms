@@ -19,6 +19,7 @@ public class MainController {
 		
 		UserVO userVO = (UserVO)session.getAttribute("userVO");
 		
+		/* 쿠키 만료됐을 때 메인페이지 재로딩하면 userVO가 null이라는 에러떠서 null 처리 */
 		if(userVO == null) {
 			
 			return "main";
@@ -28,14 +29,9 @@ public class MainController {
 		
 				if(userVO.getUser_role().equals("ROLE_ADMIN")) {
 					
-					/* 메인페이지 재로딩하면 userVO가 null이라는 에러떠서 저장함 */
-					userVO.setUser_role("ROLE_ADMIN");
-					
 					return "redirect:/project/ProjectMain";
 					
 				} else if(userVO.getUser_role().equals("ROLE_ENGINEER")) {
-					
-					userVO.setUser_role("ROLE_ENGINEER");
 					
 					return "redirect:/task/taskDashboard";
 					
