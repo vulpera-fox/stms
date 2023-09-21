@@ -54,8 +54,6 @@ public class NotificationServiceImpl implements NotificationService{
 	@Override
 	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm) {
 		
-		System.out.println("[받는사람 : " + rcv_id + "]\n[보내는 사람 : " + send_id + "]\n[프로젝트명 : " + pjt_nm + "]");
-		
 		notificationMapper.createProjectNotification(rcv_id, send_id, pjt_nm);
 	}
 }

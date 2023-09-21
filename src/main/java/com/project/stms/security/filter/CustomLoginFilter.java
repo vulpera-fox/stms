@@ -101,14 +101,18 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 
 		
+		session.setAttribute("user_nm", principal.getUser_nm());
+		
+		
+		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
-			response.sendRedirect("/api/engineer/main");
+			response.sendRedirect("/task/taskList");
 			
 		} else if(principal.getUser_role().equals("ROLE_CUSTOMER")){
 			response.sendRedirect("/");
 			
 		} else if(principal.getUser_role().equals("ROLE_ADMIN")) {
-			response.sendRedirect("/api/admin/main");
+			response.sendRedirect("/project/ProjectMain");
 			
 		}
 	}

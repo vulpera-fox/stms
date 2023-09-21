@@ -19,6 +19,8 @@ public interface ProjectMapper {
 	
 	public List<ProjectVO> getRequestList();
 	
+	public List<ProjectVO> getRoledList(String user_id);
+	
 	public void requestProject(ProjectVO vo);
 	
 	public void insertFiles(FileVO list);
@@ -33,7 +35,7 @@ public interface ProjectMapper {
 	public List<UserVO> getNormalUserDetail(int pjt_id);
 	
 	// 모달창에서 작업자 리스트 띄우기
-	public List<UserVO> getNormalUserDetailByPage(@Param("pjt_id") int pjt_id, @Param("cri") Criteria cri);
+	public List<UserVO> getNormalUserDetailByPage(int pjt_id);
 	
 	// 작업 리스트 가져오기
 	public List<TaskVO> getTaskDetail(int pjt_id);
@@ -74,7 +76,8 @@ public interface ProjectMapper {
 	// 파일업로드시 필요한 정보 가져오기
 	public ProjectVO getProjectInfoForFiles();
 	
-	
+	// 프로젝트에 업로드 된 파일명 불러오기
+	public List<FileVO> getFileName(int pjt_id);
 	
 	
 	

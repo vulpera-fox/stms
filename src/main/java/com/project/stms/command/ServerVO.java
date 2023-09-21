@@ -21,6 +21,6 @@ public class ServerVO {
 	private String server_loca;
 	private Integer server_cpu_core;
 	private Integer server_memory;
-	private Integer user_id;
+	private String user_id;
 
 }

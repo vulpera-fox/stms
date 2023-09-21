@@ -27,8 +27,6 @@ public class TaskController {
 	@Qualifier("taskService")
 	private TaskService taskService;
 	
-	
-	
 	//작업조회
 	@GetMapping("/taskList")
 	public String taskList(Model model, Criteria cri) {

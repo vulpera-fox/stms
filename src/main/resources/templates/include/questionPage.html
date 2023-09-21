@@ -3,7 +3,12 @@
 	
 	<th:block th:fragment="pageNation( qpageVO )">
 		
+	<th:block th:if="${session.user_role != 'ROLE_CUSTOMER'}">	
+		<div class="paging" style="margin-top:38px !important;">
+	</th:block>		
+	<th:block th:unless="${session.user_role != 'ROLE_CUSTOMER'}">	
 		<div class="paging">
+	</th:block>		
 				<a class="page_btn" th:href="@{customer_question(page=1, amount=${qpageVO.amount}, searchType=${qpageVO.cri.searchType}, searchKeyword=${qpageVO.cri.searchKeyword})}"><<</a>
 						<th:block th:if="${qpageVO.prev}">
 							

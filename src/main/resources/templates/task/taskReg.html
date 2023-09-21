@@ -1475,7 +1475,9 @@
 				contentType: "application/json",
 				data:JSON.stringify({task_id: taskId}),
 				success: function(data) {
+
 					alert("성공적으로 삭제되었습니다");
+
 					resetLists();
 				},
 				error: function(status, error) {

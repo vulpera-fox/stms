@@ -163,6 +163,5 @@
 		from template
 		where tem_id = #{tem_id}
 	</select>
-	
 
 </mapper>

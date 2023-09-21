@@ -62,8 +62,8 @@ a {
 }
 
 .server_id {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 30px;
 }
 
 
@@ -122,11 +122,19 @@ a {
 	overflow: scroll;
 }
 
+.memberProfileZone::-webkit-scrollbar {
+	display: none;
+}
+
 .memberListContainer {
 }
 
 .memberListZone {
 	padding-left: 20px;
+}
+
+.memberListZone::-webkit-scrollbar {
+	display: none;
 }
 
 .memberListZone ul li {

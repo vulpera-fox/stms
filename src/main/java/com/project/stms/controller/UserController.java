@@ -2,6 +2,10 @@ package com.project.stms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +67,7 @@ public class UserController {
 		userService.join(userVO);
 
 
-		return "redirect:/";
+		return "redirect:/log";
 	}
 
 	@GetMapping("/log")
@@ -87,8 +91,29 @@ public class UserController {
 	}
 
 	
+	@GetMapping("user/mypage")
+	public String myPage() {
+		
+		return "/user/mypage";
+	}
 	
+	@GetMapping("/user/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		// 세션을 무효화합니다.
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
 
-
+		// 쿠키를 삭제합니다.
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			}
+		}
+		return "redirect:/";
+	}
 
 }

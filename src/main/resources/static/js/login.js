@@ -139,7 +139,7 @@ join_email.addEventListener('focusout', async function() {
 			openModal3();
 
 
-			fetch("http://localhost:8181/random")
+			await fetch("http://localhost:8181/random")
 
 				.then((response) => {
 					return response.json();
@@ -150,14 +150,21 @@ join_email.addEventListener('focusout', async function() {
 					authCheck = result;
 					console.log(authCheck);
 				});
+				
+// ses하다가 키 털려서 안할거같음
+//			const data = {
+//				recipient: join_email.value,
+//				message: authCheck,
+//			};
 
 			const data = {
-				recipient: join_email.value,
+				address: join_email.value,
+				title: "SMTS 인증번호 메일입니다.",
 				message: authCheck,
 			};
 
 
-			fetch("http://localhost:8181/send_email", {
+			fetch("http://localhost:8181/mail", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -240,7 +247,7 @@ var changeNum = "";
 
 address.addEventListener('focusout', function() {
 
-	const data = {
+	const data2 = {
 		user_email: address.value,
 	};
 
@@ -250,7 +257,7 @@ address.addEventListener('focusout', function() {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(data2),
 	}).then((response) => {
 		return response.text();
 	})
