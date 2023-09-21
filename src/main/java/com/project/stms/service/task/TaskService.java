@@ -42,7 +42,10 @@ public interface TaskService {
 	public ArrayList<TaskVO> getPjtMembers(Integer pjt_id);
 	
 	//작업등록시 템플릿 리스트 조회
-	public ArrayList<TaskVO> getTaskTemp(Integer user_id);
+	public ArrayList<TaskVO> getTaskTemp(String user_id);
+	
+	//템플릿 적용
+	public TaskVO applyTemp(Integer tem_id);
 	
 	
 	//작업등록

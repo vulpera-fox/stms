@@ -97,8 +97,9 @@
 			</div>
 
 			<!--반복영역-->
-			<form name="actionForm" action="tempDelForm" method="post">
+			<form name="actionForm" action="tempDelForm" method="post">					
 				<div class="task_temp_box" th:each="vo, status : ${list}">
+					<input class="identData" type="hidden" name="user_id" th:value="${session.user_id}">
 					<table class="tempTable">
 						<input type="hidden" name="tem_id" th:value="${vo.tem_id}">
 						<tr class="tempRow">
@@ -175,7 +176,7 @@
 							</div>
 							<div class="modal-body">
 								<table class="tempTable">
-
+									<input class="identDatas" type="hidden" name="user_id" th:value="${session.user_id}">
 									<tr class="tempRow">
 										<td class="colName">
 											템플릿 이름

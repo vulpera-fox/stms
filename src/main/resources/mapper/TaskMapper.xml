@@ -46,11 +46,12 @@
 	
 	<insert id="getTemplate" parameterType="TaskVO">
 	
-		insert into template (tem_nm,
+		insert into template (user_id,
+							  tem_nm,
                  		  	  task_nm,
                  		  	  task_dtl,
                  		  	  pred_time)
-		values(#{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
+		values(#{user_id}, #{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
 	
 	</insert>
 
@@ -85,24 +86,28 @@
 			   t.task_id,
 			   t.task_nm,
 		       t.task_dtl,
-		       t.status,
+		       t.status_id,
 		       date_format(t.task_date, '%Y-%m-%d') as task_date,
 		       date_format(t.task_st_dt, '%H:%i') as task_st_dt,
 			   t.server_id,
 			   u.user_nm,
 		       u.user_group,
 		       u.user_adr,
-		       u.user_id
+		       u.user_id,
+		       ts.status_dtl,
+		       ts.status_color
 		from task t
 		left join user u
 		on t.user_id = u.user_id
+		left join task_status ts
+		on t.status_id = ts.status_id
 		where task_id = #{task_id};
 	</select>
 	
 	<update id="updateTask">
 		update task set task_nm = #{task_nm},
 					 	task_dtl = #{task_dtl},
-					 	status = #{status},
+					 	status_id = #{status_id},
 					 	task_date = #{task_date},
 					 	task_st_dt = #{task_st_dt}
 					where task_id = #{task_id}
@@ -121,11 +126,11 @@
 	
 	<select id="getPjtMembers" resultType="TaskVO">
 		select *
-		from user u
+		from pjt_mem pm
 		left join
-		pjt_mem pm
-		on u.user_id = pm.user_id
-		where pjt_id = #{pjt_id}
+		user u
+		on pm.user_id = u.user_id
+		where pm.pjt_id = #{pjt_id}
 	</select>
 	
 	<select id="getTaskTemp" resultType="TaskVO">
@@ -134,16 +139,14 @@
 	</select>
 	
 	<insert id="taskRegist" parameterType="TaskVO">
-		insert into task (status,
-						  task_nm,
+		insert into task (task_nm,
 						  task_date,
 						  task_st_dt,
 						  user_id,
 						  task_dtl,
 						  pjt_id,
 						  server_id)
-				values(#{status},
-					   #{task_nm},
+				values(#{task_nm},
 					   #{task_date},
 					   #{task_st_dt},
 					   #{user_id},
@@ -152,8 +155,13 @@
 					   #{server_id})
 	</insert>
 	
-	<delete id="delTask" parameterType="int">
-		delete from task where task_id = #{task_id}
-	</delete>
+	<select id="applyTemp" resultType="TaskVO">
+		select task_nm,
+			   task_dtl,
+			   date_format(pred_time, '%Y-%m-%d') as task_date,
+		       date_format(pred_time, '%H:%i') as task_st_dt 
+		from template
+		where tem_id = #{tem_id}
+	</select>
 
 </mapper>
