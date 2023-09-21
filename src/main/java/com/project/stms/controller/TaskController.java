@@ -71,9 +71,13 @@ public class TaskController {
 	//작업수정페이지
 
 	@GetMapping("taskModify")
-	public String taskModify(int task_id) {
+	public String taskModify(@RequestParam("task_id") int task_id, Model model) {
 		
 		TaskVO taskVO = taskService.getModify(task_id);
+		
+		System.out.println(taskVO.toString());
+		
+		model.addAttribute("taskVO", taskVO);
 		
 		
 		return "task/taskModify";

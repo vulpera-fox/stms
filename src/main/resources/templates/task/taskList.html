@@ -160,7 +160,7 @@
 						  <input type="button" class="stateBtn" th:value="${vo.status}" style="line-height: initial; background-color: gray;">
 					  </td>
 					  <td class="taskBodies">
-						  <a th:href="@{taskModify}" id="taskModiBtn">수정</a>
+						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">수정</a>
 						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>						  
 					  </td>
 				  </tr>
