@@ -109,7 +109,8 @@
 					 	task_dtl = #{task_dtl},
 					 	status_id = #{status_id},
 					 	task_date = #{task_date},
-					 	task_st_dt = #{task_st_dt}
+					 	task_st_dt = #{task_st_dt},
+					 	user_id = #{user_id}
 					where task_id = #{task_id}
 	</update>
 	
