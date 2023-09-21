@@ -17,9 +17,15 @@ public class MainController {
 		
 		HttpSession session = request.getSession();
 		
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+		
+		if(userVO == null) {
+			
+			return "main";
+		}
+		
 		if(session != null) {
 		
-			UserVO userVO = (UserVO)session.getAttribute("userVO");
 				if(userVO.getUser_role().equals("ROLE_ADMIN")) {
 					
 					/* 메인페이지 재로딩하면 userVO가 null이라는 에러떠서 저장함 */
