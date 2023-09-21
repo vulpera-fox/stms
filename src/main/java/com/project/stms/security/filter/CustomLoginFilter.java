@@ -90,7 +90,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		session.setAttribute("user_email", principal.getUsername());
 		session.setAttribute("user_id", principal.getUser_id());
 		session.setAttribute("user_role", principal.getUser_role());
-		
+		session.setAttribute("user_nm", principal.getUser_nm());		
 		
 		UserVO userVO = new UserVO();
 		userVO.setUser_email(principal.getUsername());
@@ -101,14 +101,10 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		
 		
-		session.setAttribute("userVO", userVO);
-		
-
-		
-		
+		session.setAttribute("userVO", userVO);		
 		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
-			response.sendRedirect("/task/taskList");
+			response.sendRedirect("/task/taskDashboard");
 			
 		} else if(principal.getUser_role().equals("ROLE_CUSTOMER")){
 			response.sendRedirect("/");
@@ -125,7 +121,6 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		System.out.println("===로그인 실패 핸들러===");
 		
-		response.setContentType("text/html; charset=UTF-8;");
 		response.sendRedirect("/log?error=true");
 
 	}
