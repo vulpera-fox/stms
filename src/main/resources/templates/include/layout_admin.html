@@ -111,10 +111,19 @@
 
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/project/ProjectMain}">
+					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+						aria-expanded="true" aria-controls="collapseTwo">
 						<img th:src=@{/img/check_mark.png} style="width: 20px; height: 20px;" />
 						<span>프로젝트 관리</span>
 					</a>
+					<div id="collapseTwo" class="collapse" aria-labelledby="collapseTwo"
+						data-parent="#accordionSidebar">
+						<div class="bg-white py-2 collapse-inner rounded">
+							<h6 class="collapse-header">WORK MANAGEMENT :</h6>
+							<a class="collapse-item" th:href="@{/project/ProjectMain}">프로젝트 대시보드</a>
+							<a class="collapse-item" href="#">신청 관리</a>
+						</div>
+					</div>
 				</li>
 
 				<!-- Nav Item - Utilities Collapse Menu -->
@@ -195,7 +204,6 @@
 							<!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">-->
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
-
 
 								<div style="width: 80px;">
 									<input class="time-out" type="text" readonly

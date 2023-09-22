@@ -4,7 +4,7 @@
 <!-- customer_question -->
 <link rel="stylesheet" th:href="@{/css/customer_question.css}" />
 
-<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'} or ${session.user_role == null}">
 
 	<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
 		

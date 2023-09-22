@@ -63,12 +63,9 @@ public class QuestionController {
 	
 	 /* 게시글 상세 보기 */
 	@GetMapping("/customer_questionDetail")
-	public String QuestionDetail(@RequestParam("post_id") int post_id, Model model,HttpServletRequest request) {
+	public String QuestionDetail(@RequestParam("post_id") int post_id, Model model) {
 		
 		NewsVO vo = questionService.getQdetail(post_id);
-		
-		HttpSession session = request.getSession();
-		UserVO userVO = (UserVO)session.getAttribute("userVO");
 		
 		model.addAttribute("vo",vo);
 		
