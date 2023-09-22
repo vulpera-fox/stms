@@ -62,8 +62,8 @@
                   <p class="taskDetail" style="margin: 0;">[[${tVO.task_dtl}]]</p>
                 </div>
                 <div class="taskStatusDateArea">
-                  <p class="taskStatus" style="margin: 0;">[[${tVO.status_id2}]]</p>
-                  <p class="taskDate" style="margin: 0;">[[${#temporals.format(tVO.task_end_dt, 'MM/dd HH:mm')}]]</p>
+                  <p id="taskStatus" style="margin: 0;" th:class="${tVO.status_id2}">[[${tVO.status_id2}]]</p>
+                  <p class="taskDate" style="margin: 0;">[[${tVO.task_end_dt}]]</p>
                 </div>
               </div>
             </div>
