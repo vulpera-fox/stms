@@ -79,6 +79,12 @@ a {
   height: 40px;
 }
 
+.lowerSearchBar > div > p,a {
+  line-height: 35px;
+}
+
+
+
 .searchArea .searchBar .searchBarLeft {
   padding-left: 20px;
   float: left;
@@ -106,9 +112,8 @@ a {
 	display: inline-block;
 	 margin-right: 20px;
 	border: 1px solid black;
-  width: 80px;
+  width: 65px;
   height: 35px;
-  line-height: 35px;
   text-align: center;
 }
 
@@ -238,3 +243,11 @@ a {
 	color: red;
 	cursor: pointer;
 }
+
+
+
+
+
+
+
+
