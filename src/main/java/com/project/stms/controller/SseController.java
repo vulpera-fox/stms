@@ -26,8 +26,6 @@ public class SseController {
 								@RequestHeader(value = "Last-Event-ID", required = false, defaultValue = "") String lastEventId,
 								HttpServletRequest request, HttpServletResponse response) {
 		
-		
-		
 		return SseService.subscribe(rcv_id, lastEventId);
 	}
 }

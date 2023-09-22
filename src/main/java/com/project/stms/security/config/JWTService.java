@@ -72,7 +72,7 @@ public class JWTService {
 			//System.out.println(expirationDate);
 			//System.out.println((expirationTimeInMillis-currentDateTimeInMillis)+" 이것이 만료시간인가??");
 			int seconds = (int)((expirationTimeInMillis-currentDateTimeInMillis)/1000);
-			
+
 			return seconds;
 		} catch (Exception e) {
 			// JWT 디코딩에 실패한 경우 처리할 내용을 여기에 추가할 수 있습니다.
