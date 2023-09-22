@@ -31,8 +31,8 @@ public class TaskController {
 	@GetMapping("/taskList")
 	public String taskList(Model model, Criteria cri) {
 		
-		//임시작업자
-		String writer = "admin";
+		//작업자(세션으로 값 불러올 것)
+		
 		
 		//리스트
 		ArrayList<TaskVO> list = taskService.getTaskList(cri);
@@ -75,7 +75,7 @@ public class TaskController {
 		
 		TaskVO taskVO = taskService.getModify(task_id);
 		
-		System.out.println(taskVO.toString());
+		//System.out.println("수정페이지 출력값: " + taskVO.toString());
 		
 		model.addAttribute("taskVO", taskVO);
 		
@@ -83,6 +83,26 @@ public class TaskController {
 		return "task/taskModify";
 	}
 
+	//작업수정기능(관리자, 작업자)
+	@PostMapping("taskModForm")
+	public String taskModForm(TaskVO vo, RedirectAttributes ra) {
+		
+		System.out.println(vo.toString());
+		
+		int result = taskService.ModiTask(vo);
+		
+		System.out.println(result);
+		
+		String msg = result == 1 ? "업데이트 성공" : "업데이트 실패";
+		
+		ra.addFlashAttribute("msg", msg);
+		
+		return "redirect:/task/taskList";
+	}
+	
+	
+	
+	//작업리스트 삭제
 	@PostMapping("taskDeleteForm")
 	public String taskDeleteForm(@RequestParam("task_id") int task_id) {
 		
