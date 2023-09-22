@@ -180,6 +180,13 @@
 		date_format(t.task_end_dt, "%H:%i") as task_end_dt,
 		t.task_al_t,
 		t.task_oper_t,
+		 case
+			when (t.status_id = 1) then "blue"
+            when (t.status_id = 2) then "green"
+            when (t.status_id = 3) then "gray"
+            when (t.status_id = 4) then "orange"
+            else "red"
+            end as status_color,
         case
 			when (t.status_id = 1) then "작업대기"
             when (t.status_id = 2) then "작업중"
