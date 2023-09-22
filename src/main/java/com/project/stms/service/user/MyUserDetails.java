@@ -30,6 +30,10 @@ public class MyUserDetails implements UserDetails{
 		return userVO.getUser_id();
 	}
 	
+	public String getUser_group() {
+		return userVO.getUser_group();
+	}
+	
 	public String getUser_nm() {
 		return userVO.getUser_nm();
 	}

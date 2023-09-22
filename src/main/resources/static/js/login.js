@@ -62,14 +62,14 @@ dropbox.addEventListener('drop', function(e) {
 
 
 //객체업로드
-/*file_btn.addEventListener('click', function(e) {
+file_btn.addEventListener('click', function(e) {
 	
 	let formData = new FormData();
 	formData.append('file_data' , file_data);
 	
 	input_filename.dataset.value=file_data.name;//div태그 벨류 바꿔주기
 	
-	fetch('/cloudUpload', {method: 'post', body: formData})
+	fetch('/uploadProfile', {method: 'post', body: formData})
 	.then(response => response.text() )
 	.then(data => {
 		alert(data);
@@ -77,7 +77,7 @@ dropbox.addEventListener('drop', function(e) {
 	.catch(err => alert('업로드에 실패했습니다:' + err) );
 		
 		
-});*/
+});
 
 
 

@@ -51,6 +51,7 @@
 	<style>
 		#wrapper {
 
+
 			overflow-y: auto !important;
 			height: 100vh !important;
 
@@ -68,6 +69,7 @@
 			overflow-x: scroll;
 			width: 100%;
 		}
+
 	</style>
 
 	<body id="page-top">
@@ -79,6 +81,7 @@
 			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
+
 				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/task/taskList}">
 					<div class="sidebar-brand-icon rotate-n-15">
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(14deg);"></i>
@@ -93,6 +96,7 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item">
+
 					<a class="nav-link" th:href="@{/task/taskList}">
 						<img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
 						<span style="margin: 2px">홈으로 돌아가기</span></a>
@@ -124,6 +128,7 @@
 					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">VIEW MY WORK :</h6>
+
 							<a class="collapse-item" th:href="@{/task/taskDashboard}">작업 대시보드</a>
 							<a class="collapse-item" th:href="@{/task/taskList}">작업 조회</a>
 
@@ -176,6 +181,12 @@
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
 
+								<div style="width: 80px;">
+									<input class="time-out" type="text" readonly
+										style="border: 1px solid #eee; width: 10px; padding: 8px; margin-top:20px; margin-left: 10px; border-radius: 8px;"
+										value="">
+								</div>
+
 								<!-- Nav Item - Alerts -->
 								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
 
@@ -187,6 +198,7 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
 										<span
+
 											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님 <br />(ENGINEER)</span>
 									</a>
@@ -234,6 +246,7 @@
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 							Logout
 						</a>
+
 					</div>
 					</li>
 
@@ -281,6 +294,7 @@
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
+
 					<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
 				  <div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
@@ -292,8 +306,10 @@
 	</body>
 
 	<script th:src=@{/js/sb-admin-2.min.js}></script>
-
+	<script th:src=@{/js/timeout.js}></script>
 	<script th:inline="javascript">
+
+
 
 
 
@@ -306,7 +322,6 @@
 
 
 	</script>
-
 
 </html>
 
