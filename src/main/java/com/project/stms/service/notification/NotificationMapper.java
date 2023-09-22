@@ -29,6 +29,10 @@ public interface NotificationMapper {
 	
 	public void createProjectNotification(@Param("rcv_id")String rcv_id, @Param("send_id")String send_id, @Param("pjt_nm")String pjt_nm);
 	
-//	public ArrayList<NotificationVO> getData(int pageNumber);
+	public void createTaskNotification(@Param("rcv_id")String rcv_id, @Param("task_date")String task_date, @Param("tast_nm")String task_nm, @Param("pjt_id")int pjt_id);
+	
+	public void createChangeMemberNotification(String rcv_id);
+	
+	//	public ArrayList<NotificationVO> getData(int pageNumber);
 	
 }

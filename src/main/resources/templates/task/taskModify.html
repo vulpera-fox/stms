@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .taskModifies})}">
+<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskModifies})}">
 
-<th:block class="taskModifies">
+<div class="taskModifies">
 	
 	<style>
 	
 	/* 공통사항 */
 	.taskModContainer {
-		width: 1800px;
+		
 		
 	}
 	
@@ -17,9 +17,9 @@
 	  width: 800px;
 	  height: 750px;
 	  text-align: center;
-	  border: 1px solid #777;
-	  box-shadow: 0 8px 10px #020f37;
-	  margin: 30px 0;
+	
+	  box-shadow: 0 2px 3px #777;
+	  margin: 30px auto;
 	}
 
 	.taskModRow {
@@ -35,14 +35,14 @@
 	.taskModHeads, .tastModBodies {
 	  padding: 10px;
 	  text-align: center;
-	  font-size: large;
+	  
 	  font-weight: bold;
 	}
 	
 	.taskModBodiesS {
 	  padding: 10px;
 	  text-align: center;
-	  font-size: large;
+	  
 	  font-weight: bold;
 	  overflow: hidden;
 	}
@@ -93,7 +93,15 @@
 	  text-align: center;
 	}
 	
-	.saveBtn, .listBtn {
+	#myTaskSaveBtn {
+	  width: 100px;
+	  height: 40px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+	}
+	
+	#myTaskListBtn {
 	  width: 100px;
 	  height: 40px;
 	  background-color: #020f37;
@@ -131,41 +139,32 @@
 	<body>
 	  <div class="taskModContainer">
 	    
-      <h3>작업 수정</h3>
-        <form name="taskModiForm" action="taskModifyForm" method="post">
+	    <h3 style="margin:0 auto">작업 수정</h3>
+        
+        <form name="taskModForm" action="taskModForm" method="post">
 	    <div class="taskModBox">
 		      <table class="taskModTable">
-				  
+				  <input type="hidden" name="task_id" th:value="${taskVO.task_id}" readonly>
 				  <tr class="taskModRow">
-					  <th class="taskModHeads">프로젝트 선택</th>
-					  <td colspan="3" class="taskModBodies">
-						  
-						  <!--반드시 다시 보고 수정할 것!! 반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
-						  <select class="projectSelectBox">
-							  <option>프로젝트A</option>
-							  <option>프로젝트B</option>
-							  <option>프로젝트C</option>
-							  <option>프로젝트D</option>
-						  </select>
-					  </td>
+					  <th class="taskModHeads">프로젝트명</th>
+					  <td colspan="3" class="taskModBodies" name="pjt_nm">[[${taskVO.pjt_nm}]]</td>
 				  </tr>
 				  		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">고객사</th>
-		            <td class="taskModBodies"><input type="text" class="taskModInputL" th:value="${user_group}"></td>
+		            <td class="taskModBodies"><input type="text" class="taskModInputL" name="user_group" th:value="${taskVO.user_group}"></td>
 		          	<th class="taskModHeads">담당자</th>
-		            <td class="taskModBodiesS">
-						<input type="text" class="taskModInputR">
-						<input type="button" class="taskModBtn" value="검색" style="line-height: initial;">
-					</td>
+		            <td class="taskModBodiesS">[[${taskVO.user_nm}]]</td>
+		            <td><input type="button" name="req_change" class="req_change" value="변경요청"></td>
 				  </tr>
 		          
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업기간</th>
 		            <td colspan="3" class="taskModDates">
 						
-						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;">
-						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;">
+						작업일 <input type="date" class="taskDateTime" name="task_date" th:value="${taskVO.task_date}">
+						시작시간 <input type="time" class="startDateTime" name="task_st_dt" th:value="${taskVO.task_st_dt}">
+						종료시간 <input type="time" class="endDateTime" name="task_end_dt" th:value="${taskVO.task_end_dt}">
 						
 		            </td>
 		          </tr>
@@ -173,25 +172,25 @@
 		  		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업장소</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="user_adr" th:value="${taskVO.user_adr}"></td>
 		          </tr>
 		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업명</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_nm" th:value="${taskVO.task_nm}"></td>
 		          </tr>
 		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업내용</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_dtl" th:value="${taskVO.task_dtl}"></td>
 		          </tr>
 		    </div>
 		    </table>
 	
 	    <!-- 버튼 기능 -->
 	    <div class="ModBtnBox">
-	      <input type="button" class="saveBtn" value="수정">
-	      <input type="button" class="listBtn" value="목록">
+	      <input type="button" id="myTaskSaveBtn" value="수정">
+	      <input type="button" id="myTaskListBtn" value="목록">
 	    </div>
 	  </form>
 	  </div>
@@ -200,9 +199,12 @@
 	<script>
 		
 		//시작일시
-		const startDateTimeInput = document.getElementById("startDateTime");
+		const startDateTimeInput = document.querySelector(".startDateTime");
 		//종료일시
-		const endDateTimeInput = document.getElementById("endDateTime");
+		const endDateTimeInput = document.querySelector(".endDateTime");
+		
+		//작업일
+		let task_dateInput = document.querySelector(".taskDateTime");
 		
 		//현재일시
 		function getCurrentDateTime() {
@@ -218,8 +220,8 @@
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
 		const currentDateTime = getCurrentDateTime();
-        startDateTimeInput.min = currentDateTime;
-        startDateTimeInput.value = currentDateTime;
+        task_dateInput.min = task_date;
+        task_dateInput.value = task_date;
 		
 		//종료일시 입력 필드의 최소값 설정
 		startDateTimeInput.addEventListener("change", function () {
@@ -230,10 +232,38 @@
 	
 	<script>
 		//업데이트 기능
+		let myTaskSaveBtn = document.getElementById("myTaskSaveBtn");
+		
+		myTaskSaveBtn.addEventListener("click", function(e) {
+			
+			e.preventDefault();
+			let target = e.target;
+			console.log(target);
+			
+			document.taskModForm.submit();
+			
+		})
+		
+		//목록으로 가기
+		let myTaskListBtn = document.getElementById("myTaskListBtn");
+		
+		myTaskListBtn.addEventListener("click", function(e) {
+			e.preventDefault();
+			
+			location.href = "/task/taskList";
+		})
+		
+		
+		//작업 변경요청 이벤트
+		let req_change = document.querySelector(".req_change");
+		req_change.addEventListener("click", function(e) {
+			let target = e.target;
+			console.log(target);
+		})
 		
 		
 	</script>
 	  
-</th:block>	
+</div>	
 	
 </th:block>	

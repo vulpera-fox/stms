@@ -6,12 +6,46 @@
 <mapper namespace="com.project.stms.service.task.TaskMapper">
 
 	<select id="getTaskList" resultType="TaskVO">
-		select * from task
+				
+		select t.task_id,
+			   t.pjt_id,
+			   t.server_id,
+			   t.task_nm,
+			   t.task_dtl,
+			   t.user_id,
+			   date_format(t.task_date, '%Y-%m-%d') as task_date,
+			   date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+			   date_format(t.task_end_dt, '%H:%i') as task_end_dt,
+			   t.task_al_t,
+			   t.task_oper_t,
+			   t.status_id,
+			   t.change_req_yn,
+			   pu.user_nm,
+			   pu.user_role,
+			   pu.pjt_nm,
+			   pu.pjt_dtl,
+			   pu.req_user_id,
+			   pu.user_group,
+			   ts.status_code,
+			   ts.status_dtl,
+			   ts.status_color
+		from task t
+		left join
+				(select *
+				 from project p
+				 left join
+				 user u
+				 on p.req_user_id = u.user_id) pu
+		on t.pjt_id = pu.pjt_id 
+		left join
+		task_status ts
+		on t.status_id = ts.status_id
+		
 		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
 			where task_nm like concat('%', #{cri.searchTaskName}, '%')
 		</if>
 		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
-			where user_id like concat('%', #{cri.searchCustomer}, '%')
+			where user_group like concat('%', #{cri.searchCustomer}, '%')
 		</if>
 		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
 			where user_id like concat('%', #{cri.searchEngineer}, '%')
@@ -40,8 +74,33 @@
 	</delete>
 
 	<select id="getModify" resultType="TaskVO">
-		select * from task
-		where task_id = #{task_id}
+		select up.user_nm,
+       		   up.user_group,
+       		   up.user_role,
+       		   up.user_adr,
+       		   up.pjt_id,
+       		   up.pjt_nm,
+       		   up.req_user_id,
+       		   t.task_id,
+       		   t.task_nm,
+       		   t.task_dtl,
+       		   t.user_id,
+       		   t.status,
+       		   date_format(t.task_date, '%Y-%m-%d') as task_date,
+       		   date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+       		   date_format(t.task_end_dt, '%H:%i') as task_end_dt,
+       		   t.task_al_t,
+       		   t.task_oper_t,
+       		   t.status_id
+		from (select *
+	  		  from user u
+	  		  left join
+	  		  project p
+	  		  on u.user_id = p.req_user_id) up
+		left join
+		task t
+		on up.pjt_id = t.pjt_id
+		where t.task_id = #{task_id};
 	</select>
 	
 	<insert id="getTemplate" parameterType="TaskVO">
@@ -109,7 +168,8 @@
 					 	task_dtl = #{task_dtl},
 					 	status_id = #{status_id},
 					 	task_date = #{task_date},
-					 	task_st_dt = #{task_st_dt}
+					 	task_st_dt = #{task_st_dt},
+					 	user_id = #{user_id}
 					where task_id = #{task_id}
 	</update>
 	
@@ -163,5 +223,12 @@
 		from template
 		where tem_id = #{tem_id}
 	</select>
+	
+	<update id="ModiTask" parameterType="TaskVO">
+		update task set task_date = #{task_date},
+						task_st_dt = #{task_st_dt},
+						task_end_dt = #{task_end_dt}
+		where task_id = #{task_id}
+	</update>
 
 </mapper>

@@ -46,10 +46,10 @@
 							</li>
 							<li>
 								<div>
-									<p>시작일</p><input type="date" name="pjt_st_dt" th:value="${pVO.pjt_st_dt}" />
+									<p>시작일</p><input type="date" name="pjt_st_dt" th:value="${pVO.pjt_st_dt}" id="pjt_st_dt"/>
 								</div>
 								<div>
-									<p>마감일</p><input type="date" name="pjt_end_dt" th:value="${pVO.pjt_end_dt}" />
+									<p>마감일</p><input type="date" name="pjt_end_dt" th:value="${pVO.pjt_end_dt}" id="pjt_end_dt"/>
 								</div>
 							</li>
 						</ul>
@@ -148,6 +148,38 @@
 
 		})
 	}
+	
+	
+	function getToday() {
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	}
+
+	const startDateInput = document.getElementById('pjt_st_dt');
+	const endDateInput = document.getElementById('pjt_end_dt');
+	const errorMessage = document.getElementById('errorMsg');
+
+	startDateInput.min = getToday();
+
+	// 시작일 선택 시, 마감일은 시작일 이전의 날짜 선택 불가능
+	startDateInput.addEventListener('change', function () {
+		if (this.value) {
+			if (this.value < getToday()) {
+				errorMessage.style.display = 'block';
+			} else {
+				errorMessage.style.display = 'none';
+				endDateInput.removeAttribute('readonly');
+				endDateInput.min = this.value;
+			}
+		} else {
+			errorMessage.style.display = 'none';
+			endDateInput.setAttribute('readonly', 'true');
+			endDateInput.value = '';
+		}
+	});
 	
 	
 

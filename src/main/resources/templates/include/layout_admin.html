@@ -55,8 +55,9 @@
 	<style>
 		#wrapper {
 
-			overflow-y: scroll !important;
+			overflow-y: auto !important;
 			height: 100vh !important;
+			
 		}
 
 		#accordionSidebar {
@@ -64,6 +65,12 @@
 			position: sticky !important;
 			top: -60px !important;
 
+		}
+		
+		#content{
+			
+			overflow-x: scroll;
+    		width: 100%;
 		}
 	</style>
 
@@ -76,7 +83,7 @@
 			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/project/ProjectMain}">
 					<div class="sidebar-brand-icon rotate-n-15">
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(15deg);"></i>
 					</div>
@@ -89,9 +96,9 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" th:href="@{/project/ProjectMain}">
 						<img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
-						<span style="margin: 2px">홈</span></a>
+						<span style="margin: 2px">홈으로 돌아가기</span></a>
 				</li>
 
 				<!-- Divider -->
@@ -128,9 +135,6 @@
 						</div>
 					</div>
 				</li>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider">
 
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item">
@@ -192,13 +196,15 @@
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
 
+
 								<div style="width: 80px;">
 									<input class="time-out" type="text" readonly
 										style="border: 1px solid #eee; width: 10px; padding: 8px; margin-top:20px; margin-left: 10px; border-radius: 8px;"
 										value="">
 								</div>
-								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
 
+								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
+						
 								<div class="topbar-divider d-none d-sm-block"></div>
 
 								
@@ -207,12 +213,14 @@
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
-										<th:block th:if="${session.userVO} != null">
-											<span
-												class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.userVO.user_nm}]]
-												님
-												<br />(ADMIN)</span>
-										</th:block>
+
+										<th:block th:if="${session.user_role} != null">
+										<span
+											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
+											님
+											<br />(ADMIN)</span>
+										</th:block>	
+
 									</a>
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -266,24 +274,26 @@
 
 		<!-- Logout Modal-->
 		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are ready to end your current session.
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" th:href="@{/user/logout}">Logout</a>
-					</div>
+
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+
+					<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+
 				</div>
 			</div>
 		</div>
+	</div>
 
 		<!-- Custom scripts for all pages-->
 		<script th:src=@{/js/sb-admin-2.min.js}></script>

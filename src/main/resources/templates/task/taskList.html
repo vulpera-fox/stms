@@ -2,15 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskLists})}">
+<th:block th:replace="${session.user_role == 'ROLE_ADMIN'} ? ~{./include/layout_admin :: setContent(~{:: .taskLists})} : ~{./include/layout_engineer :: setContent(~{:: .taskLists}) }">
 
 <th:block class="taskLists">
 	<style>
 
 
   .taskListBox {
-	  border-top: 1px solid rgb(227, 227, 227);
+	  border-bottom: 1px solid rgb(227, 227, 227);
 	  width: 1200px;
+	  margin: 0 auto;
+	  text-align: center;
   }
 
   .taskListTable{
@@ -40,20 +42,19 @@
   
   .taskContainer {
    
-    width: 1800px;
+    
     margin: 0 auto;
   }
 
   .taskSearchBox {
-	width: 1200px;
+	
 	height: 100px;
 	line-height: 100px;
 	text-align: center;
-    margin: 30px 0;
+    margin: 30px auto;
     display: inline-block;
     overflow: hidden;
-    border: 1px solid #777;
-    box-shadow: 0 2px 2px #020f37;
+    box-shadow: 0 2px 3px #777;
   }
 
   .taskSearchOpt {
@@ -110,26 +111,26 @@
 
 	  <h3>작업조회</h3>  
 	<form name="taskSearchForm" action="####" method="###">
-	  <div class="taskSearchBox">
-		  <div class="taskSearchOpt">					  
-			  <span>작업 검색</span>					 
-			  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요" name="searchTaskName" th:value="${pageVO.cri.searchTaskName}">
-		  </div>
-		  <div class="taskSearchOpt">					  
-			  <span>고객사 검색 </span>
-			  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요" name="searchCustomer" th:value="${pageVO.cri.searchCustomer}">
-		  </div>
-		  <div class="taskSearchOpt">					  
-			  <span>담당자 검색 </span>
-			  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요" name="searchEngineer" th:value="${pageVO.cri.searchEngineer}">
-		  </div>
-	   	  <div class="taskSearchBtnBox">				 
-	      	<input type="button" class="taskSearchBtn" value="검색" style="line-height:0;">
-		  </div>
-	  </div>
-	  
-	  
 	  <div class="taskListBox">
+		  
+		  <div class="taskSearchBox">
+			  <div class="taskSearchOpt">					  
+				  <span>작업 검색</span>					 
+				  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요" name="searchTaskName" th:value="${pageVO.cri.searchTaskName}">
+			  </div>
+			  <div class="taskSearchOpt">					  
+				  <span>고객사 검색 </span>
+				  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요" name="searchCustomer" th:value="${pageVO.cri.searchCustomer}">
+			  </div>
+			  <div class="taskSearchOpt">					  
+				  <span>담당자 검색 </span>
+				  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요" name="searchEngineer" th:value="${pageVO.cri.searchEngineer}">
+			  </div>
+		   	  <div class="taskSearchBtnBox">				 
+		      	<input type="button" class="taskSearchBtn" value="검색" style="line-height:0;">
+			  </div>
+		  </div>
+		  
 		  <table class="taskListTable">
 			  <thead class="taskListHead">
 				  <tr class="taskHeadRow">
@@ -138,7 +139,7 @@
 					  <th class="taskHeads">작업제목</th>
 					  <th class="taskHeads">작업일</th>
 					  <th class="taskHeads">시작시간</th>
-					  <th class="taskHeads">예상시간</th>
+					  <th class="taskHeads">종료시간</th>
 					  <th class="taskHeads">담당자</th>
 					  <th class="taskHeads">작업상태</th>
 					  <th class="taskHeads">비고</th>
@@ -149,20 +150,55 @@
 			  <tbody class="taskListBody">
 				  <tr th:each="vo, status : ${list}" class="taskBodyRow">
 					  <input type="hidden" name="task_id" th:value="${vo.task_id}" readonly>
-					  <td class="taskBodies">[[${status.count}]]</td>
-					  <td class="taskBodies">[[${vo.user_id}]]</td>
-					  <td class="taskBodies"><a href="/task/taskDetail">[[${vo.task_nm}]]</a></td>
+					  <input type="hidden" name="user_id" th:value="${session.user_id}" readonly>
+					  <td class="taskBodies">[[${vo.task_id}]]</td>
+					  <td class="taskBodies">[[${vo.user_group}]]</td>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 1}">
+						  <a href="/task/taskDetail">[[${vo.task_nm}]](🚨변경요청)</a>						
+					  </td>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 0}">
+						  <a href="/task/taskDetail">[[${vo.task_nm}]]</a>
+					  </td>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 2}">
+						  <a href="/task/taskDetail">[[${vo.task_nm}]]</a>
+					  </td>
 					  <td class="taskBodies">[[${vo.task_date}]]</td>
 					  <td class="taskBodies">[[${vo.task_st_dt}]]</td>
 					  <td class="taskBodies">[[${vo.task_end_dt}]]</td>
-					  <td class="taskBodies">다시 찾아 넣을 것</td>
-					  <td class="taskBodies">
-						  <input type="button" class="stateBtn" th:value="${vo.status}" style="line-height: initial; background-color: gray;">
+					  <td class="taskBodies">[[${vo.user_nm}]]</td>
+					  
+					  						  
+					  <td class="taskBodies" th:if="${vo.status_id == 1}">
+						  <input type="button" class="stateBtn" th:value="${vo.status_dtl}" style="background-color: blue;">
 					  </td>
-					  <td class="taskBodies">
-						  <a th:href="@{taskModify}" id="taskModiBtn">수정</a>
-						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>						  
+					  <td class="taskBodies" th:if="${vo.status_id == 2}">
+						  <input type="button" class="stateBtn" th:value="${vo.status_dtl}" style="background-color: green;">
 					  </td>
+					  <td class="taskBodies" th:if="${vo.status_id == 3}">
+						  <input type="button" class="stateBtn" th:value="${vo.status_dtl}" style="background-color: gray;">
+					  </td>
+					  <td class="taskBodies" th:if="${vo.status_id == 4}">
+						  <input type="button" class="stateBtn" th:value="${vo.status_dtl}" style="background-color: orange;">
+					  </td>
+					  <td class="taskBodies" th:if="${vo.status_id == 5}">
+						  <input type="button" class="stateBtn" th:value="${vo.status_dtl}" style="background-color: red;">
+					  </td>
+					  
+					  						  
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 1}">
+						  
+						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">변경</a>						  
+					  </td>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 2}">
+						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">수정</a>
+						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>
+					  </td>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 0}">
+						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">수정</a>
+						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>
+					  </td>
+					  
+					  
 				  </tr>
 
 			  </tbody>
@@ -190,6 +226,10 @@
 		document.taskSearchForm.submit();
 		
 	});
+	
+	//
+	
+	
 	
 	//삭제이벤트
 	const taskDelBtns = document.querySelectorAll(".taskDelBtn");

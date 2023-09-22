@@ -114,7 +114,7 @@
 
 	<script th:inline="javascript">
 
-		var rcv = "CUSTOMER";
+		var rcv = /*[[${session.user_id}]]*/ '';
 
 		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '';
 
@@ -181,6 +181,8 @@
 				const url = '/notification/notificationPopUp';
 
 				window.open(url, '_blank', windowStatus);
+				
+				$('#dropdownContent').toggleClass('dropdownContent');
 			});
 
 
