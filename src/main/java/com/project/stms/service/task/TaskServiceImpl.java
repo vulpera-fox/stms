@@ -133,6 +133,13 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 
+	@Override
+	public int ModiTask(TaskVO vo) {
+		
+		return taskMapper.ModiTask(vo);
+	}
+
+
 //	@Override
 //	public void delTask(int task_id) {
 //		taskMapper.delTask(task_id);

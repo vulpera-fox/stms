@@ -48,8 +48,11 @@ public interface TaskService {
 	public TaskVO applyTemp(Integer tem_id);
 	
 	
-	//작업등록
+	//작업등록(관리자)
 	public int taskRegist(TaskVO vo);
+	
+	//작업수정(작업자)
+	public int ModiTask(TaskVO vo);
 	
 	//작업삭제
 	//public void delTask(int task_id);
