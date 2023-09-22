@@ -79,7 +79,7 @@
 								<hr class="dropdown-divider" />
 							</li>
 							<li><a class="dropdown-item" href="#!">일정 조회</a></li>
-							<li><a class="dropdown-item" href="#!">프로젝트 신청</a></li>
+							<li><a class="dropdown-item" th:href="@{/project/ProjectRegist}">프로젝트 신청</a></li>
 							<li><a class="dropdown-item" href="#!">작업 신청</a></li>
 						</ul>
 					</li>
@@ -131,7 +131,7 @@
 													th:src=@{/img/undraw_profile.svg}>
 											</div>
 											<div class="mr-2 d-none d-lg-inline text-gray-600 small">
-												[[${session.user_nm}]]
+												[[${session.userVO.user_nm}]] 님
 
 												<br />[[${#strings.substringAfter(session.user_role, '_')}]]
 											</div>
@@ -197,7 +197,6 @@
 	<!--본문 영역-->
 	<th:block th:replace="${content}">
 	</th:block>
-	<div>aaaa</div>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
@@ -218,7 +217,6 @@
 					return response.json();
 				})
 				.then((result) => {
-					console.log(result);
 					second = result;
 					minutes = second/60;
 					seconds = second%60;
