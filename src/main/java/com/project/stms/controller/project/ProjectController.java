@@ -63,20 +63,23 @@ public class ProjectController {
 		String myId = (String) session.getAttribute("user_id");
 		
 		
-		ProjectPageVO pageVO = new ProjectPageVO(cri ,projectService.getTotal());
-		
-		mo.addAttribute("pageVO", pageVO);
 		
 
 		if (myRole.equals("ROLE_ADMIN")) {
 			List<ProjectVO> pList = projectService.getList(cri);
 			mo.addAttribute("pList", pList);
+			System.out.println(pList.toString());
+			ProjectPageVO pageVO = new ProjectPageVO(cri ,projectService.getTotal(cri));
+			System.out.println(pageVO.toString());
+			mo.addAttribute("pageVO", pageVO);
 		} else if (myRole.equals("ROLE_ENGINEER")) {
-			List<ProjectVO> pList = projectService.getRoledList(myId);
+			List<ProjectVO> pList = projectService.getRoledList(myId, cri);
 			mo.addAttribute("pList", pList);
+			ProjectPageVO pageVO = new ProjectPageVO(cri ,projectService.getRoledTotal(myId, cri));
+			mo.addAttribute("pageVO", pageVO);
 		}
 
-		List<ProjectVO> reqPList = projectService.getRequestList();
+		List<ProjectVO> reqPList = projectService.getRequestList(cri);
 
 		mo.addAttribute("reqPList", reqPList);
 
@@ -124,33 +127,32 @@ public class ProjectController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/searchForm")
-	public String searchForm(Model mo, @RequestParam(required = false, value = "server_type") String server_type,
-			@RequestParam(required = false, value = "pjt_end_dt") String pjt_end_dt,
-			@RequestParam(required = false, value = "ins_user_id") String ins_user_id) {
+//	@GetMapping("/searchForm")
+//	public String searchForm(RedirectAttributes ra, ProjectCriteria cri) {
+//		
+//		
+//
+//
+//		return "redirect:/project/ProjectMain";
+//	}
 
-		System.out.println(server_type + " server_type");
-		System.out.println(pjt_end_dt + " pjt_end_dt");
-		System.out.println(ins_user_id + " ins_user_id");
-
-		List<ProjectVO> pList = projectService.getFilteredList(server_type, pjt_end_dt, ins_user_id);
-
-		mo.addAttribute("pList", pList);
-
-		return "/project/ProjectMain";
-	}
-
-	@GetMapping("/searchName")
-	public String searchName(Model mo, @RequestParam(required = false, value = "pjt_nm") String pjt_nm) {
-
-		System.out.println(pjt_nm);
-
-		List<ProjectVO> pList = projectService.getProjectByName(pjt_nm);
-
-		mo.addAttribute("pList", pList);
-
-		return "/project/ProjectMain";
-	}
+//	@GetMapping("/searchName")
+//	public String searchName(Model mo, @RequestParam(required = false, value = "pjt_nm") String pjt_nm, ProjectCriteria cri) {
+//
+//		System.out.println(pjt_nm);
+//
+//		List<ProjectVO> pList = projectService.getProjectByName(pjt_nm);
+//		
+//		int total = projectService.getSearchNameTotal(pjt_nm);
+//		
+//		ProjectPageVO pageVO = new ProjectPageVO(cri, total);
+//
+//		mo.addAttribute("pList", pList);
+//		
+//		mo.addAttribute("pageVO", pageVO);
+//		
+//		return "/project/ProjectMain";
+//	}
 
 	@GetMapping("/ProjectCreate")
 	public String ProjectCreate(@RequestParam("pjt_id") int pjt_id, Model mo, ProjectCriteria cri, HttpSession session) {
@@ -159,19 +161,12 @@ public class ProjectController {
 
 		List<UserVO> norUList = projectService.getNormalUserDetailByPage(pjt_id);
 
-		int total = projectService.getTotal();
 
-		ProjectPageVO pageVO = new ProjectPageVO(cri, total);
-
-		pageVO.setPnCount(5);
-
-		System.out.println(pageVO.toString());
 
 		mo.addAttribute("pVO", pVO);
 
 		mo.addAttribute("norUList", norUList);
 
-		mo.addAttribute("pageVO", pageVO);
 
 		mo.addAttribute("ins_user_id", (String) session.getAttribute("user_id"));
 

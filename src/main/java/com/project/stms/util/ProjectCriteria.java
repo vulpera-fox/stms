@@ -9,14 +9,11 @@ public class ProjectCriteria {
 	private int amount; //데이터 개수
 	
 	//검색에 필요한 키워드를 선언
-	private String searchTaskName; //작업명 검색
-	private String searchCustomer; //고객사 검색
-	private String searchEngineer; //담당자 검색
-	
+	private String server_type; //작업명 검색
+	private String pjt_end_dt; //고객사 검색
+	private String ins_user_id; //담당자 검색
+	private String pjt_nm;
 
-	private String searchType;
-	private String searchKeyword;
-	private String searchPjtName; //작업등록 시 프로젝트 목록 검색
 
 	//기본 값(기본 생성자로 만들어졌을 때 1, 6)
 	public ProjectCriteria() {

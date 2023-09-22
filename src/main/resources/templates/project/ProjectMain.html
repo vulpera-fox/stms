@@ -28,33 +28,14 @@
 		<div id='container'>
 			<div class='searchArea'>
 				<div class='searchBar'>
-
-					<div class='upperSearchBar'>
-						<form action="searchName" method="get" id="searchName">
-							<input type='text' name="pjt_nm" />
-						</form>
-						<a style="width: 20px; height: 20px;" onclick="searchNameSubmit()"><span class='searchIcon'>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-									class='bi bi-search' viewBox="0 0 16 16">
-									<path
-										d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-								</svg>
-							</span></a>
-					</div>
-					<div class="lowerSearchBar">
-						<div class="lowerSearchBarLeft">
-							<p class='toggleFilter'>검색 필터</p><a class="resetBtn" th:href="@{ProjectMain}" style="text-decoration: none; color: black;">필터 초기화</a>
-						</div>
-						<div class="lowerSearchBarRight">
-							<th:block th:if="${session.user_role} == 'ROLE_ADMIN'">
-								<a class="checkRequest" data-bs-toggle="modal" data-bs-target="#reqProjectListModal" style="text-decoration: none; color: black;">신청 승인</a>
-							</th:block>
-						</div>
-					</div>
+					<form action="ProjectMain" method="get" id="pjtSearch">
 				</div>
-				<div class="filterArea hidden">
-					<form action="searchForm" method="get">
+				<div class="filterArea">
+					
 						<div class='searchFilterArea'>
+							<div class='upperSearchBar'>
+								<span>프로젝트 이름 : </span><input type='text' name="pjt_nm" class="pjt_nm"/>
+							</div>
 							<div class='server_id'>
 								<span>서버 종류 : </span>
 								<select name='server_type'>
@@ -74,7 +55,8 @@
 								<span>담당자 : </span><input type='text' placeholder='담당자를 입력하세요' name='ins_user_id' />
 							</div>
 							<div class='filterSubmit'>
-								<button type='submit' class="submitBtn">검색</button>
+								<a class="submitBtn">검색</a>
+								<a href="/project/ProjectMain" class="resetBtn">초기화</a>
 							</div>
 						</div>
 					</form>
@@ -95,8 +77,10 @@
 								<input type="hidden" th:value="${vo.pjt_id}" name="pjt_id">
 								<div th:class='projectBox'>
 									<div class='upperBox'>
-										<p class='projectName'>[[${vo.pjt_nm}]]</p>
-										<p class='typeOfServer'>[[${vo.server_model}]]</p>
+										<div th:class="${vo.server_type}">
+											<p class='projectName'>[[${vo.pjt_nm}]]</p>
+											<p class='typeOfServer'>[[${vo.server_model}]]</p>
+										</div>
 									</div>
 									<div class='lowerBox'>
 										<div style="margin: 30px 0; padding: 0 10px;">
@@ -118,13 +102,17 @@
 							</form>
 						</div>
 					</th:block>
-					</th:block>
+				</th:block>
 			</div>
 			
 			<div class="pageNationArea">
 				<ul>
 					<li th:each="pagelist : ${pageVO.pageList}" class="pages">
-						<a th:href="@{ProjectMain(page=${pagelist})}" th:id="${pagelist} + page">[[${pagelist}]]</a>
+						<a th:href="@{ProjectMain(page=${pagelist},
+												  server_type=${pageVO.cri.server_type},
+												  ins_user_id=${pageVO.cri.ins_user_id},
+												  pjt_end_dt=${pageVO.cri.pjt_end_dt},
+												  pjt_nm=${pageVO.cri.pjt_nm})}" th:id="${pagelist} + page">[[${pagelist}]]</a>
 					</li>
 				</ul>
 			</div>
@@ -183,10 +171,10 @@
 		
 		var pageId = [[${pageVO.page}]] + "page";
 		
-		console.log(currPage);
 		
 		var currPage = document.getElementById(pageId);
 		
+		console.log(currPage);
 		window.onload = function(){
 			
 			currPage.parentElement.classList.add('pageOn');
@@ -215,7 +203,10 @@
 			$('#searchName').submit();
 		}
 		
-
+		
+		$('.submitBtn').click(function(){
+			$('#pjtSearch').submit();
+		})
 
 
 	</script>

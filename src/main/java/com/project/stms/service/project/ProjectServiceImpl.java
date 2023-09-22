@@ -37,13 +37,13 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<ProjectVO> getRequestList() {
-		return projectMapper.getRequestList();
+	public List<ProjectVO> getRequestList(ProjectCriteria cri) {
+		return projectMapper.getRequestList(cri);
 	}
 	
 	@Override
-	public List<ProjectVO> getRoledList(String user_id) {
-		return projectMapper.getRoledList(user_id);
+	public List<ProjectVO> getRoledList(String user_id, ProjectCriteria cri) {
+		return projectMapper.getRoledList(user_id, cri);
 	}
 
 	@Override
@@ -139,8 +139,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public int getTotal() {
-		return projectMapper.getTotal();
+	public int getTotal(ProjectCriteria cri) {
+		return projectMapper.getTotal(cri);
 	}
 
 
@@ -212,6 +212,25 @@ public class ProjectServiceImpl implements ProjectService {
 		projectMapper.modifyProject(vo);
 		
 	}
+
+	@Override
+	public int getRoledTotal(String user_id, ProjectCriteria cri) {
+		return projectMapper.getRoledTotal(user_id, cri);
+	}
+
+	@Override
+	public int getFilteredTotal(String server_type, String pjt_end_dt, String ins_user_id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSearchNameTotal(String pjt_nm) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 
 	

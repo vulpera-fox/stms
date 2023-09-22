@@ -18,9 +18,9 @@ public interface ProjectMapper {
 	
 	public List<ProjectVO> getList(ProjectCriteria cri);
 	
-	public List<ProjectVO> getRequestList();
+	public List<ProjectVO> getRequestList(ProjectCriteria cri);
 	
-	public List<ProjectVO> getRoledList(String user_id);
+	public List<ProjectVO> getRoledList(@Param("user_id") String user_id, @Param("cri") ProjectCriteria cri);
 	
 	public void requestProject(ProjectVO vo);
 	
@@ -51,7 +51,10 @@ public interface ProjectMapper {
 	public List<ProjectVO> getProjectByName(String pjt_nm);
 	
 	// 총 프로젝트 수
-	public int getTotal();
+	public int getTotal(ProjectCriteria cri);
+	
+	// 작업자별 할당된 총 프로젝트 수
+	public int getRoledTotal(@Param("user_id") String user_id, @Param("cri") ProjectCriteria cri);
 	
 	// 작업에 참여하지 않은 작업자 수
 	public int getNotAddedTotal(int pjt_id);

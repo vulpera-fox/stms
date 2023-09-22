@@ -17,9 +17,9 @@ public interface ProjectService {
 	
 	public List<ProjectVO> getList(ProjectCriteria cri);
 	
-	public List<ProjectVO> getRequestList();
+	public List<ProjectVO> getRequestList(ProjectCriteria cri);
 	
-	public List<ProjectVO> getRoledList(String user_id);
+	public List<ProjectVO> getRoledList(String user_id, ProjectCriteria cri);
 	
 	public void requestProject(ProjectVO vo);
 	
@@ -43,7 +43,13 @@ public interface ProjectService {
 	
 	public List<ProjectVO> getProjectByName(String pjt_nm);
 	
-	public int getTotal();
+	public int getTotal(ProjectCriteria cri);
+	
+	public int getRoledTotal(String user_id, ProjectCriteria cri);
+	
+	public int getFilteredTotal(String server_type, String pjt_end_dt, String ins_user_id);
+	
+	public int getSearchNameTotal(String pjt_nm);
 	
 	public int getNotAddedTotal(int pjt_id);
 	

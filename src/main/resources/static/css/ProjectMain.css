@@ -52,15 +52,9 @@ a {
 	cursor: pointer;
 }
 
-.filterArea.hidden {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.7s ease;
-}
 
 .filterArea {
   max-height: 300px;
-  transition: max-height 0.7s ease;
 }
 
 .upperSearchBar {
@@ -125,6 +119,8 @@ a {
 .resetBtn:hover {
 	background-color: rgb(247, 235, 237);
 	cursor: pointer;
+	text-decoration: none;
+	color: black;
 }
 
 .searchArea .searchBar .searchBarLeft .toggleFilter:hover {
@@ -134,9 +130,16 @@ a {
 .searchFilterArea {
   display: flex;
   justify-content: space-around;
-  padding-top: 20px;
 }
 
+.searchFilterArea > div {
+	width: 20%;
+	text-align: center;
+}
+
+.filterSubmit {
+	text-align: center;
+}
 
 
 .projectArea {
@@ -170,10 +173,14 @@ a {
 .projectBox .upperBox {
   overflow: hidden;
   height: 20%;
+  border-radius: 20px 20px 0 0;
+  background-color: #FFD700;
+}
+
+.upperBox > div {
   display: flex;
   justify-content: space-around;
-  border-radius: 20px 20px 0 0;
-  background-color: lightblue;
+	
 }
 
 .projectName, .typeOfServer {
@@ -183,9 +190,6 @@ a {
 
 
 
-.projectBox .upperBox .companyName {
-  float: left;
-}
 
 .projectBox .lowerBox {
   padding: 10px;
@@ -281,4 +285,54 @@ a {
 	color: red;
 }
 
+.web {
+	background-color: #CCCCCC;
+}
 
+.app {
+	background-color: #ADD8E6;
+}
+
+.proxy {
+	background-color: #90EE90;
+}
+
+.mail {
+	background-color: #FFFFE0;
+}
+
+.db {
+	background-color: #FFD700;
+}
+
+.file {
+	background-color: #FFA07A;
+}
+
+.submitBtn {
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	border: 1px solid black;
+	color: black;
+	line-height: 30px;
+}
+
+.submitBtn:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: black;
+}
+
+.resetBtn {
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	border: 1px solid black;
+	color: black;
+	line-height: 30px;
+}
+
+.pjt_nm {
+	width: 150px;
+}
