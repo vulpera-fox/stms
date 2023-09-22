@@ -245,9 +245,40 @@ a {
 }
 
 
+.pageNationArea {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
 
+.pageNationArea ul li {
+	display: inline-block;
+	margin: 0 10px;
+	width: 30px;
+	height: 30px;
+}
 
+.pageNationArea ul li:hover a{
+	color: red;
+}
 
+.pages a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+	line-height: 28px;
+}
 
+.pages a:hover {
+	text-decoration: none;
+}
+
+.pageOn {
+	border: 1px solid black;
+}
+
+.pageOn a {
+	color: red;
+}
 
 

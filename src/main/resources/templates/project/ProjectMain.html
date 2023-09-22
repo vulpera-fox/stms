@@ -119,8 +119,16 @@
 						</div>
 					</th:block>
 					</th:block>
-
 			</div>
+			
+			<div class="pageNationArea">
+				<ul>
+					<li th:each="pagelist : ${pageVO.pageList}" class="pages">
+						<a th:href="@{ProjectMain(page=${pagelist})}" th:id="${pagelist} + page">[[${pagelist}]]</a>
+					</li>
+				</ul>
+			</div>
+			
 		</div>
 	</div>
 	</div>
@@ -171,6 +179,19 @@
 	</th:block>
 
 	<script th:inline="javascript">
+		
+		
+		var pageId = [[${pageVO.page}]] + "page";
+		
+		console.log(currPage);
+		
+		var currPage = document.getElementById(pageId);
+		
+		window.onload = function(){
+			
+			currPage.parentElement.classList.add('pageOn');
+			
+		}
 
 		var toggleFilter = document.querySelector(".toggleFilter");
 		var filterArea = document.querySelector(".filterArea");
@@ -193,6 +214,7 @@
 		var searchNameSubmit = () => {
 			$('#searchName').submit();
 		}
+		
 
 
 

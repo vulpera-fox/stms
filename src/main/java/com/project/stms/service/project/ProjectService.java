@@ -11,10 +11,11 @@ import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.util.Criteria;
+import com.project.stms.util.ProjectCriteria;
 
 public interface ProjectService {
 	
-	public List<ProjectVO> getList();
+	public List<ProjectVO> getList(ProjectCriteria cri);
 	
 	public List<ProjectVO> getRequestList();
 	
@@ -62,9 +63,9 @@ public interface ProjectService {
 	
 	public List<FileVO> getFileName(int pjt_id);
 	
+	public void deleteProject(int pjt_id);
 	
-	
-	
+	public void modifyProject(ProjectVO vo);
 	
 	
 	

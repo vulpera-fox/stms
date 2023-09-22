@@ -25,6 +25,7 @@
 		join user u1 on p.req_user_id = u1.user_id
 		join user u2 on p.ins_user_id = u2.user_id
 		order by pjt_end_dt
+		limit #{pageStart} , #{amount}
 	</select>
 	
 	
@@ -148,7 +149,7 @@
 	
 	
 	<select id="getCompletedTask" resultType="int">
-		SELECT ROUND( (SELECT COUNT(*) FROM task WHERE pjt_id = #{pjt_id} AND status = '작업완료' and date(task_date) <![CDATA[< ]]> #{pjt_date}) / 
+		SELECT ROUND( (SELECT COUNT(*) FROM task WHERE pjt_id = #{pjt_id} AND status = '200' and date(task_date) <![CDATA[< ]]> #{pjt_date}) / 
 		  			  (SELECT COUNT(*) FROM task WHERE pjt_id = #{pjt_id}) * 100) AS completed_task;
 	</select>
 	
@@ -215,7 +216,7 @@
 	
 	
 	<select id="getTotal">
-		select count(*) from user where user_role != "ROLE_CUSTOMER"
+		select count(*) from project;
 	</select>
 	
 	<select id="getNotAddedTotal">
@@ -257,20 +258,21 @@
 		insert into pjt_mem (pjt_id, user_id) values (#{pjt_id} , #{user_id})
 	</insert>
 	
-	
 	<select id="getProjectInfoForFiles">
 		select * from project where pjt_id = (select max(pjt_id) from project)
 	</select>
-	
-	
 	
 	<select id="getFileName">
 		select * from file where pjt_id = #{pjt_id}
 	</select>
 	
+	<delete id="deleteProject">
+		delete from project where pjt_id = #{pjt_id}
+	</delete>
 	
-	
-	
+	<update id="modifyProject">
+		update project set pjt_nm = #{pjt_nm}, pjt_dtl = #{pjt_dtl}, pjt_end_dt = #{pjt_end_dt} where pjt_id = #{pjt_id}
+	</update>
 	
 	
 	

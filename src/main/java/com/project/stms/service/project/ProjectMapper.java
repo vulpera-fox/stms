@@ -11,11 +11,12 @@ import com.project.stms.command.ServerVO;
 import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.util.Criteria;
+import com.project.stms.util.ProjectCriteria;
 
 @Mapper
 public interface ProjectMapper {
 	
-	public List<ProjectVO> getList();
+	public List<ProjectVO> getList(ProjectCriteria cri);
 	
 	public List<ProjectVO> getRequestList();
 	
@@ -49,7 +50,7 @@ public interface ProjectMapper {
 	// 이름으로 프로젝트 검색
 	public List<ProjectVO> getProjectByName(String pjt_nm);
 	
-	// 총 작업자 수
+	// 총 프로젝트 수
 	public int getTotal();
 	
 	// 작업에 참여하지 않은 작업자 수
@@ -79,9 +80,11 @@ public interface ProjectMapper {
 	// 프로젝트에 업로드 된 파일명 불러오기
 	public List<FileVO> getFileName(int pjt_id);
 	
+	// 프로젝트 삭제
+	public void deleteProject(int pjt_id);
 	
-	
-	
+	// 프로젝트 수정
+	public void modifyProject(ProjectVO vo);
 	
 	
 	public String getMyId(String user_email);

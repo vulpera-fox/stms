@@ -16,6 +16,7 @@ import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
+import com.project.stms.util.ProjectCriteria;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
@@ -30,9 +31,9 @@ public class ProjectServiceImpl implements ProjectService {
 	
 
 	@Override
-	public List<ProjectVO> getList() {
+	public List<ProjectVO> getList(ProjectCriteria cri) {
 		
-		return projectMapper.getList();
+		return projectMapper.getList(cri);
 	}
 
 	@Override
@@ -49,10 +50,6 @@ public class ProjectServiceImpl implements ProjectService {
 	public void requestProject(ProjectVO vo) {
 		projectMapper.requestProject(vo);
 	}
-
-
-
-
 
 	@Override
 	public void insertFiles(List<MultipartFile> list, int pjt_id) {
@@ -203,6 +200,17 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public List<FileVO> getFileName(int pjt_id) {
 		return projectMapper.getFileName(pjt_id);
+	}
+
+	@Override
+	public void deleteProject(int pjt_id) {
+		projectMapper.deleteProject(pjt_id);
+	}
+
+	@Override
+	public void modifyProject(ProjectVO vo) {
+		projectMapper.modifyProject(vo);
+		
 	}
 
 

@@ -41,7 +41,7 @@
         <div class="taskProgressArea">
           <div class="taskProgress" style="line-height: 400px;">
 			  <p class="errMsg">[[${errMsg}]]</p>
-			  <div id="taskGraph">
+			  <div id="taskGraph" style="height: 350px;">
 			  </div>
           </div>
         </div>
@@ -75,24 +75,31 @@
       <div class="projectInfoArea">
         <div class="projectInfoContainer">
           <div class="contentArea">
+			<div class="projectBtnArea">
+				<a class="projectDeleteBtn">삭제</a>
+				<a class="projectModifyBtn">수정</a>
+			</div>
             <div class="shortFormArea">
-              <ul>
-                <li>
-                  <p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" readonly th:value="${pVO.pjt_nm}"/>
-                </li>
-                <li>
-                  <p>서버 종류</p>
-                  <input type="text" readonly name="server_model" class="server_model" th:value="${pVO.server_model}"/>
-                </li>
-                <li>
-                  <div>
-                    <p>시작일</p><input type="date" name="pjt_st_dt" readonly th:value="${pVO.pjt_st_dt}"/>
-                  </div>
-                  <div>
-                    <p>마감일</p><input type="date" name="pjt_end_dt" readonly th:value="${pVO.pjt_end_dt}"/>
-                  </div>
-                </li>
-              </ul>
+				<form action="modifyProject" method="post" id="modifyProject">
+					<input hidden type="text" th:value="${pVO.pjt_id}" name="pjt_id"/>
+	              <ul>
+	                <li>
+	                  <p>프로젝트 이름</p><input type="text" name="pjt_nm" class="pjt_nm" th:readonly="${session.user_role != 'ROLE_ADMIN'}" th:value="${pVO.pjt_nm}"/>
+	                </li>
+	                <li>
+	                  <p>서버 종류</p>
+	                  <input type="text" readonly name="server_model" class="server_model" th:value="${pVO.server_model}"/>
+	                </li>
+	                <li>
+	                  <div>
+	                    <p>시작일</p><input type="date" name="pjt_st_dt" readonly th:value="${pVO.pjt_st_dt}"/>
+	                  </div>
+	                  <div>
+	                    <p>마감일</p><input type="date" name="pjt_end_dt" th:readonly="${session.user_role != 'ROLE_ADMIN'}" th:value="${pVO.pjt_end_dt}"/>
+	                  </div>
+	                </li>
+	              </ul>
+            	</form>
             </div>
               <div class="detailFormArea">
                 <div class="upperDetailFormArea">
@@ -102,7 +109,7 @@
                   <div class="detailFormAreaRight">
                   </div>
                 </div>
-                <textarea name="pjt_dtl" class="pjt_dtl" readonly>[[${pVO.pjt_dtl}]]</textarea>
+                <textarea name="pjt_dtl" class="pjt_dtl" th:readonly="${session.user_role != 'ROLE_ADMIN'}">[[${pVO.pjt_dtl}]]</textarea>
     
               </div>
 	          <div class="attachment">
@@ -117,10 +124,6 @@
 				  
 			  </div>
           </div>
-          
-          
-          
-          
         </div>
       </div>
 
@@ -203,13 +206,6 @@
 									</li>
 								</ul>
 							</div>
-						</div>
-						<div class="pageNation">
-							<ul>
-								<th:block th:each="page : ${pageVO.pageList}">
-									<li><a class="pages">[[${page}]]</a></li>
-								</th:block>
-							</ul>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -296,6 +292,7 @@
 	});    
     
     
+    // 작업 진행도 차트
       
       var chartPjt_date = [[${chartPjt_date}]];
       var chartCompleteTask = [[${chartCompleteTask}]];
@@ -305,22 +302,20 @@
 		  
       google.charts.load('current', {'packages':['corechart'], 'language' : 'kr'});
       google.charts.setOnLoadCallback(drawChart);
-      
-      
-	
 		  
       var exchart = [ ['date', '진행도'] ];
       for(var i = 0; i < chartPjt_date.length; i++){
 		  exchart.push([chartPjt_date[i], chartCompleteTask[i]] );
 	  }
-		  
+	  
+	  console.log(exchart);
 
       function drawChart() {
 		  
         var data = google.visualization.arrayToDataTable(exchart);
 
         var options = {
-          title: '작업 진행',
+          title: '작업 진행도 ( 단위 : % )',
           curveType: 'none',
           
           legend: { position: 'bottom' },
@@ -328,22 +323,41 @@
             viewWindow: {
                 max: 100, // Set the maximum value for the y-axis
                 min: 0
-            }
-        }
+            },
+       	  },
+       	  
+       	  chartArea: {height:200},
+       	  pointSize: 10
+       	  
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('taskGraph'));
 
         chart.draw(data, options);
       }
-		  
 	  }
     
       
+    // 작업자 추가 버튼
 	$('.updateMemBtn').click(function(){
 		alert('작업자 정보가 업데이트 되었습니다.');
 		$('#updateMemberForm').submit();
 	});
+	
+	
+	$('.projectDeleteBtn').click(function() {
+		if(window.confirm("프로젝트를 삭제하시겠습니까?")){
+			window.location.href = "/project/deleteProject?pjt_id=" + [[${pVO.pjt_id}]];
+		}
+	});
+	
+	
+	$('.projectModifyBtn').click(function() {
+		if(window.confirm("수정사항을 저장하시겠습니까?")){
+			$('#modifyProject').submit();
+		}
+	});
+	
 	
 	
     
