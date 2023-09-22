@@ -191,5 +191,12 @@
 	        </if>
         </if>
   	</insert>	
-  
+  	<insert id="createChangeMemberNotification">
+  		insert into notification (RCV_ID, SEND_ID, NOTI_NM, NOTI_DTL)
+  		values(#{rcv_id}, 
+			   "ADMIN", 
+			   "작업자 변경 요청 알림",
+         	   concat(#{rcv_id}, "작업자가 담당자 변경을 요청하였습니다."))
+  	</insert>
+  	
   </mapper>
