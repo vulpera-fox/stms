@@ -70,7 +70,7 @@
 	padding: 50px 30px 50px;
 }
 
-.info_con ol {
+.info_con > ol {
 	
 	overflow: hidden;
 	position: relative;
@@ -79,7 +79,7 @@
 	width: 100%;
 }
 
-.info_con ol > li {
+.info_con > ol > li {
 	
 	position: relative;
 	display: table-cell;
