@@ -58,10 +58,10 @@ public class NotificationServiceImpl implements NotificationService{
 	}
 
 	@Override
-	public void createTaskNotification(String rcv_id, String task_date, String task_nm, int pjt_id) {
-		notificationMapper.createTaskNotification(rcv_id, task_date, task_nm, pjt_id);
+	public void createTaskNotification(String user_id, String task_date, String task_nm, int pjt_id) {
+		notificationMapper.createTaskNotification(user_id, task_date, task_nm, pjt_id);
+		
 	}
-	
 }
 //	@Override
 //	public ArrayList<NotificationVO> getData(int pageNumber) {

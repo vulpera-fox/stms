@@ -52,9 +52,11 @@ public class ProjectController {
 	
 	
 	@GetMapping("/ProjectMain")
-	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session) {
+	public String ProjectMain(ProjectVO vo, Model mo, HttpServletRequest request) {
 		
+		HttpSession session = request.getSession();
 		String myRole = (String)session.getAttribute("user_role");
+		
 		System.out.println(myRole);
 		String myId = (String)session.getAttribute("user_id");
 		
@@ -125,11 +127,11 @@ public class ProjectController {
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
 
-//		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
 
 		
 		
-		return "redirect:/main";
+		return "redirect:/";
 	}
 	
 	
@@ -335,14 +337,14 @@ public class ProjectController {
 		
 		
 		//고객에게 승인 알림전송
-//		notificationService.createProjectNotification((String)session.getAttribute("user_id"), pVO.getReq_user_id(), pVO.getPjt_nm());
+		notificationService.createProjectNotification((String)session.getAttribute("user_id"), "ADMIN", pVO.getPjt_nm());
 		
 		if(users != null) {
 			for(int i = 0; i < users.size(); i++) {
 				projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
 				
 				//작업자에게 할당 알림전송
-//				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
+				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
 			}
 		}
 		
