@@ -64,7 +64,7 @@
 			}
 
 
-			#tempSaveDelBox {
+			.tempSaveDelBox {
 
 				position: absolute;
 				top: 20px;
@@ -253,8 +253,57 @@
 		console.log(event.target);
 
 		event.preventDefault();
-		document.tempRegForm.submit();
+		
+		const rcv_id = document.getElementById('rcv_id').value;
 
+        const eventSource = new EventSource(`/test/subscribe/` + rcv_id);
+		
+		var session_user_id = `[[${session.user_id}]]`;
+		
+        eventSource.addEventListener("sse", function (event) {
+            console.log(event.data);
+            //const data = JSON.stringify(event.data);
+
+            
+            (async () => {
+                // 브라우저 알림
+                const showNotification = () => {
+                    
+                    const notification = new Notification('프로젝트 승인 안내', {
+                        body: rcv_id + "님이 요청하신 프로젝트가 승인되었습니다.",
+                        badge: `/img/alarm.png`
+                    });
+                    
+                    setTimeout(() => {
+                        notification.close();
+                    }, 10 * 1000);
+                    
+                    notification.addEventListener('click', () => {
+                        window.open(`/project/ProjectDetail?pjt_id=` + rcv_id, '_blank');
+                    });
+                }
+                
+
+                // 브라우저 알림 허용 권한
+                let granted = false;
+
+                if (Notification.permission === 'granted') {
+                    granted = true;
+                } else if (Notification.permission !== 'denied') {
+                    let permission = await Notification.requestPermission();
+                    granted = permission === 'granted';
+                }
+
+                // 알림 보여주기
+                if (granted) {
+                    showNotification();
+                }
+            })();
+            
+        })
+		
+		document.tempRegForm.submit();
+		
 	})
 
 

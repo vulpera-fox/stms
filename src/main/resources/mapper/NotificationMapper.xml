@@ -190,7 +190,20 @@
 	           		   concat(#{pjt_nm}, " 프로젝트가 할당 되었습니다."))
 	        </if>
         </if>
-  	</insert>	
+  	</insert>
+  	<insert id="createTaskNotification">
+		insert into notification (RCV_ID, SEND_ID, NOTI_NM, NOTI_DTL, TASK_DATE)
+			values((select req_user_id from project where pjt_id = #{pjt_id}),
+				   'ADMIN',
+				   concat(#{task_nm}, " 작업 예정 알림"),
+				   concat(#{task_date} ,"에 ", #{task_nm}, " 작업이 예정되어 있습니다."),
+				   #{task_date}),
+			(#{rcv_id},
+				   'ADMIN',
+				   concat(#{task_nm}, " 작업 등록 알림"),
+				   concat(#{task_date},"에 " ,#{task_nm}, " 작업이 할당 되었습니다."),
+				   #{task_date})
+	</insert>		
   	<insert id="createChangeMemberNotification">
   		insert into notification (RCV_ID, SEND_ID, NOTI_NM, NOTI_DTL)
   		values(#{rcv_id}, 
