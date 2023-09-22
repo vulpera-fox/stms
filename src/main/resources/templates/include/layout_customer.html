@@ -99,11 +99,12 @@
 
 				<!-- Topbar Navbar -->
 				<ul class="navbar-nav ml-auto">
-
+				<th:block th:if="${session.user_role != null}">
 					<div style="border: 1px solid #999; width: 80px;">
 						<input class="time-out" type="text" readonly
 							style="width: 10px; margin-top:20px; margin-left: 10px;" value="">
 					</div>
+				</th:block>	
 
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar static-top"
