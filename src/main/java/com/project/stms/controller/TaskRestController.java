@@ -1,12 +1,10 @@
 package com.project.stms.controller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.TaskVO;
+import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.task.TaskService;
 
 @RestController
@@ -21,6 +20,9 @@ public class TaskRestController {
 
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	//프로젝트에 따른 작업목록 조회
 	@GetMapping("taskSearch")
@@ -83,6 +85,7 @@ public class TaskRestController {
 		System.out.println(vo.toString());
 		
 		taskService.taskRegist(vo);
+		notificationService.createTaskNotification(vo.getUser_id(), vo.getTask_date(), vo.getTask_nm(), vo.getPjt_id());
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
