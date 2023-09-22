@@ -291,3 +291,30 @@
 	display: none;
 }
 
+/* 답변 달기 */
+.goto_list .goto_reply_btn {
+
+  all: unset;
+  border: 1px solid #020f37;
+  background-color: #020f37;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  width: 70px;
+  height: 25px;
+  text-align: center;
+
+}
+
+.goto_list .goto_reply_btn:hover {
+
+  background-color: white;
+  color: #020f37;
+  text-decoration: none;
+ 
+}
+
+
+

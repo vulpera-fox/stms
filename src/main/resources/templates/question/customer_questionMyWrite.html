@@ -8,7 +8,7 @@
 	<div class="col-lg-12 subtop_wrap wrap">
 		<div class="col-lg-8 subtop">
 			<h1 class="page_header">Q & A
-				<div class="sub_text">우리 서버에서 제공하는 다양한 소식을 전해드립니다.</div>
+				<div class="sub_text">나의 문의하기</div>
 			</h1>
 		</div>
 	</div>
@@ -29,8 +29,7 @@
 						<tr class="q_title q_trclass ">
 							<td class="q_required sub">제목</td>
 							<td><input type="text" required name="post_title" id="post_title"></td>
-							<input type="hidden" th:value="${session.user_email}">
-
+							<input type="hidden" th:value="${user_id}">
 						</tr>
 
 						<tr class="q_contents_area q_trclass">
@@ -80,8 +79,8 @@
 					<button class="regi_refresh" id="refresh">
 						<img th:src="@{/img/refresh.png}">
 					</button>
-					<a th:href="@{customer_question}"><button class="goto_list_btn">목록으로</button></a>
-					<a th:href="@{customer_question}"><button class="goto_regi_btn">등록하기</button></a>
+					<a th:href="@{customer_myQuestion}"><button class="goto_list_btn">이전으로</button></a>
+					<a th:href="@{customer_myQuestion}"><button class="goto_regi_btn">등록하기</button></a>
 				</div>
 
 			</form>
@@ -105,7 +104,7 @@
 	$('.goto_regi_btn').click(function(e){
 		
 		e.preventDefault();
-		document.writeForm.action='regiQuestion';
+		document.writeForm.action='regiMyQuestion';
 		document.writeForm.submit();
 	});
 	
@@ -113,7 +112,7 @@
 		
 		e.preventDefault();
 		document.writeForm.method='get';
-		document.writeForm.action='customer_question';
+		document.writeForm.action='customer_myuestion';
 		document.writeForm.submit();
 		
 		
