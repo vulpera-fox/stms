@@ -8,7 +8,7 @@ const timeOut = document.querySelector(".time-out");
 					return response.json();
 				})
 				.then((result) => {
-					console.log(result);
+					//console.log(result);
 					second = result;
 					minutes = second/60;
 					seconds = second%60;
@@ -16,7 +16,9 @@ const timeOut = document.querySelector(".time-out");
 					+" : "+(parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
 
 					if (second == 0) {
+						fetch("http://localhost:8181/user/logout")
 						clearInterval(intervalId);
+						window.location.reload();
 					}
 				});
 		};

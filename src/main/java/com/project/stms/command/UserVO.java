@@ -29,5 +29,6 @@ public class UserVO {
 	private String user_role; //customer, engineer, admin
 	private String user_auth_yn; //이메일 인증 여부
 	private String user_adr;
+	private String org_file_nm;
 	
 }

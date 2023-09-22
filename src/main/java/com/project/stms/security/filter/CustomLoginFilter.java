@@ -100,6 +100,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		userVO.setUser_adr(principal.getUser_adr());
 		userVO.setUser_nm(principal.getUser_nm());
 		userVO.setUser_group(principal.getUser_group());
+		userVO.setOrg_file_nm(principal.org_file_nm());
 		
 		
 		
