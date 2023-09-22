@@ -1,0 +1,195 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.project.stms.service.notification.NotificationMapper">
+ 
+  	<select id="getCount">
+  		SELECT  CASE
+					WHEN RCV_DEL_YN = 'X' THEN 'completeDelete'
+					WHEN RCV_DEL_YN = 'Y' THEN 'deleteList'
+		            WHEN LOCATE('공지', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'noticeList'
+		            WHEN (LOCATE('작업', NOTI_NM) > 0 OR LOCATE('점검', NOTI_NM) > 0) AND RCV_DEL_YN IS NULL THEN 'taskList'
+		            WHEN LOCATE('공지', NOTI_NM) = 0 AND LOCATE('작업', NOTI_NM) = 0 AND LOCATE('점검', NOTI_NM) = 0 AND RCV_DEL_YN IS NULL THEN 'etcList'
+		        END AS CATEGORY,
+		        COUNT(*) AS COUNT
+		FROM notification
+		WHERE RCV_ID = #{RCV_ID}
+		GROUP BY CATEGORY
+		UNION ALL
+		SELECT CASE
+					WHEN RCV_DEL_YN IS NULL THEN 'all'
+				END AS CATEGORY,
+		        COUNT(*) AS COUNT
+		FROM notification
+		WHERE RCV_ID = #{RCV_ID}
+		group by CATEGORY
+		UNION ALL
+		SELECT CASE
+					WHEN PRE_NOTI_ID = 1 THEN 'unread'
+		            ELSE 'read'
+				END AS CATEGORY,
+		        COUNT(*) AS COUNT
+		FROM notification
+		WHERE RCV_ID = #{RCV_ID}
+		group by CATEGORY;
+  	</select>
+	
+	<select id="getList">
+		WITH RECURSIVE CTE AS (
+			SELECT NOTI_ID,
+				   PRE_NOTI_ID, 
+				   ROW_NUMBER() OVER (PARTITION BY PRE_NOTI_ID ORDER BY NOTI_SEND_DT DESC) AS NUM,
+		           (SELECT COUNT(*) FROM notification WHERE PRE_NOTI_ID = 1 AND RCV_ID=#{RCV_ID}) AS COUNT_PRE_NOTI,
+		           RCV_ID,
+		           SEND_ID,
+		           NOTI_NM,
+		           NOTI_DTL,
+		           NOTI_SEND_DT,
+		           NOTI_CHK_DT,
+		           TASK_DATE,
+		           RCV_DEL_YN,
+		           SEND_DEL_YN
+			FROM notification
+		    WHERE PRE_NOTI_ID = 1 AND RCV_ID=#{RCV_ID} AND RCV_DEL_YN is null
+		    UNION ALL
+		    SELECT n.NOTI_ID,
+				   n.PRE_NOTI_ID, 
+				   ROW_NUMBER() OVER (PARTITION BY n.PRE_NOTI_ID ORDER BY n.NOTI_SEND_DT DESC) AS NUM,
+		           (SELECT COUNT(*) FROM notification where n.PRE_NOTI_ID = 2 AND RCV_ID=#{RCV_ID}) AS COUNT_PRE_NOTI,
+		    	   n.RCV_ID,
+		           n.SEND_ID,
+		           n.NOTI_NM,
+		           n.NOTI_DTL,
+		           n.NOTI_SEND_DT,
+		           n.NOTI_CHK_DT,
+		           n.TASK_DATE,
+		           n.RCV_DEL_YN,
+		           n.SEND_DEL_YN
+			FROM notification n
+		    WHERE PRE_NOTI_ID = 2 AND RCV_ID=#{RCV_ID} AND RCV_DEL_YN is null
+		) SELECT *
+			FROM CTE
+		    ORDER BY PRE_NOTI_ID, NUM;
+	</select>
+  	
+  	<update id="getReadChk">
+  		update notification set NOTI_CHK_DT = NOW(), PRE_NOTI_ID = 2 where NOTI_ID = #{NOTI_ID}
+  	</update>
+  	
+  	<update id="changeDelStatus">
+  		update notification 
+  		<set>
+  			<if test="rcv_del_yn == null">
+  			RCV_DEL_YN = 'Y'
+  			</if>
+  			<if test="rcv_del_yn != null">
+  			RCV_DEL_YN = 'X'
+  			</if>
+  		</set>
+  		where noti_id = #{noti_id}
+  	</update>
+  	
+  	<update id="markAllAsRead">
+  		update notification set NOTI_CHK_DT = NOW(), PRE_NOTI_ID = 2 where RCV_ID=#{RCV_ID}
+  	</update>
+  	
+  	<select id="getPopUpList">
+  		WITH RECURSIVE CTE AS (
+			SELECT NOTI_ID,
+				   PRE_NOTI_ID,
+		           (SELECT COUNT(*) FROM notification WHERE PRE_NOTI_ID = 1) AS COUNT_PRE_NOTI,
+		           RCV_ID,
+		           SEND_ID,
+		           NOTI_NM,
+		           NOTI_DTL,
+		           NOTI_SEND_DT,
+		           NOTI_CHK_DT,
+		           TASK_DATE,
+		           RCV_DEL_YN,
+		           SEND_DEL_YN
+			FROM notification
+		    WHERE PRE_NOTI_ID = 1
+		    UNION ALL
+		    SELECT n.NOTI_ID,
+				   n.PRE_NOTI_ID,
+		           (SELECT COUNT(*) FROM notification where n.PRE_NOTI_ID = 2) AS COUNT_PRE_NOTI,
+		    	   n.RCV_ID,
+		           n.SEND_ID,
+		           n.NOTI_NM,
+		           n.NOTI_DTL,
+		           n.NOTI_SEND_DT,
+		           n.NOTI_CHK_DT,
+		           n.TASK_DATE,
+		           n.RCV_DEL_YN,
+		           n.SEND_DEL_YN
+			FROM notification n
+		    WHERE PRE_NOTI_ID = 2
+		) SELECT *,
+			ROW_NUMBER() OVER(ORDER BY NOTI_SEND_DT DESC, NOTI_ID) AS NUM
+			FROM CTE
+			WHERE RCV_ID = #{rcv_id}
+			<if test="category == null">
+				AND (RCV_DEL_YN is null or RCV_DEL_YN = "Y")
+			</if>
+			<if test="category == 'all'">
+				AND RCV_DEL_YN is null
+			</if>
+			<if test="category == 'noticeList'">
+				and NOTI_NM like concat('%', '공지', '%') AND RCV_DEL_YN is null
+			</if>
+			<if test="category == 'taskList'">
+				and (NOTI_NM like concat('%', '작업', '%') or NOTI_NM like concat('%', '점검', '%')) AND RCV_DEL_YN is null
+			</if>
+			<if test="category == 'etcList'">
+				and NOTI_NM not like concat('%', '작업', '%') and NOTI_NM not like concat('%', '점검', '%') and NOTI_NM not like concat('%', '공지', '%') AND RCV_DEL_YN is null
+			</if>
+			<if test="category == 'deleteList'">
+				AND RCV_DEL_YN = "Y"
+			</if>
+  	</select>
+  	
+  	<!-- <select id="getData">
+  		select * from notification where 1=1 LIMIT (#{pageNumber} * 5), 5
+  	</select> -->
+  	
+  	<select id="getSearchResult" resultType="NotificationVO">
+  		select * from notification
+  		where rcv_id=#{rcv_id}
+  		<if test="cri.searchKeyword != '' and cri.searchKeyword != null and cri.searchType != null and cri.searchType == 'noti_nm'">
+			and NOTI_NM like concat('%',#{cri.searchKeyword},'%')
+		</if>
+		<if test="cri.searchKeyword != '' and cri.searchKeyword != null and cri.searchType != null and cri.searchType == 'noti_dtl'">
+			and NOTI_DTL like concat('%',#{cri.searchKeyword},'%')
+		</if>
+		and RCV_DEL_YN is null
+  	</select>
+  	
+  	<insert id="createProjectNotification">
+  		<selectKey order="BEFORE" keyProperty="user_role" resultType="String">
+  			select user_role from user where user_id = #{rcv_id}
+  		</selectKey>
+  		insert into notification (RCV_ID, SEND_ID, NOTI_NM, NOTI_DTL)
+  		<if test="rcv_id == 'ADMIN' ">
+  			values(#{rcv_id}, 
+  				   #{send_id}, 
+  				   concat(#{pjt_nm}, " 프로젝트 요청 알림"),
+           		   concat(#{send_id}, "님이 ", #{pjt_nm}, "프로젝트 생성을 요청하였습니다."))
+        </if>
+        <if test="rcv_id != 'ADMIN' ">
+        	<if test="user_role == 'ROLE_CUSTOMER'">
+	        	values(#{rcv_id}, 
+	  				   #{send_id}, 
+	  				   concat(#{pjt_nm}, " 프로젝트 승인 알림"),
+	           		   concat("고객님께서 요청하신 ", #{pjt_nm}, " 프로젝트가 승인 되었습니다."))
+	        </if>
+            <if test="user_role == 'ROLE_ENGINEER'">
+	        	values(#{rcv_id}, 
+	  				   #{send_id}, 
+	  				   concat(#{pjt_nm}, " 프로젝트 할당 알림"),
+	           		   concat(#{pjt_nm}, " 프로젝트가 할당 되었습니다."))
+	        </if>
+        </if>
+  	</insert>	
+  
+  </mapper>

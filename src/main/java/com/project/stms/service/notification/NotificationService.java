@@ -23,7 +23,6 @@ public interface NotificationService {
 	
 	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm);
 	
-	public void createTaskNotification(String rcv_id, String task_date, String task_nm, int pjt_id);
 //	public ArrayList<NotificationVO> getData(int pageNumber);
 		
 }
