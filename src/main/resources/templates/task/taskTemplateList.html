@@ -10,7 +10,7 @@
 			.task_temp_container {
 				width: 100%;
 				margin: 0 auto;
-				padding: 30px;
+				padding : 30px;
 			}
 
 			.task_temp_box {
@@ -19,10 +19,9 @@
 				width: 300px;
 				height: 300px;
 				display: inline-block;
+
 				margin-right: 30px;
 				position: relative;
-				
-
 
 			}
 
@@ -64,15 +63,15 @@
 
 			}
 
+
 			#tempSaveDelBox {
-				
+
 				position: absolute;
 				top: 20px;
 				right: 10px;
 				width: 8%;
 			}
 
-			
 		</style>
 
 		<div class="task_temp_container">
@@ -92,13 +91,14 @@
 					<a href="#" class="tempPlus">
 						<img src="/img/add_btn.png" alt="추가" id="tempBtn" class="btn btn-primary" data-toggle="modal"
 							data-target="#registTempModal" style="background-color: initial; border: none;">
-					</a>
+					</a>`
 				</div>
 			</div>
 
 			<!--반복영역-->
-			<form name="actionForm" action="tempDelForm" method="post">
+			<form name="actionForm" action="tempDelForm" method="post">					
 				<div class="task_temp_box" th:each="vo, status : ${list}">
+					<input class="identData" type="hidden" name="user_id" th:value="${session.user_id}">
 					<table class="tempTable">
 						<input type="hidden" name="tem_id" th:value="${vo.tem_id}">
 						<tr class="tempRow">
@@ -142,7 +142,7 @@
 
 					</table>
 					<!--수정, 삭제 버튼-->
-					<div id="tempSaveDelBox">
+					<div class="tempSaveDelBox">
 						<a href="#" class="tempDelBtnA delete" name="tem_id" th:value="${vo.tem_id}">
 							<img src="/img/red-x-cross.png" alt="삭제">
 						</a>
@@ -175,7 +175,7 @@
 							</div>
 							<div class="modal-body">
 								<table class="tempTable">
-
+									<input class="identDatas" type="hidden" name="user_id" th:value="${session.user_id}">
 									<tr class="tempRow">
 										<td class="colName">
 											템플릿 이름

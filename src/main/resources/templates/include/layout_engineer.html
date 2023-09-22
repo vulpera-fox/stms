@@ -281,11 +281,11 @@
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
-					<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary out-page" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" th:href="@{/}">Logout</a>
-					</div>
+					<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+				  <div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+
+					<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
 				</div>
 			</div>
 		</div>
@@ -309,3 +309,4 @@
 
 
 </html>
+

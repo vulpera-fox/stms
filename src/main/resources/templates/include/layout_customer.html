@@ -10,7 +10,9 @@
 		<meta name="description" content="" />
 		<meta name="author" content="" />
 		<title>서버관리</title>
+
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 		<!-- Bootstrap icons-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 		<!-- Core theme CSS (includes Bootstrap)-->
@@ -68,6 +70,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}"
 							style="font-size: 18px;">Home</a></li>
+
 					<th:block th:if="${session.user_role}=='ROLE_CUSTOMER'">
 						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"
 								style="font-size: 18px;">작업 조회</a>
@@ -81,7 +84,7 @@
 									<hr class="dropdown-divider" />
 								</li>
 								<li><a class="dropdown-item" href="#!">일정 조회</a></li>
-								<li><a class="dropdown-item" href="#!">프로젝트 신청</a></li>
+								<li><a class="dropdown-item" href="@{@{/project/ProjectRegist}}">프로젝트 신청</a></li>
 								<li><a class="dropdown-item" href="#!">작업 신청</a></li>
 							</ul>
 						</li>
@@ -96,10 +99,17 @@
 
 				<!-- Topbar Navbar -->
 				<ul class="navbar-nav ml-auto">
+
+					<div style="border: 1px solid #999; width: 80px;">
+						<input class="time-out" type="text" readonly
+							style="width: 10px; margin-top:20px; margin-left: 10px;" value="">
+					</div>
+
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar static-top"
 						style="border-radius: 20px;">
 						<!-- Topbar Navbar -->
+
 						<th:block th:if="${session.user_role}!=null">
 							<ul class="navbar-nav ml-auto">
 
@@ -181,10 +191,13 @@
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
-				<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+
+				<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" th:href="@{/}">Logout</a>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+
+					<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+
 				</div>
 			</div>
 		</div>
@@ -202,6 +215,37 @@
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+		
+		const timeOut = document.querySelector(".time-out");
+		let second = 0;
+		let minutes = 0;
+		let seconds = 0;
+		const timeFunction = function () {
+			fetch("http://localhost:8181/timeOut")
+				.then((response) => {
+					return response.json();
+				})
+				.then((result) => {
+
+					//console.log(result);
+
+					second = result;
+					minutes = second/60;
+					seconds = second%60;
+					timeOut.value = (parseInt(minutes) >= 10 ? parseInt(minutes) : "0"+parseInt(minutes))
+					+" : "+(parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
+
+					if (second == 0) {
+						clearInterval(intervalId);
+					}
+				});
+		};
+		intervalId = setInterval(timeFunction, 1000);
+		
+
+	</script>
 
 </th:block>
 

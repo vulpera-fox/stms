@@ -107,14 +107,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="dropdown-item text-center close">닫기</div>
+			<div class="dropdown-item text-center closenoti">닫기</div>
 		</div>
 	</li>
 
 
 	<script th:inline="javascript">
 
-		var rcv = "CUSTOMER";
+		var rcv = /*[[${session.user_id}]]*/ '';
 
 		var contextPath = /*[[${#httpServletRequest.contextPath}]]*/ '';
 
@@ -377,7 +377,7 @@
 			
 		});
 		
-		$(".close").on('click', function() {
+		$(".closenoti").on('click', function() {
 			$('#dropdownContent').toggleClass('dropdownContent');
 		})
 		

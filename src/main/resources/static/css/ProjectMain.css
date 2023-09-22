@@ -79,12 +79,6 @@ a {
   height: 40px;
 }
 
-/*.lowerSearchBar > div > p,a {*/
-/*  line-height: 35px;*/
-/*}*/
-
-
-
 .searchArea .searchBar .searchBarLeft {
   padding-left: 20px;
   float: left;
@@ -244,11 +238,3 @@ a {
 	color: red;
 	cursor: pointer;
 }
-
-
-
-
-
-
-
-

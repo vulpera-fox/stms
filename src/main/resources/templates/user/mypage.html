@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <!-- 메인(home)화면 css -->
-    <link rel="stylesheet" type="text/css" th:href=@{/css/customer_main.css}>
+	<!-- 메인(home)화면 css -->
+	<link rel="stylesheet" type="text/css" th:href=@{/css/customer_main.css}>
 
 </head>
 
 
-	<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
-   
-    <!-- Section-->
-    <section class="px-0 wrap">
-		
-		<input class="form-control" type="text" placeholder="마이페이지" readonly>
-		
-	 <p>이름: [[${session.userVO.user_nm}]]</p>
-	 <p>주소: [[${session.userVO.user_adr}]]</p>
-	 <p>고유번호: [[${session.userVO.user_id}]]</p>
-	 <p>이메일(아이디): [[${session.userVO.user_email}]]</p>
-	 <p>권한: [[${session.userVO.user_role}]]</p>
-   
-    <!-- Initialize Swiper -->
-	</th:block>
+<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
 
+	<!-- Section-->
+	<section class="px-0 wrap">
+
+		<input class="form-control" type="text" placeholder="마이페이지" readonly>
+
+		<p>이름: [[${session.userVO.user_nm}]]</p>
+		<p>주소: [[${session.userVO.user_adr}]]</p>
+		<p>고유번호: [[${session.userVO.user_id}]]</p>
+		<p>이메일(아이디): [[${session.userVO.user_email}]]</p>
+		<p>권한: [[${session.userVO.user_role}]]</p>
+		<a class="btn btn-primary" th:href="@{/}">회원정보수정</a>
+		<a class="btn btn-primary" th:href="@{/}">탈퇴</a>
+		<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+	</section>
+</th:block>
 
 
 </html>
