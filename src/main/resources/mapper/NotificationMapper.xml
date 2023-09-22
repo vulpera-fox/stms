@@ -198,7 +198,7 @@
 				   concat(#{task_nm}, " 작업 예정 알림"),
 				   concat(#{task_date} ,"에 ", #{task_nm}, " 작업이 예정되어 있습니다."),
 				   #{task_date}),
-			(#{rcv_id},
+				   (#{rcv_id},
 				   'ADMIN',
 				   concat(#{task_nm}, " 작업 등록 알림"),
 				   concat(#{task_date},"에 " ,#{task_nm}, " 작업이 할당 되었습니다."),

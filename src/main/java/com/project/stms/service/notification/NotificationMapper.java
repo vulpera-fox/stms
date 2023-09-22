@@ -35,5 +35,6 @@ public interface NotificationMapper {
 									   @Param("pjt_id")int pjt_id);
 	
 //	public ArrayList<NotificationVO> getData(int pageNumber);
+
 	
 }

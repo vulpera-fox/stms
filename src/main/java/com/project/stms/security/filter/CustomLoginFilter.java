@@ -90,7 +90,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		session.setAttribute("user_email", principal.getUsername());
 		session.setAttribute("user_id", principal.getUser_id());
 		session.setAttribute("user_role", principal.getUser_role());
-		
+		session.setAttribute("user_nm", principal.getUser_nm());		
 		
 		UserVO userVO = new UserVO();
 		userVO.setUser_email(principal.getUsername());
@@ -108,7 +108,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		
 		if(principal.getUser_role().equals("ROLE_ENGINEER")) {
-			response.sendRedirect("/task/taskList");
+			response.sendRedirect("/task/taskDashboard");
 			
 		} else if(principal.getUser_role().equals("ROLE_CUSTOMER")){
 			response.sendRedirect("/");

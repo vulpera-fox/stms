@@ -62,7 +62,6 @@ public class NotificationServiceImpl implements NotificationService{
 		notificationMapper.createTaskNotification(rcv_id, task_date, task_nm, pjt_id);
 	}
 	
-	
 }
 //	@Override
 //	public ArrayList<NotificationVO> getData(int pageNumber) {

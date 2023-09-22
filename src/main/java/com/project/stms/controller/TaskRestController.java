@@ -85,6 +85,7 @@ public class TaskRestController {
 		System.out.println(vo.toString());
 		
 		taskService.taskRegist(vo);
+		
 		notificationService.createTaskNotification(vo.getUser_id(), vo.getTask_date(), vo.getTask_nm(), vo.getPjt_id());
 		
 		return new ResponseEntity<>(HttpStatus.OK);
