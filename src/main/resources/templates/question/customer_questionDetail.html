@@ -75,30 +75,58 @@
 			</div>
 
 		</div>
+		
+		<script th:inline="javascript">
+
+
+			$(document).ready(function () {
+
+				$('.goto_delete_btn').click(function (e) {
+
+					document.goto.action = "deleteQ";
+					document.goto.submit();
+
+				})
+
+
+				$('.goto_modify_btn').click(function (e) {
+
+					document.goto.action = "modifyQ";
+					document.goto.submit();
+
+				})
+
+
+
+			})
+
+		</script>
+
+				
 
 		<form name="goto" action="" method="post" id="formObj">
 			<div class="goto_list">
-				<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER' and ${session.user_role} != null">
-					<a th:href="@{customer_questionDetail}"><button class="goto_modify_btn">수정</button></a>
-					<a th:href="@{customer_question}"><button class="goto_delete_btn">삭제</button></a>
+				<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER'">
+					<button class="goto_modify_btn">수정</button>
+					<button class="goto_delete_btn">삭제</button>
+					<input type="hidden" name="post_id" th:value="${vo.post_id}" id="postno">
 					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
 				</th:block>
 				
 				<th:block th:if="${session.user_role} != 'ROLE_CUSTOMER' and ${session.user_role} != null">
-					<a><button class="goto_modify_btn">답변 달기</button></a>
+					<a><button class="goto_reply_btn">답변 달기</button></a>
 					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
 				</th:block>	
+				
 				<th:block th:if="${session.user_role} == null">
 				<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
 				</th:block>
 			</div>
 		</form>
 	</div>
-
-
-<script th:inline="javascript">
+	
+	
 	
 
-		
-</script>
+
 </html>

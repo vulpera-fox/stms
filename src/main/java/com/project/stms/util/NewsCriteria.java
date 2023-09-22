@@ -10,6 +10,7 @@ public class NewsCriteria {
 	
 	private String searchType;
 	private String searchKeyword;
+	private String user_id;
 	
 	public NewsCriteria() {
 		
