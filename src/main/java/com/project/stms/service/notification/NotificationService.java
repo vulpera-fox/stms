@@ -22,7 +22,10 @@ public interface NotificationService {
 	public ArrayList<NotificationVO> getSearchResult(Criteria cri, String rcv_id);
 	
 	public void createProjectNotification(String rcv_id, String send_id, String pjt_nm);
+
+	public void createTaskNotification(String rcv_id, String task_date, String task_nm, int pjt_id);
 	
+	public void createChangeMemberNotification(String rcv_id);
 //	public ArrayList<NotificationVO> getData(int pageNumber);
 		
 }

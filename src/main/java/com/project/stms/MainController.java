@@ -1,16 +1,15 @@
 package com.project.stms;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class MainController {
 
-
 	@GetMapping("/")
-	public String customer_main() {		
-		return "main";
+	public String customer_main() {	
 
+		return "main";
 	}
 	
 	@GetMapping("/layout_admin")

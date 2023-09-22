@@ -3,16 +3,36 @@
 
 <link rel="stylesheet" th:href="@{/css/customer_questionDetail.css}">
 
-<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+<!-- 권한별 페이지 처리 -->
+<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+    <th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}"></th:block>
+</th:block>
+
+<th:block th:if="${session.user_role == 'ROLE_ADMIN'}">
+    <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .wrap})}">
+</th:block>
+
+<th:block th:if="${session.user_role == 'ROLE_ENGINEER'}">
+    <th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .wrap})}">
+</th:block>
 	<!-- Section-->
-	<div class="col-lg-12 subtop_wrap wrap">
-		<div class="col-lg-8 subtop">
-			<h1 class="page_header">Q & A
-				<div class="sub_text">우리 서버에서 제공하는 다양한 소식을 전해드립니다.</div>
-			</h1>
+	
+<div class="wrap">
+	<div th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+			<div class="col-lg-12 subtop_wrap">
+				<div class="col-lg-8 subtop">
+					<h1 class="page_header">Q & A
+						<div class="sub_text">우리 서버에게 묻고 답하기</div>
+					</h1>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="col-lg-8 wrap detail_container">
+	<th:block th:if="${session.user_role != 'ROLE_CUSTOMER'}">
+		<div class="col-lg-9 detail_container" style="margin:-59px 112px !important;">
+	</th:block>
+	<th:block th:unless="${session.user_role != 'ROLE_CUSTOMER'}">
+		<div class="col-lg-8 detail_container">
+	</th:block>
 		<div class="q_detail">
 			<div class="q_detail_header">
 				<header>
@@ -56,32 +76,25 @@
 
 		</div>
 
-		<form name="goto" action="" method="post">
+		<form name="goto" action="" method="post" id="formObj">
 			<div class="goto_list">
-				<a th:href="@{customer_questionDetail}"><button class="goto_modify_btn">수정</button></a>
-				<a th:href="@{customer_question}"><button class="goto_delete_btn">삭제</button></a>
-				<a th:href="@{customer_question}"><button class="goto_list_btn">목록</button></a>
+				<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER'">
+					<a th:href="@{customer_questionDetail}"><button class="goto_modify_btn">수정</button></a>
+					<a th:href="@{customer_question}"><button class="goto_delete_btn">삭제</button></a>
+					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
+				</th:block>
+				<th:block th:unless="${session.user_role} == 'ROLE_CUSTOMER'">
+					<a><button class="goto_modify_btn">답변 달기</button></a>
+					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
+				</th:block>	
 			</div>
 		</form>
 	</div>
 
-</th:block>
 
 <script th:inline="javascript">
+	
 
-	$('.goto_list_btn').click(function(e){
 		
-		e.preventDefault();
-		document.goto.method = "get";
-		document.goto.action = "customer_question"
-		document.goto.submit();
-		
-		
-	})
-
-
-
 </script>
-
-
 </html>

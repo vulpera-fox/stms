@@ -20,7 +20,7 @@ a {
 
 #container {
   padding: 20px;
-  width: 1300px;
+  width: 100%;
   margin: 0 auto;
   background-color: white;
   border: 1px solid rgb(230, 235, 241);
@@ -73,12 +73,6 @@ a {
   height: 40px;
 }
 
-.lowerSearchBar > div > p,a {
-  line-height: 35px;
-}
-
-
-
 .searchArea .searchBar .searchBarLeft {
   padding-left: 20px;
   float: left;
@@ -106,8 +100,9 @@ a {
 	display: inline-block;
 	 margin-right: 20px;
 	border: 1px solid black;
-  width: 65px;
+  width: 80px;
   height: 35px;
+  line-height: 35px;
   text-align: center;
 }
 
@@ -246,6 +241,7 @@ a {
 .projectCreateBtn:hover {
 	color: red;
 	cursor: pointer;
+
 }
 
 
@@ -336,3 +332,5 @@ a {
 .pjt_nm {
 	width: 150px;
 }
+
+

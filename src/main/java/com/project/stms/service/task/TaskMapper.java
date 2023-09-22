@@ -18,7 +18,8 @@ public interface TaskMapper {
 	//데이터 총 개수 구하기
 	public int getTotal(@Param("cri") Criteria cri);
 	//리스트 삭제
-	public int deleteTaskList(int task_id);
+	public void deleteTaskList(int task_id);
+
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
 	
@@ -48,10 +49,16 @@ public interface TaskMapper {
 	
 	
 	//작업등록시 템플릿 리스트 조회
-	public ArrayList<TaskVO> getTaskTemp(Integer user_id);
+	public ArrayList<TaskVO> getTaskTemp(String user_id);
 	
-	//작업등록
+	//템플릿 적용
+		public TaskVO applyTemp(Integer tem_id);
+	
+	//작업등록(관리자)
 	public int taskRegist(TaskVO vo);
+	
+	//작업수정(작업자)
+	public int ModiTask(TaskVO vo);
 	
 	//작업삭제
 	//public void delTask(int task_id);

@@ -16,7 +16,7 @@
 
 		<link rel="stylesheet" type="text/css" th:href=@{/css/detail.css} />
 		<link rel="stylesheet" th:href=@{/css/main.css}>
-		<link rel="stylesheet" type="text/css" th:href=@{/css/index.css}/>
+		<link rel="stylesheet" type="text/css" th:href=@{/css/index.css} />
 		<link rel="stylesheet" type="text/css" th:href=@{/css/jquery-ui.min.css} />
 
 		<!-- Custom fonts for this template -->
@@ -51,22 +51,27 @@
 		<script th:src=@{/js/jquery-ui.min.js}></script>
 
 	</head>
-	
+
 	<style>
-		
-		#wrapper{
-			
-			overflow-y: scroll !important;
+		#wrapper {
+
+			overflow-y: auto !important;
 			height: 100vh !important;
-		}
-		
-		#accordionSidebar{
 			
+		}
+
+		#accordionSidebar {
+
 			position: sticky !important;
-			top:-60px !important;
-			
+			top: -60px !important;
+
 		}
 		
+		#content{
+			
+			overflow-x: scroll;
+    		width: 100%;
+		}
 	</style>
 
 	<body id="page-top">
@@ -78,7 +83,7 @@
 			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/project/ProjectMain}">
 					<div class="sidebar-brand-icon rotate-n-15">
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(15deg);"></i>
 					</div>
@@ -91,9 +96,9 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" th:href="@{/project/ProjectMain}">
 						<img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
-						<span style="margin: 2px">홈</span></a>
+						<span style="margin: 2px">홈으로 돌아가기</span></a>
 				</li>
 
 				<!-- Divider -->
@@ -130,9 +135,6 @@
 						</div>
 					</div>
 				</li>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider">
 
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item">
@@ -193,9 +195,9 @@
 							<!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">-->
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
-								
+							<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER'">
 								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
-
+							</th:block>
 								<div class="topbar-divider d-none d-sm-block"></div>
 
 								<!-- Nav Item - User Information -->
@@ -203,19 +205,19 @@
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
-										<span class="mr-2 d-none d-lg-inline text-gray-600 small">강바오님
+										<th:block th:if="${session.user_role} != null">
+										<span
+											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
+											님
 											<br />(ADMIN)</span>
+										</th:block>	
 									</a>
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
 										<a class="dropdown-item" href="#">
 											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-											Profile
-										</a>
-										<a class="dropdown-item" href="#">
-											<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-											Settings
+											My Page
 										</a>
 
 										<div class="dropdown-divider"></div>
@@ -231,61 +233,14 @@
 
 					</nav>
 					<!-- End of Topbar -->
-
-
-					<!--<div class="topbar-divider d-none d-sm-block"></div>-->
-
-
-					<!-- Dropdown - User Information -->
-					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-						aria-labelledby="userDropdown">
-						<a class="dropdown-item" href="#">
-							<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-							Profile
-						</a>
-						<a class="dropdown-item" href="#">
-							<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-							Settings
-						</a>
-						<a class="dropdown-item" href="#">
-							<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-							Activity Log
-						</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-							Logout
-						</a>
-					</div>
-					</li>
-
-					</ul>
-
-					</nav>
-					<!-- End of Topbar -->
-
-					<!-- Begin Page Content -->
-					<div class="container-fluid">
-
-						<!-- Page Heading -->
-						<!--<h1 class="h3 mb-2 text-gray-800">등록</h1>
-
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>-->
-
-						<!-- DataTales Example -->
+					<!-- contents -->
+					
 						<div th:replace="${content}">
-						
 						</div>
-
-					</div>
 					<!-- /.container-fluid -->
 
 				</div>
 				<!-- End of Main Content -->
-
-
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
 					<div class="container my-auto">
@@ -301,51 +256,36 @@
 
 			</div>
 			<!-- End of Page Wrapper -->
-	</div>
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top">
-				<i class="fas fa-angle-up"></i>
-			</a>
+		</div>
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
 
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are ready to end your current session.
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-							<a class="btn btn-primary" th:href="@{/customer_main}">Logout</a>
-						</div>
-					</div>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+
+					<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!-- Bootstrap core JavaScript-->
-			<!--<script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+		<!-- Custom scripts for all pages-->
+		<script th:src=@{/js/sb-admin-2.min.js}></script>
 
-			<!-- Core plugin JavaScript-->
-			<!--<script src="vendor/jquery-easing/jquery.easing.min.js"></script>-->
-
-			<!-- Custom scripts for all pages-->
-			<script th:src=@{/js/sb-admin-2.min.js}></script>
-
-			<!-- Page level plugins -->
-			<!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
-
-			<!-- Page level custom scripts -->
-			<!--<script th:src=@{/js/demo/datatables-demo.js}></script>-->
-			 <input type="text" id="id"/>
-    		<button type="button" onclick="login()">로그인</button>
 	</body>
 </th:block>
 <script type="text/javaScript">
@@ -394,4 +334,5 @@
         })
     }
 </script>
+
 </html>

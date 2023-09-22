@@ -28,5 +28,7 @@ public class ProjectVO {
 	private String user_nm;
 	private String created_yn;
 	private String user_id;
+	
+}
 
 }

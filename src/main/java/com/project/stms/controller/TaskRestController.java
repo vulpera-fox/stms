@@ -1,18 +1,20 @@
 package com.project.stms.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.TaskVO;
+import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.task.TaskService;
 
 @RestController
@@ -20,6 +22,9 @@ public class TaskRestController {
 
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	//프로젝트에 따른 작업목록 조회
 	@GetMapping("taskSearch")
@@ -83,18 +88,22 @@ public class TaskRestController {
 		
 		taskService.taskRegist(vo);
 		
+		notificationService.createTaskNotification(vo.getUser_id(), vo.getTask_date(), vo.getTask_nm(), vo.getPjt_id());
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	//작업 삭제
+	//작업 삭제(다시 찾아볼 것)
 	@PostMapping("delTask")
-	public ResponseEntity<String> delTask(@RequestParam("task_id") Integer task_id) {
+	public ResponseEntity delTask(@RequestBody TaskVO vo) {
+		
+		int task_id = vo.getTask_id();
 		
 		System.out.println("삭제 파라미터:" + task_id);
 		
 		taskService.deleteTaskList(task_id);
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 	
@@ -110,12 +119,24 @@ public class TaskRestController {
 	
 	//작업등록시 템플릿 리스트 불러오기
 	@GetMapping("getTaskTemp")
-	public ResponseEntity<ArrayList<TaskVO>> getTaskTemp(@RequestParam("user_id") Integer user_id) {
+	public ResponseEntity<ArrayList<TaskVO>> getTaskTemp(@RequestParam("user_id") String user_id) {
 		
-		
+		System.out.println("템플릿리스트 매개변수:" + user_id);
 		ArrayList<TaskVO> list = taskService.getTaskTemp(user_id);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	//템플릿 적용하기
+	@GetMapping("applyTemp")
+	public ResponseEntity<TaskVO> applyTemp(@RequestParam("tem_id") Integer tem_id) {
+		
+		
+		TaskVO taskVO = taskService.applyTemp(tem_id);
+		
+		System.out.println("템플릿 적용값 : " + taskVO.toString());
+		
+		return new ResponseEntity<>(taskVO, HttpStatus.OK);
 	}
 	
 	

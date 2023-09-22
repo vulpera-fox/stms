@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,9 +54,11 @@ public class ProjectController {
 	SseService sseService;
 
 	@GetMapping("/ProjectMain")
+
 	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
 
 		String myRole = (String) session.getAttribute("user_role");
+
 		System.out.println(myRole);
 		String myId = (String) session.getAttribute("user_id");
 		
@@ -113,6 +113,10 @@ public class ProjectController {
 
 		HttpSession ses = request.getSession();
 
+
+		session = request.getSession();
+		
+
 		System.out.println(vo.toString());
 
 		projectService.requestProject(vo);
@@ -122,9 +126,11 @@ public class ProjectController {
 			projectService.insertFiles(list, projectService.getProjectInfoForFiles().getPjt_id());
 		}
 
-//		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+		notificationService.createProjectNotification("ADMIN", (String)session.getAttribute("user_id"), vo.getPjt_nm());
+
 
 		return "redirect:/";
+
 	}
 
 //	@GetMapping("/searchForm")
@@ -314,15 +320,18 @@ public class ProjectController {
 
 		projectService.updateProjectInfo(pVO);
 
-		// 고객에게 승인 알림전송
-//		notificationService.createProjectNotification((String)session.getAttribute("user_id"), pVO.getReq_user_id(), pVO.getPjt_nm());
-
-		if (users != null) {
-			for (int i = 0; i < users.size(); i++) {
+		
+		
+		//고객에게 승인 알림전송
+		notificationService.createProjectNotification((String)session.getAttribute("user_id"), "ADMIN", pVO.getPjt_nm());
+		
+		if(users != null) {
+			for(int i = 0; i < users.size(); i++) {
 				projectService.insertUserInfo(users.get(i), pVO.getPjt_id());
+				
+				//작업자에게 할당 알림전송
+				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
 
-				// 작업자에게 할당 알림전송
-//				notificationService.createProjectNotification(users.get(i), "ADMIN", pVO.getPjt_nm());
 			}
 		}
 

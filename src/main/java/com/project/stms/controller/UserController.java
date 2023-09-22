@@ -1,7 +1,11 @@
-package com.project.stms.controller;
+																																			package com.project.stms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +30,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 
 	@PostMapping("/joinForm")
 	public String joinForm(@Valid @ModelAttribute("userVO") UserVO userVO, Errors errors, Model model) {
@@ -49,7 +53,7 @@ public class UserController {
 					model.addAttribute("valid_" + err.getField() , err.getDefaultMessage());								
 				}
 			}
-			
+
 
 			return "/user/log"; //실패시 원래 화면으로
 
@@ -63,7 +67,7 @@ public class UserController {
 		userService.join(userVO);
 
 
-		return "redirect:/";
+		return "redirect:/log";
 	}
 
 	@GetMapping("/log")
@@ -86,13 +90,36 @@ public class UserController {
 		return "redirect:/log";
 	}
 
-	
-	@GetMapping("/mypage")
+
+	@GetMapping("user/mypage")
 	public String myPage() {
 
 		return "/user/mypage";
 	}
 
+	@GetMapping("/user/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+			// 세션을 무효화합니다.
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				session.invalidate();
+			}
 
+			// 쿠키를 삭제합니다.
+			Cookie[] list = request.getCookies();
+			if (list != null) {
+				for (Cookie autho : list) {
+					if(autho.getName().equals("Authorization")) {
+						autho.setValue(""); 
+						autho.setMaxAge(0); 
+						autho.setPath("/"); //이거 넣어주닌까 쿠키가 지워지네요
+						response.addCookie(autho);
+						
+						return "redirect:/";
+					}
+				}
+			}
+			return "redirect:/";
+		}
 
 }
