@@ -93,10 +93,7 @@
 
 				<!-- Topbar Navbar -->
 				<ul class="navbar-nav ml-auto">
-					<div style="border: 1px solid #999; width: 80px;">
-						<input class="time-out" type="text" readonly
-							style="width: 10px; margin-top:20px; margin-left: 10px;" value="">
-					</div>
+
 					<!-- Topbar -->
 					<nav class="navbar navbar-expand navbar-light bg-white topbar static-top"
 						style="border-radius: 20px;">
@@ -156,8 +153,13 @@
 												Logout
 											</a>
 										</div>
-
 									</li>
+									<th:block th:if="${session.user_role != null}">
+									<div class="" style="width: 80px;">
+										<input class="time-out" type="text" readonly
+											style="border: 1px solid #eee; width: 10px; padding: 8px; margin-top:20px; margin-left: 10px; border-radius: 8px;" value="">
+									</div>
+									</th:block>
 								</th:block>
 
 							</form>
@@ -207,33 +209,7 @@
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-	<script>
-		const timeOut = document.querySelector(".time-out");
-		let second = 0;
-		let minutes = 0;
-		let seconds = 0;
-		const timeFunction = function () {
-			fetch("http://localhost:8181/timeOut")
-				.then((response) => {
-					return response.json();
-				})
-				.then((result) => {
-					console.log(result);
-					second = result;
-					minutes = second/60;
-					seconds = second%60;
-					timeOut.value = (parseInt(minutes) >= 10 ? parseInt(minutes) : "0"+parseInt(minutes))
-					+" : "+(parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
-
-					if (second == 0) {
-						clearInterval(intervalId);
-					}
-				});
-		};
-		intervalId = setInterval(timeFunction, 1000);
-
-
-	</script>
+	<script th:src=@{/js/timeout.js}></script>
 
 </th:block>
 

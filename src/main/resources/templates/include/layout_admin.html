@@ -192,21 +192,27 @@
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
 
+								<div style="width: 80px;">
+									<input class="time-out" type="text" readonly
+										style="border: 1px solid #eee; width: 10px; padding: 8px; margin-top:20px; margin-left: 10px; border-radius: 8px;"
+										value="">
+								</div>
 								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
 
 								<div class="topbar-divider d-none d-sm-block"></div>
 
+								
 								<!-- Nav Item - User Information -->
 								<li class="nav-item dropdown no-arrow">
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
 										<th:block th:if="${session.userVO} != null">
-										<span
-											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.userVO.user_nm}]]
-											님
-											<br />(ADMIN)</span>
-										</th:block>	
+											<span
+												class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.userVO.user_nm}]]
+												님
+												<br />(ADMIN)</span>
+										</th:block>
 									</a>
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -230,9 +236,9 @@
 					</nav>
 					<!-- End of Topbar -->
 					<!-- contents -->
-					
-						<div th:replace="${content}">
-						</div>
+
+					<div th:replace="${content}">
+					</div>
 					<!-- /.container-fluid -->
 
 				</div>
@@ -273,7 +279,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" th:href="@{/}">Logout</a>
+						<a class="btn btn-primary" th:href="@{/user/logout}">Logout</a>
 					</div>
 				</div>
 			</div>
@@ -281,6 +287,7 @@
 
 		<!-- Custom scripts for all pages-->
 		<script th:src=@{/js/sb-admin-2.min.js}></script>
+		<script th:src=@{/js/timeout.js}></script>
 
 	</body>
 </th:block>
@@ -330,5 +337,6 @@
         })
     }
 </script>
+
 
 </html>
