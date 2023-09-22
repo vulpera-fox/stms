@@ -43,7 +43,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 		}
 		
 		if(cookie == null ) {
-			response.setContentType("text/plain; charset=UTF-8");
+			//response.setContentType("text/plain; charset=UTF-8");
 			response.sendError(403, "토큰없음");
 			
 			return; //함수종료
@@ -66,7 +66,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 		} catch (Exception e) {
 			e.printStackTrace();
 			//토큰이 위조거나 토큰 만료
-			response.setContentType("text/plain; charset=UTF-8");
+			//response.setContentType("text/plain; charset=UTF-8");
 			//response.sendError(403, "토큰위조");
 			response.sendRedirect("/log?error=true");
 		}
