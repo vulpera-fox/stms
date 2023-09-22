@@ -55,8 +55,9 @@
 	<style>
 		#wrapper {
 
-			overflow-y: scroll !important;
+			overflow-y: auto !important;
 			height: 100vh !important;
+			
 		}
 
 		#accordionSidebar {
@@ -64,6 +65,12 @@
 			position: sticky !important;
 			top: -60px !important;
 
+		}
+		
+		#content{
+			
+			overflow-x: scroll;
+    		width: 100%;
 		}
 	</style>
 
@@ -76,7 +83,7 @@
 			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/project/ProjectMain}">
 					<div class="sidebar-brand-icon rotate-n-15">
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(15deg);"></i>
 					</div>
@@ -89,9 +96,9 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item">
-					<a class="nav-link" href="#">
+					<a class="nav-link" th:href="@{/project/ProjectMain}">
 						<img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
-						<span style="margin: 2px">홈</span></a>
+						<span style="margin: 2px">홈으로 돌아가기</span></a>
 				</li>
 
 				<!-- Divider -->
@@ -128,9 +135,6 @@
 						</div>
 					</div>
 				</li>
-
-				<!-- Divider -->
-				<hr class="sidebar-divider">
 
 				<!-- Nav Item - Pages Collapse Menu -->
 				<li class="nav-item">
@@ -191,9 +195,9 @@
 							<!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top">-->
 							<!-- Topbar Navbar -->
 							<ul class="navbar-nav ml-auto">
-
+							<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER'">
 								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
-
+							</th:block>
 								<div class="topbar-divider d-none d-sm-block"></div>
 
 								<!-- Nav Item - User Information -->
@@ -201,9 +205,9 @@
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
-										<th:block th:if="${session.userVO} != null">
+										<th:block th:if="${session.user_role} != null">
 										<span
-											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.userVO.user_nm}]]
+											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님
 											<br />(ADMIN)</span>
 										</th:block>	

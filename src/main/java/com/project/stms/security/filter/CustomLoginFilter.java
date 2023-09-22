@@ -85,6 +85,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		
 		HttpSession session = request.getSession();//아이디를 세션에 저장해서 넘겼음
+		session.setMaxInactiveInterval(60*60); //세션 1시간
 		session.setAttribute("user_email", principal.getUsername());
 		session.setAttribute("user_id", principal.getUser_id());
 		session.setAttribute("user_role", principal.getUser_role());
@@ -123,7 +124,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		System.out.println("===로그인 실패 핸들러===");
 		
-		response.setContentType("text/html; charset=UTF-8;");
+		//response.setContentType("text/html; charset=UTF-8");
 		response.sendRedirect("/log?error=true");
 
 	}

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskLists})}">
+<th:block th:replace="${session.user_role == 'ROLE_ADMIN'} ? ~{./include/layout_admin :: setContent(~{:: .taskLists})} : ~{./include/layout_engineer :: setContent(~{:: .taskLists}) }">
 
 <th:block class="taskLists">
 	<style>
