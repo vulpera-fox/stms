@@ -333,4 +333,19 @@ a {
 	width: 150px;
 }
 
+.createBtn {
+	width: 60px;
+	height: 30px;
+	display: inline-block;
+	border: 1px solid black;
+	color: black;
+	line-height: 30px;
+}
+
+.createBtn:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: black;
+}
+
 
