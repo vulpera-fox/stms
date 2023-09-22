@@ -38,6 +38,6 @@ public class TaskVO {
 	private String tem_nm;
 	private String pred_time;
 	
-	private String status_id;
+	private String status_id2;
 	
 }

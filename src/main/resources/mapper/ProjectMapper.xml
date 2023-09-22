@@ -170,7 +170,7 @@
             when (t.status_id = 3) then "작업완료"
             when (t.status_id = 4) then "작업연기"
             else "작업중지"
-            end as status_id
+            end as status_id2
 		
 		from task t left join project p on t.pjt_id = p.pjt_id where p.pjt_id = #{pjt_id}
 	</select>
