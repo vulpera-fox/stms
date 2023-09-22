@@ -85,7 +85,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		
 		
 		HttpSession session = request.getSession();//아이디를 세션에 저장해서 넘겼음
-		session.setMaxInactiveInterval(2); //세션 2초
+		//session.setMaxInactiveInterval(2); //세션 2초
 
 		session.setAttribute("user_email", principal.getUsername());
 		session.setAttribute("user_id", principal.getUser_id());
