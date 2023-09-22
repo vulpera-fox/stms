@@ -99,6 +99,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		userVO.setUser_role(principal.getUser_role());
 		userVO.setUser_adr(principal.getUser_adr());
 		userVO.setUser_nm(principal.getUser_nm());
+		userVO.setUser_group(principal.getUser_group());
 		
 		
 		
@@ -121,6 +122,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 			AuthenticationException failed) throws IOException, ServletException {
 		
 		System.out.println("===로그인 실패 핸들러===");
+
 		response.sendRedirect("/log?error=true");
 
 	}

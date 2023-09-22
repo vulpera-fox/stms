@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +27,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
-import software.amazon.awssdk.transfer.s3.S3TransferManager;
-import software.amazon.awssdk.transfer.s3.model.CompletedFileDownload;
-import software.amazon.awssdk.transfer.s3.model.DownloadFileRequest;
-import software.amazon.awssdk.transfer.s3.model.FileDownload;
-import software.amazon.awssdk.transfer.s3.progress.LoggingTransferListener;
 
 @Component
 public class S3Service {
@@ -48,6 +42,32 @@ public class S3Service {
 		ListBucketsRequest listBucketRequest = ListBucketsRequest.builder().build();
 		ListBucketsResponse ListBucketsResponse = s3.listBuckets(listBucketRequest);
 		ListBucketsResponse.buckets().stream().forEach(x -> System.out.println(x.name()));
+
+	}
+	
+
+	public void uploadProfile(String originName, byte[] fileData) {
+
+		try {
+
+			Map<String, String> metadata = new HashMap<>();
+
+			metadata.put("x-amz-meta-myVal", "test");
+			PutObjectRequest putOb = PutObjectRequest.builder()
+					.bucket(bucketName) // 버킷이름
+					.key(originName) // 파일이름
+					.contentType("image/jpeg")
+					.metadata(metadata).build();
+
+			PutObjectResponse response = s3.putObject(putOb, RequestBody.fromBytes(fileData));
+
+			System.out.println("Successfully placed " + originName + " into bucket " + bucketName);
+
+			System.out.println(response.sdkHttpResponse().statusCode());
+
+		} catch (S3Exception e) {
+			System.err.println(e.getMessage());
+		}
 
 	}
 

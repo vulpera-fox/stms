@@ -21,8 +21,10 @@
 		<p>고유번호: [[${session.userVO.user_id}]]</p>
 		<p>이메일(아이디): [[${session.userVO.user_email}]]</p>
 		<p>권한: [[${session.userVO.user_role}]]</p>
+		<p>그룹: [[${session.userVO.user_group}]]</p>
+		
 		<a class="btn btn-primary" th:href="@{/}">회원정보수정</a>
-		<a class="btn btn-primary" th:href="@{/}">탈퇴</a>
+		<a class="btn btn-primary" th:href="@{/user/delete}">탈퇴</a>
 		<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
 	</section>
 </th:block>

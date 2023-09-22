@@ -9,4 +9,5 @@ public interface UserService {
 	public UserVO userInfo(String user_email);
 	public UserVO checkId(String user_email);
 	public UserVO changePE(String user_email);
+	public int delete(String user_id);
 }

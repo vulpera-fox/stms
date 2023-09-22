@@ -56,6 +56,19 @@ li {
   margin-bottom: 120px;
 }
 
+.profileText{
+position: absolute;
+  top: 110px;
+  width: 25%;
+  margin-bottom: 20px;
+  height: 90px;
+  background-color: rgb(255, 255, 255);
+  color: #999;
+  border: none; 
+  resize: none; 
+}
+
+
 
 .titleBox > a > img {
   width: 100px; height: 100px;
@@ -74,10 +87,6 @@ li {
 }
 
 
-/*프로필등록 버튼*/
-.regBtnWrap{
-	
-}
 
 .regBtn {
   position: absolute;

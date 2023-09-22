@@ -25,6 +25,7 @@ public interface NotificationService {
 
 	public void createTaskNotification(String rcv_id, String task_date, String task_nm, int pjt_id);
 	
+	public void createChangeMemberNotification(String rcv_id);
 //	public ArrayList<NotificationVO> getData(int pageNumber);
 		
 }
