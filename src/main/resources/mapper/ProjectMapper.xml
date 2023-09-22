@@ -42,8 +42,6 @@
 				and p.pjt_nm like concat("%", #{pjt_nm}, "%")
 			</if>
 		</where>
-		
-		order by pjt_end_dt
 		limit #{pageStart} , #{amount}
 	</select>
 	
