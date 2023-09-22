@@ -59,6 +59,7 @@ public class SseServiceImple implements SseService{
                     .id(eventId)
                     .name("sse")
                     .data(data, MediaType.APPLICATION_JSON));
+            System.out.println(data + "머 머라고");
         } catch (IOException exception) {
             emitterRepository.deleteById(emitterId);
             emitter.completeWithError(exception);
@@ -136,9 +137,9 @@ public class SseServiceImple implements SseService{
     public NotificationVO createNotification(String receiver, String content) {
 
             return NotificationVO.builder()
-                    .rcv_id(receiver)
-                    .noti_nm(content)
-                    .noti_dtl(content)
+                    .rcv_id("a에게")
+                    .noti_nm("bb라는 제목으으로")
+                    .noti_dtl("cc를 보냄!")
                     .build();
     }
 
