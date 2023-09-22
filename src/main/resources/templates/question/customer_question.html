@@ -1,211 +1,196 @@
-<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- customer_question -->
+
+<!-- customer_news -->
 <link rel="stylesheet" th:href="@{/css/customer_question.css}" />
 
+
+
 <th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
-	<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
-		
-	</th:block>
+    <th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}"></th:block>
 </th:block>
-		
-<th:block th:if="${session.user_role == 'ROLE_ENGINEER'}">
-	<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .wrap})}"></th:block>
-</th:block>	
-	
+
 <th:block th:if="${session.user_role == 'ROLE_ADMIN'}">
     <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .wrap})}">
-		<div class="wrap">
-			<div>[[${session.user_role}]]</div>
-			<div th:if="${session.user_role == 'ROLE_CUSTOMER'} or ${session.user_role == null}">
-				<div class="col-lg-12 subtop_wrap">
-					<div class="col-lg-8 subtop">
-						<h1 class="page_header">Q & A
-							<div class="sub_text">우리 서버에게 묻고 답하기</div>
-						</h1>
-					</div>
-				</div>
-			</div>
-			<!-- ROLE_ADMIN & ENGINEER 권한일 경우 스타일-->
-			<th:block th:if="${session.user_role == 'ROLE_ADMIN'} or ${session.user_role == 'ROLE_ENGINEER'}">
-				<div class="col-lg-8 wrap q_list_wrap" style="min-width: 1027px !important; margin-left:94px !important;">
-			</th:block>
-			<!-- ROLE_CUSTOMER 권한일 경우 스타일 기본-->
-			<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'} or ${session.user_role == null}">
-				<div class="col-lg-8 wrap q_list_wrap">
-			</th:block>
-
-
-
-				<div class="search">
-
-					<div class="total_num">
-						총
-						<span>[[${qpageVO.total}]]</span>
-						건의 게시물 (
-						<span>[[${qpageVO.page}]]</span> /
-						<th:block
-							th:with="result=${T(java.lang.Math).ceil(qpageVO.total.doubleValue() / qpageVO.amount.doubleValue())}">
-							<span th:text="${result.intValue()}"></span> pages )
-						</th:block>
-					</div>
-					<form name="" action="" method="get">
-						<select name="searchType" style="font-size: 14px;" id="searchType">
-							<option value="none" selected>선택</option>
-							<option value="searchTitle" th:selected="${qpageVO.cri.searchType} == 'searchTitle'">제목
-							</option>
-							<option value="searchContents" th:selected="${qpageVO.cri.searchType} == 'searchContents'">
-								내용
-							</option>
-						</select>
-						<input name="searchKeyword" class="keyword" type="text" placeholder="검색할 키워드를 입력해주세요"
-							th:value="${qpageVO.cri.searchKeyword}">
-						<button class="search_btn">검색</button>
-					</form>
-
-
-				</div>
-				<table class="q_list">
-					<thead>
-						<tr>
-							<th>No.</th>
-							<th>제목</thc>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>파일</th>
-							<th>조회수</th>
-						</tr>
-					</thead>
-
-					<!--비번 모달창 -->
-					<script>
-						function modalOpen(e) {
-
-							e.preventDefault();
-							$('.modal_content').fadeIn();
-						}
-
-						function modalClose(e) {
-
-							$('.modal_content').fadeOut();
-						}
-
-						function modalSubmit(e) {
-
-							//console.log($('#post_pw').val());
-							//console.log($('#pw').val());
-
-							if ($('#post_pw').val() == $('#pw').val()) {
-								/* 수정중!! */
-
-								var url = '[[@{customer_questionDetail(post_id=' + $('#no');
-
-								$('#open').prop('th:href', url);
-
-							}
-
-						}
-
-					</script>
-					<tbody>
-
-						<tr th:each="vo,status :${list}">
-
-							<td>[[${status.count}]]</td>
-							<td class="title">
-								<th:block th:if="${vo.post_secret_yn} == 'N'">
-									<a th:href="@{customer_questionDetail(post_id=${vo.post_id})}">[[${vo.post_title}]]
-								</th:block>
-								<th:block th:unless="${vo.post_secret_yn} == 'N'">
-									<a href="javascript:void(0)" id="open"
-										onclick="modalOpen(event)">[[${vo.post_title}]]</a>
-									<img th:if="${vo.post_secret_yn} == 'Y'" th:src="@{/img/lock.png}"
-										style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
-									<input type="hidden" th:value="${vo.post_pw}" id="pw">
-									<input type="hidden" th:value="${vo.post_id}" id="no">
-								</th:block>
-							</td>
-
-							<td>[[${vo.user_id}]]</td>
-							<td>[[${#temporals.format(vo.post_regdate, 'YYYY-MM-dd')}]]</td>
-							<td><img th:if="${vo.file_id} != null" th:src="@{/img/file.png}"
-									style="width: 20px; height: 20px;"></td>
-							<td>[[${vo.post_hits}]]</td>
-						<tr>
-							<td colspan="6" th:if="${#lists.isEmpty(list)}">검색 결과가 없습니다.</td>
-						</tr>
-						</tr>
-
-					</tbody>
-
-				</table>
-
-				<!-- 비밀글 비번 인증 모달창 -->
-
-				<div id="modal">
-
-					<div class="modal_content">
-
-						<button type="button" id="cnxl" onclick="modalClose(event)">x</button>
-						<p>비밀번호를 입력해주세요</p>
-						<input type="password" id="post_pw">
-						<button id="confirm_modal" onclick="modalSubmit(event)">확인</button>
-
-					</div>
-
-					<div class="modal_layer"></div>
-
-				</div>
-
-
-				<!-- 새로운 게시글작성 버튼은 customer권한만 보이도록 -->
-				<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
-					<div class="goto_write">
-						<a th:href="@{/question/customer_questionWrite}"><button class="goto_write_btn">글쓰기</button></a>
-					</div>
-				</th:block>
-
-				<th:block th:replace="~{./include/questionPage :: pageNation (${qpageVO})}"></th:block>
-			
-</div>
-	</th:block>
 </th:block>
 
-		
+<th:block th:if="${session.user_role == 'ROLE_ENGINEER'}">
+    <th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .wrap})}">
+</th:block>
+
+    
+	<div class="wrap">
+		<div th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+			<div class="col-lg-12 subtop_wrap">
+				<div class="col-lg-8 subtop">
+					<h1 class="page_header">Q & A
+						<div class="sub_text">우리 서버에게 묻고 답하기</div>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<!-- ROLE_ADMIN & ENGINEER 권한일 경우 스타일-->
+		<th:block th:if="${session.user_role != 'ROLE_CUSTOMER'}">
+			<div class="col-lg-8 wrap q_list_wrap" style="min-width: 1027px !important; margin-left:94px !important;">
+		</th:block>
+		<!-- ROLE_CUSTOMER 권한일 경우 스타일 기본-->
+		<th:block th:unless="${session.user_role != 'ROLE_CUSTOMER'}">
+			<div class="col-lg-8 wrap q_list_wrap">
+		</th:block>		
+			
+			<div class="search">
+				
+				<div class="total_num">
+						총
+					<span>[[${qpageVO.total}]]</span>
+						건의 게시물 (
+					<span>[[${qpageVO.page}]]</span> / 
+					<th:block th:with="result=${T(java.lang.Math).ceil(qpageVO.total.doubleValue() / qpageVO.amount.doubleValue())}">
+					<span th:text="${result.intValue()}"></span> pages )
+					</th:block>
+				</div>	
+				<form name="" action="" method="get">
+					<select name="searchType" style="font-size: 14px;" id="searchType">
+						<option value="none" selected>선택</option>
+						<option value="searchTitle" th:selected="${qpageVO.cri.searchType} == 'searchTitle'" >제목</option>
+						<option value="searchContents" th:selected="${qpageVO.cri.searchType} == 'searchContents'" >내용</option>
+					</select>
+					<input name="searchKeyword" class="keyword" type="text" placeholder="검색할 키워드를 입력해주세요" th:value="${qpageVO.cri.searchKeyword}">
+					<button class="search_btn">검색</button>
+				</form>
+				
+				
+			</div>
+			<table class="q_list">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>제목</thc>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>파일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+				
+				<!--비번 모달창 -->
+				<script>
+					function modalOpen(e) {
+
+						e.preventDefault();
+						$('.modal_content').fadeIn();
+					}
+					
+					function modalClose(e){
+						
+						$('.modal_content').fadeOut();
+					}
+					
+					function modalSubmit(e){
+						
+						//console.log($('#post_pw').val());
+						//console.log($('#pw').val());
+						
+						if($('#post_pw').val() == $('#pw').val()){
+							/* 수정중!! */
+							$('#open').attr("a", "");
+							
+						}
+						
+					}
+
+				</script>
+				<tbody>
+					
+					<tr th:each="vo,status :${list}">
+					
+					<td>[[${status.count}]]</td>
+					<td class="title">
+					<th:block th:if="${vo.post_secret_yn} == 'N'">
+						<a th:href="@{customer_questionDetail(post_id=${vo.post_id})}">[[${vo.post_title}]] 
+					</th:block>
+					<th:block th:unless="${vo.post_secret_yn} == 'N'">	
+						<a href="javascript:void(0)" id="open" onclick="modalOpen(event)">[[${vo.post_title}]]</a>	
+							<img th:if="${vo.post_secret_yn} == 'Y'" th:src="@{/img/lock.png}"
+								style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
+						<input type="hidden" th:value="${vo.post_pw}" id="pw">		
+					</th:block>	
+					</td>
+					
+					<td>[[${vo.user_id}]]</td>
+					<td>[[${#temporals.format(vo.post_regdate, 'YYYY-MM-dd')}]]</td>
+					<td><img th:if="${vo.file_id} != null" th:src="@{/img/file.png}" style="width: 20px; height: 20px;"></td>
+					<td>[[${vo.post_hits}]]</td>
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(list)}">검색 결과가 없습니다.</td>
+					</tr>
+					</tr>
+					
+				</tbody>
+
+			</table>
+			
+			<!-- 비밀글 비번 인증 모달창 -->
+			<div id="modal">
+				
+				<div class="modal_content">
+					
+					<button type="button" id="cnxl" onclick="modalClose(event)">x</button>
+					<p>비밀번호를 입력해주세요</p>
+					<input type="password" id="post_pw">
+					<button id="confirm_modal" onclick="modalSubmit(event)">확인</button>	
+									
+				</div>
+				
+				<div class="modal_layer"></div>
+				
+			</div>
+			
+			<!-- 새로운 게시글작성 버튼은 customer권한만 보이도록 -->
+			<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+				<div class="goto_write">
+					<a th:href="@{/question/customer_questionWrite}"><button class="goto_write_btn">글쓰기</button></a>
+				</div>
+			</th:block>
+
+			<th:block th:replace="~{./include/questionPage :: pageNation (${qpageVO})}"></th:block>
+	</div>
+</div>
+
 
 <script th:inline="javascript">
-
+	
 	/* 등록 성공 시 */
 	var msg = JSON.parse('[[${msg}]]');
 
-	if (msg != null) {
+		if (msg != null) {
 
-		alert(msg);
-	};
-
-	/* 검색 */
-	$('.search_btn').click(function () {
-
-		if ($('#searchType').val() == 'none') {
-
+			alert(msg);
+		};
+	
+	/* 검색 */	
+	$('.search_btn').click(function(){
+		
+		if($('#searchType').val() == 'none'){
+			
 			alert('검색 유형을 선택해주세요');
 
-		} else if ($('.keyword').val() == '') {
-
+		} else if($('.keyword').val() == ''){
+			
 			alert('키워드를 입력해주세요');
-
+			
 		}
+		
+	})	
+	
+	
+					
 
-	})
-
-
-
-
-
-
-
+   
+	
+	
 </script>
+
 
 
 </html>
