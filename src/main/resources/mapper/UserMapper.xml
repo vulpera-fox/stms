@@ -68,4 +68,11 @@
 		where USER_EMAIL = #{user_email}
 	</select>
 
+
+	<delete id="delete" parameterType="UserVO">
+		DELETE FROM user WHERE USER_ID = #{user_id};
+	</delete>
+	
+	
+
 </mapper>

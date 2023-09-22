@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,7 @@ public class UserController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Autowired
+	@Qualifier("userService")
 	private UserService userService;
 
 
@@ -96,30 +99,69 @@ public class UserController {
 
 		return "/user/mypage";
 	}
-
+	
+	//로그아웃
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-			// 세션을 무효화합니다.
-			HttpSession session = request.getSession(false);
-			if (session != null) {
-				session.invalidate();
-			}
-
-			// 쿠키를 삭제합니다.
-			Cookie[] list = request.getCookies();
-			if (list != null) {
-				for (Cookie autho : list) {
-					if(autho.getName().equals("Authorization")) {
-						autho.setValue(""); 
-						autho.setMaxAge(0); 
-						autho.setPath("/"); //이거 넣어주닌까 쿠키가 지워지네요
-						response.addCookie(autho);
-						
-						return "redirect:/";
-					}
-				}
-			}
-			return "redirect:/";
+		// 세션을 무효화합니다.
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
 		}
 
+		// 쿠키를 삭제합니다.
+		Cookie[] list = request.getCookies();
+		if (list != null) {
+			for (Cookie autho : list) {
+				if(autho.getName().equals("Authorization")) {
+					autho.setValue(""); 
+					autho.setMaxAge(0); 
+					autho.setPath("/"); //이거 넣어주닌까 쿠키가 지워지네요
+					response.addCookie(autho);
+
+					return "redirect:/";
+				}
+			}
+		}
+		return "redirect:/";
+	}
+
+	//탈퇴
+	@GetMapping("/user/delete")
+	public String delete(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+
+		int num = userService.delete(userVO.getUser_id());
+		if(num == 1) {
+
+			session.invalidate();
+
+			Cookie[] list = request.getCookies();
+			
+			for (Cookie autho : list) {
+				if(autho.getName().equals("Authorization")) {
+					autho.setValue(""); 
+					autho.setMaxAge(0); 
+					autho.setPath("/");
+					response.addCookie(autho);
+
+					return "redirect:/";
+				}
+			}
+		}
+
+		return "redirect:/";
+	}
+	
+	@PostMapping("/updateForm")
+	public String update(@RequestParam("userVO")UserVO userVo) {
+		
+		
+		
+		return "/user/mypage";
+	}
+	
+	
+	
 }

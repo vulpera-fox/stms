@@ -4,7 +4,7 @@
 <link rel="stylesheet" th:href="@{/css/customer_questionDetail.css}">
 
 <!-- 권한별 페이지 처리 -->
-<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'}">
+<th:block th:if="${session.user_role == 'ROLE_CUSTOMER'} or ${session.user_role} == null">
     <th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}"></th:block>
 </th:block>
 
@@ -78,15 +78,19 @@
 
 		<form name="goto" action="" method="post" id="formObj">
 			<div class="goto_list">
-				<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER'">
+				<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER' and ${session.user_role} != null">
 					<a th:href="@{customer_questionDetail}"><button class="goto_modify_btn">수정</button></a>
 					<a th:href="@{customer_question}"><button class="goto_delete_btn">삭제</button></a>
 					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
 				</th:block>
-				<th:block th:unless="${session.user_role} == 'ROLE_CUSTOMER'">
+				
+				<th:block th:if="${session.user_role} != 'ROLE_CUSTOMER' and ${session.user_role} != null">
 					<a><button class="goto_modify_btn">답변 달기</button></a>
 					<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
 				</th:block>	
+				<th:block th:if="${session.user_role} == null">
+				<a><button type="button" class="goto_list_btn" th:onclick="|location.href='@{customer_question}'|">목록</button></a>
+				</th:block>
 			</div>
 		</form>
 	</div>
