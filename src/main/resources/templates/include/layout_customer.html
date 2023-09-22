@@ -134,7 +134,7 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<div style="text-align: center;">
 											<img class="img-profile rounded-circle profile"
-												th:src=@{/img/undraw_profile.svg}>
+												th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
 										</div>
 										<div class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님
@@ -144,7 +144,7 @@
 									<!-- Dropdown - User Information-->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" th:href="@{/user/mypage}">
 											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 											My Page
 										</a>
