@@ -16,6 +16,7 @@ import com.project.stms.command.TaskVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.util.Criteria;
+import com.project.stms.util.ProjectCriteria;
 
 @Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
@@ -30,29 +31,25 @@ public class ProjectServiceImpl implements ProjectService {
 	
 
 	@Override
-	public List<ProjectVO> getList() {
+	public List<ProjectVO> getList(ProjectCriteria cri) {
 		
-		return projectMapper.getList();
+		return projectMapper.getList(cri);
 	}
 
 	@Override
-	public List<ProjectVO> getRequestList() {
-		return projectMapper.getRequestList();
+	public List<ProjectVO> getRequestList(ProjectCriteria cri) {
+		return projectMapper.getRequestList(cri);
 	}
 	
 	@Override
-	public List<ProjectVO> getRoledList(String user_id) {
-		return projectMapper.getRoledList(user_id);
+	public List<ProjectVO> getRoledList(String user_id, ProjectCriteria cri) {
+		return projectMapper.getRoledList(user_id, cri);
 	}
 
 	@Override
 	public void requestProject(ProjectVO vo) {
 		projectMapper.requestProject(vo);
 	}
-
-
-
-
 
 	@Override
 	public void insertFiles(List<MultipartFile> list, int pjt_id) {
@@ -142,8 +139,8 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public int getTotal() {
-		return projectMapper.getTotal();
+	public int getTotal(ProjectCriteria cri) {
+		return projectMapper.getTotal(cri);
 	}
 
 
@@ -204,6 +201,36 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<FileVO> getFileName(int pjt_id) {
 		return projectMapper.getFileName(pjt_id);
 	}
+
+	@Override
+	public void deleteProject(int pjt_id) {
+		projectMapper.deleteProject(pjt_id);
+	}
+
+	@Override
+	public void modifyProject(ProjectVO vo) {
+		projectMapper.modifyProject(vo);
+		
+	}
+
+	@Override
+	public int getRoledTotal(String user_id, ProjectCriteria cri) {
+		return projectMapper.getRoledTotal(user_id, cri);
+	}
+
+	@Override
+	public int getFilteredTotal(String server_type, String pjt_end_dt, String ins_user_id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSearchNameTotal(String pjt_nm) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 
 	

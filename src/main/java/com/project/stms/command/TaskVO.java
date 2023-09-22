@@ -41,9 +41,12 @@ public class TaskVO {
 	private String tem_nm;
 	private String pred_time;
 	
+
+	private String status_id2;
+
 	private String pjt_nm; //프로젝트명
 	private String req_user_id; //프로젝트 신청자(고객사)
 	private Integer change_req_yn; //변경요청 여부
-	
+
 	
 }
