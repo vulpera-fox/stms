@@ -116,7 +116,6 @@ public class TaskController {
 		return "redirect:/task/taskList";
 	}
 	
-	
 	//작업리스트 삭제
 	@PostMapping("taskDeleteForm")
 	public String taskDeleteForm(@RequestParam("task_id") int task_id) {
@@ -161,7 +160,7 @@ public class TaskController {
 	
 	//작업템플릿 삭제
 	@PostMapping("/tempDelForm")
-	public String tempDelForm(@RequestParam("tem_id") int tem_id) {
+	public String tempDelForm(@RequestParam("tem_id") Integer tem_id) {
 		
 		System.out.println(tem_id);
 		taskService.deleteTemplate(tem_id);

@@ -19,6 +19,7 @@ const warning = document.querySelector(".warning");
 
 const dropbox = document.querySelector('.file_box');
 const input_filename = document.querySelector('.file_name');
+
 //const file_btn = document.querySelector('.upload_btn');
 let file_data;
 
@@ -74,9 +75,6 @@ dropbox.addEventListener('drop', async function(e) {
     	profileImg.src = "https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
 		org_file_nm.value=file_data.name;
 });
-
-
-
 
 
 for (var i = 0; i < inputs.length; i++) {

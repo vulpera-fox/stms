@@ -20,7 +20,6 @@ public interface TaskService {
 	//작업상세페이지
 	public TaskVO getTaskDetail(int task_id);
 	
-	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
 	//템플릿조회
@@ -45,10 +44,10 @@ public interface TaskService {
 	public ArrayList<TaskVO> getPjtMembers(Integer pjt_id);
 	
 	//작업등록시 템플릿 리스트 조회
-	public ArrayList<TaskVO> getTaskTemp(String user_id);
+	public ArrayList<TaskVO> getTaskTemp();
 	
 	//템플릿 적용
-	public TaskVO applyTemp(Integer tem_id);
+	public TaskVO applyTemp(String tem_nm);
 	
 	
 	//작업등록(관리자)
@@ -59,8 +58,6 @@ public interface TaskService {
 	
 	//작업 변경 요청(작업자)
 	public void changeMember(int task_id);
-	
-	
 	
 	//작업삭제
 	//public void delTask(int task_id);

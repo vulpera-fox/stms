@@ -11,6 +11,7 @@ const timeFunction = function() {
 		})
 		.then((result) => {
 			//console.log(result);
+
 			if (result != 0) {
 
 				second = result;

@@ -4,1576 +4,1638 @@
 <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskRegs})}">
 
 
-<div class="taskRegs">
-	
+	<div class="taskRegs">
 
-	<style>
-	
-	/* 공통사항 */
-	.taskRegContainer {
-		
-		margin: 0 auto;
-		
-	}
-	
-	
-	.taskRegBox {
-	  width: 300px;
-	  height: 650px;
-	  text-align: center;
-	  
-	  box-shadow: 0 3px 3px #020f37;
-	  margin: 20px;
-	  float: left;
-	  
-	}
-	
-	.task_listBox {
-	  width: 300px;
-	  height: 650px;
-	  text-align: center;
-	  
-	  box-shadow: 0 3px 3px #020f37;
-	  margin: 20px;
-	  float: left;	
-	}
 
-	.taskRegRow {
-	  border-top: 1px solid rgb(227, 227, 227);
-	  border-collapse: collapse;
-	  line-height: 20px;
-	}
-	
-	.taskRegRow:first-child {
-		border-top: none;
-	}
-	
-	.taskRegHeads, .tastRegBodies {
-	  padding: 5px;
-	  text-align: center;
-	  font-size:medium;
-	  font-weight: bold;
-	}
-	
-	.taskRegBodiesS {
-	  padding: 5px;
-	  text-align: center;
-	  font-size: large;
-	  font-weight: bold;
-	  overflow: hidden;
-	}
-	
-	.taskRegDates {
-	  padding: 10px;
-	  text-align: left;
-	}
-	
-	
-	.taskRegTable {
-	  width: 580px;
-	  height: 310px;
-	  margin: 5px;
-	  padding: 5px;
-	}
-	
-	
-	.colspanInput {
-	  width: 100%; 
-	}
-	
-	.colspanInput_selectBox {
-		width:100%;
-		
-	}
-	
-	.colspanTextarea {
-		width: 100%;
-		height : 120px
-	}
-	
-	.taskRegInput {
-	  width: 95%;
-	  block-size: 30px;
-	}
-	
-	.taskRegInputL {
-		width: 98%;
-		block-size: 30px;
-	}
-	
-	.taskRegInputR {
-		width:65%;
-		block-size: 30px;
-		float: left;
-	}
-	
-	.datetimepicker {
-	  width: 150px;
-	  text-align: left;
-	}
-	
-	.RegBtnBox {
-	  margin: 20px;
-	  text-align: center;
-	}
-	
-	.taskRegTable-wrap {
-		position: relative;
-	}
-	
-	#taskSearchSaveBtn {
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position: absolute;
-      top: 0px;
-      left: 500px;
-	}
-	
-	#taskSearchDelBtn {
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position: absolute;
-      top: 0;
-      left: 550px;
-	}
-	
-	#taskSearchNewBtn {
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position: absolute;
-      top: 215px;
-      left: 730px;		
-	}
-	
-	.taskSearchNewBtnA {
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position: absolute;
-      top: 0px;
-      left: 450px;		
-	}
-	
-	#pjtListSearchBtn {
-	  width: 40px;
-	  height: 30px;
-	  padding: 0;
-	  margin: 0 auto;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;	
-	}
-	
-	#taskSearchRegBtn, #taskSearchRegBtnB {
-		
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position: absolute;
-      top: 0px;
-      left: 550px;
-	}
-	
-	#tempSelectBtn {
-	  width: 40px;
-	  height: 30px;
-	  text-align: center;
-	  line-height: 30px;
-	  background-color: #020f37;
-      color: #fff;
-      font-weight: bold;
-      position:absolute;
-      top: 0;
-      left: 250px;
-	}
-	
-	#tempSelectBtn:hover, #taskSearchRegBtn:hover,
-	#pjtListSearchBtn:hover, #taskSearchNewBtn:hover,
-	.taskSearchNewBtnA:hover, #taskSearchDelBtn:hover, #taskSearchSaveBtn:hover {
-		text-decoration: none;
-		color: #fff;
-	}
-	
-	.taskRegBodiesS > .taskRegBtn {
-	    background-color: #020f37;
-	    color: #fff;
-	   	width: 70px;
-	   	height: 30px;
-	   	font-weight: bold;
-	   	float: right;
-	   	font-size: 15px;
-  	}
-	  
-	#startDateTime {
-		block-size: 30px;
-		margin-left: 10px;
-		margin-right: 30px;
-	}
-	
-	#endDateTime {
-		block-size: 30px;
-		margin-left: 10px;
-	}
-	
-	.taskRegBodiesP {
-		overflow: hidden;
-	}
-	
-	.taskRegInputPL {
-		float: left;
-		display: inline-block;
-		width: 480px;
-	}
-	
-	.leftBox {
-		width:300px;
-		height:650px;
-		border: 1px solid #777;
-		display: inline-block;
-		overflow-y: scroll;
-	}
-	
-	.rightBox {
-		width:300px;
-		height:650px;
-		border: 1px solid #777;
-		display: inline-block;
-		overflow-y: scroll;
-		
-	}
-	
-	.taskDetail_searchBox {
-		float: left;
-		width: 600px;
-		height: 310px;
-		display: inline-block;
-		
-		margin: 20px 20px 10px 20px;
-		box-shadow: 0 3px 3px #020f37;
-	}
-	
-	.searchTitles {
-		margin: 10px;
-		padding:3px
-	}
-	
-	.task_searchRegBox {
-		float: left;
-		width: 600px;
-		height: 310px;
-		display: inline-block;
-		
-		margin: 20px 20px 10px 20px;
-		box-shadow: 0 3px 3px #020f37;
-	}
-	
-	.taskStatus {
-		width: 100px;
-		text-align: center;
-		border-radius: 20px;
-		background-color: blue;
-		color: #fff;
-		font-weight: bold;
-	}
-	
-	.taskStatusDefault {
-		width: 100px;
-		text-align: center;
-		border-radius: 20px;
-		background-color: blue;
-		color: #fff;
-		font-weight: bold;
-	}
-	
-	#engineerNameBox {
-		width:100px;
-		text-align: center;
-		border-radius: 20px;
-		background-color: rgb(72, 175, 148);
-		color: #fff;
-		font-weight: bold;
-	}
-	
-	#engineerNameBoxS {
-		width:100px;
-		text-align: center;
-		border-radius: 20px;
-		background-color: rgb(72, 175, 148);
-		color: #fff;
-		font-weight: bold;
-	}
-	
-	#engineerNameBoxD {
-		width:100px;
-		text-align: center;
-		border-radius: 20px;
-		background-color: rgb(72, 175, 148);
-		color: #fff;
-		font-weight: bold;
-	}
-	
-	
-	.task_lists {
-		margin-top: 70px;
-	}
-	
-	.searchTask, .taskResults {
-		color: #020f37;
-		font-size: 15px;
-	}
-	
-	.searchTask:hover, .taskResults:hover {
-		color: #020f37;
-	}
-	
-	.searchTaskBox {
-		width: 180px;
-		height: 30px;
-		line-height: 30px;
-		text-align: center;
-		margin: 0 auto;
-		border-bottom: 1px solid #E6E6E6;
-	}
-	
-	</style>	
-	
-	<body>
-		
-	  <div class="taskRegContainer">
-	    
-      <h3>작업 등록</h3>
-      	<div class="taskWrapBox">			  
-	      	
-				  
-		    <form name="pjtSearchForm" action="####" method="####">
-			    <div class="taskRegBox">
-					
-			    <!-- 버튼 기능 -->
-					
-			    	<div class="leftBox">						
-					  <h6 class="SearchTitles" style="margin:20px">프로젝트 목록</h6>
-				    	<div class="RegBtnBox">
-						  <input type="text" placeholder="프로젝트명을 입력해주세요" class="pjtSearch" name="searchPjtName" th:value="${pageVO.cri.searchPjtName}">
-					      <input type="button" id="pjtListSearchBtn" value="조회">
-					    </div>
-				    
-				    	<!--프로젝트목록영역-->
-					    <div class="pjtTreeBox">	
-							<!--조회 누르면 li 반복 돌려서 꺼낼 것-->
-							<ul class="pjtTrees">
-								<li th:each="vo, status : ${list}">
-									<div name="user_id" th:value="${session.user_id}" class="searchTaskBox">										
-										<a class="searchTask" href="#" name="pjt_id" th:value="${vo.pjt_id}" style="text-decoration: none;">[[${vo.pjt_nm}]]</a>
-										<input class="taskHiddenData" type="hidden" name="server_id" th:value="${vo.server_id}">
-									</div>
-								</li>
+		<style>
+			/* 공통사항 */
+			.taskRegContainer {
+
+				margin: 0 auto;
+
+			}
+
+			h3 {
+				padding-left: 30px;
+				font-weight: 500;
+			}
+
+
+			.taskRegBox {
+				width: 300px;
+				height: 650px;
+				text-align: center;
+
+				box-shadow: 0 3px 3px #020f37;
+				margin: 20px;
+				float: left;
+
+			}
+
+			.task_listBox {
+				width: 300px;
+				height: 650px;
+				text-align: center;
+
+				box-shadow: 0 3px 3px #020f37;
+				margin: 20px;
+				float: left;
+			}
+
+			.taskRegRow {
+				border-top: 1px solid rgb(227, 227, 227);
+				border-collapse: collapse;
+				line-height: 20px;
+			}
+
+			.taskRegRow:first-child {
+				border-top: none;
+			}
+
+			.taskRegHeads,
+			.tastRegBodies {
+				padding: 5px;
+				text-align: center;
+				font-size: medium;
+				font-weight: bold;
+			}
+
+			.taskRegBodiesS {
+				padding: 5px;
+				text-align: center;
+				font-size: large;
+				font-weight: bold;
+				overflow: hidden;
+			}
+
+			.taskRegDates {
+				padding: 10px;
+				text-align: left;
+			}
+
+
+			.taskRegTable {
+				width: 580px;
+				height: 310px;
+				margin: 5px;
+				padding: 5px;
+			}
+
+
+			.colspanInput {
+				width: 100%;
+			}
+
+			.colspanInput_selectBox {
+				width: 100%;
+
+			}
+
+			.colspanTextarea {
+				width: 100%;
+				height: 120px
+			}
+
+			.taskRegInput {
+				width: 95%;
+				block-size: 30px;
+			}
+
+			.taskRegInputL {
+				width: 98%;
+				block-size: 30px;
+			}
+
+			.taskRegInputR {
+				width: 65%;
+				block-size: 30px;
+				float: left;
+			}
+
+			.datetimepicker {
+				width: 150px;
+				text-align: left;
+			}
+
+			.RegBtnBox {
+				padding: 6px;
+				margin: 8px;
+				text-align: center;
+				border-bottom: 3px solid rgb(0, 64, 128);
+
+			}
+
+			.taskRegTable-wrap {
+				position: relative;
+			}
+
+			#taskSearchSaveBtn {
+				width: 40px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 0px;
+				left: 500px;
+			}
+
+			#taskSearchDelBtn {
+				width: 40px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 0;
+				left: 550px;
+			}
+
+			#taskSearchNewBtn {
+				width: 110px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 180px;
+				left: 100px;
+			}
+
+			.taskSearchNewBtnA {
+				width: 60px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 60px;
+				left: 220px;
+			}
+
+			#pjtListSearchBtn {
+				width: 50px;
+				height: 30px;
+				margin: 0 auto;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+			}
+
+			#taskSearchRegBtn,
+			#taskSearchRegBtnB {
+
+				width: 40px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 0px;
+				left: 550px;
+			}
+
+			#tempSelectBtn {
+				width: 40px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				background-color: #020f37;
+				color: #fff;
+				font-weight: bold;
+				position: absolute;
+				top: 0;
+				left: 250px;
+			}
+
+			#tempSelectBtn:hover,
+			#taskSearchRegBtn:hover,
+			#pjtListSearchBtn:hover,
+			#taskSearchNewBtn:hover,
+			.taskSearchNewBtnA:hover,
+			#taskSearchDelBtn:hover,
+			#taskSearchSaveBtn:hover {
+				text-decoration: none;
+				color: #fff;
+			}
+
+			.taskRegBodiesS>.taskRegBtn {
+				background-color: #020f37;
+				color: #fff;
+				width: 70px;
+				height: 30px;
+				font-weight: bold;
+				float: right;
+				font-size: 15px;
+			}
+
+			#startDateTime {
+				block-size: 30px;
+				margin-left: 10px;
+				margin-right: 30px;
+			}
+
+			#endDateTime {
+				block-size: 30px;
+				margin-left: 10px;
+			}
+
+			.taskRegBodiesP {
+				overflow: hidden;
+			}
+
+			.taskRegInputPL {
+				float: left;
+				display: inline-block;
+				width: 480px;
+			}
+
+			.leftBox {
+				width: 300px;
+				height: 650px;
+				border: 1px solid #777;
+				display: inline-block;
+			}
+
+			.rightBox {
+				width: 300px;
+				height: 650px;
+				border: 1px solid #777;
+				display: inline-block;
+				position: relative;
+			}
+
+			.taskDetail_searchBox {
+				float: left;
+				width: 600px;
+				height: 310px;
+				display: inline-block;
+
+				margin: 20px 20px 10px 20px;
+				box-shadow: 0 3px 3px #020f37;
+			}
+
+			.SearchTitles {
+				margin: 10px;
+				padding: 3px;
+				font-size: 20px;
+				font-weight: bold;
+				color: #555555;
+			}
+
+			.task_searchRegBox {
+				float: left;
+				width: 600px;
+				height: 310px;
+				display: inline-block;
+
+				margin: 20px 20px 10px 20px;
+				box-shadow: 0 3px 3px #020f37;
+			}
+
+			.taskStatus {
+				width: 100px;
+				text-align: center;
+				border-radius: 20px;
+				background-color: blue;
+				color: #fff;
+				font-weight: bold;
+			}
+
+			.taskStatusDefault {
+				width: 100px;
+				text-align: center;
+				border-radius: 20px;
+				background-color: blue;
+				color: #fff;
+				font-weight: bold;
+			}
+
+			#engineerNameBox {
+				width: 100px;
+				text-align: center;
+				border-radius: 20px;
+				background-color: rgb(72, 175, 148);
+				color: #fff;
+				font-weight: bold;
+			}
+
+			#engineerNameBoxS {
+				width: 100px;
+				text-align: center;
+				border-radius: 20px;
+				background-color: rgb(72, 175, 148);
+				color: #fff;
+				font-weight: bold;
+			}
+
+			#engineerNameBoxD {
+				width: 100px;
+				text-align: center;
+				border-radius: 20px;
+				background-color: rgb(72, 175, 148);
+				color: #fff;
+				font-weight: bold;
+			}
+
+
+			.task_lists {
+				margin-top: 70px;
+			}
+
+			.searchTask,
+			.taskResults {
+				color: #020f37;
+				font-size: 15px;
+			}
+
+			.searchTask:hover,
+			.taskResults:hover {
+				color: #020f37;
+			}
+
+			.searchTaskBox {
+				width: 180px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				margin: 0 auto;
+				border-bottom: 1px solid #E6E6E6;
+			}
+
+			.pjtTreeBox {
+				height: 535px;
+			}
+			
+			.scrollBar { 
+			  width: 298px;
+			  height: 540px;
+			  overflow-y: scroll;
+			}
+			
+			/* 아래의 모든 코드는 영역::코드로 사용 */
+			.scrollBar::-webkit-scrollbar {
+			    width: 10px;  /* 스크롤바의 너비 */
+			}
+			
+			.scrollBar::-webkit-scrollbar-thumb {
+			    height: 30%; /* 스크롤바의 길이 */
+			    background: rgb(0, 0, 128); /* 스크롤바의 색상 */
+			    
+			    border-radius: 8px;
+			}
+			
+			.scrollBar::-webkit-scrollbar-track {
+			    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+			}
+
+			.pjtSearch {
+				width: 180px;
+				margin-right: 5px;
+			}
+
+			.pjtSearch::placeholder {
+				text-align: center;
+			}
+
+			.focus {
+				font-weight: 900;
+			}
+		</style>
+
+		<body>
+
+			<div class="taskRegContainer">
+
+				<h3>작업 등록</h3>
+				<div class="taskWrapBox">
+
+
+					<form name="pjtSearchForm" action="####" method="####">
+						<div class="taskRegBox">
+
+							<!-- 버튼 기능 -->
+
+							<div class="leftBox">
+								<div class="SearchTitles">프로젝트 목록</div>
+								<div class="RegBtnBox">
+									<input type="text" placeholder="프로젝트명을 입력해주세요" class="pjtSearch"
+										name="searchPjtName" th:value="${pageVO.cri.searchPjtName}">
+									<input type="button" id="pjtListSearchBtn" value="조회">
+								</div>
+
+								<!--프로젝트목록영역-->
+								<div class="pjtTreeBox scrollBar">
+									<!--조회 누르면 li 반복 돌려서 꺼낼 것-->
+									<ul class="pjtTrees" style="white-space: nowrap;">
+										<li th:each="vo, status : ${list}">
+											<div name="user_id" th:value="${session.user_id}" class="searchTaskBox">
+												<a class="searchTask" href="#" name="pjt_id" th:value="${vo.pjt_id}"
+													style="text-decoration: none;">[[${vo.pjt_nm}]]</a>
+												<input class="taskHiddenData" type="hidden" name="server_id"
+													th:value="${vo.server_id}">
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</form>
+
+
+					<!--작업목록영역-->
+					<div class="task_listBox">
+
+						<div class="rightBox">
+							<div class="SearchTitles">작업목록</div>
+							<ul class="task_lists" style="white-space: nowrap;">
+								<!--프로젝트에 따른 작업 목록이 들어가고 있음-->
 							</ul>
 						</div>
 					</div>
-			    </div>
-			</form>
-			    
-			    
-				<!--작업목록영역-->						
-				<div class="task_listBox">
-										
-					<div class="rightBox">
-						<h6 class="SearchTitles" style="margin:20px">작업목록</h6>
-						<ul class="task_lists">
-							<!--프로젝트에 따른 작업 목록이 들어가고 있음-->
-						</ul>
+
+
+					<!--작업상세영역-->
+					<div class="taskDetail_searchMinContainer">
+
 					</div>
-				</div>
-				
-				
-				<!--작업상세영역-->
-				<div class="taskDetail_searchMinContainer">
-					
+
+
+					<!--작업등록영역-->
+					<form name="actionForm" action="newTaskRegA" method="post">
+						<div class="taskReg_searchMinContainer">
+
+						</div>
+					</form>
+
 				</div>
 
+			</div>
+
+			<!--datetimePicker-->
+			<script>
+				/*
+				//시작일시
+				const startDateTimeInput = document.getElementById("startDateTime");
+				//종료일시
+				const endDateTimeInput = document.getElementById("endDateTime");
 				
-				<!--작업등록영역-->
-				<form name="actionForm" action="newTaskRegA" method="post">					
-					<div class="taskReg_searchMinContainer">
-						
-					</div>
-				</form>
+				//현재일시
+				function getCurrentDateTime() {
+					const now = new Date();
+					const year = now.getFullYear();
+					const month = String(now.getMonth() + 1).padStart(2, "0");
+					const day = String(now.getDate()).padStart(2, "0");
+					const hours = String(now.getHours()).padStart(2, "0");
+					const minutes = String(now.getMinutes()).padStart(2, "0");
+		
+					return `${year}-${month}-${day}T${hours}:${minutes}`;
+				}
 				
-		</div>
-	    
-	  </div>
-	  
-	  	<!--datetimePicker-->
-	<script>
-		
-		//시작일시
-		//const startDateTimeInput = document.querySelector(".startDateTime");
-		//종료일시
-		//const endDateTimeInput = document.querySelector(".endDateTime");
-		
-		//작업일
-		//let task_dateInput = document.querySelector(".taskDateTime");
-		
-		//현재일시
-		//function getCurrentDateTime() {
-            //const now = new Date();
-            //const year = now.getFullYear();
-            //const month = String(now.getMonth() + 1).padStart(2, "0");
-            //const day = String(now.getDate()).padStart(2, "0");
-            //const hours = String(now.getHours()).padStart(2, "0");
-            //const minutes = String(now.getMinutes()).padStart(2, "0");
+				//시작일시 입력 필드의 최소값과 기본값 설정
+				const currentDateTime = getCurrentDateTime();
+				
+				startDateTimeInput.min = currentDateTime;
+				startDateTimeInput.value = currentDateTime;
+				
+				//종료일시 입력 필드의 최소값 설정
+				startDateTimeInput.addEventListener("change", function () {
+					endDateTimeInput.min = startDateTimeInput.value;
+				});
+				*/
+			</script>
 
-            //return `${year}-${month}-${day}T${hours}:${minutes}`;
-        //}
-		
-		//시작일시 입력 필드의 최소값과 기본값 설정
-		const currentDateTime = getCurrentDateTime();
+			<script>
 
-        task_dateInput.min = task_dateInput;
-        task_dateInput.value = task_dateInput;
+				$('.searchTask').click(function () {
+					$('.searchTask').removeClass('focus');
+					$(this).addClass('focus');
+				});
 
-		
-		//종료일시 입력 필드의 최소값 설정
-		startDateTimeInput.addEventListener("change", function () {
-            endDateTimeInput.min = startDateTimeInput.value;
-        });
-			
-	</script>
+				//프로젝트 검색
+				var pjtListSearchBtn = document.getElementById("pjtListSearchBtn");
+				pjtListSearchBtn.addEventListener('click', function (event) {
 
-	<script>
-		
-		//프로젝트 검색
-		var pjtListSearchBtn = document.getElementById("pjtListSearchBtn");
-		pjtListSearchBtn.addEventListener('click', function(event) {
-			
-			event.preventDefault();
-			document.pjtSearchForm.action = 'taskReg';
-			document.pjtSearchForm.method = 'get';
-			document.pjtSearchForm.submit();
-			
-		})	
-	
-		//프로젝트 선택
-			
-		$(".searchTask").on("click", function(e) {
-			
-			e.preventDefault();
-			let target = e.target;
-			
-			console.log(target);
-			
-			let pjt_id = $(this).attr("value");
-			console.log(pjt_id);
-			
-			let user_id = $(this).closest("div").attr("value");
-			console.log(user_id);
-			
-			let serverId = $(this).next().attr("value");
-			
-			$.ajax({
-				url:"../taskSearch",
-				type: "get",
-				contentType: "application/json",
-				data:{"pjt_id": pjt_id},
-				success:function(data) {
-					console.log(data);
-					//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
+					event.preventDefault();
+					document.pjtSearchForm.action = 'taskReg';
+					document.pjtSearchForm.method = 'get';
+					document.pjtSearchForm.submit();
+
+				})
+
+				//프로젝트 선택
+
+				$(".searchTask").on("click", function (e) {
+
+					e.preventDefault();
+					let target = e.target;
+
+					console.log(target);
+
+					let pjt_id = $(this).attr("value");
+					console.log(pjt_id);
+
+					let user_id = $(this).closest("div").attr("value");
+					console.log(user_id);
+
+					let serverId = $(this).next().attr("value");
+
+					$.ajax({
+						url: "../taskSearch",
+						type: "get",
+						contentType: "application/json",
+						data: {"pjt_id": pjt_id},
+						success: function (data) {
+							console.log(data);
+							//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
+							
+							let str = '';
+							if (data.length !== 0) {
+								str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data[0].pjt_id + '">추가</a>';
+
+								for (let i = 0; i < data.length; i++) {
+
+									str += '<li>';
+									str += '<div class="searchTaskBox" name="user_id" value="' + user_id + '">';
+									str += '<input type="hidden" name="server_id" value="' + data[i].server_id + '">';
+									str += '<a href="#" class="taskResults" name="task_id" value="' + data[i].task_id + '" style="text-decoration:none">' + data[i].task_nm + '</a>';
+									str += '</div>';
+									str += '</li>';
+
+								}
+							} else {
+								str += '<div id="taskNewBtnBox" name="user_id" value="' + user_id + '">';
+								str += '<div>해당 프로젝트 내 작업이 없습니다</div>';
+								str += '<a href="#" id="taskSearchNewBtn" value="' + pjt_id + '">신규 작업 생성</a>';
+								str += '<input type="hidden" name="server_id" class="serverData" value="' + serverId + '">';
+								str += '</div>';
+							}
+
+							console.log(str);
+
+							$(".task_lists").html(str);
+
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
+						}
+					})
+
+				})
+
+
+				//작업 상세 띄우기
+				$(document).on("click", ".taskResults", function (e) {
+
+					e.preventDefault();
+
+					let target = e.target;
+					console.log(target);
+
+					let taskId = $(this).attr("value");
+					console.log(taskId);
+
+					let user_id = $(".searchTask").closest("div").attr("value");
+					console.log(user_id);
+
+					$.ajax({
+						url: "../taskDetailSearch",
+						type: "get",
+						contentType: "application/json",
+						data: {"task_id": taskId},
+						success: function (data) {
+							console.log(data);
+							//alert("상세내역을 성공적으로 받았습니다")
+
+							str = '';
+
+
+							str += '<div class="taskDetail_searchBox">';
+							str += '<div class="taskRegTable-wrap">';
+							str += '<table class="taskRegTable">';
+							str += '<input type="hidden" name="server_id" value="' + data.server_id + '">';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업상태</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<select class="colspanInput_selectBox" onChange="handleChange(this)">';
+							str += '<option name="작업상태" value="none">작업상태</option>';
+							str += '<option name="100" value="1">작업대기</option>';
+							str += '<option name="200" value="2">작업중</option>';
+							str += '<option name="300" value="3">작업완료</option>';
+							str += '<option name="400" value="4">작업연기</option>';
+							str += '<option name="500" value="5">작업중지</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div class="taskStatus" style="background-color:' + data.status_color + '">' + data.status_dtl + '</div>';
+							str += '<input type="hidden" name="status_id" value="' + data.status_id + '" id="hiddenStatus">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업이름</th>';
+							str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="taskNm" name="task_nm" value="' + data.task_nm + '"></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업일</th>';
+							str += '<td class="taskRegBodies"><input type="date" class="colspanInput" id="taskDate" name="task_date" value="' + data.task_date + '"></td>';
+							str += '<th class="taskRegHeads">작업시작시간</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<input type="time" name="task_st_dt" id="taskStDt" value="' + data.task_st_dt + '">';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">담당자</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
+							str += '<option name="none" value="none">담당자</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div id="engineerNameBoxD">' + data.user_nm + '</div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersD">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업지</th>';
+							str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="userAdr" name="user_adr" value="' + data.user_adr + '" readonly></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업내용</th>';
+							str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" id="taskDtl" name="task_dtl">' + data.task_dtl + '</textarea></td>';
+							str += '</tr>';
+							str += '</table>';
+							str += '<!--수정,삭제버튼영역-->';
+							str += '<div class="taskSearchBtnBox" name="user_id" value="' + user_id + '">';
+							str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data.pjt_id + '">신규</a>';
+							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
+							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
+							str += '</div>';
+							str += '</div>';
+							str += '</div>';
+
+
+							console.log(str);
+
+							$(".taskDetail_searchMinContainer").html(str);
+
+							getEngMembers();
+							getTemp();
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("다시 시도해보세요!!")
+						}
+					})
+
+				})
+
+
+				//작업상태 option onChange 이벤트
+				function handleChange(e) {
+
+					let value = e.value;
+
+					let taskStatus = document.querySelector(".taskStatus")
+
+					let selectedStatus = e.options[e.selectedIndex].value;
+					console.log(selectedStatus);
+
+
+					if (selectedStatus == 1) {
+						taskStatus.style.backgroundColor = "blue";
+						hiddenStatus.value = "1";
+						taskStatus.innerHTML = "작업대기";
+					} else if (selectedStatus == 2) {
+						taskStatus.style.backgroundColor = "green";
+						hiddenStatus.value = "2";
+						taskStatus.innerHTML = "작업중";
+					} else if (selectedStatus == 3) {
+						taskStatus.style.backgroundColor = "gray";
+						hiddenStatus.value = "3";
+						taskStatus.innerHTML = "작업완료";
+					} else if (selectedStatus == 4) {
+						taskStatus.style.backgroundColor = "orange";
+						hiddenStatus.value = "4";
+						taskStatus.innerHTML = "작업연기";
+					} else if (selectedStatus == 5) {
+						taskStatus.style.backgroundColor = "red";
+						hiddenStatus.value = "5";
+						taskStatus.innerHTML = "작업중지";
+					}
+
+				}
+
+
+
+				//작업자 option onChange(작업목록 없을 때 신규카드!)
+				function handleEngChange(e) {
+
+					let selectedEngineer = e.options[e.selectedIndex].innerHTML;
+
+					let selectedEngId = e.options[e.selectedIndex].value;
+
+					console.log("찾아야할 작업자 값:", selectedEngId);
+
+					let engineerNameBox = document.getElementById("engineerNameBox")
+					let hiddenEngineers = document.getElementById("hiddenEngineers")
+
+					console.log(selectedEngineer);
+
+					engineerNameBox.innerHTML = selectedEngineer;
+					hiddenEngineers.value = selectedEngId;
+
+
+
+				}
+
+				//작업자 option onChange(작업목록 있을 때 신규카드!?)
+				function handleEngChangeS(e) {
+
+					let selectedEngineerS = e.options[e.selectedIndex].innerHTML;
+
+					let selectedEngIdS = e.options[e.selectedIndex].value;
+
+					console.log("찾아야할 작업자 값 S :", selectedEngIdS);
+
+					let engineerNameBoxS = document.getElementById("engineerNameBoxS")
+					let hiddenEngineersS = document.getElementById("hiddenEngineersS")
+
+					engineerNameBoxS.innerHTML = selectedEngineerS;
+					hiddenEngineersS.value = selectedEngIdS;
+
+				}
+				//작업자 option onChange(상세카드)
+				function handleEngChangeD(e) {
+
+					let selectedEngineerD = e.options[e.selectedIndex].innerHTML;
+
+					let selectedEngIdD = e.options[e.selectedIndex].value;
+
+					console.log("찾아야할 작업자 값 D :", selectedEngIdD);
+
+					let engineerNameBoxD = document.getElementById("engineerNameBoxD")
+					let hiddenEngineersD = document.getElementById("hiddenEngineersD")
+
+					engineerNameBoxD.innerHTML = selectedEngineerD;
+					hiddenEngineersD.value = selectedEngIdD;
+				}
+				
+				//작업등록박스 불러내기(프로젝트에 작업목록이 없을 경우)
+				$(document).on("click", "#taskSearchNewBtn", function (e) {
+
+					e.preventDefault();
+
+					let target = e.target;
+					console.log(target);
+
+					let pjtId = $(this).attr("value");
+					console.log(pjtId);
+
+					let userId = $(".searchTask").closest("div").attr("value");
+
+					let serverId = $(".serverData").attr("value");
+
+
+					$.ajax({
+						url: "../getRegBoxA",
+						type: "get",
+						contentType: "application/json",
+						data: {"pjt_id": pjtId},
+						success: function (data) {
+							console.log(data);
+							alert("등록박스A타입 로딩 성공");
+
+							str = '';
+
+							str += '<div class="task_searchRegBox">';
+							str += '<div class="taskRegTable-wrap">';
+							str += '<input type="hidden" class="serverData" name="server_id" value="' + serverId + '">';
+							str += '<table class="taskRegTable">';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">템플릿 선택</th>';
+							str += '<td class="taskRegBodies" colspan="3">';
+							str += '<select onChange="handleChangeTemp(this)" class="tempSelect" name="user_id" value="' + userId + '">';
+							str += '<option name="none" value="none">템플릿 선택</option>';
+							str += '</select>';
+							str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업상태</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<div class="taskStatusDefault" style="backgroundColor:blue" name="status_id" value="1">작업대기</div>';
+							str += '<input  type=hidden name="status_id" value= >';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업이름</th>';
+							str += '<td class="taskRegBodies" id="newTaskNmBox" colspan="3"><input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value=""></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업일</th>';
+							str += '<td class="taskRegBodies" id="newTaskDateBox"><input type="date" name="task_date" class="colspanInput newTaskDate" value=""></td>';
+							str += '<th class="taskRegHeads">작업시작시간</th>';
+							str += '<td class="taskRegBodies" id="newTaskStDtBox">';
+							str += '<input type="time" id="newTaskStDt" name="task_st_dt" value="">';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">담당자</th>';
+							str += '<td class="taskRegBodies selectBoxTd">';
+							str += '<select class="engSelectBox" onChange="handleEngChange(this)">';
+							str += '<option name="none" value="none">담당자</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div id="engineerNameBox" name="user_id" value="' + data.user_id + '"></div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업내용</th>';
+							str += '<td class="taskRegBodies" id="newTaskDtlBox" colspan="3"><textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl"></textarea></td>';
+							str += '</tr>';
+							str += '</table>';
+							str += '<!--작업버튼영역-->';
+							str += '<a href="#" id="taskSearchRegBtnB" name="pjt_id" value="' + pjtId + '">등록</a>';
+							str += '</div>';
+							str += '</div>';
+
+							$(".taskReg_searchMinContainer").html(str);
+
+							getEngMembersB();
+							getTempB();
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("신규등록화면B타입 에러")
+						}
+
+					})
+
+				})
+
+
+
+				//작업등록박스 불러내기(프로젝트에 작업목록이 있을 경우O)
+				$(document).on("click", ".taskSearchNewBtnA", function (e) {
+
+					e.preventDefault();
+
+					let target = e.target;
+					console.log(target);
+
+					//let pjtId = $("#taskSearchSaveBtn").val();
+					var pjtId = $(event.target).attr('value');
+					console.log(pjtId);
+
+					let serverId = $(".taskHiddenData").attr("value");
+
+					let userId = $(".searchTask").closest("div").attr("value");
+
 					
+					$.ajax({
+						url: "../getRegBoxA",
+						type: "get",
+						contentType: "application/json",
+						data: {"pjt_id": pjtId},
+						success: function (data) {
+							console.log(data);
+							alert("등록박스A타입 로딩 성공");
+
+							str = '';
+
+							str += '<div class="task_searchRegBox">';
+							str += '<div class="taskRegTable-wrap">';
+							str += '<input type="hidden" name="server_id" class="serverData" value="' + serverId + '">';
+							str += '<table class="taskRegTable">';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">템플릿 선택</th>';
+							str += '<td class="taskRegBodies" colspan="3">';
+							str += '<select onChange="handleChangeTemp(this)" class="tempSelectB" name="user_id" value="' + userId + '">';
+							str += '<option name="none" value="none">템플릿 선택</option>';
+							str += '</select>';
+							str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업상태</th>';
+
+							str += '<td class="taskRegBodies"><div class="taskStatusDefault" name="status" value=100  style="backgroundColor:blue">작업대기</div></td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업이름</th>';
+							str += '<td class="taskRegBodies" id="newTaskNmBox" colspan="3"><input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value=""></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업일</th>';
+							str += '<td class="taskRegBodies" id="newTaskDateBox"><input type="date" name="task_date" class="colspanInput newTaskDate" value=""></td>';
+							str += '<th class="taskRegHeads">작업시작시간</th>';
+							str += '<td class="taskRegBodies" id="newTaskStDtBox">';
+							str += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">담당자</th>';
+							str += '<td class="taskRegBodies selectBoxTd">';
+							str += '<select class="engSelectBoxS" onChange="handleEngChangeS(this)">';
+							str += '<option name="none" value="none">담당자</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div id="engineerNameBoxS" name="user_id" value="' + data.user_id + '"></div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersS">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업내용</th>';
+							str += '<td class="taskRegBodies" id="newTaskDtlBox" colspan="3"><textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl"></textarea></td>';
+							str += '</tr>';
+							str += '</table>';
+							str += '<!--작업버튼영역-->';
+							str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="' + data[0].pjt_id + '">등록</a>';
+							str += '</div>';
+							str += '</div>';
+
+							$(".taskReg_searchMinContainer").html(str);
+
+							$('#taskSearchRegBtn').on('click', function () {
+								var session_user_id = `[[${session.user_id}]]`;
+								const eventSource = new EventSource(`/test/subscribe/` + 'ADMIN');
+
+
+								eventSource.addEventListener("sse", function (event) {
+									console.log(event.data);
+									//const data = JSON.stringify(event.data);
+
+
+									(async () => {
+										// 브라우저 알림
+										const showNotification = () => {
+
+											const notification = new Notification('작업 생성 안내', {
+												body: "작업이 생성 되었습니다",
+												badge: `/img/alarm.png`
+											});
+
+											setTimeout(() => {
+												notification.close();
+											}, 10 * 1000);
+
+											notification.addEventListener('click', () => {
+												window.open(`/task/taskDetail`, '_blank');
+											});
+										}
+
+
+										// 브라우저 알림 허용 권한
+										let granted = false;
+
+										if (Notification.permission === 'granted') {
+											granted = true;
+										} else if (Notification.permission !== 'denied') {
+											let permission = await Notification.requestPermission();
+											granted = permission === 'granted';
+										}
+
+										// 알림 보여주기
+										if (granted) {
+											showNotification();
+										}
+									})();
+
+								})
+							})
+							getEngMembersS();
+
+							getTemp();
+
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("등록박스A타입 로딩 실패")
+						}
+
+					})
+					
+				})
+
+
+				//작업자리스트를 select태그 안에 넣기(타입A:기존작업목록이있을 경우)
+				function getEngMembersS() {
+
+					$(".engSelectBoxS").one("click", function (e) {
+
+						e.preventDefault();
+						let target = e.target;
+						console.log(target); //select태그 걸림
+
+						let pjtId = $(".taskSearchNewBtnA").attr("value");
+						let userId = $(".searchTask").closest("div").attr("value");
+
+						$.ajax({
+							url: "../getPjtMembers",
+							type: "get",
+							contentType: "application/json",
+							data: {"pjt_id": pjtId},
+							success: function (data) {
+
+								console.log(data);
+								//alert("리스트가 잘 들어갔습니다");
+
+								let str2 = '';
+
+								for (let i = 0; i < data.length; i++) {
+									str2 += '<option name="담당자' + i + '" onClick="handleClickMember(this)" id="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
+
+								}
+
+								let firstChild = $(".engSelectBoxS").children().first();
+
+								firstChild.after(str2);
+							},
+							error: function (status, error) {
+								console.log(status);
+								console.log(error);
+								alert("리스트 에러났어요");
+							}
+
+						})
+
+					})
+				}
+
+				//멤버 불러오기(상세카드)
+				function getEngMembers() {
+
+					$(".engSelectBoxD").one("click", function (e) {
+
+						e.preventDefault();
+						let target = e.target;
+						console.log(target); //select태그 걸림
+
+						let pjtId = $(".taskSearchNewBtnA").attr("value");
+						//let userId = $(".searchTask").closest("div").attr("value");
+
+						$.ajax({
+							url: "../getPjtMembers",
+							type: "get",
+							contentType: "application/json",
+							data: {"pjt_id": pjtId},
+							success: function (data) {
+
+								console.log(data);
+								//alert("리스트가 잘 들어갔습니다");
+
+								let str2 = '';
+
+								for (let i = 0; i < data.length; i++) {
+									str2 += '<option name="담당자' + i + '" id="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
+
+								}
+
+								let firstChild = $(".engSelectBoxD").children().first();
+
+								firstChild.after(str2);
+							},
+							error: function (status, error) {
+								console.log(status);
+								console.log(error);
+								alert("리스트 에러났어요");
+							}
+
+						})
+
+					})
+				}
+
+				//작업자리스트를 select태그 안에 넣기(기존 작업목록 없을 경우)
+				function getEngMembersB() {
+
+					$(".engSelectBox").one("click", function (e) {
+
+						e.preventDefault();
+						let target = e.target;
+						console.log(target); //select태그 걸림
+
+						let pjtId = $("#taskSearchNewBtn").attr("value");
+						//let userId = $(".searchTask").closest("div").attr("value");
+
+						$.ajax({
+							url: "../getPjtMembers",
+							type: "get",
+							contentType: "application/json",
+							data: {"pjt_id": pjtId},
+							success: function (data) {
+
+								console.log(data);
+								//alert("리스트가 잘 들어갔습니다");
+
+								let str2 = '';
+
+								for (let i = 0; i < data.length; i++) {
+									str2 += '<option name="담당자' + i + '" class="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
+
+								}
+
+								console.log(data.user_id);
+
+								let firstChild = $(".engSelectBox").children().first();
+
+								firstChild.after(str2);
+							},
+							error: function (status, error) {
+								console.log(status);
+								console.log(error);
+								alert("리스트 에러났어요");
+							}
+
+						})
+
+					})
+				}
+
+
+				//템플릿 불러오기(작업목록이 없을 경우)
+				function getTempB() {
+
+					$(".tempSelect").one("click", function (e) {
+
+						e.preventDefault();
+						let target = e.target;
+						console.log(target);
+
+						let user_id = $("#taskNewBtnBox").attr("value");
+						console.log("템플릿아이디: ", user_id);
+
+						$.ajax({
+							url: "../getTaskTemp",
+							type: "get",
+							contentType: "application/json",
+							success: function (data) {
+
+								console.log(data);
+
+								let str = '';
+
+								for (let i = 0; i < data.length; i++) {
+									//str += '<option name="템플릿' + i + '" id="option' + i + '" value="' + data[i].tem_id + '">' + data[i].tem_nm + '</option>';
+									str += '<option value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
+								}
+
+								let firstChild = $(".tempSelect").children().first();
+								firstChild.after(str);
+
+							},
+							error: function (status, error) {
+								console.log(status);
+								console.log(error);
+								alert("템플릿 불러오지 못했습니다. 확인해주세요")
+							}
+						})
+
+					})
+
+				}
+
+				//템플릿 불러오기(작업목록이 이미 존재할 경우)
+				function getTemp() {
+
+					$(".tempSelectB").one("click", function (e) {
+
+						e.preventDefault();
+						let target = e.target;
+						console.log(target);
+
+						let user_id = $(".taskSearchBtnBox").attr("value");
+						console.log("템플릿아이디: ", user_id);
+
+						$.ajax({
+							url: "../getTaskTemp",
+							type: "get",
+							contentType: "application/json",
+							data: {user_id: user_id},
+							success: function (data) {
+
+								console.log(data);
+
+								let str = '';
+
+								for (let i = 0; i < data.length; i++) {
+									str += '<option name="템플릿' + i + '" id="option' + i + '" value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
+								}
+
+								let firstChild = $(".tempSelectB").children().first();
+								firstChild.after(str);
+
+							},
+							error: function (status, error) {
+								console.log(status);
+								console.log(error);
+								alert("템플릿 불러오지 못했습니다. 확인해주세요")
+							}
+						})
+
+					})
+
+				}
+
+
+				//템플릿 적용하기(작업목록 있을 경우)
+
+				function handleChangeTemp(e) {
+
+					let selectedTemp = e.options[e.selectedIndex].value;
+					console.log(selectedTemp);
+
+					let tempSelectBtn = document.getElementById("tempSelectBtn");
+
+					let taskReg_searchMinContainer = document.querySelector(".taskReg_searchMinContainer");
+
+
+					tempSelectBtn.addEventListener("click", function (e) {
+
+						e.preventDefault();
+
+						$.ajax({
+							url: "../applyTemp",
+							type: "get",
+							contentType: "application/json",
+							data: {"tem_nm": selectedTemp},
+							success: function (data) {
+								console.log(data);								
+											
+								let newTaskNmBox = document.getElementById("newTaskNmBox");
+								let newTaskDateBox = document.getElementById("newTaskDateBox");
+								let newTaskStDtBox = document.getElementById("newTaskStDtBox");
+								let newTaskDtlBox = document.getElementById("newTaskDtlBox");
+
+								str = '';
+								str2 = '';
+								str3 = '';
+								str4 = '';
+
+								str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="'+data.task_nm+'">';
+								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="">';
+								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
+								str4 += '<textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl">' + data.task_dtl + '</textarea>';
+
+								newTaskNmBox.innerHTML = str;
+								newTaskDateBox.innerHTML = str2;
+								newTaskStDtBox.innerHTML = str3;
+								newTaskDtlBox.innerHTML = str4;
+
+							},
+							error: function (error, status) {
+								console.log(error);
+							}
+						})
+
+					})
+				}
+
+				//작업 수정기능
+
+				$(document).on("click", "#taskSearchSaveBtn", function (e) {
+
+					e.preventDefault();
+
+					let target = e.target;
+					console.log(target);
+
+					let taskId = $(this).closest("div").find("#taskSearchDelBtn").attr("value");
+					let taskNm = $("#taskNm").val();
+					let taskDtl = $("#taskDtl").html();
+					let status_id = $("#hiddenStatus").val();
+					let taskDate = $("#taskDate").val();
+					let taskStDt = $("#taskStDt").val();
+					let user_id = $("#hiddenEngineersD").val();
+
+					let serverId = $(".taskHiddenData").attr("value");
+
+					$.ajax({
+						url: "../taskModifyForm",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify({
+							"task_id": taskId,
+							"task_nm": taskNm,
+							"task_dtl": taskDtl,
+							"status_id": status_id,
+							"task_date": taskDate,
+							"task_st_dt": taskStDt,
+							"user_id": user_id
+						}),
+						success: function (data) {
+							console.log(data);
+							//alert("성공적으로 작업내용이 수정되었습니다");
+
+							str = '';
+
+							str += '<div class="taskDetail_searchBox">';
+							str += '<div class="taskRegTable-wrap">';
+							str += '<input type="hidden" name="server_id" value="' + serverId + '">';
+							str += '<table class="taskRegTable">';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업상태</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<select class="colspanInput_selectBox" onChange="handleChange(this)">';
+							str += '<option value="작업상태">작업상태</option>';
+
+							str += '<option name="100" value="1">작업대기</option>';
+							str += '<option name="200" value="2">작업중</option>';
+							str += '<option name="300" value="3">작업완료</option>';
+							str += '<option name="400" value="4">작업연기</option>';
+							str += '<option name="500" value="5">작업중지</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div class="taskStatus" style=""></div>';
+							str += '<input type="hidden" name="status_id" value="" id="hiddenStatus">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업이름</th>';
+							str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="taskNm" name="task_nm" value="' + data.task_nm + '"></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업일</th>';
+							str += '<td class="taskRegBodies"><input type="date" class="colspanInput" id="taskDate" name="task_date" value="' + data.task_date + '"></td>';
+							str += '<th class="taskRegHeads">작업시작시간</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<input type="time" name="task_st_dt" id="taskStDt" value="' + data.task_st_dt + '">';
+							str += '</td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">담당자</th>';
+							str += '<td class="taskRegBodies">';
+							str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
+							str += '<option name="none" value="none">담당자</option>';
+							str += '</select>';
+							str += '</td>';
+
+							str += '<td class="taskRegBodies">';
+							str += '<div id="engineerNameBoxD"></div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersD">';
+							str += '</td>';
+
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업지</th>';
+							str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="userAdr" name="user_adr" value="' + data.user_adr + '" readonly></td>';
+							str += '</tr>';
+							str += '<tr class="taskRegRow">';
+							str += '<th class="taskRegHeads">작업내용</th>';
+							str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" id="taskDtl" name="task_dtl">' + data.task_dtl + '</textarea></td>';
+							str += '</tr>';
+							str += '</table>';
+							str += '<!--수정,삭제버튼영역-->';
+							str += '<div class="taskSearchBtnBox">';
+							str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data.pjt_id + '">신규</a>';
+							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
+							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
+							str += '</div>';
+							str += '</div>';
+							str += '</div>';
+
+
+							console.log(str);
+
+							$(".taskDetail_searchMinContainer").html(str);
+
+							resetLists();
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("수정실패! 다시확인하세요")
+						}
+
+
+					})
+
+
+				})
+
+				function resetLists() {
 					let str = '';
-												
-						for(let i = 0; i < data.length; i++) {
-							
-							str += '<li>';
-							str += '<div class="searchTaskBox" name="user_id" value="'+ user_id +'">';
-							str += '<input type="hidden" name="server_id" value="'+ data[i].server_id +'">';
-							str += '<a href="#" class="taskResults" name="task_id" value="'+ data[i].task_id +'" style="text-decoration:none">'+ data[i].task_nm +'</a>';
-							str += '</div>';
-							str += '</li>';
-						
-						}
-						
+					let str2 = '';
 
-						if(data.length === 0) {
-							str += '<div id="taskNewBtnBox" name="user_id" value="'+ user_id +'">';
-							str += '<a href="#" id="taskSearchNewBtn" value="'+ pjt_id +'">신규</a>';								
-							str += '<input type="hidden" name="server_id" class="serverData" value="'+ serverId +'">';
-							str += '</div>';
-						}
-
-						console.log(str);
-						
-						$(".task_lists").html(str);
-						
-						
-				},
-				error: function(status, error) {
-					console.log(status); 
-					console.log(error);
-					alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
-				}
-			})
-			
-		})
-		
-		
-		//작업 상세 띄우기
-		$(document).on("click", ".taskResults", function(e) {
-			
-			e.preventDefault();
-			
-			let target = e.target;
-			console.log(target);
-			
-			let taskId = $(this).attr("value");
-			console.log(taskId);
-			
-			let user_id = $(".searchTask").closest("div").attr("value");
-			console.log(user_id);
-			
-			$.ajax({
-				url: "../taskDetailSearch",
-				type: "get",
-				contentType: "application/json",
-				data: {"task_id": taskId},
-				success: function(data) {
-					console.log(data);
-					//alert("상세내역을 성공적으로 받았습니다")
-					
-					str= '';
-					
-					
-					str += '<div class="taskDetail_searchBox">';
-					str += '<div class="taskRegTable-wrap">';
-					str += '<table class="taskRegTable">';
-					str += '<input type="hidden" name="server_id" value="'+ data.server_id +'">';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업상태</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<select class="colspanInput_selectBox" onChange="handleChange(this)">';
-					str += '<option name="작업상태" value="none">작업상태</option>';			
-					str += '<option name="100" value="1">작업대기</option>';
-					str += '<option name="200" value="2">작업중</option>';
-					str += '<option name="300" value="3">작업완료</option>';
-					str += '<option name="400" value="4">작업연기</option>';
-					str += '<option name="500" value="5">작업중지</option>';						
-					str += '</select>';
-					str += '</td>';
-					
-					str += '<td class="taskRegBodies">';
-					str += '<div class="taskStatus" style="background-color:'+ data.status_color +'">'+ data.status_dtl +'</div>';
-					str += '<input type="hidden" name="status_id" value="'+ data.status_id +'" id="hiddenStatus">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업이름</th>';
-					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="taskNm" name="task_nm" value="'+ data.task_nm +'"></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업일</th>';
-					str += '<td class="taskRegBodies"><input type="date" class="colspanInput" id="taskDate" name="task_date" value="'+ data.task_date +'"></td>';
-					str += '<th class="taskRegHeads">작업시작시간</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<input type="time" name="task_st_dt" id="taskStDt" value="'+ data.task_st_dt +'">';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">담당자</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
-					str += '<option name="none" value="none">담당자</option>';	
-				    str += '</select>';
-					str += '</td>';
-					
-					str += '<td class="taskRegBodies">';
-					str += '<div id="engineerNameBoxD">'+ data.user_nm +'</div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersD">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업지</th>';
-					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="userAdr" name="user_adr" value="'+ data.user_adr +'" readonly></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업내용</th>';
-					str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" id="taskDtl" name="task_dtl">'+ data.task_dtl +'</textarea></td>';
-					str += '</tr>';
-					str += '</table>';
-					str += '<!--수정,삭제버튼영역-->';
-					str += '<div class="taskSearchBtnBox" name="user_id" value="'+ user_id +'">';
-					str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="'+ data.pjt_id +'">신규</a>';
-					str += '<a href="#" id="taskSearchSaveBtn" value="'+ data.pjt_id +'">수정</a>';
-					str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="'+ data.task_id +'">삭제</a>';							
-					str += '</div>';
-					str += '</div>';
-					str += '</div>';
-					
-					
-					console.log(str);
-					
-					$(".taskDetail_searchMinContainer").html(str);					
-
-					getEngMembers();
-					getTemp();
-										
-				},
-				error: function(status, error) {
-					console.log(status);
-					console.log(error);
-					alert("다시 시도해보세요!!")
-				}
-			})
-			
-		})
-		
-		
-		//작업상태 option onChange 이벤트
-		
-		function handleChange(e) {
-			
-			let value = e.value;
-			
-			let taskStatus = document.querySelector(".taskStatus")
-			
-			let selectedStatus = e.options[e.selectedIndex].value;
-			console.log(selectedStatus);
-			
-			
-			if(selectedStatus == 1) {
-				taskStatus.style.backgroundColor = "blue";
-				hiddenStatus.value="1";
-				taskStatus.innerHTML = "작업대기";
-			} else if(selectedStatus == 2) {
-				taskStatus.style.backgroundColor = "green";
-				hiddenStatus.value="2";
-				taskStatus.innerHTML = "작업중";
-			} else if(selectedStatus == 3) {
-				taskStatus.style.backgroundColor = "gray";
-				hiddenStatus.value="3";
-				taskStatus.innerHTML = "작업완료";
-			} else if(selectedStatus == 4) {
-				taskStatus.style.backgroundColor = "orange";
-				hiddenStatus.value="4";
-				taskStatus.innerHTML = "작업연기";
-			} else if(selectedStatus == 5) {
-				taskStatus.style.backgroundColor = "red";
-				hiddenStatus.value="5";
-				taskStatus.innerHTML = "작업중지";
-			}
-			
-		}
-		
-		
-		
-		//작업자 option onChange(작업목록 없을 때 신규카드!)
-		function handleEngChange(e) {
-			
-			let selectedEngineer = e.options[e.selectedIndex].innerHTML;
-			
-			let selectedEngId = e.options[e.selectedIndex].value;
-			
-			console.log("찾아야할 작업자 값:", selectedEngId);
-			
-			let engineerNameBox = document.getElementById("engineerNameBox")
-			let hiddenEngineers = document.getElementById("hiddenEngineers")
-			
-			console.log(selectedEngineer);
-			
-			engineerNameBox.innerHTML = selectedEngineer;
-			hiddenEngineers.value = selectedEngId;
-			
-			
-			
-		}
-		
-		//작업자 option onChange(작업목록 있을 때 신규카드!?)
-		function handleEngChangeS(e) {
-			
-			let selectedEngineerS = e.options[e.selectedIndex].innerHTML;
-			
-			let selectedEngIdS = e.options[e.selectedIndex].value;
-			
-			console.log("찾아야할 작업자 값 S :", selectedEngIdS);
-			
-			let engineerNameBoxS = document.getElementById("engineerNameBoxS")
-			let hiddenEngineersS = document.getElementById("hiddenEngineersS")
-			
-			engineerNameBoxS.innerHTML = selectedEngineerS;
-			hiddenEngineersS.value = selectedEngIdS;
-			
-		}
-		//작업자 option onChange(상세카드)
-		function handleEngChangeD(e) {
-			
-			let selectedEngineerD = e.options[e.selectedIndex].innerHTML;
-			
-			let selectedEngIdD = e.options[e.selectedIndex].value;
-			
-			console.log("찾아야할 작업자 값 D :", selectedEngIdD);
-			
-			let engineerNameBoxD = document.getElementById("engineerNameBoxD")
-			let hiddenEngineersD = document.getElementById("hiddenEngineersD")
-			
-			engineerNameBoxD.innerHTML = selectedEngineerD;
-			hiddenEngineersD.value = selectedEngIdD;
-		}
-		
-		
-		
-		//작업등록박스 불러내기(프로젝트에 작업목록이 없을 경우)
-		$(document).on("click", "#taskSearchNewBtn", function(e) {
-			
-			e.preventDefault();
-			
-			let target = e.target;
-			console.log(target);
-			
-			let pjtId = $(this).attr("value");
-			console.log(pjtId);
-			
-			let userId = $(".searchTask").closest("div").attr("value");
-			
-			let serverId = $(".serverData").attr("value");
-			
-			
-			$.ajax({
-				url: "../getRegBoxA",
-				type: "get",
-				contentType: "application/json",
-				data: {"pjt_id": pjtId},
-				success: function(data) {
-					console.log(data);
-					alert("등록박스A타입 로딩 성공");
-					
-					str = '';
-				
-					str += '<div class="task_searchRegBox">';
-					str += '<div class="taskRegTable-wrap">';
-					str += '<input type="hidden" class="serverData" name="server_id" value="'+ serverId +'">';
-					str += '<table class="taskRegTable">';
-					str += '<tr class="taskRegRow">';	
-					str += '<th class="taskRegHeads">템플릿 선택</th>';
-					str += '<td class="taskRegBodies" colspan="3">';
-					str += '<select onChange="handleChangeTemp(this)" class="tempSelect" name="user_id" value="'+ userId +'">';
-					str += '<option name="none" value="none">템플릿 선택</option>';
-					str += '</select>';
-				    str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업상태</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<div class="taskStatusDefault" style="backgroundColor:blue" name="status_id" value="1">작업대기</div>';
-					str += '<input  type=hidden name="status_id" value= >';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업이름</th>';
-					str += '<td class="taskRegBodies" id="newTaskNmBox" colspan="3"><input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value=""></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업일</th>';
-					str += '<td class="taskRegBodies" id="newTaskDateBox"><input type="date" name="task_date" class="colspanInput newTaskDate" value=""></td>';
-					str += '<th class="taskRegHeads">작업시작시간</th>';
-					str += '<td class="taskRegBodies" id="newTaskStDtBox">';
-					str += '<input type="time" id="newTaskStDt" name="task_st_dt" value="">';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">담당자</th>';
-					str += '<td class="taskRegBodies selectBoxTd">';
-					str += '<select class="engSelectBox" onChange="handleEngChange(this)">';
-					str += '<option name="none" value="none">담당자</option>';
-					str += '</select>';
-					str += '</td>';
-		
-					str += '<td class="taskRegBodies">';
-					str += '<div id="engineerNameBox" name="user_id" value="'+ data.user_id +'"></div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineers">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업내용</th>';
-					str += '<td class="taskRegBodies" id="newTaskDtlBox" colspan="3"><textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl"></textarea></td>';
-					str += '</tr>';
-					str += '</table>';			
-					str += '<!--작업버튼영역-->';
-					str += '<a href="#" id="taskSearchRegBtnB" name="pjt_id" value="'+ pjtId +'">등록</a>';	
-					str += '</div>';
-					str += '</div>';
-					
-					$(".taskReg_searchMinContainer").html(str);
-					
-					getEngMembersB();
-					getTempB();
-					
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("신규등록화면B타입 에러")
-					}
-
-				})
-									
-			})
-			
-
-		
-		//작업등록박스 불러내기(프로젝트에 작업목록이 있을 경우O)
-		$(document).on("click", ".taskSearchNewBtnA", function(e) {
-			
-			e.preventDefault();
-			
-			let target = e.target;
-			console.log(target);
-			
-			let pjtId = $("#taskSearchSaveBtn").attr("value");
-			console.log(pjtId);
-			
-			let serverId = $(".taskHiddenData").attr("value");
-			
-			let userId = $(".searchTask").closest("div").attr("value");
-			
-			
-			$.ajax({
-				url: "../getRegBoxA",
-				type: "get",
-				contentType: "application/json",
-				data: {"pjt_id": pjtId},
-				success: function(data) {
-					console.log(data);
-					alert("등록박스A타입 로딩 성공");
-					
-					str = '';
-					
-					str += '<div class="task_searchRegBox">';
-					str += '<div class="taskRegTable-wrap">';
-					str += '<input type="hidden" name="server_id" class="serverData" value="'+ serverId +'">';
-					str += '<table class="taskRegTable">';
-					str += '<tr class="taskRegRow">';	
-					str += '<th class="taskRegHeads">템플릿 선택</th>';
-					str += '<td class="taskRegBodies" colspan="3">';
-					str += '<select onChange="handleChangeTemp(this)" class="tempSelectB" name="user_id" value="'+ userId +'">';
-					str += '<option name="none" value="none">템플릿 선택</option>';
-					str += '</select>';
-					str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업상태</th>';
-					
-					str += '<td class="taskRegBodies"><div class="taskStatusDefault" name="status" value=100  style="backgroundColor:blue">작업대기</div></td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업이름</th>';
-					str += '<td class="taskRegBodies" id="newTaskNmBox" colspan="3"><input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value=""></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업일</th>';
-					str += '<td class="taskRegBodies" id="newTaskDateBox"><input type="date" name="task_date" class="colspanInput newTaskDate" value=""></td>';
-					str += '<th class="taskRegHeads">작업시작시간</th>';
-					str += '<td class="taskRegBodies" id="newTaskStDtBox">';
-					str += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">담당자</th>';
-					str += '<td class="taskRegBodies selectBoxTd">';
-					str += '<select class="engSelectBoxS" onChange="handleEngChangeS(this)">';
-					str += '<option name="none" value="none">담당자</option>';
-					str += '</select>';
-					str += '</td>';
-					
-					str += '<td class="taskRegBodies">';
-					str += '<div id="engineerNameBoxS" name="user_id" value="'+ data.user_id +'"></div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersS">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업내용</th>';
-					str += '<td class="taskRegBodies" id="newTaskDtlBox" colspan="3"><textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl"></textarea></td>';
-					str += '</tr>';
-					str += '</table>';			
-					str += '<!--작업버튼영역-->';
-					str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="'+ data[0].pjt_id +'">등록</a>';	
-					str += '</div>';
-					str += '</div>';
-					
-					$(".taskReg_searchMinContainer").html(str);
-					
-					$('#taskSearchRegBtn').on('click', function() {
-					var session_user_id = `[[${session.user_id}]]`;
-        const eventSource = new EventSource(`/test/subscribe/` + 'ADMIN');
-		
-		
-        eventSource.addEventListener("sse", function (event) {
-            console.log(event.data);
-            //const data = JSON.stringify(event.data);
-
-            
-            (async () => {
-                // 브라우저 알림
-                const showNotification = () => {
-                    
-                    const notification = new Notification('프로젝트 승인 안내', {
-                        body: session_user_id + "님이 요청하신 프로젝트가 승인되었습니다.",
-                        badge: `/img/alarm.png`
-                    });
-                    
-                    setTimeout(() => {
-                        notification.close();
-                    }, 10 * 1000);
-                    
-                    notification.addEventListener('click', () => {
-                        window.open(`/task/taskDetail`, '_blank');
-                    });
-                }
-                
-
-                // 브라우저 알림 허용 권한
-                let granted = false;
-
-                if (Notification.permission === 'granted') {
-                    granted = true;
-                } else if (Notification.permission !== 'denied') {
-                    let permission = await Notification.requestPermission();
-                    granted = permission === 'granted';
-                }
-
-                // 알림 보여주기
-                if (granted) {
-                    showNotification();
-                }
-            })();
-            
-        })
-			})		
-					getEngMembersS();
-					
-					getTemp();
-
-		
-				},
-				error: function(status, error) {
-					console.log(status);
-					console.log(error);
-					alert("등록박스A타입 로딩 실패")
-				}
-				
-			})
-			
-		})
-		
-		
-		//작업자리스트를 select태그 안에 넣기(타입A:기존작업목록이있을 경우)
-		function getEngMembersS() {
-			
-			$(".engSelectBoxS").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target); //select태그 걸림
-				
-				let pjtId = $(".taskSearchNewBtnA").attr("value");
-				let userId = $(".searchTask").closest("div").attr("value");
-				
-				$.ajax({
-					url: "../getPjtMembers",
-					type: "get",
-					contentType: "application/json",
-					data: {"pjt_id": pjtId},
-					success: function(data) {
-						
-						console.log(data);
-						//alert("리스트가 잘 들어갔습니다");
-						
-						let str2 ='';
-						
-						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" onClick="handleClickMember(this)" id="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
-													
-						}
-						
-						let firstChild = $(".engSelectBoxS").children().first();
-						
-						firstChild.after(str2);
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("리스트 에러났어요");
-					}
-				
-				})
-				
-			})
-		}
-		
-		//멤버 불러오기(상세카드)
-		function getEngMembers() {
-			
-			$(".engSelectBoxD").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target); //select태그 걸림
-				
-				let pjtId = $(".taskSearchNewBtnA").attr("value");
-				//let userId = $(".searchTask").closest("div").attr("value");
-				
-				$.ajax({
-					url: "../getPjtMembers",
-					type: "get",
-					contentType: "application/json",
-					data: {"pjt_id": pjtId},
-					success: function(data) {
-						
-						console.log(data);
-						//alert("리스트가 잘 들어갔습니다");
-						
-						let str2 ='';
-						
-						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" id="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
-													
-						}
-						
-						let firstChild = $(".engSelectBoxD").children().first();
-						
-						firstChild.after(str2);
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("리스트 에러났어요");
-					}
-				
-				})
-				
-			})
-		}
-		
-		//작업자리스트를 select태그 안에 넣기(기존 작업목록 없을 경우)
-		function getEngMembersB() {
-			
-			$(".engSelectBox").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target); //select태그 걸림
-				
-				let pjtId = $("#taskSearchNewBtn").attr("value");
-				//let userId = $(".searchTask").closest("div").attr("value");
-				
-				$.ajax({
-					url: "../getPjtMembers",
-					type: "get",
-					contentType: "application/json",
-					data: {"pjt_id": pjtId},
-					success: function(data) {
-						
-						console.log(data);
-						//alert("리스트가 잘 들어갔습니다");
-						
-						let str2 ='';
-						
-						for(let i = 0; i < data.length; i++) {
-							str2 += '<option name="담당자'+ i +'" class="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
-													
-						}
-						
-						console.log(data.user_id);
-						
-						let firstChild = $(".engSelectBox").children().first();
-						
-						firstChild.after(str2);
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("리스트 에러났어요");
-					}
-				
-				})
-				
-			})
-		}
-		
-		
-		//템플릿 불러오기(작업목록이 없을 경우)
-		function getTempB() {
-			
-			$(".tempSelect").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target);
-				
-				let user_id = $("#taskNewBtnBox").attr("value");
-				console.log("템플릿아이디: ", user_id);
-				
-				$.ajax({
-					url: "../getTaskTemp",
-					type:"get",
-					contentType:"application/json",
-					data:{user_id: user_id},
-					success: function(data) {
-						
-						console.log(data);
-						
-						let str = '';
-						
-						for(let i = 0; i < data.length; i++) {
-							str += '<option name="템플릿'+ i +'" id="option'+ i +'" value="'+ data[i].tem_id +'">'+ data[i].tem_nm +'</option>';
-						}
-						
-						let firstChild = $(".tempSelect").children().first();
-						firstChild.after(str);
-						
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("템플릿 불러오지 못했습니다. 확인해주세요")
-					}
-				})
-				
-			})
-			
-		}
-		
-		//템플릿 불러오기(작업목록이 이미 존재할 경우)
-		function getTemp() {
-			
-			$(".tempSelectB").one("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target);
-				
-				let user_id = $(".taskSearchBtnBox").attr("value");
-				console.log("템플릿아이디: ", user_id);
-				
-				$.ajax({
-					url: "../getTaskTemp",
-					type:"get",
-					contentType:"application/json",
-					data:{user_id: user_id},
-					success: function(data) {
-						
-						console.log(data);
-						
-						let str = '';
-						
-						for(let i = 0; i < data.length; i++) {
-							str += '<option name="템플릿'+ i +'" id="option'+ i +'" value="'+ data[i].tem_id +'">'+ data[i].tem_nm +'</option>';
-						}
-						
-						let firstChild = $(".tempSelectB").children().first();
-						firstChild.after(str);
-						
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("템플릿 불러오지 못했습니다. 확인해주세요")
-					}
-				})
-				
-			})
-			
-		}
-		
-		
-		//템플릿 적용하기(작업목록 있을 경우)
-		
-		function handleChangeTemp(e) {
-			
-			let selectedTemp = e.options[e.selectedIndex].value;
-			console.log(selectedTemp);
-			
-			let tempSelectBtn = document.getElementById("tempSelectBtn");
-			
-			let taskReg_searchMinContainer = document.querySelector(".taskReg_searchMinContainer");
-			
-			
-			tempSelectBtn.addEventListener("click", function(e) {
-				
-				e.preventDefault();
-				let target = e.target;
-				console.log(target);
-				
-				let tem_id = selectedTemp;
-				console.log("제이쿼리매개변수 ",tem_id);
-				
-				
-				fetch("../applyTemp?tem_id=" + tem_id, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}).then(response => {
-					console.log(response);
-					return response.json();
-				}).then(data => {
-					console.log(data);
-					alert("템플릿 적용 성공!!");
-					
-					let newTaskNmBox = document.getElementById("newTaskNmBox");
-					let newTaskDateBox = document.getElementById("newTaskDateBox");
-					let newTaskStDtBox = document.getElementById("newTaskStDtBox");
-					let newTaskDtlBox = document.getElementById("newTaskDtlBox");
-					
-					str = '';
-					str2 = '';
-					str3 = '';
-					str4 = '';
-					
-					
-					str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="'+ data.task_nm +'">';
-					
-					str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="'+ data.task_date +'">';
-					
-					str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="'+ data.task_st_dt +'">';
-					
-					str4 += '<textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl">'+ data.task_dtl +'</textarea>';
-					
-					newTaskNmBox.innerHTML = str;
-					newTaskDateBox.innerHTML = str2;
-					newTaskStDtBox.innerHTML = str3;
-					newTaskDtlBox.innerHTML = str4;
-					
-				}).catch(error => {
-					console.error(error);
-					alert(error.message);
-				})
-				
-			})
-		}
-			
-		
-		//작업 수정기능
-		
-		$(document).on("click", "#taskSearchSaveBtn", function(e) {
-			
-			e.preventDefault();
-			
-			let target =  e.target;
-			console.log(target);
-			
-			let taskId = $(this).closest("div").find("#taskSearchDelBtn").attr("value");
-			let taskNm = $("#taskNm").val();
-			let taskDtl = $("#taskDtl").html();
-			let status_id = $("#hiddenStatus").val();
-			let taskDate = $("#taskDate").val();
-			let taskStDt = $("#taskStDt").val();
-			let user_id = $("#hiddenEngineersD").val();
-			
-			let serverId = $(".taskHiddenData").attr("value");
-			
-			$.ajax({
-				url: "../taskModifyForm",
-				type: "post",
-				contentType: "application/json",
-				data: JSON.stringify({
-					"task_id" : taskId,
-					"task_nm" : taskNm,
-					"task_dtl" : taskDtl,
-					"status_id" : status_id,
-					"task_date" : taskDate,
-					"task_st_dt" : taskStDt,
-					"user_id" : user_id
-				}),
-				success: function(data) {
-					console.log(data);
-					//alert("성공적으로 작업내용이 수정되었습니다");
-					
-					str = '';
-					
-					
-					str += '<div class="taskDetail_searchBox">';
-					str += '<div class="taskRegTable-wrap">';
-					str += '<input type="hidden" name="server_id" value="'+ serverId +'">';
-					str += '<table class="taskRegTable">';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업상태</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<select class="colspanInput_selectBox" onChange="handleChange(this)">';
-					str += '<option value="작업상태">작업상태</option>';	
-					
-					str += '<option name="100" value="1">작업대기</option>';
-					str += '<option name="200" value="2">작업중</option>';
-					str += '<option name="300" value="3">작업완료</option>';
-					str += '<option name="400" value="4">작업연기</option>';
-					str += '<option name="500" value="5">작업중지</option>';						
-					str += '</select>';
-					str += '</td>';
-					
-					str += '<td class="taskRegBodies">';
-					str += '<div class="taskStatus" style=""></div>';
-					str += '<input type="hidden" name="status_id" value="" id="hiddenStatus">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업이름</th>';
-					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="taskNm" name="task_nm" value="'+ data.task_nm +'"></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업일</th>';
-					str += '<td class="taskRegBodies"><input type="date" class="colspanInput" id="taskDate" name="task_date" value="'+ data.task_date +'"></td>';
-					str += '<th class="taskRegHeads">작업시작시간</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<input type="time" name="task_st_dt" id="taskStDt"  value="'+ data.task_st_dt +'">';
-					str += '</td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">담당자</th>';
-					str += '<td class="taskRegBodies">';
-					str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
-					str += '<option name="none" value="none">담당자</option>';	
-				    str += '</select>';
-					str += '</td>';
-					
-					str += '<td class="taskRegBodies">';
-					str += '<div id="engineerNameBoxD"></div>';
-					str += '<input type="hidden" name="user_id" value="'+ data.user_id +'" id="hiddenEngineersD">';
-					str += '</td>';
-					
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업지</th>';
-					str += '<td class="taskRegBodies" colspan="3"><input type="text" class="colspanInput" id="userAdr" name="user_adr" value="'+ data.user_adr +'" readonly></td>';
-					str += '</tr>';
-					str += '<tr class="taskRegRow">';
-					str += '<th class="taskRegHeads">작업내용</th>';
-					str += '<td class="taskRegBodies" colspan="3"><textarea class="colspanTextarea" id="taskDtl" name="task_dtl">'+ data.task_dtl +'</textarea></td>';
-					str += '</tr>';
-					str += '</table>';
-					str += '<!--수정,삭제버튼영역-->';
-					str += '<div class="taskSearchBtnBox">';
-					str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="'+ data.pjt_id +'">신규</a>';
-					str += '<a href="#" id="taskSearchSaveBtn" value="'+ data.pjt_id +'">수정</a>';
-					str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="'+ data.task_id +'">삭제</a>';							
-					str += '</div>';
-					str += '</div>';
-					str += '</div>';
-					
-					
-					console.log(str);
-					
 					$(".taskDetail_searchMinContainer").html(str);
-					
-					resetLists();
-					
-				},
-				error: function(status,error) {
-					console.log(status);
-					console.log(error);
-					alert("수정실패! 다시확인하세요")
-				}
-				
-				
-			})
-			
-			
-		})
-		
-		function resetLists() {
-			let str = '';
-			let str2 = '';
-			
-			$(".taskDetail_searchMinContainer").html(str);
-			$(".task_lists").html(str2);
-			$(".taskReg_searchMinContainer").html(str);
-			
-			let pjt_id = $(".searchTask").attr("value");
-			console.log(pjt_id);
-			
-			$.ajax({
-				url:"../taskSearch",
-				type: "get",
-				contentType: "application/json",
-				data:{"pjt_id": pjt_id},
-				success:function(data) {
-					console.log(data);
-					//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
-					
-					let str3 = '';
-												
-						for(let i = 0; i < data.length; i++) {
-							
-							str3 += '<li>';
-							str3 += '<a href="#" class="taskResults" name="task_id" value="'+ data[i].task_id +'">'+ data[i].task_nm +'</a>';
-							str3 += '</li>';
-						
+					$(".task_lists").html(str2);
+					$(".taskReg_searchMinContainer").html(str);
+
+					let pjt_id = $(".searchTask").attr("value");
+					console.log(pjt_id);
+
+					$.ajax({
+						url: "../taskSearch",
+						type: "get",
+						contentType: "application/json",
+						data: {"pjt_id": pjt_id},
+						success: function (data) {
+							console.log(data);
+							//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
+
+							let str3 = '';
+
+							for (let i = 0; i < data.length; i++) {
+
+								str3 += '<li>';
+								str3 += '<a href="#" class="taskResults" name="task_id" value="' + data[i].task_id + '">' + data[i].task_nm + '</a>';
+								str3 += '</li>';
+
+							}
+
+							console.log(str3);
+
+							$(".task_lists").html(str3);
+
+
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
 						}
+					})
 
-						console.log(str3);
-						
-						$(".task_lists").html(str3);
-						
-						
-				},
-				error: function(status, error) {
-					console.log(status);
-					console.log(error);
-					alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
 				}
-			})
-				
-		} 
-		
-		
-		
-		
-		//등록 기능(기존 작업목록 있는 경우)
-		$(document).on("click", "#taskSearchRegBtn", function(e) {
-			
-				e.preventDefault();
-				
-				
-				let status = $(".taskStatusDefault").attr("value");
-				let task_nm = $("#newTaskNm").val();
-				let task_date = $(".newTaskDate").val();
-				let task_st_dt = $("#newTaskStDt").val();
-				let user_id = $("#hiddenEngineersS").val();
-				let task_dtl = $("#newTaskDtl").html();
-				let pjt_id = $(this).attr("value");
-				
-				let server_id= $(".serverData").attr("value");
-				
-				$.ajax({
-					url: "../newTaskRegA",
-					type: "post",
-					contentType: "application/json",
-					data: JSON.stringify({
-					    "task_nm": task_nm,
-					    "task_date": task_date,
-					    "task_st_dt": task_st_dt,
-					    "user_id": user_id,
-					    "task_dtl": task_dtl,
-					    "pjt_id": pjt_id,
-					    "server_id": server_id,
-					    }),
-					success: function(data) {
-						console.log(data);
-						//alert("등록성공!")
-						
-						resetLists();
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("등록실패")
-					}
+
+
+
+
+				//등록 기능(기존 작업목록 있는 경우)
+				$(document).on("click", "#taskSearchRegBtn", function (e) {
+
+					e.preventDefault();
+
+
+					let status = $(".taskStatusDefault").attr("value");
+					let task_nm = $("#newTaskNm").val();
+					let task_date = $(".newTaskDate").val();
+					let user_id = $("#hiddenEngineersS").val();
+					let task_dtl = $("#newTaskDtl").html();
+					let pjt_id = $(this).attr("value");
+					let server_id = $(".serverData").attr("value");
+					let task_st_dt = $("#newTaskStDt").val();
+					
+					//종료시간 설정
+
+					var parts = task_st_dt.split(':');
+					var hours = parseInt(parts[0]);
+					var minutes = parseInt(parts[1]);
+					//var newTime = new Date();
+					//newTime.setHours(hours + 2);
+					//rfnewTime.setMinutes(minutes);
+					//var options = {hour: '2-digit', minute: '2-digit'};
+					//let formattedTime = newTime.toLocaleTimeString([], options);
+					//let task_end_dt = formattedTime.substring(3, formattedTime.length);
+					
+					// 시간을 2시간 추가
+					hours += 2;
+					
+					// 24시간 형식으로 시간을 포맷
+					var formattedHours = hours < 10 ? "0" + hours : hours;
+					var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+					
+					var task_end_dt = formattedHours + ":" + formattedMinutes;
+
+					$.ajax({
+						url: "../newTaskRegA",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify({
+							"task_nm": task_nm,
+							"task_date": task_date,
+							"task_st_dt": task_st_dt,
+							"task_end_dt": task_end_dt,
+							"user_id": user_id,
+							"task_dtl": task_dtl,
+							"pjt_id": pjt_id,
+							"server_id": server_id,
+						}),
+						success: function (data) {
+							console.log(data);
+							//alert("등록성공!")
+
+							resetLists();
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("등록실패")
+						}
+					})
+				});
+
+				//등록 기능(기존 작업목록 없는 경우)
+				$(document).on("click", "#taskSearchRegBtnB", function (e) {
+
+					e.preventDefault();
+
+
+					let status = $(".taskStatusDefault").attr("value");
+					let task_nm = $("#newTaskNm").val();
+					let task_date = $(".newTaskDate").val();
+					let task_st_dt = $("#newTaskStDt").val();
+					let user_id = $("#hiddenEngineers").val();
+					let task_dtl = $("#newTaskDtl").html();
+					let pjt_id = $(this).attr("value");
+
+					let server_id = $(".serverData").attr("value");
+
+					$.ajax({
+						url: "../newTaskRegA",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify({
+							"task_nm": task_nm,
+							"task_date": task_date,
+							"task_st_dt": task_st_dt,
+							"user_id": user_id,
+							"task_dtl": task_dtl,
+							"pjt_id": pjt_id,
+							"server_id": server_id,
+						}),
+						success: function (data) {
+							console.log(data);
+							//alert("등록성공!")
+
+							resetLists();
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error);
+							alert("등록실패")
+						}
+					})
+				});
+
+
+
+				//작업 삭제기능
+				$(document).on("click", "#taskSearchDelBtn", function (e) {
+					e.preventDefault();
+
+					let taskId = $("#taskSearchDelBtn").attr("value");
+					console.log(taskId);
+
+					$.ajax({
+						url: "../delTask",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify({task_id: taskId}),
+						success: function (data) {
+
+							alert("성공적으로 삭제되었습니다");
+
+							resetLists();
+						},
+						error: function (status, error) {
+							console.log(status);
+							console.log(error)
+							alert("삭제실패!!!");
+						}
+					})
 				})
-			});
-			
-			//등록 기능(기존 작업목록 없는 경우)
-			$(document).on("click", "#taskSearchRegBtnB", function(e) {
-			
-				e.preventDefault();
-				
-				
-				let status = $(".taskStatusDefault").attr("value");
-				let task_nm = $("#newTaskNm").val();
-				let task_date = $(".newTaskDate").val();
-				let task_st_dt = $("#newTaskStDt").val();
-				let user_id = $("#hiddenEngineers").val();
-				let task_dtl = $("#newTaskDtl").html();
-				let pjt_id = $(this).attr("value");
-				
-				let server_id= $(".serverData").attr("value");
-				
-				$.ajax({
-					url: "../newTaskRegA",
-					type: "post",
-					contentType: "application/json",
-					data: JSON.stringify({
-					    "task_nm": task_nm,
-					    "task_date": task_date,
-					    "task_st_dt": task_st_dt,
-					    "user_id": user_id,
-					    "task_dtl": task_dtl,
-					    "pjt_id": pjt_id,
-					    "server_id": server_id,
-					    }),
-					success: function(data) {
-						console.log(data);
-						//alert("등록성공!")
-						
-						resetLists();
-					},
-					error: function(status, error) {
-						console.log(status);
-						console.log(error);
-						alert("등록실패")
-					}
-				})
-			});
-			
-			
-
-		//작업 삭제기능
-		$(document).on("click", "#taskSearchDelBtn", function(e) {
-			e.preventDefault();
-			
-			let taskId = $("#taskSearchDelBtn").attr("value");
-			console.log(taskId);
-			
-			$.ajax({
-				url: "../delTask",
-				type: "post",
-				contentType: "application/json",
-				data:JSON.stringify({task_id: taskId}),
-				success: function(data) {
-
-					alert("성공적으로 삭제되었습니다");
-
-					resetLists();
-				},
-				error: function(status, error) {
-					console.log(status);
-					console.log(error)
-					alert("삭제실패!!!");
-				}
-			})
-		})
 
 
-	</script>
+			</script>
 
 
-</div>
-	
+	</div>
+
 </th:block>
