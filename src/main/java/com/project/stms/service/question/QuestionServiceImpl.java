@@ -50,15 +50,14 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public int getQtotal(NewsCriteria cri) {
-		// TODO Auto-generated method stub
 		return questionMapper.getQtotal(cri);
 	}
-
+	
 	@Override
-	public int modifyQ(NewsVO vo) {
-		// TODO Auto-generated method stub
-		return questionMapper.modifyQ(vo);
+	public int updateQ(NewsVO vo) {
+		return questionMapper.updateQ(vo);
 	}
+
 
 	
 

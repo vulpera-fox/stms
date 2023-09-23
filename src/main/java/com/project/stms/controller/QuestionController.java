@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.stms.command.NewsVO;
+import com.project.stms.command.UserVO;
 import com.project.stms.service.question.QuestionService;
 import com.project.stms.util.NewsCriteria;
 import com.project.stms.util.NewsPageVO;
@@ -149,13 +151,29 @@ public class QuestionController {
 		return "redirect:/question/customer_question";
 	}
 	
-	@PostMapping("/modifyQ")
-	public String modifyQ( NewsVO vo) {
+	@GetMapping("/modifyQ")
+	public String modifyQ(@RequestParam("post_id") int post_id, 
+						  Model model) {
 		
-		questionService.modifyQ(vo);
+		
+		NewsVO vo = questionService.getQdetail(post_id);
+		
+		model.addAttribute("vo",vo);
+		
+		System.out.println(vo.toString());
+		
+		
+		return "question/customer_questionModify";
+	}
+	
+	@PostMapping("/updateQ")
+	public String updateQ(NewsVO vo) {
+		
+		questionService.updateQ(vo);
 		
 		return "redirect:/question/customer_question";
 	}
+	
 	
 	
 	

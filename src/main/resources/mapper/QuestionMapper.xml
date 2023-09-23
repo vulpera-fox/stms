@@ -102,7 +102,7 @@
  	
  	</select>
  	
- 	<update id="modifyQ">
+ 	<update id="updateQ">
  	
  		update post set post_title = #{post_title},
  						post_contents = #{post_contents},
