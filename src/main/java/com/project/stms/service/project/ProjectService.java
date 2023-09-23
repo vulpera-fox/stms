@@ -73,9 +73,9 @@ public interface ProjectService {
 	
 	public void modifyProject(ProjectVO vo);
 	
+	public void registServer(ServerVO vo);
 	
 	
 	
-	public String getMyId(String user_email);
 	
 }

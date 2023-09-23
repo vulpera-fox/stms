@@ -193,11 +193,6 @@ public class ProjectServiceImpl implements ProjectService {
 
 
 	@Override
-	public String getMyId(String user_email) {
-		return projectMapper.getMyId(user_email);
-	}
-
-	@Override
 	public List<FileVO> getFileName(int pjt_id) {
 		return projectMapper.getFileName(pjt_id);
 	}
@@ -228,6 +223,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public int getSearchNameTotal(String pjt_nm) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void registServer(ServerVO vo) {
+		projectMapper.registServer(vo);
 	}
 
 

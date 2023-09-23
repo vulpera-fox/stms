@@ -75,6 +75,8 @@ public class ProjectController {
 			ProjectPageVO pageVO = new ProjectPageVO(cri ,projectService.getTotal(cri));
 			System.out.println(pageVO.toString());
 			mo.addAttribute("pageVO", pageVO);
+			List<ProjectVO> reqPList = projectService.getRequestList(cri);
+			mo.addAttribute("reqPList", reqPList);
 		} else if (myRole.equals("ROLE_ENGINEER")) {
 			List<ProjectVO> pList = projectService.getRoledList(myId, cri);
 			mo.addAttribute("pList", pList);
@@ -82,9 +84,6 @@ public class ProjectController {
 			mo.addAttribute("pageVO", pageVO);
 		}
 
-		List<ProjectVO> reqPList = projectService.getRequestList(cri);
-
-		mo.addAttribute("reqPList", reqPList);
 
 		return "/project/projectMain";
 	}
@@ -220,7 +219,7 @@ public class ProjectController {
 				System.out.println(currentDate.format(formatter));
 				String pjt_date = currentDate.format(formatter);
 				dayChartPjt_date.add(pjt_date);
-				if (!currentDate.isAfter(LocalDate.of(2023, 9, 25))) {
+				if (!currentDate.isAfter(LocalDate.now())) {
 
 					dayChartCompleteTask.add(projectService.getCompletedTask(pjt_date, pjt_id));
 				}
@@ -398,6 +397,33 @@ public class ProjectController {
 		
 		
 		return "redirect:/project/projectMain";
+	}
+	
+	
+	@GetMapping("/serverRegist")
+	public String serverRegist(ServerVO vo, HttpSession session, Model mo) {
+		
+		return "/project/serverRegist";
+	}
+	
+	@PostMapping("/serverRegistForm")
+	public String serverRegistForm(ServerVO vo) {
+		
+		projectService.registServer(vo);
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/serverList")
+	public String serverList(Model mo, HttpSession session) {
+		
+		String myId = (String)session.getAttribute("user_id");
+		
+		List<ServerVO> sList = projectService.getMyServer(myId);
+		
+		mo.addAttribute("sList", sList);
+		
+		return "/project/serverList";
 	}
 
 }
