@@ -134,9 +134,24 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public int ModiTask(TaskVO vo) {
+	public int modiTask(TaskVO vo) {
 		
-		return taskMapper.ModiTask(vo);
+		return taskMapper.modiTask(vo);
+	}
+
+
+	@Override
+	public void changeMember(int task_id) {
+		
+		taskMapper.changeMember(task_id);
+		
+	}
+
+
+	@Override
+	public TaskVO getTaskDetail(int task_id) {
+		
+		return taskMapper.getTaskDetail(task_id);
 	}
 
 

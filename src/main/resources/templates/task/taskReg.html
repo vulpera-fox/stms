@@ -431,26 +431,29 @@
 	<script>
 		
 		//시작일시
-		const startDateTimeInput = document.getElementById("startDateTime");
+		//const startDateTimeInput = document.querySelector(".startDateTime");
 		//종료일시
-		const endDateTimeInput = document.getElementById("endDateTime");
+		//const endDateTimeInput = document.querySelector(".endDateTime");
+		
+		//작업일
+		//let task_dateInput = document.querySelector(".taskDateTime");
 		
 		//현재일시
-		function getCurrentDateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, "0");
-            const day = String(now.getDate()).padStart(2, "0");
-            const hours = String(now.getHours()).padStart(2, "0");
-            const minutes = String(now.getMinutes()).padStart(2, "0");
+		//function getCurrentDateTime() {
+            //const now = new Date();
+            //const year = now.getFullYear();
+            //const month = String(now.getMonth() + 1).padStart(2, "0");
+            //const day = String(now.getDate()).padStart(2, "0");
+            //const hours = String(now.getHours()).padStart(2, "0");
+            //const minutes = String(now.getMinutes()).padStart(2, "0");
 
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
+            //return `${year}-${month}-${day}T${hours}:${minutes}`;
+        //}
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
 		const currentDateTime = getCurrentDateTime();
-        startDateTimeInput.min = currentDateTime;
-        startDateTimeInput.value = currentDateTime;
+        task_dateInput.min = task_dateInput;
+        task_dateInput.value = task_dateInput;
 		
 		//종료일시 입력 필드의 최소값 설정
 		startDateTimeInput.addEventListener("change", function () {
@@ -1300,7 +1303,7 @@
 					str += '<td class="taskRegBodies"><input type="date" class="colspanInput" id="taskDate" name="task_date" value="'+ data.task_date +'"></td>';
 					str += '<th class="taskRegHeads">작업시작시간</th>';
 					str += '<td class="taskRegBodies">';
-					str += '<input type="time" name="task_st_dt" id="taskStDt" value="'+ data.task_st_dt +'">';
+					str += '<input type="time" name="task_st_dt" id="taskStDt"  value="'+ data.task_st_dt +'">';
 					str += '</td>';
 					str += '</tr>';
 					str += '<tr class="taskRegRow">';
