@@ -19,7 +19,6 @@ public interface TaskService {
 	public TaskVO getModify(int task_id);
 	//작업상세페이지
 	public TaskVO getTaskDetail(int task_id);
-
 	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
@@ -59,7 +58,6 @@ public interface TaskService {
 	
 	//작업 변경 요청(작업자)
 	public void changeMember(int task_id);
-	
 	
 	//작업삭제
 	//public void delTask(int task_id);

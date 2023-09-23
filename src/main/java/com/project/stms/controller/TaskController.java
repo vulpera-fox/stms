@@ -64,9 +64,14 @@ public class TaskController {
 	}
 
 	@GetMapping("taskDetail")
-	public String taskDetail() {
-		return "task/taskDetail";
+	public String taskDetail(@RequestParam("task_id") int task_id, Model model) {
+		
+		TaskVO taskVO = taskService.getTaskDetail(task_id);
+		model.addAttribute("taskVO", taskVO);
+		
+		return "task/taskDetail"; 
 	}
+	//바로 위 문제부터 풀 것
 	
 	//작업수정페이지
 
@@ -103,12 +108,12 @@ public class TaskController {
 	//작업자 변경 요청(작업자 -> 관리자)
 	@PostMapping("changeMemberForm")
 	public String changeMemberForm(TaskVO vo) {
-
-	int task_id = vo.getTask_id();
-
-	taskService.changeMember(task_id);
-
-	return "redirect:/task/taskList";
+		
+		int task_id = vo.getTask_id();
+		
+		taskService.changeMember(task_id);
+		
+		return "redirect:/task/taskList";
 	}
 	
 	//작업리스트 삭제

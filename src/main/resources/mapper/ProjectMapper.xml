@@ -42,8 +42,6 @@
 				and p.pjt_nm like concat("%", #{pjt_nm}, "%")
 			</if>
 		</where>
-		
-		order by pjt_end_dt
 		limit #{pageStart} , #{amount}
 	</select>
 	
@@ -161,7 +159,7 @@
 		t.user_id,
 		date_format(t.task_date, "%m-%d") as task_date,
 		date_format(t.task_st_dt, "%Y-%m-%d") as task_st_dt,
-		date_format(t.task_end_dt, "%Y-%m-%d") as task_end_dt,
+		date_format(t.task_end_dt, "%H:%i") as task_end_dt,
 		t.task_al_t,
 		t.task_oper_t,
         case

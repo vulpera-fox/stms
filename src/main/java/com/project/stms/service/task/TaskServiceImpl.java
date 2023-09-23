@@ -132,11 +132,11 @@ public class TaskServiceImpl implements TaskService{
 		return taskMapper.applyTemp(tem_nm);
 	}
 
-
 	@Override
 	public int modiTask(TaskVO vo) {
 		
 		return taskMapper.modiTask(vo);
+
 	}
 
 	@Override

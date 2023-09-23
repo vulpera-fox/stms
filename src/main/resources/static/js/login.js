@@ -19,11 +19,14 @@ const warning = document.querySelector(".warning");
 
 const dropbox = document.querySelector('.file_box');
 const input_filename = document.querySelector('.file_name');
+
+//const file_btn = document.querySelector('.upload_btn');
 let file_data;
 
 const authBtn = document.querySelector('.authBtn');
 const authInput = document.querySelector('.authInput');
-
+const profileImg = document.querySelector('.profileImg');
+const org_file_nm = document.querySelector('#org_file_nm');
 //박스 안에 drag 하고 있을 때
 dropbox.addEventListener('dragover', function(e) {
 	e.preventDefault();
@@ -36,7 +39,7 @@ dropbox.addEventListener('dragleave', function(e) {
 });
 
 //박스 안에 drop 했을 때
-dropbox.addEventListener('drop', function(e) {
+dropbox.addEventListener('drop', async function(e) {
 	e.preventDefault();
 	//데이터 크기 검사  
 	let byteSize = e.dataTransfer.files[0].size;
@@ -46,18 +49,33 @@ dropbox.addEventListener('drop', function(e) {
 		alert("파일은 최대 50MB이하만 허용됩니다");
 		return;
 	} else {
-		//백그라운드 색상변경
-		this.style.backgroundColor = 'white';
-		this.style.border = "2px solid rgb(10 128 255)";
-		//파일 이름을 text로 표시
-		let filename = e.dataTransfer.files[0].name;
-		input_filename.innerHTML = filename;
+		
 
 		//파일 데이터를 변수에 저장
 		file_data = e.dataTransfer.files[0];
-	}
 
+		//객체업로드
+		formData = new FormData();
+		formData.append('file_data', file_data);
+
+		input_filename.dataset.value = file_data.name;//div태그 벨류 바꿔주기
+		await fetch('/uploadProfile', { method: 'post', body: formData })
+			.then(response => response.text())
+			.then(data => {
+				alert(data);
+			})
+			.catch(err => alert('업로드에 실패했습니다:' + err));
+
+		this.style.border = "2px solid rgb(10 128 255)";
+		
+		//파일 이름을 text로 표시
+		
+
+	}
+    	profileImg.src = "https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
+		org_file_nm.value=file_data.name;
 });
+
 
 for (var i = 0; i < inputs.length; i++) {
 	inputs[i].addEventListener('focusout', function() {
@@ -126,12 +144,12 @@ join_email.addEventListener('focusout', async function() {
 					authCheck = result;
 					console.log(authCheck);
 				});
-				
-// ses하다가 키 털려서 안할거같음
-//			const data = {
-//				recipient: join_email.value,
-//				message: authCheck,
-//			};
+
+			// ses하다가 키 털려서 안할거같음
+			//			const data = {
+			//				recipient: join_email.value,
+			//				message: authCheck,
+			//			};
 
 			const data = {
 				address: join_email.value,
@@ -147,9 +165,9 @@ join_email.addEventListener('focusout', async function() {
 				},
 				body: JSON.stringify(data),
 			})
-			
-			authBtn.addEventListener('click', function(){
-				if(authInput.value == authCheck){
+
+			authBtn.addEventListener('click', function() {
+				if (authInput.value == authCheck) {
 					alert("일치합니다.");
 					user_auth_yn.value = 'y';
 					closeModal3();

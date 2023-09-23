@@ -39,8 +39,10 @@
       <!-- 개요 탭에서 보여질 부분 -->
       <div class="taskInfoArea">
         <div class="taskProgressArea">
-          <div class="taskProgress" style="line-height: 400px;">
-			  <p class="errMsg">[[${errMsg}]]</p>
+          <div class="taskProgress" style="line-height: 400px; position: relative;">
+			 <th:block th:if="${errMsg} != null">
+			 	 <p class="errMsg" style="position: absolute; top: 0; left: 550px; font-size: 26px;">[[${errMsg}]]</p>
+			 </th:block>
 			  <div id="taskGraph" style="height: 350px;">
 			  </div>
           </div>
@@ -53,8 +55,8 @@
                 <p class="taskTitle" style="margin: 0;">[[${tVO.task_nm}]]</p>
                 <a class="taskOption"><i class="bi bi-three-dots-vertical"></i></a>
                 <div class="taskOptionMenu hidden">
-                  <p style="border-bottom: 1px solid rgb(230, 235, 241); margin: 0;">작업 수정</p>
-                  <p style="margin: 0;">작업 삭제</p>
+                  <p style="border-bottom: 1px solid rgb(230, 235, 241); margin: 0;"><a th:href="@{/task/taskModify(task_id=${tVO.task_id})}" class="moBtn">작업 수정</a></p>
+                  <p style="margin: 0; color: black;"> <a th:href="@{/project/deleteTask(task_id=${tVO.task_id})}" class="delBtn">작업 삭제</a></p>
                 </div>
               </div>
               <div class="taskContentArea">
@@ -62,8 +64,8 @@
                   <p class="taskDetail" style="margin: 0;">[[${tVO.task_dtl}]]</p>
                 </div>
                 <div class="taskStatusDateArea">
-                  <p class="taskStatus" style="margin: 0;">[[${tVO.status_id2}]]</p>
-                  <p class="taskDate" style="margin: 0;">[[${#temporals.format(tVO.task_end_dt, 'MM/dd HH:mm')}]]</p>
+                  <p id="taskStatus" style="margin: 0;" th:class="${tVO.status_id2}">[[${tVO.status_id2}]]</p>
+                  <p class="taskDate" style="margin: 0;">[[${tVO.task_end_dt}]]</p>
                 </div>
               </div>
             </div>

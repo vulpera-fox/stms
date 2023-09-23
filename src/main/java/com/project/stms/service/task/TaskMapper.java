@@ -19,7 +19,6 @@ public interface TaskMapper {
 	public int getTotal(@Param("cri") Criteria cri);
 	//리스트 삭제
 	public void deleteTaskList(int task_id);
-
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
 	//작업상세페이지

@@ -35,9 +35,6 @@ public class UserAuthInterceptor implements HandlerInterceptor {
 					return false;
 				}
 			}
-			
-			/* 로그인 정보가 없는 경우 */
-			return true;
 
 		} 
 		

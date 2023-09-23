@@ -42,6 +42,10 @@ public class MyUserDetails implements UserDetails{
 	public String getUser_adr() {
 		return userVO.getUser_adr();
 	}
+
+	public String org_file_nm() {
+		return userVO.getOrg_file_nm();
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -120,7 +120,7 @@
 						data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<h6 class="collapse-header">WORK MANAGEMENT :</h6>
-							<a class="collapse-item" th:href="@{/project/ProjectMain}">프로젝트 대시보드</a>
+							<a class="collapse-item" th:href="@{/project/projectMain}">프로젝트 대시보드</a>
 							<a class="collapse-item" href="#">신청 관리</a>
 						</div>
 					</div>
@@ -220,8 +220,8 @@
 								<li class="nav-item dropdown no-arrow">
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
-
+										<img class="img-profile rounded-circle" 
+										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
 										<th:block th:if="${session.user_role} != null">
 										<span
 											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]

@@ -20,7 +20,7 @@ a {
 
 #container {
   padding: 20px;
-  width: 100%;
+  width: 95%;
   margin: 0 auto;
   background-color: white;
   border: 1px solid rgb(230, 235, 241);
@@ -331,6 +331,21 @@ a {
 
 .pjt_nm {
 	width: 150px;
+}
+
+.createBtn {
+	width: 60px;
+	height: 30px;
+	display: inline-block;
+	border: 1px solid black;
+	color: black;
+	line-height: 30px;
+}
+
+.createBtn:hover {
+	text-decoration: none;
+	cursor: pointer;
+	color: black;
 }
 
 

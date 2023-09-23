@@ -61,7 +61,9 @@ public class UserController {
 			return "/user/log"; //실패시 원래 화면으로
 
 		} //err end
-
+		
+		//userService.insertProfile(null, null);
+		System.out.println(userVO.toString());
 
 		//비번 단방향 암호화
 		String pw = bCryptPasswordEncoder.encode(userVO.getUser_pw());
