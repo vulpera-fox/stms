@@ -17,6 +17,9 @@ public interface TaskService {
 	public void deleteTaskList(int task_id);
 	//수정페이지 띄우기(전체 값 입력 되도록)
 	public TaskVO getModify(int task_id);
+	//작업상세페이지
+	public TaskVO getTaskDetail(int task_id);
+	
 	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
@@ -51,8 +54,13 @@ public interface TaskService {
 	//작업등록(관리자)
 	public int taskRegist(TaskVO vo);
 	
-	//작업수정(작업자)
-	public int ModiTask(TaskVO vo);
+	//작업수정(작업자 관리자)
+	public int modiTask(TaskVO vo);
+	
+	//작업 변경 요청(작업자)
+	public void changeMember(int task_id);
+	
+	
 	
 	//작업삭제
 	//public void delTask(int task_id);

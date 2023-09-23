@@ -47,8 +47,8 @@
   }
 
   .taskSearchBox {
-	
-	height: 100px;
+	width:1200px;
+	height:100px;
 	line-height: 100px;
 	text-align: center;
     margin: 30px auto;
@@ -59,18 +59,22 @@
 
   .taskSearchOpt {
 	float: left;
-	width: 330px;
+	width: 260px;
 	padding-right: 3px;
+	margin-right: 3px
   }
 
   .taskSearchOpt > span {
+	  margin-right:10px;
 	  color: black;
 	  font-weight: bold;
   }
 
-  .taskSerchInput {
+  .taskSearchInput {
+	width:170px;
     margin: 0 auto;
     text-align: center;
+    padding-left: 3px;
     
   }
 
@@ -97,6 +101,24 @@
 		color: #fff;
 		font-weight: bold;
 	}
+	
+	.checkBoxSpan {
+		position:relative;
+	}
+	
+	#checkChange {
+		position:absolute;
+		top: 70px;
+		left:40px;
+		zoom: 0.6;
+	}
+	
+	.checkBoxOpt {
+		float: left;
+		width: 220px;
+		padding-right: 3px;
+		margin-right: 3px
+	}
    
 </style>
 
@@ -116,15 +138,21 @@
 		  <div class="taskSearchBox">
 			  <div class="taskSearchOpt">					  
 				  <span>작업 검색</span>					 
-				  <input type="text" class="taskSearchInput" size="23" placeholder="작업명을 입력해주세요" name="searchTaskName" th:value="${pageVO.cri.searchTaskName}">
+				  <input type="text" class="taskSearchInput" size="23" placeholder="작업명 입력" name="searchTaskName" th:value="${pageVO.cri.searchTaskName}">
 			  </div>
 			  <div class="taskSearchOpt">					  
-				  <span>고객사 검색 </span>
-				  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름을 입력해주세요" name="searchCustomer" th:value="${pageVO.cri.searchCustomer}">
+				  <span>고객사 검색</span>
+				  <input type="text" class="taskSearchInput" size="23" placeholder="고객사 이름 입력" name="searchCustomer" th:value="${pageVO.cri.searchCustomer}">
 			  </div>
 			  <div class="taskSearchOpt">					  
-				  <span>담당자 검색 </span>
-				  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름을 입력해주세요" name="searchEngineer" th:value="${pageVO.cri.searchEngineer}">
+				  <span>담당자 검색</span>
+				  <input type="text" class="taskSearchInput" size="23" placeholder="담당자 이름 입력" name="searchEngineer" th:value="${pageVO.cri.searchEngineer}">
+			  </div>
+			  <div class="taskSearchOpt checkBoxOpt">
+				  <span style="display:inline-block" class="checkBoxSpan">
+					  변경요청				  
+					  <input type="checkbox" class="taskSearchInput" id="checkChange" name="checkChange" value="false" th:checked="${pageVO.cri.checkChange}" style="display:inline-block">
+				  </span>
 			  </div>
 		   	  <div class="taskSearchBtnBox">				 
 		      	<input type="button" class="taskSearchBtn" value="검색" style="line-height:0;">
@@ -151,16 +179,14 @@
 				  <tr th:each="vo, status : ${list}" class="taskBodyRow">
 					  <input type="hidden" name="task_id" th:value="${vo.task_id}" readonly>
 					  <input type="hidden" name="user_id" th:value="${session.user_id}" readonly>
+					  <input type="hidden" name="change_req_yn" th:value="${vo.change_req_yn}" readonly>
 					  <td class="taskBodies">[[${vo.task_id}]]</td>
 					  <td class="taskBodies">[[${vo.user_group}]]</td>
 					  <td class="taskBodies" th:if="${vo.change_req_yn == 1}">
-						  <a href="/task/taskDetail">[[${vo.task_nm}]](🚨변경요청)</a>						
+						  <a th:href="@{/task/taskDetail(task_id=${vo.task_id})}">[[${vo.task_nm}]](🚨변경요청)</a>						
 					  </td>
-					  <td class="taskBodies" th:if="${vo.change_req_yn == 0}">
-						  <a href="/task/taskDetail">[[${vo.task_nm}]]</a>
-					  </td>
-					  <td class="taskBodies" th:if="${vo.change_req_yn == 2}">
-						  <a href="/task/taskDetail">[[${vo.task_nm}]]</a>
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 0 or vo.change_req_yn == 2}">
+						  <a th:href="@{/task/taskDetail(task_id=${vo.task_id})}">[[${vo.task_nm}]]</a>
 					  </td>
 					  <td class="taskBodies">[[${vo.task_date}]]</td>
 					  <td class="taskBodies">[[${vo.task_st_dt}]]</td>
@@ -189,11 +215,7 @@
 						  
 						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">변경</a>						  
 					  </td>
-					  <td class="taskBodies" th:if="${vo.change_req_yn == 2}">
-						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">수정</a>
-						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>
-					  </td>
-					  <td class="taskBodies" th:if="${vo.change_req_yn == 0}">
+					  <td class="taskBodies" th:if="${vo.change_req_yn == 2 or vo.change_req_yn == 0}">
 						  <a th:href="@{taskModify(task_id=${vo.task_id})}" id="taskModiBtn">수정</a>
 						  <a href="#" class="taskDelBtn" th:value="${vo.task_id}">삭제</a>
 					  </td>
@@ -241,6 +263,16 @@
 			document.taskSearchForm.method = 'post';
 			document.taskSearchForm.submit();
 		})
+	})
+	
+	
+	//체크박스 감지 이벤트
+	let checkChange = document.getElementById("checkChange");
+	
+	checkChange.addEventListener("click", function(e) {
+		let target = e.target;
+		
+		checkChange.value = checkChange.checked;
 	})
 	
 	
