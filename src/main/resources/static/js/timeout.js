@@ -1,7 +1,9 @@
+
 const timeOut = document.querySelector(".time-out");
 let second = 0;
 let minutes = 0;
 let seconds = 0;
+
 const timeFunction = function() {
 	fetch("http://localhost:8181/timeOut")
 		.then((response) => {
@@ -9,6 +11,7 @@ const timeFunction = function() {
 		})
 		.then((result) => {
 			//console.log(result);
+
 			if (result != 0) {
 
 				second = result;
@@ -29,8 +32,10 @@ const timeFunction = function() {
 		});
 };
 
+
 if ($('#role').val() != '') {
 
 	intervalId = setInterval(timeFunction, 1000);
 
 }
+

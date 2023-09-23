@@ -155,14 +155,15 @@
 				<input type="hidden" name="user_auth_yn" id="user_auth_yn" value="n">
 				<input type="hidden" name="user_id" value="미정">
 
-				<div class="int-area">
-					<input type="text" class="address_kakao" id="address_kakao" name="address_kakao" required>
-					<label for="address_kakao">주소</label>
-				</div>
-				<div class="int-area">
-					<input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
-					<label for="address_detail">상세주소</label>
-				</div>
+					<div class="int-area">
+						<input type="text" class="address_kakao" id="address_kakao" name="address_kakao" required>
+						<label for="address_kakao">주소</label>
+					</div>
+					<div class="int-area">
+						<input type="text" class="address_detail" id="address_detail" name="address_detail" autocomplete="off" required>
+						<label for="address_detail">상세주소</label>
+					</div>
+
 
 				<input type="hidden" class="user_adr" name="user_adr">
 
@@ -182,7 +183,7 @@
 			<div class="mail-check">
 				<h3>메일로 인증 번호를 보냈습니다.</h3>
 				<div class="int-area">
-					<input class="inputText authInput" type="text" name="authInput" autocomplete="off" required>
+					<input class="inputText authInput" type="text" id="authInput" name="authInput" autocomplete="off" required>
 					<label for="authInput">인증번호를 입력해주세요</label>
 				</div>
 				<button type="submit" class="joinBtn authBtn">인증하기</button>

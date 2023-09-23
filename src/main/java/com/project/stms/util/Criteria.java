@@ -12,6 +12,7 @@ public class Criteria {
 	private String searchTaskName; //작업명 검색
 	private String searchCustomer; //고객사 검색
 	private String searchEngineer; //담당자 검색
+	private String checkChange; //변경요청 리스트 검색
 	
 
 	private String searchType;

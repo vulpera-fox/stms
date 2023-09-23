@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskModifies})}">
+<div th:replace="~{./include/layout_admin :: setContent(~{:: .taskModifies})}">
 
 <div class="taskModifies">
 	
@@ -134,6 +134,15 @@
 		margin-left: 10px;
 	}
 	
+	#engineerNameBox {
+		width:70px;
+		text-align: center;
+		border-radius: 20px;
+		background-color: rgb(72, 175, 148);
+		color: #fff;
+		font-weight: bold;
+	}
+	
 	</style>	
 	
 	<body>
@@ -145,6 +154,7 @@
 	    <div class="taskModBox">
 		      <table class="taskModTable">
 				  <input type="hidden" name="task_id" th:value="${taskVO.task_id}" readonly>
+				  <input type="hidden" name="pjt_id" th:value="${taskVO.pjt_id}" readonly>
 				  <tr class="taskModRow">
 					  <th class="taskModHeads">프로젝트명</th>
 					  <td colspan="3" class="taskModBodies" name="pjt_nm">[[${taskVO.pjt_nm}]]</td>
@@ -154,7 +164,16 @@
 		            <th class="taskModHeads">고객사</th>
 		            <td class="taskModBodies"><input type="text" class="taskModInputL" name="user_group" th:value="${taskVO.user_group}"></td>
 		          	<th class="taskModHeads">담당자</th>
-		            <td class="taskModBodiesS">[[${taskVO.user_nm}]]</td>
+		          	<td class="taskModBodies changeMemberSelectBox">
+						<select id="changeMemberSelect" onChange="handleChangeMember(this)" name="pjt_id" th:value="${taskVO.pjt_id}">
+							<option>[[${taskVO.user_nm}]]</option>
+						</select>
+					</td>
+					<td>						
+						<input type="button" id="engineerNameBox" name="user_nm" th:value="${taskVO.user_nm}">
+						<input type="hidden" id="hiddenEngineers" name="user_id" th:value="${taskVO.user_id}">
+					</td>
+			
 		            <td><input type="button" name="req_change" class="req_change" value="변경요청"></td>
 				  </tr>
 		          
@@ -220,8 +239,8 @@
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
 		const currentDateTime = getCurrentDateTime();
-        task_dateInput.min = task_date;
-        task_dateInput.value = task_date;
+        task_dateInput.min = task_dateInput;
+        task_dateInput.value = task_dateInput;
 		
 		//종료일시 입력 필드의 최소값 설정
 		startDateTimeInput.addEventListener("change", function () {
@@ -240,6 +259,7 @@
 			let target = e.target;
 			console.log(target);
 			
+			document.taskModForm.action = "taskModForm";
 			document.taskModForm.submit();
 			
 		})
@@ -258,8 +278,67 @@
 		let req_change = document.querySelector(".req_change");
 		req_change.addEventListener("click", function(e) {
 			let target = e.target;
-			console.log(target);
+			console.log(target);			
+			
+			document.taskModForm.action = "changeMemberForm";
+			document.taskModForm.submit();
+			
 		})
+		
+		//작업자 변경시 프로젝트 멤버 불러오기
+		
+		$("#changeMemberSelect").one("click", function(e) {
+			e.preventDefault();
+			let target = e.target;
+			console.log(target);
+			
+			let pjtId = $(this).attr("value");
+			console.log(pjtId);
+			
+			$.ajax({
+				url: "../getPjtMembers",
+				type: "get",
+				contentType: "application/json",
+				data: {"pjt_id": pjtId},
+				success: function(data) {
+					//alert("리스트 조회 성공")
+					console.log(data);
+					
+					let str = '';
+					
+					for(let i = 0; i < data.length; i++) {
+						str += '<option name="담당자'+ i +'" id="option'+ i +'" value="'+ data[i].user_id +'">'+ data[i].user_nm +'</option>';
+					}
+					
+					let firstChild = $("#changeMemberSelect").children().first();
+					firstChild.after(str);
+					
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+					alert("리스트 에러")
+				}
+			})
+		})
+		
+		
+		//작업자 선택 onChange 이벤트
+		function handleChangeMember(e) {
+			let selectedEngineer = e.options[e.selectedIndex].innerHTML;
+			
+			console.log(selectedEngineer);
+			
+			let selectedEngId = e.options[e.selectedIndex].value;
+			
+			console.log("찾아야할 작업자 값 S :", selectedEngId);
+			
+			let engineerNameBox = document.getElementById("engineerNameBox")
+			let hiddenEngineers = document.getElementById("hiddenEngineers")
+			
+			engineerNameBox.value = selectedEngineer;
+			hiddenEngineers.value = selectedEngId;
+		}
 		
 		
 	</script>

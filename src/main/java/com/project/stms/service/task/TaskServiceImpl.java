@@ -112,9 +112,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public ArrayList<TaskVO> getTaskTemp(String user_id) {
+	public ArrayList<TaskVO> getTaskTemp() {
 		
-		return taskMapper.getTaskTemp(user_id);
+		return taskMapper.getTaskTemp();
 	}
 
 
@@ -127,18 +127,32 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public TaskVO applyTemp(Integer tem_id) {
+	public TaskVO applyTemp(String tem_nm) {
 		
-		return taskMapper.applyTemp(tem_id);
+		return taskMapper.applyTemp(tem_nm);
+	}
+
+	@Override
+	public int modiTask(TaskVO vo) {
+		
+		return taskMapper.modiTask(vo);
+
+	}
+
+	@Override
+	public void changeMember(int task_id) {
+
+	taskMapper.changeMember(task_id);
+
 	}
 
 
 	@Override
-	public int ModiTask(TaskVO vo) {
-		
-		return taskMapper.ModiTask(vo);
-	}
+	public TaskVO getTaskDetail(int task_id) {
 
+	return taskMapper.getTaskDetail(task_id);
+	}
+	
 
 //	@Override
 //	public void delTask(int task_id) {
