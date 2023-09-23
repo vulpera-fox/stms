@@ -19,7 +19,6 @@ const warning = document.querySelector(".warning");
 
 const dropbox = document.querySelector('.file_box');
 const input_filename = document.querySelector('.file_name');
-const file_btn = document.querySelector('.upload_btn');
 let file_data;
 
 const authBtn = document.querySelector('.authBtn');
@@ -59,29 +58,6 @@ dropbox.addEventListener('drop', function(e) {
 	}
 
 });
-
-
-//객체업로드
-file_btn.addEventListener('click', function(e) {
-	
-	let formData = new FormData();
-	formData.append('file_data' , file_data);
-	
-	input_filename.dataset.value=file_data.name;//div태그 벨류 바꿔주기
-	
-	fetch('/uploadProfile', {method: 'post', body: formData})
-	.then(response => response.text() )
-	.then(data => {
-		alert(data);
-	})
-	.catch(err => alert('업로드에 실패했습니다:' + err) );
-		
-		
-});
-
-
-
-
 
 for (var i = 0; i < inputs.length; i++) {
 	inputs[i].addEventListener('focusout', function() {

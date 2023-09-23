@@ -6,131 +6,172 @@
 <mapper namespace="com.project.stms.service.task.TaskMapper">
 
 	<select id="getTaskList" resultType="TaskVO">
-				
+
 		select t.task_id,
-			   t.pjt_id,
-			   t.server_id,
-			   t.task_nm,
-			   t.task_dtl,
-			   t.user_id,
-			   date_format(t.task_date, '%Y-%m-%d') as task_date,
-			   date_format(t.task_st_dt, '%H:%i') as task_st_dt,
-			   date_format(t.task_end_dt, '%H:%i') as task_end_dt,
-			   t.task_al_t,
-			   t.task_oper_t,
-			   t.status_id,
-			   t.change_req_yn,
-			   pu.user_nm,
-			   pu.user_role,
-			   pu.pjt_nm,
-			   pu.pjt_dtl,
-			   pu.req_user_id,
-			   pu.user_group,
-			   ts.status_code,
-			   ts.status_dtl,
-			   ts.status_color
+		t.pjt_id,
+		t.server_id,
+		t.task_nm,
+		t.task_dtl,
+		t.user_id,
+		date_format(t.task_date, '%Y-%m-%d') as task_date,
+		date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+		date_format(t.task_end_dt, '%H:%i') as task_end_dt,
+		t.task_al_t,
+		t.task_oper_t,
+		t.status_id,
+		t.change_req_yn,
+		pu.user_role,
+		pu.pjt_nm,
+		pu.pjt_dtl,
+		pu.user_group,
+		ts.status_code,
+		ts.status_dtl,
+		ts.status_color,
+		su.user_nm,
+		t.change_req_yn
 		from task t
 		left join
-				(select *
-				 from project p
-				 left join
-				 user u
-				 on p.req_user_id = u.user_id) pu
-		on t.pjt_id = pu.pjt_id 
+		(select *
+		from project p
+		left join
+		user u
+		on p.req_user_id = u.user_id) pu
+		on t.pjt_id = pu.pjt_id
 		left join
 		task_status ts
 		on t.status_id = ts.status_id
-		
+		left join
+		user su
+		on t.user_id = su.user_id
+		where 1=1
 		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
-			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+			and t.task_nm like concat('%', #{cri.searchTaskName}, '%')
 		</if>
 		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
-			where user_group like concat('%', #{cri.searchCustomer}, '%')
+			and pu.user_group like concat('%', #{cri.searchCustomer},
+			'%')
 		</if>
 		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
-			where user_id like concat('%', #{cri.searchEngineer}, '%')
+			and su.user_nm like concat('%', #{cri.searchEngineer},
+			'%')
+		</if>
+		<if test="cri.checkChange == 'true'">
+			and t.change_req_yn = 1
 		</if>
 		order by task_id desc
-				
+
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
-	
+
 	<select id="getTotal" resultType="int">
-		select count(*) as total
+		select count(*) as total,
+		t.task_nm,
+		pu.user_group,
+		su.user_nm,
+		t.change_req_yn
+		from task t
+		left join
+		(select *
+		from project p
+		left join
+		user u
+		on p.req_user_id = u.user_id) pu
+		on t.pjt_id = pu.pjt_id
+		left join
+		task_status ts
+		on t.status_id = ts.status_id
+		left join
+		user su
+		on t.user_id = su.user_id
+		where 1=1
 		from task
 		<if test="cri.searchTaskName != '' and cri.searchTaskName != null">
-			where task_nm like concat('%', #{cri.searchTaskName}, '%')
+			and t.task_nm like concat('%', #{cri.searchTaskName}, '%')
 		</if>
 		<if test="cri.searchCustomer != '' and cri.searchCustomer != null">
-			where user_id like concat('%', #{cri.searchCustomer}, '%')
+			and pu.user_group like concat('%', #{cri.searchCustomer}, '%')
 		</if>
 		<if test="cri.searchEngineer != '' and cri.searchEngineer != null">
-			where user_id like concat('%', #{cri.searchEngineer}, '%')
+			and su.user_nm like concat('%', #{cri.searchEngineer}, '%')
+		</if>
+		<if test="cri.checkChange == 'true'">
+			and t.change_req_yn = 1
 		</if>
 	</select>
-	
+
 	<delete id="deleteTaskList">
 		delete from task where task_id = #{task_id}
 	</delete>
 
 	<select id="getModify" resultType="TaskVO">
-		select up.user_nm,
-       		   up.user_group,
-       		   up.user_role,
-       		   up.user_adr,
-       		   up.pjt_id,
-       		   up.pjt_nm,
-       		   up.req_user_id,
-       		   t.task_id,
-       		   t.task_nm,
-       		   t.task_dtl,
-       		   t.user_id,
-       		   t.status,
-       		   date_format(t.task_date, '%Y-%m-%d') as task_date,
-       		   date_format(t.task_st_dt, '%H:%i') as task_st_dt,
-       		   date_format(t.task_end_dt, '%H:%i') as task_end_dt,
-       		   t.task_al_t,
-       		   t.task_oper_t,
-       		   t.status_id
-		from (select *
-	  		  from user u
-	  		  left join
-	  		  project p
-	  		  on u.user_id = p.req_user_id) up
+		select
+		t.task_id,
+		t.pjt_id,
+		t.server_id,
+		t.task_nm,
+		t.task_dtl,
+		t.user_id,
+		date_format(t.task_date, '%Y-%m-%d') as task_date,
+		date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+		date_format(t.task_end_dt, '%H:%i') as task_end_dt,
+		t.task_al_t,
+		t.task_oper_t,
+		t.status_id,
+		 t.change_req_yn,
+   pu.user_role,
+   pu.pjt_nm,
+   pu.pjt_dtl,
+   pu.user_group,
+   ts.status_code,
+   ts.status_dtl,
+   ts.status_color,
+               u.user_nm,
+               t.change_req_yn
+		from task t
 		left join
-		task t
-		on up.pjt_id = t.pjt_id
+		(select *
+		 from project p
+		 left join
+		 user u
+		 on p.req_user_id = u.user_id) pu
+		on t.pjt_id = pu.pjt_id 
+		left join
+		task_status ts
+		on t.status_id = ts.status_id
+		        left join
+		        user u
+		        on t.user_id = u.user_id
 		where t.task_id = #{task_id};
 	</select>
-	
+
 	<insert id="getTemplate" parameterType="TaskVO">
-	
+
 		insert into template (user_id,
-							  tem_nm,
-                 		  	  task_nm,
-                 		  	  task_dtl,
-                 		  	  pred_time)
+		tem_nm,
+		task_nm,
+		task_dtl,
+		pred_time)
 		values(#{user_id}, #{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
-	
+
 	</insert>
 
 	<select id="getTemplateList" resultType="TaskVO">
 		select * from template
 	</select>
-	
-	
+
+
 	<delete id="deleteTemplate">
 		delete from template where tem_id = #{tem_id}
 	</delete>
-	
+
 	<select id="getPjtList" resultType="ProjectVO">
 		select * from project
 		<if test="cri.searchPjtName != '' and cri.searchPjtName != null">
 			where pjt_nm like concat('%', #{cri.searchPjtName}, '%')
 		</if>
 	</select>
-	
-	
+
+
 	<select id="getTaskSearch" resultType="TaskVO">
 		select *
 		from project p
@@ -139,51 +180,53 @@
 		on p.pjt_id = t.pjt_id
 		where t.pjt_id = #{pjt_id};
 	</select>
-	
+
 	<select id="getTaskDetailSearch" resultType="TaskVO">
 		select t.pjt_id,
-			   t.task_id,
-			   t.task_nm,
-		       t.task_dtl,
-		       t.status_id,
-		       date_format(t.task_date, '%Y-%m-%d') as task_date,
-		       date_format(t.task_st_dt, '%H:%i') as task_st_dt,
-			   t.server_id,
-			   u.user_nm,
-		       u.user_group,
-		       u.user_adr,
-		       u.user_id,
-		       ts.status_dtl,
-		       ts.status_color
+		t.task_id,
+		t.task_nm,
+		t.task_dtl,
+		t.status_id,
+		date_format(t.task_date, '%Y-%m-%d') as task_date,
+		date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+		t.server_id,
+		u.user_nm,
+		u.user_group,
+		u.user_adr,
+		u.user_id,
+		ts.status_dtl,
+		ts.status_color
 		from task t
 		left join user u
 		on t.user_id = u.user_id
-		left join task_status ts
+		left join
+		task_status ts
 		on t.status_id = ts.status_id
 		where task_id = #{task_id};
 	</select>
-	
+
 	<update id="updateTask">
 		update task set task_nm = #{task_nm},
-					 	task_dtl = #{task_dtl},
-					 	status_id = #{status_id},
-					 	task_date = #{task_date},
-					 	task_st_dt = #{task_st_dt},
-					 	user_id = #{user_id}
-					where task_id = #{task_id}
+		task_dtl = #{task_dtl},
+		status_id = #{status_id},
+		task_date = #{task_date},
+		task_st_dt = #{task_st_dt},
+		user_id = #{user_id}
+		where task_id = #{task_id}
 	</update>
-	
-	
+
+
 	<select id="getRegBoxA" resultType="TaskVO">
 		select t.*,
-			   u.*
+		u.*
 		from task t
 		left join
 		user u
 		on t.user_id = u.user_id
-		where t.pjt_id = #{pjt_id}
+		where t.pjt_id =
+		#{pjt_id}
 	</select>
-	
+
 	<select id="getPjtMembers" resultType="TaskVO">
 		select *
 		from pjt_mem pm
@@ -192,43 +235,91 @@
 		on pm.user_id = u.user_id
 		where pm.pjt_id = #{pjt_id}
 	</select>
-	
+
 	<select id="getTaskTemp" resultType="TaskVO">
 		select * from template
-		where user_id = #{user_id}
 	</select>
-	
+
 	<insert id="taskRegist" parameterType="TaskVO">
 		insert into task (task_nm,
-						  task_date,
-						  task_st_dt,
-						  user_id,
-						  task_dtl,
-						  pjt_id,
-						  server_id)
-				values(#{task_nm},
-					   #{task_date},
-					   #{task_st_dt},
-					   #{user_id},
-					   #{task_dtl},
-					   #{pjt_id},
-					   #{server_id})
+		task_date,
+		task_st_dt,
+		task_end_dt,
+		user_id,
+		task_dtl,
+		pjt_id,
+		server_id)
+		values(#{task_nm},
+		#{task_date},
+		#{task_st_dt},
+		#{task_end_dt},
+		#{user_id},
+		#{task_dtl},
+		#{pjt_id},
+		#{server_id})
 	</insert>
-	
+
 	<select id="applyTemp" resultType="TaskVO">
 		select task_nm,
-			   task_dtl,
-			   date_format(pred_time, '%Y-%m-%d') as task_date,
-		       date_format(pred_time, '%H:%i') as task_st_dt 
+		task_dtl,
+		date_format(pred_time, '%Y-%m-%d') as task_date,
+		date_format(pred_time, '%H:%i') as task_st_dt,
+		pred_time as task_end_dt
 		from template
-		where tem_id = #{tem_id}
+		where tem_nm = #{tem_nm}
 	</select>
-	
-	<update id="ModiTask" parameterType="TaskVO">
-		update task set task_date = #{task_date},
-						task_st_dt = #{task_st_dt},
-						task_end_dt = #{task_end_dt}
+
+	<update id="modiTask" parameterType="TaskVO">
+		update task set
+		user_id = #{user_id}, 
+		task_date = #{task_date},
+		task_st_dt = #{task_st_dt},
+		task_end_dt = #{task_end_dt},
+		change_req_yn = 2
 		where task_id = #{task_id}
 	</update>
+	<update id="changeMember">
+update task set change_req_yn = 1
+where task_id = #{task_id}
+</update>
 
+<select id="getTaskDetail" resultType="TaskVO">
+select t.task_id,
+   t.pjt_id,
+   t.server_id,
+   t.task_nm,
+   t.task_dtl,
+   t.user_id,
+   date_format(t.task_date, '%Y-%m-%d') as task_date,
+   date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+   date_format(t.task_end_dt, '%H:%i') as task_end_dt,
+   t.task_al_t,
+   t.task_oper_t,
+   t.status_id,
+   t.change_req_yn,
+   pu.user_role,
+   pu.pjt_nm,
+   pu.pjt_dtl,
+   pu.user_group,
+   ts.status_code,
+   ts.status_dtl,
+   ts.status_color,
+               u.user_nm,
+               t.change_req_yn
+from task t
+left join
+(select *
+ from project p
+ left join
+ user u
+ on p.req_user_id = u.user_id) pu
+on t.pjt_id = pu.pjt_id 
+left join
+task_status ts
+on t.status_id = ts.status_id
+        left join
+        user u
+        on t.user_id = u.user_id
+where t.task_id = #{task_id};
+</select>
 </mapper>

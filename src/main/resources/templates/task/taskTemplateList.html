@@ -10,7 +10,7 @@
 			.task_temp_container {
 				width: 100%;
 				margin: 0 auto;
-				padding : 30px;
+				padding: 30px;
 			}
 
 			.task_temp_box {
@@ -71,7 +71,6 @@
 				right: 10px;
 				width: 8%;
 			}
-
 		</style>
 
 		<div class="task_temp_container">
@@ -96,11 +95,10 @@
 			</div>
 
 			<!--반복영역-->
-			<form name="actionForm" action="tempDelForm" method="post">					
+			<form id="tempDelForm" name="actionForm" action="tempDelForm" method="post">
 				<div class="task_temp_box" th:each="vo, status : ${list}">
 					<input class="identData" type="hidden" name="user_id" th:value="${session.user_id}">
 					<table class="tempTable">
-						<input type="hidden" name="tem_id" th:value="${vo.tem_id}">
 						<tr class="tempRow">
 							<td class="colName">
 								템플릿 이름
@@ -109,6 +107,7 @@
 								[[${vo.tem_nm}]]
 							</td>
 						</tr>
+
 
 
 						<tr class="tempRow">
@@ -143,11 +142,11 @@
 					</table>
 					<!--수정, 삭제 버튼-->
 					<div class="tempSaveDelBox">
-						<a href="#" class="tempDelBtnA delete" name="tem_id" th:value="${vo.tem_id}">
+						<a href="#" class="tempDelBtnA" th:id="${vo.tem_id}">
 							<img src="/img/red-x-cross.png" alt="삭제">
 						</a>
 					</div>
-					
+
 				</div>
 			</form>
 
@@ -175,7 +174,8 @@
 							</div>
 							<div class="modal-body">
 								<table class="tempTable">
-									<input class="identDatas" type="hidden" name="user_id" th:value="${session.user_id}">
+									<input class="identDatas" type="hidden" name="user_id"
+										th:value="${session.user_id}">
 									<tr class="tempRow">
 										<td class="colName">
 											템플릿 이름
@@ -208,10 +208,12 @@
 
 									<tr class="tempRow">
 										<td class="colName">
-											예상시간
+											예상 소요시간
 										</td>
 										<td class="colInput">
-											<input type="datetime-local" name="pred_time">
+											<select name="pred_time">
+												<option th:each="time : ${#numbers.sequence(1,12)}" th:value="${time}" th:text="${time}+'시간'"></option>
+											</select>
 										</td>
 									</tr>
 
@@ -227,8 +229,6 @@
 				</div>
 			</form>
 		</div>
-	</div>
-
 	</div>
 
 </th:block>
@@ -247,63 +247,16 @@
 	}
 
 
+
 	let tempRegBtn = document.getElementById("tempRegBtn");
 
 	tempRegBtn.addEventListener('click', () => {
 		console.log(event.target);
 
 		event.preventDefault();
-		
-		const rcv_id = document.getElementById('rcv_id').value;
 
-        const eventSource = new EventSource(`/test/subscribe/` + rcv_id);
-		
-		var session_user_id = `[[${session.user_id}]]`;
-		
-        eventSource.addEventListener("sse", function (event) {
-            console.log(event.data);
-            //const data = JSON.stringify(event.data);
-
-            
-            (async () => {
-                // 브라우저 알림
-                const showNotification = () => {
-                    
-                    const notification = new Notification('프로젝트 승인 안내', {
-                        body: rcv_id + "님이 요청하신 프로젝트가 승인되었습니다.",
-                        badge: `/img/alarm.png`
-                    });
-                    
-                    setTimeout(() => {
-                        notification.close();
-                    }, 10 * 1000);
-                    
-                    notification.addEventListener('click', () => {
-                        window.open(`/project/ProjectDetail?pjt_id=` + rcv_id, '_blank');
-                    });
-                }
-                
-
-                // 브라우저 알림 허용 권한
-                let granted = false;
-
-                if (Notification.permission === 'granted') {
-                    granted = true;
-                } else if (Notification.permission !== 'denied') {
-                    let permission = await Notification.requestPermission();
-                    granted = permission === 'granted';
-                }
-
-                // 알림 보여주기
-                if (granted) {
-                    showNotification();
-                }
-            })();
-            
-        })
-		
 		document.tempRegForm.submit();
-		
+
 	})
 
 
@@ -321,15 +274,29 @@
 
 	//})
 
-
 	$(".tempDelBtnA").click(function () {
 		event.preventDefault(); // 클릭 이벤트의 기본 동작을 취소합니다.
 
-		//console.log($(this).attr('value'));
+		// 선택한 버튼과 관련된 데이터를 가져옵니다.
+		var temId = $(this).attr('id');
 
-		document.actionForm.action = "tempDelForm";
-		document.actionForm.submit();
+		// 새로운 input 요소를 동적으로 생성하고 폼에 추가합니다.
+		var input = $("<input>")
+			.attr("type", "hidden")
+			.attr("name", "tem_id")
+			.val(temId);
+
+		// 폼에 생성한 input 요소를 추가합니다.
+		$("#tempDelForm").append(input);
+
+		// 폼을 서버로 제출합니다.
+		$("#tempDelForm").submit();
+		
+			alert("삭제되었습니다!");
 	});
+
+
+
 
 </script>
 

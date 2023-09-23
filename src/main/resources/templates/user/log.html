@@ -81,12 +81,12 @@
 					<form action="changePW" method="post">
 						<div class="int-area">
 							<input class="hidden1" type="hidden" name="user_pw" autocomplete="off" required>
-							<label class="pw_label" display:"none;" for="user_pw"></label>
+							<!--<label class="pw_label" display:"none;" for="user_pw"></label>-->
 						</div>
 						<div class="int-area">
 							<input class="hidden2" type="hidden" id="user_pw2" name="user_pw2" autocomplete="off"
 								required>
-							<label class="pw_label2" display:"none;" for="user_pw2"></label>
+							<!--<label class="pw_label2" display:"none;" for="user_pw2"></label>-->
 						</div>
 						<input type="hidden" class="cp_email" name="user_email" value="">
 						<div class="changeWrap">
@@ -159,7 +159,7 @@
 						<label for="address_kakao">주소</label>
 					</div>
 					<div class="int-area">
-						<input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
+						<input type="text" class="address_detail" id="address_detail" name="address_detail" autocomplete="off" required>
 						<label for="address_detail">상세주소</label>
 					</div>
 
@@ -181,7 +181,7 @@
 			<div class="mail-check">
 				<h3>메일로 인증 번호를 보냈습니다.</h3>
 				<div class="int-area">
-					<input class="inputText authInput" type="text" name="authInput" autocomplete="off" required>
+					<input class="inputText authInput" type="text" id="authInput" name="authInput" autocomplete="off" required>
 					<label for="authInput">인증번호를 입력해주세요</label>
 				</div>
 				<button type="submit" class="joinBtn authBtn">인증하기</button>
