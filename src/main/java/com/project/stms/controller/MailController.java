@@ -74,7 +74,7 @@ public class MailController {
 		userVO = userService.changePE(user_email);
 
 		if(userVO != null) {
-			System.out.println("존재함");
+			//System.out.println("존재함");
 
 			return "exist";
 
@@ -110,10 +110,10 @@ public class MailController {
 			
 			s3.uploadFiles(originName, originData);
 			
-			System.out.println("--------------------");
-			System.out.println(originName);
-			System.out.println(originData);
-			System.out.println("--------------------");
+			//System.out.println("--------------------");
+			//System.out.println(originName);
+			//System.out.println(originData);
+			//System.out.println("--------------------");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

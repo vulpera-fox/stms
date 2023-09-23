@@ -1,4 +1,4 @@
-																																			package com.project.stms.controller;
+package com.project.stms.controller;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class UserController {
 			return "/user/log"; //실패시 원래 화면으로
 
 		} //err end
-		
+
 		//userService.insertProfile(null, null);
 		System.out.println(userVO.toString());
 
@@ -101,7 +101,7 @@ public class UserController {
 
 		return "/user/mypage";
 	}
-	
+
 	//로그아웃
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -140,7 +140,7 @@ public class UserController {
 			session.invalidate();
 
 			Cookie[] list = request.getCookies();
-			
+
 			for (Cookie autho : list) {
 				if(autho.getName().equals("Authorization")) {
 					autho.setValue(""); 
@@ -155,15 +155,20 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
+
 	@PostMapping("/updateForm")
-	public String update(@RequestParam("userVO")UserVO userVo) {
-		
-		
-		
+	public String update(@RequestParam("userVO")UserVO userVO) {
+
+
+		String pw = bCryptPasswordEncoder.encode(userVO.getUser_pw());
+		userVO.setUser_pw(pw);
+
+		userService.update(userVO);
+
+
 		return "/user/mypage";
 	}
-	
-	
-	
+
+
+
 }
