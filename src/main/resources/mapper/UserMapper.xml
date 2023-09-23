@@ -75,6 +75,20 @@
 		DELETE FROM user WHERE USER_ID = #{user_id};
 	</delete>
 	
+	<update id="update" parameterType="UserVO">
+
+		update user set
+		USER_PW = #{user_pw},
+		USER_ADR = #{user_adr},
+		ORG_FILE_NM =#{org_file_nm}
+		
+		where USER_EMAIL = #{user_email};
+
+	</update>
+	
+	
+	
+	
 	<!-- <insert id="insertProfile">
 		insert into file (file_serial_num, org_file_nm, file_nm) values (#{file_serial_num}, #{org_file_nm}, #{file_nm};
 	</insert> -->

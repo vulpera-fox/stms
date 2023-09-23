@@ -1,35 +1,110 @@
-<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-	<!-- 메인(home)화면 css -->
-	<link rel="stylesheet" type="text/css" th:href=@{/css/customer_main.css}>
-
-</head>
-
+<link rel="stylesheet" th:href="@{/css/customer_mypage.css}" />
+<link rel="stylesheet" th:href="@{/css/modal.css}">
 
 <th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+	<div class="wrap">
+		<div class="col-lg-12 subtop_wrap">
+			<div class="col-lg-8 subtop">
+				<h1 class="page_header">마이페이지
+					<div class="sub_text"></div>
+				</h1>
+			</div>
+		</div>
+		<!-- Section-->
+		<section class="px-0 wrap">
 
-	<!-- Section-->
-	<section class="px-0 wrap">
+			<input class="form-control" type="text" readonly>
 
-		<input class="form-control" type="text" placeholder="마이페이지" readonly>
+			<div class="card text-center" style="width: 50rem; flex-direction: row;">
+				<div class="card" style="width: 18rem;">
+					<img class="card-img-top"
+						th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
+						target="_self">
+					<div class="card-body">
+						<h5 class="card-title">이름: [[${session.userVO.user_nm}]]</h5>
 
-		<p>프로필: [[${session.userVO.org_file_nm}]]</p>
-		
-		<p>이름: [[${session.userVO.user_nm}]]</p>
-		<p>주소: [[${session.userVO.user_adr}]]</p>
-		<p>고유번호: [[${session.userVO.user_id}]]</p>
-		<p>이메일(아이디): [[${session.userVO.user_email}]]</p>
-		<p>권한: [[${session.userVO.user_role}]]</p>
-		<p>그룹: [[${session.userVO.user_group}]]</p>
-		
-		<a class="btn btn-primary" th:href="@{/}">회원정보수정</a>
-		<a class="btn btn-primary" th:href="@{/user/delete}">탈퇴</a>
-		<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
-	</section>
+					</div>
+				</div>
+				<div class="card-body" style="padding-top: 55px;">
+					<p>이메일(아이디): [[${session.userVO.user_email}]]</p>
+					<p>그룹: [[${session.userVO.user_group}]]</p>
+					<p>권한: [[${session.userVO.user_role}]]</p>
+					<p>주소: [[${session.userVO.user_adr}]]</p>
+					<p>고유번호: [[${session.userVO.user_id}]]</p>
+					<div style="margin-top: 10px;">
+						<button type="button" class="btn btn-primary" onclick="openModal4();">회원정보수정</button>
+						<a class="btn btn-primary" th:href="@{/}">기능없음</a>
+						<a class="btn btn-primary" th:href="@{/user/delete}">탈퇴</a>
+						<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+					</div>
+				</div>
+			</div>
+
+		</section>
+
+		<div class="modal4" tabindex="0">
+			<div class="modal4-content">
+				<a class="btn-close3" href="#none" onclick="closeModal4();">X</a>
+				<div class="mail-check">
+					<form action="updateForm" method="post">
+						<div style="margin: 20px;">
+							<div style="margin-bottom: 10px;">
+								개인정보 수정
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1"></span>
+								</div>
+								<input type="text" class="form-control" value=[[${session.userVO.user_email}]] aria-label="Username" readonly
+									aria-describedby="basic-addon1" >
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1"></span>
+								</div>
+								<input type="text" class="form-control" placeholder="" aria-label="Username"
+									aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">@</span>
+								</div>
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username"
+									aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">@</span>
+								</div>
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username"
+									aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">@</span>
+								</div>
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username"
+									aria-describedby="basic-addon1">
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="basic-addon1">@</span>
+								</div>
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username"
+									aria-describedby="basic-addon1">
+							</div>
+						</div>
+
+						<button type="submit" class="Btn btn-primary">수정하기</button>
+					</form>
+				</div>
+			</div>
+		</div>
 </th:block>
+<script src="/js/modal.js"></script>
 
 
 </html>

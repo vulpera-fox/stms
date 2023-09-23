@@ -1,6 +1,7 @@
 const modal = document.querySelector(".modal");
 const modal2 = document.querySelector(".modal2");
 const modal3 = document.querySelector(".modal3");
+const modal4 = document.querySelector(".modal4");
 
 function openModal() {
 	modal.classList.add('active');
@@ -34,6 +35,16 @@ function closeModal3() {
 	}
 }
 
+function openModal4() {
+	modal4.classList.add('active');
+}
+
+function closeModal4() {
+	modal4.classList.remove('active');
+	window.location.reload();
+}
+
+
 
 document.querySelector(".modal").addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
@@ -53,5 +64,12 @@ document.querySelector(".modal3").addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
     // 모달창 닫기
     closeModal3();
+  }
+});
+
+document.querySelector(".modal4").addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    // 모달창 닫기
+    closeModal4();
   }
 });

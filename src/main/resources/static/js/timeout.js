@@ -19,20 +19,23 @@ const timeFunction = function() {
 				seconds = second % 60;
 				timeOut.value = (parseInt(minutes) >= 10 ? parseInt(minutes) : "0" + parseInt(minutes))
 					+ " : " + (parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
-
-				if (second == 0) {
-					fetch("http://localhost:8181/user/logout")
-					clearInterval(intervalId);
-					window.location.reload();
-				}
-
 			}
+			else if (second == 1) {
+
+				timeOut.value = "00:00";
+
+				fetch("http://localhost:8181/user/logout")
+				clearInterval(intervalId);
+				window.location.reload();
+			}
+
 		});
 };
 
-/* 로그인 전 상태 */
+
 if ($('#role').val() != '') {
 
 	intervalId = setInterval(timeFunction, 1000);
 
 }
+
