@@ -30,6 +30,10 @@ public class MyUserDetails implements UserDetails{
 		return userVO.getUser_id();
 	}
 	
+	public String getUser_group() {
+		return userVO.getUser_group();
+	}
+	
 	public String getUser_nm() {
 		return userVO.getUser_nm();
 	}
@@ -37,6 +41,10 @@ public class MyUserDetails implements UserDetails{
 
 	public String getUser_adr() {
 		return userVO.getUser_adr();
+	}
+
+	public String org_file_nm() {
+		return userVO.getOrg_file_nm();
 	}
 	
 	@Override

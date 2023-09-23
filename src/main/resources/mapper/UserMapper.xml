@@ -15,7 +15,8 @@
 							USER_ROLE,
 							USER_GROUP,
 							USER_AUTH_YN,
-							USER_ADR
+							USER_ADR,
+							ORG_FILE_NM
 							
 						  ) 
 							select concat(
@@ -29,7 +30,8 @@
 							#{user_role},
 							#{user_group},
 							#{user_auth_yn},
-							#{user_adr}
+							#{user_adr},
+							#{org_file_nm}
 			   from user
 			   where user_id like 'U'||DATE_FORMAT(NOW(), '%Y%m')
 	</insert>
@@ -67,5 +69,16 @@
 		from user
 		where USER_EMAIL = #{user_email}
 	</select>
+
+
+	<delete id="delete" parameterType="UserVO">
+		DELETE FROM user WHERE USER_ID = #{user_id};
+	</delete>
+	
+	<!-- <insert id="insertProfile">
+		insert into file (file_serial_num, org_file_nm, file_nm) values (#{file_serial_num}, #{org_file_nm}, #{file_nm};
+	</insert> -->
+	
+	
 
 </mapper>

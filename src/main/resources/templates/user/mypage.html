@@ -16,13 +16,17 @@
 
 		<input class="form-control" type="text" placeholder="마이페이지" readonly>
 
+		<p>프로필: [[${session.userVO.org_file_nm}]]</p>
+		
 		<p>이름: [[${session.userVO.user_nm}]]</p>
 		<p>주소: [[${session.userVO.user_adr}]]</p>
 		<p>고유번호: [[${session.userVO.user_id}]]</p>
 		<p>이메일(아이디): [[${session.userVO.user_email}]]</p>
 		<p>권한: [[${session.userVO.user_role}]]</p>
+		<p>그룹: [[${session.userVO.user_group}]]</p>
+		
 		<a class="btn btn-primary" th:href="@{/}">회원정보수정</a>
-		<a class="btn btn-primary" th:href="@{/}">탈퇴</a>
+		<a class="btn btn-primary" th:href="@{/user/delete}">탈퇴</a>
 		<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
 	</section>
 </th:block>

@@ -20,6 +20,11 @@ a {
 	text-decoration: none;
 }
 
+#container {
+	width: 95%;
+	margin: 0 auto;
+}
+
 
 .contentAreaBox {
   margin: 0 auto;

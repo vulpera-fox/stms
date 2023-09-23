@@ -8,6 +8,7 @@ function openModal() {
 
 function closeModal() {
 	modal.classList.remove('active');
+	window.location.reload();
 }
 
 
@@ -17,6 +18,7 @@ function openModal2() {
 
 function closeModal2() {
 	modal2.classList.remove('active');
+	window.location.reload();
 }
 
 

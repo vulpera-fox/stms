@@ -31,6 +31,7 @@ import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.notification.SseService;
 import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
+import com.project.stms.service.task.TaskService;
 import com.project.stms.util.Criteria;
 import com.project.stms.util.ProjectPageVO;
 import com.project.stms.util.ProjectCriteria;
@@ -52,10 +53,12 @@ public class ProjectController {
 
 	@Autowired
 	SseService sseService;
+	
+	@Autowired
+	TaskService taskService;
 
-	@GetMapping("/ProjectMain")
-
-	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
+	@GetMapping("/projectMain")
+	public String projectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
 
 		String myRole = (String) session.getAttribute("user_role");
 
@@ -83,11 +86,11 @@ public class ProjectController {
 
 		mo.addAttribute("reqPList", reqPList);
 
-		return "/project/ProjectMain";
+		return "/project/projectMain";
 	}
 
-	@GetMapping("/ProjectRegist")
-	public String ProjectRegist(Model mo, HttpServletRequest request) {
+	@GetMapping("/projectRegist")
+	public String projectRegist(Model mo, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 
@@ -101,7 +104,7 @@ public class ProjectController {
 
 		mo.addAttribute("sList", sList);
 
-		return "/project/ProjectRegist";
+		return "/project/projectRegist";
 	}
 
 	@PostMapping("/registForm")
@@ -160,8 +163,8 @@ public class ProjectController {
 //		return "/project/ProjectMain";
 //	}
 
-	@GetMapping("/ProjectCreate")
-	public String ProjectCreate(@RequestParam("pjt_id") int pjt_id, Model mo, ProjectCriteria cri, HttpSession session) {
+	@GetMapping("/projectCreate")
+	public String projectCreate(@RequestParam("pjt_id") int pjt_id, Model mo, ProjectCriteria cri, HttpSession session) {
 
 		ProjectVO pVO = projectService.getProjectDetail(pjt_id);
 
@@ -176,7 +179,7 @@ public class ProjectController {
 
 		mo.addAttribute("ins_user_id", (String) session.getAttribute("user_id"));
 
-		return "/project/ProjectCreate";
+		return "/project/projectCreate";
 	}
 
 	@GetMapping("/getDetail")
@@ -309,7 +312,7 @@ public class ProjectController {
 
 		mo.addAttribute("fList", fList);
 
-		return "/project/ProjectDetail";
+		return "/project/projectDetail";
 	}
 
 	@PostMapping("/submitForm")
@@ -335,7 +338,7 @@ public class ProjectController {
 			}
 		}
 
-		return "redirect:/project/ProjectMain";
+		return "redirect:/project/projectMain";
 	}
 
 	@PostMapping("/updateMemberForm")
@@ -367,7 +370,7 @@ public class ProjectController {
 			ra.addFlashAttribute("noFileMsg", "다운로드 하려는 파일이 없습니다. 문의를 남겨 주세요.");
 		}
 
-		return "redirect:/project/ProjectMain";
+		return "redirect:/project/projectMain";
 	}
 
 	@GetMapping("/deleteProject")
@@ -377,7 +380,7 @@ public class ProjectController {
 
 		projectService.deleteProject(pjt_id);
 
-		return "redirect:/project/ProjectMain";
+		return "redirect:/project/projectMain";
 	}
 
 	@PostMapping("/modifyProject")
@@ -387,7 +390,14 @@ public class ProjectController {
 
 		projectService.modifyProject(vo);
 
-		return "redirect:/project/ProjectMain";
+		return "redirect:/project/projectMain";
+	}
+	
+	@GetMapping("/deleteTask")
+	public String deleteTask(int task_id) {
+		
+		
+		return "redirect:/project/projectMain";
 	}
 
 }

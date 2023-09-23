@@ -83,7 +83,33 @@
  	
  	</delete>
  
- 
+ 	<select id="getMyQlist">
+ 	
+ 		select * from post p 
+ 		inner join user u 
+ 		on p.user_id = u.user_email 
+ 		where p.board_id = 4 and p.user_id = #{user_id}
+ 		order by post_id desc limit #{cri.pageStart}, #{cri.amount}
+ 	
+ 	</select>
+ 	
+ 	<select id="getQtotal" resultType="int">
+ 	
+ 		select count(*) from post p 
+ 		inner join user u 
+ 		on p.user_id = u.user_email 
+ 		where p.board_id = 4 and p.user_id = #{user_id}
+ 	
+ 	</select>
+ 	
+ 	<update id="modifyQ">
+ 	
+ 		update post set post_title = #{post_title},
+ 						post_contents = #{post_contents},
+ 						post_secret_yn = #{post_secret_yn}
+ 						where board_id = 4 and post_id = #{post_id}
+ 						
+ 	</update>
  
  
  

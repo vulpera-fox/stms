@@ -452,8 +452,10 @@
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
 		const currentDateTime = getCurrentDateTime();
+
         task_dateInput.min = task_dateInput;
         task_dateInput.value = task_dateInput;
+
 		
 		//종료일시 입력 필드의 최소값 설정
 		startDateTimeInput.addEventListener("change", function () {
@@ -928,10 +930,58 @@
 					
 					$(".taskReg_searchMinContainer").html(str);
 					
+					$('#taskSearchRegBtn').on('click', function() {
+					var session_user_id = `[[${session.user_id}]]`;
+        const eventSource = new EventSource(`/test/subscribe/` + 'ADMIN');
+		
+		
+        eventSource.addEventListener("sse", function (event) {
+            console.log(event.data);
+            //const data = JSON.stringify(event.data);
+
+            
+            (async () => {
+                // 브라우저 알림
+                const showNotification = () => {
+                    
+                    const notification = new Notification('프로젝트 승인 안내', {
+                        body: session_user_id + "님이 요청하신 프로젝트가 승인되었습니다.",
+                        badge: `/img/alarm.png`
+                    });
+                    
+                    setTimeout(() => {
+                        notification.close();
+                    }, 10 * 1000);
+                    
+                    notification.addEventListener('click', () => {
+                        window.open(`/task/taskDetail`, '_blank');
+                    });
+                }
+                
+
+                // 브라우저 알림 허용 권한
+                let granted = false;
+
+                if (Notification.permission === 'granted') {
+                    granted = true;
+                } else if (Notification.permission !== 'denied') {
+                    let permission = await Notification.requestPermission();
+                    granted = permission === 'granted';
+                }
+
+                // 알림 보여주기
+                if (granted) {
+                    showNotification();
+                }
+            })();
+            
+        })
+			})		
 					getEngMembersS();
 					
 					getTemp();
-					
+
+		
 				},
 				error: function(status, error) {
 					console.log(status);

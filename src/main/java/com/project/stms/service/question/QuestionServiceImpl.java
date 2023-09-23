@@ -43,4 +43,23 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionMapper.deleteQ(post_id);
 	}
 
+	@Override
+	public ArrayList<NewsVO> getMyQlist(NewsCriteria cri, String user_id) {
+		return questionMapper.getMyQlist(cri, user_id);
+	}
+
+	@Override
+	public int getQtotal(NewsCriteria cri) {
+		// TODO Auto-generated method stub
+		return questionMapper.getQtotal(cri);
+	}
+
+	@Override
+	public int modifyQ(NewsVO vo) {
+		// TODO Auto-generated method stub
+		return questionMapper.modifyQ(vo);
+	}
+
+	
+
 }

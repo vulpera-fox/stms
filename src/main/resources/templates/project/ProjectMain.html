@@ -28,10 +28,9 @@
 		<div id='container'>
 			<div class='searchArea'>
 				<div class='searchBar'>
-					<form action="ProjectMain" method="get" id="pjtSearch">
+					<form action="projectMain" method="get" id="pjtSearch">
 				</div>
 				<div class="filterArea">
-					
 						<div class='searchFilterArea'>
 							<div class='upperSearchBar'>
 								<span>프로젝트 이름 : </span><input type='text' name="pjt_nm" class="pjt_nm"/>
@@ -57,6 +56,7 @@
 							<div class='filterSubmit'>
 								<a class="submitBtn">검색</a>
 								<a href="/project/ProjectMain" class="resetBtn">초기화</a>
+								<a data-bs-toggle="modal" data-bs-target="#reqProjectListModal" class="createBtn" th:hidden="${session.user_role} != 'ROLE_ADMIN'">승인 대기</a>
 							</div>
 						</div>
 					</form>
@@ -108,7 +108,7 @@
 			<div class="pageNationArea">
 				<ul>
 					<li th:each="pagelist : ${pageVO.pageList}" class="pages">
-						<a th:href="@{ProjectMain(page=${pagelist},
+						<a th:href="@{projectMain(page=${pagelist},
 												  server_type=${pageVO.cri.server_type},
 												  ins_user_id=${pageVO.cri.ins_user_id},
 												  pjt_end_dt=${pageVO.cri.pjt_end_dt},
@@ -148,7 +148,7 @@
 											<td>[[${reqPVO.pjt_nm}]]</td>
 											<td>[[${reqPVO.server_model}]]</td>
 											<td style="padding-left: 30px;"><a class="projectCreateBtn"
-													th:href="@{ProjectCreate(pjt_id=${reqPVO.pjt_id})}">생성</a></td>
+													th:href="@{projectCreate(pjt_id=${reqPVO.pjt_id})}">생성</a></td>
 										</th:block>
 									</tr>
 								</tbody>
