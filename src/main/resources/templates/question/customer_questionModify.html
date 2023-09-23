@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<link rel="stylesheet" href="/css/customer_questionWrite.css">
+<link rel="stylesheet" href="/css/customer_questionModify.css">
 
 <th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
 	<!-- Section-->
@@ -28,14 +28,15 @@
 					<tbody id="q_contents">
 						<tr class="q_title q_trclass ">
 							<td class="q_required sub">제목</td>
-							<td><input type="text" required name="post_title" id="post_title"></td>
+							<td><input type="text" required name="post_title" id="post_title" th:value="${vo.post_title}"></td>
 							<input type="hidden" th:value="${session.user_email}">
+							<input type="hidden" name="post_id" th:value="${vo.post_id}">
 
 						</tr>
 
 						<tr class="q_contents_area q_trclass">
 							<td class="q_required sub">내용</td>
-							<td><textarea class="q_contents" placeholder="문의할 내용을 적으세요" required name="post_contents" id="post_contents" ></textarea></td>
+							<td><textarea class="q_contents" placeholder="문의할 내용을 적으세요" required name="post_contents" id="post_contents" th:text="${vo.post_contents}"></textarea></td>
 						</tr>
 
 						<tr class="attatch_file_area q_trclass">
@@ -52,11 +53,11 @@
 
 							<td class="secret_yn">
 								<div>
-									<input class="secret_r" type="radio" name="post_secret_yn" value="Y" id="apply" checked>
+									<input class="secret_r" type="radio" name="post_secret_yn" value="Y" id="apply" th:checked="${vo.post_secret_yn} == 'Y' ? checked : ''">
 									<label for="apply">적용</label>
 								</div>
 								<div>									
-									<input class="secret_r" type="radio" name="post_secret_yn" value="N" id="unapply">
+									<input class="secret_r" type="radio" name="post_secret_yn" value="N" id="unapply" th:checked="${vo.post_secret_yn} == 'N' ? checked : ''">
 									<label for="unapply">미적용</label>
 									
 							</td>
@@ -66,9 +67,9 @@
 						<tr class="secret_no_area q_trclass">
 							<td class="q_required sub">비밀번호</td>
 							<td>
-								<input type="password" required name="post_pw" id="post_pw">
+								<input type="password" required name="post_pw" id="post_pw" th:value="${vo.post_pw}">
 								<p style="color: red; font-size: 12.5px; margin-top:12px; margin-bottom:2.5;">숫자 4자리를 입력해주세요</p>
-								
+
 							</td>
 						</tr>
 
@@ -81,7 +82,7 @@
 						<img th:src="@{/img/refresh.png}">
 					</button>
 					<a th:href="@{customer_question}"><button class="goto_list_btn">목록으로</button></a>
-					<a th:href="@{customer_question}"><button class="goto_regi_btn">등록하기</button></a>
+					<a href="#"><button class="goto_modify_btn">수정하기</button></a>
 				</div>
 
 			</form>
@@ -102,10 +103,11 @@
 		
 	});
 	
-	$('.goto_regi_btn').click(function(e){
+	$('.goto_modify_btn').click(function(e){
 		
 		e.preventDefault();
-		document.writeForm.action='regiQuestion';
+		document.writeForm.method='post';
+		document.writeForm.action='updateQ';
 		document.writeForm.submit();
 	});
 	

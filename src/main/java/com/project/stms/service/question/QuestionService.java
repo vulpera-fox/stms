@@ -15,6 +15,6 @@ public interface QuestionService {
 	public int deleteQ(int post_id);
 	public ArrayList<NewsVO> getMyQlist(NewsCriteria cri, String user_id);
 	public int getQtotal(NewsCriteria cri);
-	public int modifyQ(NewsVO vo);
+	public int updateQ(NewsVO vo);
 	
 }

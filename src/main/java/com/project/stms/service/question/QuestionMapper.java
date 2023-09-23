@@ -20,6 +20,6 @@ public interface QuestionMapper {
 	public ArrayList<NewsVO> getMyQlist(@Param("cri")NewsCriteria cri, 
 										@Param("user_id")String user_id);
 	public int getQtotal(NewsCriteria cri);
-	public int modifyQ(NewsVO vo);
+	public int updateQ(NewsVO vo);
 	
 }

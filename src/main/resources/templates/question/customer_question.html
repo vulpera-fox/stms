@@ -84,6 +84,8 @@
 
 							e.preventDefault();
 							$('.modal_content').fadeIn();
+							$('#background').addClass('modal_layer');
+							
 						}
 
 						function modalClose(e) {
@@ -93,19 +95,21 @@
 
 						function modalSubmit(e) {
 
-							//console.log($('#post_pw').val());
-							//console.log($('#pw').val());
+								//console.log($('#post_pw').val());
+								//console.log($('#pw').val());
+							
+								if ($('#post_pw').val() == $('#pw').val()) {
+									/* 수정중!! */
 
-							if ($('#post_pw').val() == $('#pw').val()) {
-								/* 수정중!! */
+									location.href = '/question/customer_questionDetail?post_id=' + $('#no').val();
 
-								var url = '[[@{customer_questionDetail(post_id=' + $('#no');
+								} else {
 
-								$('#open').prop('th:href', url);
+									alert('비밀번호가 일치하지 않습니다');
+									modalClose();
+								}
 
 							}
-
-						}
 
 					</script>
 					<tbody>
@@ -146,7 +150,7 @@
 				<div id="modal">
 
 					<div class="modal_content">
-
+						
 						<button type="button" id="cnxl" onclick="modalClose(event)">x</button>
 						<p>비밀번호를 입력해주세요</p>
 						<input type="password" id="post_pw">
@@ -154,7 +158,7 @@
 
 					</div>
 
-					<div class="modal_layer"></div>
+					<div class="" id="background"></div>
 
 				</div>
 

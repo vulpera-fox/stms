@@ -72,6 +72,37 @@
 				</thead>
 				<tbody>
 					
+					<script>
+						function modalOpen(e) {
+
+							e.preventDefault();
+							$('.modal_content').fadeIn();
+						}
+
+						function modalClose(e) {
+
+							$('.modal_content').fadeOut();
+						}
+
+						function modalSubmit(e) {
+
+							//console.log($('#post_pw').val());
+							//console.log($('#pw').val());
+
+							if ($('#post_pw').val() == $('#pw').val()) {
+								/* 수정중!! */
+
+								 location.href = '/question/customer_questionDetail?post_id=' + $('#no').val();
+								
+							} else{
+								
+								alert('비밀번호가 일치하지 않습니다');
+								modalClose();
+							}
+						}
+
+					</script>
+					
 					<tr th:each="vo,status :${list}">
 					
 					<td>[[${status.count}]]</td>
