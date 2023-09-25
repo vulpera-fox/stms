@@ -193,12 +193,18 @@
       font-size: 16px;
 	}
 	
+	.modiTitle {
+		margin:0 auto;
+		width:800px;
+	}
+	
 	</style>	
 	
 	<body>
 	  <div class="taskDtlContainer">
-	    
-      <h3>작업 상세</h3>
+	  <div class="modiTitle">		  
+	      <h3>작업 상세</h3>
+	  </div>  
       <form name="actionForm" action="commentRegForm" method="post">		  
 	    <div class="taskDtlBox">
 			  
@@ -278,7 +284,7 @@
 		          
 		          <tr class="taskDtlRow" name="user_role" th:if="${session.user_role == 'ROLE_ENGINEER' or session.user_role == 'ROLE_ADMIN'}">
 					  <th class="taskDtlHeads">작업결과</th>
-					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" id="comment_dtl" name="comment_dtl" placeholder="작업결과를 입력해주세요">[[${taskVO.comment_dtl}]]</textarea></td>
+					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" id="comment_dtl" name="comment_dtl" placeholder="작업결과를 입력해주세요" style="padding-left: 5px;">[[${taskVO.comment_dtl}]]</textarea></td>
 				  </tr>
 				  
 				  

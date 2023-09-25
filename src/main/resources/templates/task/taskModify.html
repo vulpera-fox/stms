@@ -25,7 +25,7 @@
 	.taskModRow {
 	  border-top: 1px solid rgb(227, 227, 227);
 	  border-collapse: collapse;
-	  line-height: 20px;
+	  line-height: 70px;
 	}
 	
 	.taskModRow:first-child {
@@ -33,7 +33,8 @@
 	}
 	
 	.taskModHeads, .tastModBodies {
-	  padding: 10px;
+	  padding: 5px;
+	  width: 80px;
 	  text-align: center;
 	  
 	  font-weight: bold;
@@ -42,14 +43,17 @@
 	.taskModBodiesS {
 	  padding: 10px;
 	  text-align: center;
-	  
+	  width:100px;
 	  font-weight: bold;
 	  overflow: hidden;
 	}
 	
 	.taskModDates {
 	  padding: 10px;
+	  width:700px;
 	  text-align: left;
+	  
+	  
 	}
 	
 	
@@ -123,15 +127,23 @@
 		  width: 90%;
 	  }
 	  
-	#startDateTime {
+	.startDateTime {
 		block-size: 30px;
 		margin-left: 10px;
 		margin-right: 30px;
+		width:90px;
 	}
 	
-	#endDateTime {
+	.endDateTime {
 		block-size: 30px;
 		margin-left: 10px;
+		width:90px;
+	}
+	
+	.taskDateTime {
+		block-size: 30px;
+		margin: 0 0 5px 10px;
+		width:90px;
 	}
 	
 	#engineerNameBox {
@@ -143,12 +155,19 @@
 		font-weight: bold;
 	}
 	
+	.modiTitle {
+		margin:0 auto;
+		width:800px;
+	}
+	
 	</style>	
 	
 	<body>
 	  <div class="taskModContainer">
 	    
-	    <h3 style="margin:0 auto">작업 수정</h3>
+	    <div class="modiTitle">			
+		    <h3 style="margin:0 auto">작업 수정</h3>
+		</div>
         
         <form name="taskModForm" action="taskModForm" method="post">
 	    <div class="taskModBox">
@@ -162,7 +181,7 @@
 				  		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">고객사</th>
-		            <td class="taskModBodies"><input type="text" class="taskModInputL" name="user_group" th:value="${taskVO.user_group}"></td>
+		            <td class="taskModBodies"><input type="text" class="taskModInputL" name="user_group" th:value="${taskVO.user_group}" style="padding-left: 5px;"></td>
 		          	<th class="taskModHeads">담당자</th>
 		          	<td class="taskModBodies changeMemberSelectBox">
 						<select id="changeMemberSelect" onChange="handleChangeMember(this)" name="pjt_id" th:value="${taskVO.pjt_id}">
@@ -181,7 +200,7 @@
 		            <th class="taskModHeads">작업기간</th>
 		            <td colspan="3" class="taskModDates">
 						
-						작업일 <input type="datetime" class="taskDateTime" name="task_date" th:value="${taskVO.task_date}">
+						작업일 <input type="datetime" class="taskDateTime" name="task_date" th:value="${taskVO.task_date}"></br>
 						시작시간 <input type="time" class="startDateTime" name="task_st_dt" th:value="${taskVO.task_st_dt}">
 						종료시간 <input type="time" class="endDateTime" name="task_end_dt" th:value="${taskVO.task_end_dt}">
 						
@@ -191,17 +210,17 @@
 		  		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업장소</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="user_adr" th:value="${taskVO.user_adr}"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="user_adr" th:value="${taskVO.user_adr}" style="padding-left: 5px;"></td>
 		          </tr>
 		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업명</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_nm" th:value="${taskVO.task_nm}"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_nm" th:value="${taskVO.task_nm}" style="padding-left: 5px;"></td>
 		          </tr>
 		  
 		          <tr class="taskModRow">
 		            <th class="taskModHeads">작업내용</th>
-		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_dtl" th:value="${taskVO.task_dtl}"></td>
+		            <td colspan="3" class="taskModBodies"><input type="text" class="colspanInput" name="task_dtl" th:value="${taskVO.task_dtl}" style="padding-left: 5px;"></td>
 		          </tr>
 		    </div>
 		    </table>
