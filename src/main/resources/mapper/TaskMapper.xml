@@ -339,8 +339,7 @@
 		select task_nm as title,
 	   		   concat(date_format(task_date, '%Y-%m-%d'), ' ', task_st_dt) as start,
 	   		   concat(date_format(task_date, '%Y-%m-%d'), ' ', task_end_dt) as end 
-		from task;
-		
+		from task
 	</select>
 	
 	<update id="registComment">
