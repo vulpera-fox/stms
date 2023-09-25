@@ -95,13 +95,14 @@ public class QuestionController {
 		return "question/customer_questionDetail";
 	}
 
-	/* 게시글 작성 */
+	/* 게시글 작성 페이지*/
 	@GetMapping("/customer_questionWrite")
 	public String RegiPost() {
 
 		return "question/customer_questionWrite";
 	}
 
+	/* 게시글 등록 */
 	@PostMapping("/regiQuestion")
 	public String regiQuestion(NewsVO vo, Model model, RedirectAttributes ra, HttpServletRequest request) {
 
@@ -124,6 +125,7 @@ public class QuestionController {
 		return "redirect:/question/customer_question";
 	}
 
+	/* 나의 문의 글 등록 */
 	@PostMapping("/regiMyQuestion")
 	public String regiMyQuestion(NewsVO vo, Model model, RedirectAttributes ra, HttpServletRequest request) {
 
@@ -144,9 +146,12 @@ public class QuestionController {
 	}
 
 	@PostMapping("/deleteQ")
-	public String deleteQ(@RequestParam("post_id") int post_id) {
+	public String deleteQ(@RequestParam("post_id") int post_id, RedirectAttributes ra) {
 
-		questionService.deleteQ(post_id);
+		int result = questionService.deleteQ(post_id);
+		String delMsg =	result == 1 ? "해당 게시글을 삭제하였습니다." : "삭제 실패";
+		
+		ra.addFlashAttribute("delMsg",delMsg);
 
 		return "redirect:/question/customer_question";
 	}
