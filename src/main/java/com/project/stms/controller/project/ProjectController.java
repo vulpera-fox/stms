@@ -55,8 +55,9 @@ public class ProjectController {
 	@Autowired
 	TaskService taskService;
 
-	@GetMapping("/projectMain")
-	public String projectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
+	
+	@GetMapping("/ProjectMain")
+	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
 
 		String myRole = (String) session.getAttribute("user_role");
 
@@ -390,13 +391,6 @@ public class ProjectController {
 		return "redirect:/project/projectMain";
 	}
 	
-	@GetMapping("/deleteTask")
-	public String deleteTask(int task_id) {
-		
-		
-		return "redirect:/project/projectMain";
-	}
-	
 	
 	@GetMapping("/serverRegist")
 	public String serverRegist(ServerVO vo, HttpSession session, Model mo) {
@@ -443,6 +437,14 @@ public class ProjectController {
 		
 		
 		return "redirect:/project/serverList";
+	}
+	
+	@GetMapping("/deleteTask")
+	public String deleteTask(@RequestParam("task_id") int task_id, @RequestParam("pjt_id") int pjt_id) {
+		
+		taskService.deleteTaskList(task_id);
+		
+		return "redirect:/project/getDetail?pjt_id=" + pjt_id;
 	}
 
 	
