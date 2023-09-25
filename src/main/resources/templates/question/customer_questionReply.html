@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" href="/css/customer_questionWrite.css">
+	<style>
+		
+		.q_box .q_trclass >td:nth-child(2) > input {
+			
+			width: 745px !important;
+		}
+		
+		.q_box .q_contents_area .q_contents{
+			
+			width: 745px !important;
+		}
+		
+		.attatch_file_area > td:nth-child(2) > label {
+			
+			top: 402px !important;
+    		right: 14px !important;
+		}
+	</style>
+	
+
+<th:block th:replace="${session.user_role} == 'ROLE_ADMIN' ?  ~{./include/layout_admin :: setContent(~{:: .wrap})} : ~{./include/layout_engineer :: setContent(~{:: .wrap})}">
+	<!-- Section-->
+	
+	<div class="wrap">
+	<div class="col-lg-8 wrap q_box_wrap" style="margin:86px 86px 0 86px !important; min-width: 969px !important;">
+
+		<div class="q_box_inner">
+	
+			<form name="writeForm" action="" method="post" enctype="multipart/form-data">
+			
+				<table class="q_box" width="90%">
+
+					<colgroup>
+						<col style="width: 20%">
+						<col style="width: 80%">
+					</colgroup>
+					
+					<tbody id="q_contents">
+						<tr class="q_title q_trclass ">
+							<td class="q_required sub">제목</td>
+							<td><input type="text"  name="post_title" id="post_title" th:value="${vo.post_title}" readonly></td>
+							<input type="hidden" name="post_id" th:value="${vo.post_id}" id="postno">
+						</tr>
+
+						<tr class="q_contents_area q_trclass">
+							<td class="q_required sub">내용</td>
+							<td><textarea class="q_contents" placeholder="답변할 내용을 적으세요" required name="post_contents" id="post_contents" ></textarea></td>
+						</tr>
+
+						<tr class="attatch_file_area q_trclass">
+							<td class="sub">첨부파일</td>
+							<td>
+								<input type="file" id="file_input" multiple>
+								<label for="file_input">파일 첨부</label>
+
+							</td>
+						</tr>
+
+						<tr class="secret_yn_area q_trclass">
+							<td class="sub">비밀글 설정</td>
+
+							<td class="secret_yn">
+								<div>
+									<input class="secret_r" type="radio" name="post_secret_yn" value="Y" id="apply" th:checked="${vo.post_secret_yn} == 'Y'" onclick="return(false)" >
+									<label for="apply">적용</label>
+								</div>
+								<div>									
+									<input class="secret_r" type="radio" name="post_secret_yn" value="N" id="unapply" th:checked="${vo.post_secret_yn} == 'N'" onclick="return(false)">
+									<label for="unapply">미적용</label>
+									
+							</td>
+
+						</tr>
+
+						<tr class="secret_no_area q_trclass">
+							<td class="q_required sub">비밀번호</td>
+							<td>
+								<input type="password" name="post_pw" id="post_pw" th:value="${vo.post_pw}" readonly>
+								<p style="color: red; font-size: 12.5px; margin-top:12px; margin-bottom:2.5;">숫자 4자리를 입력해주세요</p>
+								
+							</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+
+				<div class="goto_regi">
+					<button class="regi_refresh" id="refresh">
+						<img th:src="@{/img/refresh.png}">
+					</button>
+					<a th:href="@{customer_question}"><button class="goto_list_btn">목록으로</button></a>
+					<a th:href="@{customer_question}"><button class="goto_regi_btn">답변 등록</button></a>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+</th:block>
+
+<script th:inline="javascript">
+	
+	$('#refresh').click(function(e){
+		
+		e.preventDefault();
+		$('#post_title').val('');
+		$('#post_contents').val('');
+		$('#post_pw').val('');
+		
+	});
+	
+	$('.goto_regi_btn').click(function(e){
+		
+		e.preventDefault();
+		document.writeForm.action='regiReply';
+		document.writeForm.submit();
+	});
+	
+	$('.goto_list_btn').click(function(e){
+		
+		e.preventDefault();
+		document.writeForm.method='get';
+		document.writeForm.action='customer_question';
+		document.writeForm.submit();
+		
+		
+	})
+	
+	
+	
+</script>
+
+</html>

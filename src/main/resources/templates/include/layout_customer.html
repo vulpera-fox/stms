@@ -79,13 +79,12 @@
 							<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;">작업 관리</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="#!">서버 등록</a></li>
+								<li><a class="dropdown-item" th:href="@{/project/serverRegist}">서버 등록</a></li>
 								<li>
 									<hr class="dropdown-divider" />
 								</li>
-								<li><a class="dropdown-item" href="#!">일정 조회</a></li>
-								<li><a class="dropdown-item" href="@{@{/project/projectRegist}}">프로젝트 신청</a></li>
-								<li><a class="dropdown-item" href="#!">작업 신청</a></li>
+								<li><a class="dropdown-item" th:href="@{/project/taskDashboard}">일정 조회</a></li>
+								<li><a class="dropdown-item" th:href="@{/project/projectRegist}">프로젝트 신청</a></li>
 							</ul>
 						</li>
 					</th:block>
