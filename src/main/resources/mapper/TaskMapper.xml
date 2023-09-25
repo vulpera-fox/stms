@@ -278,10 +278,6 @@
 		update task set change_req_yn = 1
 		where task_id = #{task_id}
 	</update>
-	<update id="changeMember">
-update task set change_req_yn = 1
-where task_id = #{task_id}
-</update>
 
 	<select id="getTaskDetail" resultType="TaskVO">
 		select t.task_id,
