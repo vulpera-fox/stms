@@ -305,7 +305,9 @@ where task_id = #{task_id}
 			   ts.status_dtl,
 			   ts.status_color,
                u.user_nm,
-               t.change_req_yn
+               t.change_req_yn,
+               t.time_check_yn,
+               t.comment_dtl
 		from task t
 		left join
 				(select *
@@ -322,5 +324,32 @@ where task_id = #{task_id}
         on t.user_id = u.user_id
 		where t.task_id = #{task_id};
 	</select>
+	
+	<update id="checkStartTime" parameterType="TaskVO">
+		update task set r_st_dt = #{r_st_dt},
+						time_check_yn = 1,
+						status_id = 2
+		where task_id = #{task_id}
+	</update>
+	
+	<update id="checkEndTime" parameterType="TaskVO">
+		update task set r_end_dt = #{r_end_dt},
+						time_check_yn = 2,
+						status_id = 3
+		where task_id = #{task_id}
+	</update>
+	
+	<select id="getCalendar" resultType="TaskVO">
+		select task_nm as title,
+	   		   concat(date_format(task_date, '%Y-%m-%d'), ' ', task_st_dt) as start,
+	   		   concat(date_format(task_date, '%Y-%m-%d'), ' ', task_end_dt) as end 
+		from task;
+		
+	</select>
+	
+	<update id="registComment">
+		update task set comment_dtl = #{comment_dtl}
+		where task_id = #{task_id}
+	</update>
 
 </mapper>

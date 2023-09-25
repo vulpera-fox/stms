@@ -94,7 +94,7 @@
 	}
 	
 	#myTaskSaveBtn {
-	  width: 100px;
+	  width: 80px;
 	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
@@ -102,7 +102,7 @@
 	}
 	
 	#myTaskListBtn {
-	  width: 100px;
+	  width: 80px;
 	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
@@ -181,7 +181,7 @@
 		            <th class="taskModHeads">작업기간</th>
 		            <td colspan="3" class="taskModDates">
 						
-						작업일 <input type="date" class="taskDateTime" name="task_date" th:value="${taskVO.task_date}">
+						작업일 <input type="datetime" class="taskDateTime" name="task_date" th:value="${taskVO.task_date}">
 						시작시간 <input type="time" class="startDateTime" name="task_st_dt" th:value="${taskVO.task_st_dt}">
 						종료시간 <input type="time" class="endDateTime" name="task_end_dt" th:value="${taskVO.task_end_dt}">
 						
@@ -218,24 +218,24 @@
 	<script>
 		
 		//시작일시
-		const startDateTimeInput = document.querySelector(".startDateTime");
+		//const startDateTimeInput = document.querySelector(".startDateTime");
 		//종료일시
-		const endDateTimeInput = document.querySelector(".endDateTime");
+		//const endDateTimeInput = document.querySelector(".endDateTime");
 		
 		//작업일
-		let task_dateInput = document.querySelector(".taskDateTime");
+		//let task_dateInput = document.querySelector(".taskDateTime");
 		
 		//현재일시
-		function getCurrentDateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, "0");
-            const day = String(now.getDate()).padStart(2, "0");
-            const hours = String(now.getHours()).padStart(2, "0");
-            const minutes = String(now.getMinutes()).padStart(2, "0");
+		//function getCurrentDateTime() {
+            //const now = new Date();
+            //const year = now.getFullYear();
+            //const month = String(now.getMonth() + 1).padStart(2, "0");
+            //const day = String(now.getDate()).padStart(2, "0");
+            //const hours = String(now.getHours()).padStart(2, "0");
+            //const minutes = String(now.getMinutes()).padStart(2, "0");
 
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
+            //return `${year}-${month}-${day}T${hours}:${minutes}`;
+        //}
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
 		const currentDateTime = getCurrentDateTime();
@@ -340,6 +340,28 @@
 			hiddenEngineers.value = selectedEngId;
 		}
 		
+		
+		//작업자 변경요청 시 알림 기능
+		$(".req_change").click(function(e) {
+			
+			let rcv_id = $("#hiddenEngineers").val();
+			
+			$.ajax({
+				
+				url: "../changeMemberNoti",
+				type: "post",
+				contentType: "application/json",
+				data: {"rcv_id": rcv_id},
+				success: function(data) {
+					console.log(data);
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+				}
+			})
+			
+		})
 		
 	</script>
 	  

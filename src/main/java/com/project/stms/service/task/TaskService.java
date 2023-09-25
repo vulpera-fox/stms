@@ -2,6 +2,7 @@ package com.project.stms.service.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.project.stms.command.ProjectVO;
 import com.project.stms.command.TaskVO;
@@ -58,6 +59,18 @@ public interface TaskService {
 	
 	//작업 변경 요청(작업자)
 	public void changeMember(int task_id);
+	
+	//작업시작시간 체크
+	public void checkStartTime(TaskVO vo);
+
+	//작업종료시간 체크
+	public void checkEndTime(TaskVO vo);
+	
+	//캘린더뷰 조회
+	public List<TaskVO> getCalendar();
+	
+	//작업결과 등록
+	public void registComment(int task_id, String comment_dtl);
 	
 	//작업삭제
 	//public void delTask(int task_id);

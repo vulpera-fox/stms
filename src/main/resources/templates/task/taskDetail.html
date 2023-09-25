@@ -3,7 +3,7 @@
 
 <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskDetails})}">
 
-<th:block class="taskDetails">
+<div class="taskDetails">
 	
 	<style>
 	
@@ -15,7 +15,7 @@
 	
 	.taskDtlBox {
 	  width: 800px;
-	  height: auto;
+	  height: 800px;
 	  text-align: center;
 	  
 	  box-shadow: 0 2px 3px #999;
@@ -27,6 +27,7 @@
 	.taskDtlRow {
 	  border-top: 1px solid rgb(227, 227, 227);
 	  border-collapse: collapse;
+	  margin-bottom: 20px;
 	  line-height: 20px;
 	  height: 60px;
 	}
@@ -41,6 +42,13 @@
 	  font-size: large;
 	  font-weight: bold;
 	  
+	}
+	
+	.toggleBtnBox {
+	  padding: 10px;
+	  text-align: center;
+	  font-size: large;
+	  font-weight: bold;
 	}
 	
 	.taskDtlBodiesS {
@@ -60,10 +68,11 @@
 	
 	.taskDtlTable {
 	  width: 700px;
-	  height: 600px;
-	  line-height: 90px;
-	  border-bottom: 3px solid #020f37;
-	  margin: 40px auto;
+	  height: 700px;
+	  line-height: 300px;
+	  padding: 20px;
+	  
+	  margin: 30px auto 10px;
 	}
 	
 	
@@ -94,21 +103,22 @@
 	}
 	
 	.DtlBtnBox {
-	  margin: 20px;
+	  margin: 0 auto;
 	  text-align: center;
+	  
 	}
 	
 	#toListBtn {
-	  width: 100px;
-	  height: 100px;
+	  width: 80px;
+	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
 	}
 	
 	#commentSaveBtn {
-	  width: 100px;
-	  height: 100px;
+	  width: 80px;
+	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
@@ -156,20 +166,31 @@
 	}
 	
 	#enginnerBtn {
-		width: 70px;
+		width: 100px;
 		text-align: center;
 		border-radius: 20px;
 		color: #fff;
 		font-weight: bold;
+		font-size: 16px;
 		background-color: rgb(72, 175, 148);
 	}
 	
 	.taskStartToggleBtn {
-	  width: 60px;
+	  width: 80px;
 	  height: 40px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
+      font-size: 16px;
+	}
+	
+	.taskEndToggleBtn {
+	  width: 80px;
+	  height: 40px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
 	}
 	
 	</style>	
@@ -182,26 +203,41 @@
 	    <div class="taskDtlBox">
 			  
 		      <table class="taskDtlTable">
-				  
+				  <input type="hidden" name="task_id" id="hiddenTaskId" th:value="${taskVO.task_id}">
+				  <input type="hidden" name="pjt_id" id="hiddenPjtId" th:value="${taskVO.pjt_id}">
+				  <input type="hidden" name="server_id" id="hiddenserverId" th:value="${taskVO.server_id}">
+				  <input type="hidden" name="user_id" id="hiddenUserId" th:value="${taskVO.user_id}">
 				  <tr class="taskDtlRow">
 					  <th class="taskDtlHeads">프로젝트명</th>
 					  <td class="taskDtlBodies" name="pjt_nm">[[${taskVO.pjt_nm}]]</td> <!--프로젝트이름-->
-						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 1}">
+						  <td class="taskDtlBodies detailStatus" name="status_id" th:if="${taskVO.status_id == 1}">
 							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: blue;" readonly>
 						  </td> <!--작업상태표시 1-->
-						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 2}">
+						  <td class="taskDtlBodies detailStatus" name="status_id" th:if="${taskVO.status_id == 2}">
 							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: green;" readonly>
 						  </td> <!--작업상태표시-->
-						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 3}">
+						  <td class="taskDtlBodies detailStatus" name="status_id" th:if="${taskVO.status_id == 3}">
 							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: gray;" readonly>
 						  </td> <!--작업상태표시-->
-						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 4}">
+						  <td class="taskDtlBodies detailStatus" name="status_id" th:if="${taskVO.status_id == 4}">
 							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: orange;" readonly>
 						  </td> <!--작업상태표시-->
-						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 5}">
+						  <td class="taskDtlBodies detailStatus" name="status_id" th:if="${taskVO.status_id == 5}">
 							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: red;" readonly>
 						  </td> <!--작업상태표시-->
-					  <td class="taskDtlBodies"><input type="button" class="taskStartToggleBtn" value="시작"></td> <!--시작버튼-->
+						  
+						  
+						  <td class="toggleBtnBox" name="time_check_yn" th:if="${taskVO.time_check_yn == 0}">
+				  	  		  <input type="button" class="taskStartToggleBtn" value="시작">
+				  		  </td> <!--시작버튼-->
+				  		  <td class="toggleBtnBox" name="time_check_yn" th:if="${taskVO.time_check_yn == 1}">
+				  	  		  <input type="button" class="taskEndToggleBtn" value="종료">
+				  		  </td> <!--종료버튼-->
+				  		  <td class="toggleBtnBox" name="time_check_yn" th:if="${taskVO.time_check_yn == 2}">
+				  	  		  
+				  		  </td> <!--종료버튼-->
+						  
+					  
 				  </tr>
 				  		  
 		          <tr class="taskDtlRow">
@@ -240,19 +276,24 @@
 		            <td colspan="3" name="task_dtl" class="taskDtlBodies">[[${taskVO.task_dtl}]]</td> <!--작업내용-->
 		          </tr>
 		          
-		          <tr class="taskDtlRow">
+		          <tr class="taskDtlRow" name="user_role" th:if="${session.user_role == 'ROLE_ENGINEER' or session.user_role == 'ROLE_ADMIN'}">
 					  <th class="taskDtlHeads">작업결과</th>
-					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" id="task_result" name="task_result" placeholder="작업결과를 입력해주세요"></textarea></td>
+					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" id="comment_dtl" name="comment_dtl" placeholder="작업결과를 입력해주세요">[[${taskVO.comment_dtl}]]</textarea></td>
 				  </tr>
+				  
+				  
 		    </table>
+				  
+				  
+
+		    <!-- 버튼 기능 -->
+		    <div class="DtlBtnBox">
+				<input type="button" id="commentSaveBtn" value="결과저장">
+		      	<input type="button" id="toListBtn" onclick="location.href='/task/taskList'" value="목록">
+		    </div>
 		</div>
 		
 	
-	    <!-- 버튼 기능 -->
-	    <div class="DtlBtnBox">
-		  <a href="#" id="commentSaveBtn">결과저장</a>
-	      <a th:href="@{taskList}" id="toListBtn">목록</a>
-	    </div>
 	  </form>
 	
 	  </div>
@@ -261,48 +302,167 @@
 	<script>
 		
 		//시작일시
-		const startDateTimeInput = document.getElementById("startDateTime");
+		//const startDateTimeInput = document.querySelector(".startDateTime");
 		//종료일시
-		const endDateTimeInput = document.getElementById("endDateTime");
+		//const endDateTimeInput = document.querySelector(".endDateTime");
+		
+		//작업일
+		//let task_dateInput = document.querySelector(".taskDateTime");
 		
 		//현재일시
-		function getCurrentDateTime() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, "0");
-            const day = String(now.getDate()).padStart(2, "0");
-            const hours = String(now.getHours()).padStart(2, "0");
-            const minutes = String(now.getMinutes()).padStart(2, "0");
+		//function getCurrentDateTime() {
+            //const now = new Date();
+            //const year = now.getFullYear();
+            //const month = String(now.getMonth() + 1).padStart(2, "0");
+            //const day = String(now.getDate()).padStart(2, "0");
+            //const hours = String(now.getHours()).padStart(2, "0");
+            //const minutes = String(now.getMinutes()).padStart(2, "0");
 
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
+            //return `${year}-${month}-${day}T${hours}:${minutes}`;
+        //}
 		
 		//시작일시 입력 필드의 최소값과 기본값 설정
-		const currentDateTime = getCurrentDateTime();
-        startDateTimeInput.min = currentDateTime;
-        startDateTimeInput.value = currentDateTime;
+		//const currentDateTime = getCurrentDateTime();
+        //task_dateInput.min = task_dateInput;
+        //task_dateInput.value = task_dateInput;
 		
 		//종료일시 입력 필드의 최소값 설정
-		startDateTimeInput.addEventListener("change", function () {
-            endDateTimeInput.min = startDateTimeInput.value;
-        });
+		//startDateTimeInput.addEventListener("change", function () {
+            //endDateTimeInput.min = startDateTimeInput.value;
+        //});
         
         
-        //목록으로 가기
-		//let toListBtn = document.getElementById("toListBtn");
+        	
+	</script>
+	
+	<script>
 		
-		//toListBtn.addEventListener("click", function(e) {
-			//e.preventDefault();
+        //작업시작 클릭 이벤트(시간 저장)
+		$(".taskStartToggleBtn").click(function(e){			
+			e.preventDefault();
+			let target = e.target;
+			console.log(target);
 			
-			//location.href = "/task/taskList";
-		//})
+			let taskValue = $(this).val(); //시작버튼의 값
+			
+			//$(this).addClass("taskEndToggleBtn").attr("value", "종료");
+			
+			//실제 시작시간 값			
+        	let now = new Date();
+        	let year = now.getFullYear();
+        	let month = String(now.getMonth() + 1).padStart(2, "0");
+        	let day = String(now.getDate()).padStart(2, "0");
+        	let hours = String(now.getHours()).padStart(2, "0");
+        	let minutes = String(now.getMinutes()).padStart(2, "0");
+
+        	let taskStartTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+        	
+        	
+			let task_id = $("#hiddenTaskId").val();
+			let pjt_id = $("#hiddenPjtId").val();
+			let server_id = $("#hiddenserverId").val();
+			
+			$.ajax({
+				url: "../checkStartTaskTime",
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({
+					"r_st_dt": taskStartTime,
+					"task_id": task_id}),
+				success: function(data) {
+					console.log(data);
+					alert("작업시간 체크!");
+					
+					str ='';
+					str += '<input type="button" class="taskEndToggleBtn" value="종료">';
+					
+					str2 ='';
+					str2 += '<input type="button" id="taskDetailStatus" name="status_dtl" value="작업중" style="background-color: green;" readonly>';
+					
+					$(".toggleBtnBox").html(str);
+					$(".detailStatus").html(str2);
+					
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+					alert("시간 체크 실패!")
+				}
+			})
+		})
 		
+		
+		//작업종료 클릭 이벤트(시간 저장)
+		$(".taskEndToggleBtn").click(function(e){			
+			e.preventDefault();
+			let target = e.target;
+			console.log(target);
 			
+			let taskValue = $(this).val(); //시작버튼의 값
+			
+			//$(this).addClass("taskEndToggleBtn").attr("value", "종료");
+			
+			//실제 시작시간 값			
+        	let now = new Date();
+        	let year = now.getFullYear();
+        	let month = String(now.getMonth() + 1).padStart(2, "0");
+        	let day = String(now.getDate()).padStart(2, "0");
+        	let hours = String(now.getHours()).padStart(2, "0");
+        	let minutes = String(now.getMinutes()).padStart(2, "0");
+
+        	let taskEndTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+        	
+        	
+			let task_id = $("#hiddenTaskId").val();
+			let pjt_id = $("#hiddenPjtId").val();
+			let server_id = $("#hiddenserverId").val();
+			
+			$.ajax({
+				url: "../checkEndTaskTime",
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify({
+					"r_end_dt": taskEndTime,
+					"task_id": task_id}),
+				success: function(data) {
+					console.log(data);
+					alert("작업종료 체크!");
+					
+					str ='';
+					
+					str2 ='';
+					str2 += '<input type="button" id="taskDetailStatus" name="status_dtl" value="작업완료" style="background-color: gray;" readonly>';
+					
+					$(".toggleBtnBox").html(str);
+					$(".detailStatus").html(str2);
+					
+				},
+				error: function(status, error) {
+					console.log(status);
+					console.log(error);
+					alert("시간 체크 실패!")
+				}
+			})
+		})
+		
+		
+		//작업결과 저장
+		let commentSaveBtn = document.getElementById("commentSaveBtn");
+		
+		commentSaveBtn.addEventListener("click", function(e) {
+			
+			e.preventDefault();
+			document.actionForm.submit();
+			
+		})
+		
+		
+		
 	</script>
 	  
 	  
 	  
 	  
-</th:block>	
+</div>	
 	
-</th:block>
+</div>
