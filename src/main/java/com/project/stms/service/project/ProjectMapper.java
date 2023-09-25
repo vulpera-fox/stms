@@ -100,4 +100,6 @@ public interface ProjectMapper {
 	
 	public ServerVO getMyServerDetail(int server_id);
 	
+	public void endProject(int pjt_id);
+	
 }

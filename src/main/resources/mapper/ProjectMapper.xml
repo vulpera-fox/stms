@@ -27,8 +27,9 @@
 		join user u2 on p.ins_user_id = u2.user_id
 		
 		<where>
+		
 			<if test="server_type != '' and server_type != 'none' and server_type != null">
-				 s.server_type = #{server_type}
+				 and s.server_type = #{server_type}
 			</if>
 			
 			<if test="pjt_end_dt != '' and pjt_end_dt != null">
@@ -464,6 +465,11 @@
 	<delete id="deleteServer">
 		delete from server where server_id = #{server_id}
 	</delete>
+	
+	
+	<update id="endProject">
+		update project set status = 2 where pjt_id = #{pjt_id}
+	</update>
 	
 	
 
