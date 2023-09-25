@@ -16,8 +16,8 @@ public class NotificationServiceImpl implements NotificationService{
 	private NotificationMapper notificationMapper;
 	
 	@Override
-	public ArrayList<NotificationVO> getCount(String rcv_id) {
-		return notificationMapper.getCount(rcv_id);
+	public ArrayList<NotificationVO> getCount(String rcv_id, String user_role) {
+		return notificationMapper.getCount(rcv_id, user_role);
 	}
 
 	@Override
@@ -41,9 +41,9 @@ public class NotificationServiceImpl implements NotificationService{
 	}
 
 	@Override
-	public ArrayList<NotificationVO> getPopUpList(String rcv_id, String category) {
+	public ArrayList<NotificationVO> getPopUpList(String rcv_id, String category, String user_role) {
 		
-		return notificationMapper.getPopUpList(rcv_id, category);
+		return notificationMapper.getPopUpList(rcv_id, category, user_role);
 	}
 
 	@Override

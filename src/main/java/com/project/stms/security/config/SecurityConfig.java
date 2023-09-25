@@ -38,8 +38,6 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
-		
-		
 		//기본로그인 방식, 세션, 베이직인증, csrf토큰 전부 사용하지 않음
 		http.csrf().disable();
 		http.formLogin() //form 기반 로그인을 사용할거임 //rest기반으로 할거면 .disable()
@@ -98,6 +96,12 @@ public class SecurityConfig {
 	      return firewall;
 	   }
 
+	@Bean
+	public HttpFirewall allowSemicolonHttpFirewall() {
+		StrictHttpFirewall firewall = new StrictHttpFirewall();
+		firewall.setAllowSemicolon(true); //세미콜론 허용
+		return firewall;
+	}
 
 }
 

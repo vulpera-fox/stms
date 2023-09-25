@@ -68,7 +68,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
 				
 			} else { //토큰이 만료됨
-				response.setContentType("text/plain; charset=UTF-8");
+				//response.setContentType("text/plain; charset=UTF-8");
 				response.sendError(403, "토큰만료");
 			}
 		} catch (Exception e) {

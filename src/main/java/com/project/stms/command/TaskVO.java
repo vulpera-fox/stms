@@ -41,7 +41,6 @@ public class TaskVO {
 	private String tem_nm;
 	private String pred_time;
 	
-
 	private String status_id2;
 
 	private String pjt_nm; //프로젝트명
@@ -58,6 +57,5 @@ public class TaskVO {
 	
 	private String comment_dtl;
 	private String comment_regdate;
-	
 	
 }

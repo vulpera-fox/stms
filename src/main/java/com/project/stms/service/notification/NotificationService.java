@@ -7,7 +7,7 @@ import com.project.stms.util.Criteria;
 
 public interface NotificationService {
 	// 알림기능
-	public ArrayList<NotificationVO> getCount(String rcv_id);
+	public ArrayList<NotificationVO> getCount(String rcv_id, String user_role);
 	
 	public ArrayList<NotificationVO> getList(String rcv_id);
 	
@@ -17,7 +17,7 @@ public interface NotificationService {
 	
 	public void markAllAsRead(String rcv_id);
 	
-	public ArrayList<NotificationVO> getPopUpList(String rcv_id, String category);
+	public ArrayList<NotificationVO> getPopUpList(String rcv_id, String category, String user_role);
 	
 	public ArrayList<NotificationVO> getSearchResult(Criteria cri, String rcv_id);
 	
