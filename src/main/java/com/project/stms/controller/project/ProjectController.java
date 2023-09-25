@@ -448,13 +448,13 @@ public class ProjectController {
 		return "redirect:/project/serverList";
 	}
 	
-	@GetMapping("/deleteTask")
-	public String deleteTask(@RequestParam("task_id") int task_id, @RequestParam("pjt_id") int pjt_id) {
-		
-		taskService.deleteTaskList(task_id);
-		
-		return "redirect:/project/getDetail?pjt_id=" + pjt_id;
-	}
+//	@GetMapping("/deleteTask")
+//	public String deleteTask(@RequestParam("task_id") int task_id, @RequestParam("pjt_id") int pjt_id) {
+//		
+//		taskService.deleteTaskList(task_id);
+//		
+//		return "redirect:/project/getDetail?pjt_id=" + pjt_id;
+//	}
 
 	
 	@PostMapping("/serverModifyForm")
