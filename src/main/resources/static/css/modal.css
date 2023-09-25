@@ -2,7 +2,7 @@ a {
     text-decoration: none;
 }
 
-.modal{
+.modal1{
     position: fixed;
     background-color: rgb(0,0,0,0.4);
     top: 0;
@@ -12,11 +12,11 @@ a {
     display: none;
 }
 
-.modal.active{
+.modal1.active{
     display: block;
 }
 
-.modal-content {
+.modal1-content {
     background-color: #fff;
     width: 503px;
     height: 753px;
@@ -96,8 +96,8 @@ a {
 
 .modal4-content {
     background-color: #fff;
-    width: 400px;
-    height: 600px;
+    width: 360px;
+    height: 490px;
     border-radius: 21px;
     position: absolute;
     top: 45.5%;

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public UserVO update(UserVO userVO) {
+	public int update(UserVO userVO) {
 		return userMapper.update(userVO);
 	}
 
