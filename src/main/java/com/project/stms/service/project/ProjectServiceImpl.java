@@ -245,6 +245,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.getMyServerDetail(server_id);
 	}
 
+	@Override
+	public void endProject(int pjt_id) {
+		projectMapper.endProject(pjt_id);
+	}
+
 
 
 

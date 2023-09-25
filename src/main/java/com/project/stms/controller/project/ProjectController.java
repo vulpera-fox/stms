@@ -455,4 +455,12 @@ public class ProjectController {
 		
 		return "redirect:/project/serverList";
 	}
+	
+	@GetMapping("/endProject")
+	public String endProject(int pjt_id) {
+		
+		projectService.endProject(pjt_id);
+		
+		return "redirect:/project/projectMain";
+	}
 }
