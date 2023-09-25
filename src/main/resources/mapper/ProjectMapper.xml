@@ -438,6 +438,24 @@
 					values (#{server_type}, #{server_model}, #{server_vender}, #{server_prod_dt}, #{server_loca}, #{server_cpu_core}, #{server_memory}, #{user_id})
 	</insert>
 	
+	<select id="getMyServerDetail">
+		select * from server where server_id = #{server_id}
+	</select>
+	
+	<update id="modifyServer">
+		update server set server_type = #{server_type},
+						  server_model = #{server_model},
+						  server_vender = #{server_vender},
+						  server_loca = #{server_loca},
+						  server_cpu_core = #{server_memory}
+						  where server_id = #{server_id}
+						  
+	</update>
+	
+	<delete id="deleteServer">
+		delete from server where server_id = #{server_id}
+	</delete>
+	
 	
 
 </mapper>

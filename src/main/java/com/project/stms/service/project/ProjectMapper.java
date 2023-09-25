@@ -92,6 +92,12 @@ public interface ProjectMapper {
 	// 서버 등록
 	public void registServer(ServerVO vo);
 	
+	// 서버 수정
+	public void modifyServer(ServerVO vo);
 	
+	// 서버 삭제
+	public void deleteServer(int server_id);
+	
+	public ServerVO getMyServerDetail(int server_id);
 	
 }

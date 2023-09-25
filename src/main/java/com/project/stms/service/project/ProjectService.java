@@ -75,6 +75,12 @@ public interface ProjectService {
 	
 	public void registServer(ServerVO vo);
 	
+	public void modifyServer(ServerVO vo);
+	
+	public void deleteServer(int server_id);
+	
+	public ServerVO getMyServerDetail(int server_id);
+	
 	
 	
 	

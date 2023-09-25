@@ -230,6 +230,21 @@ public class ProjectServiceImpl implements ProjectService {
 		projectMapper.registServer(vo);
 	}
 
+	@Override
+	public void modifyServer(ServerVO vo) {
+		projectMapper.modifyServer(vo);
+	}
+
+	@Override
+	public void deleteServer(int server_id) {
+		projectMapper.deleteServer(server_id);
+	}
+
+	@Override
+	public ServerVO getMyServerDetail(int server_id) {
+		return projectMapper.getMyServerDetail(server_id);
+	}
+
 
 
 

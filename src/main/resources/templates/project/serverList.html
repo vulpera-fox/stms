@@ -28,21 +28,28 @@
 							<span style="font-size: 20px;">서버 목록</span>
 						</div>
 						<div class="shortFormArea">
-							<ul class="serverListZone">
-								<li>
-									<p>서버 타입</p>
-									<p>서버 이름</p>
-									<p>서버 제조사</p>
-									<p></p>
-								</li>
-								<li th:each="vo : ${sList}">
-									<p>[[${vo.server_type}]]</p>
-									<p>[[${vo.server_model}]]</p>
-									<p>[[${vo.server_vender}]]</p>
-									<p><a>수정</a></p>
-								</li>
-								
-							</ul>
+							<table>
+								<thead>
+									<tr>
+										<td><span style="margin-bottom: 20px;">서버 종류</span></td>
+										<td>서버 이름</td>
+										<td>서버 제조사</td>
+										<td></td>
+										<td></td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="vo : ${sList}">
+										<form>
+											<td>[[${vo.server_type}]]</td>
+											<td>[[${vo.server_model}]]</td>
+											<td>[[${vo.server_vender}]]</td>
+											<td><a th:href="@{/project/modifyServer(server_id=${vo.server_id})}">수정</a></td>
+											<td><a th:href="@{/project/deleteServer(server_id=${vo.server_id})}">삭제</a></td>
+										</form>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

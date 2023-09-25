@@ -425,5 +425,34 @@ public class ProjectController {
 		
 		return "/project/serverList";
 	}
+	
+	@GetMapping("/modifyServer")
+	public String modifyServer(Model mo, @RequestParam("server_id") int server_id) {
+		
+		ServerVO sVO = projectService.getMyServerDetail(server_id);
+		
+		mo.addAttribute("sVO", sVO);
+		
+		
+		return "/project/serverModify";
+	}
+	
+	
+	@GetMapping("/deleteServer")
+	public String deleteServer(@RequestParam("server_id") int server_id) {
+		
+		projectService.deleteServer(server_id);
+		
+		
+		return "redirect:/project/serverList";
+	}
 
+	
+	@PostMapping("/serverModifyForm")
+	public String serverModifyForm(ServerVO sVO) {
+		
+		projectService.modifyServer(sVO);
+		
+		return "redirect:/project/serverList";
+	}
 }
