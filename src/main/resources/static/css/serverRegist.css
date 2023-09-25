@@ -55,12 +55,9 @@ ul, li {
 
 .shortFormArea {
   padding: 20px 40px;
-  border-bottom: 1px solid rgb(230, 235, 241);
 }
 
 .server_id {
-  display: block;
-  width: 150px;
 }
 
 
@@ -69,7 +66,7 @@ ul, li {
 }
 
 .shortFormArea li {
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .shortFormArea ul {
@@ -81,7 +78,7 @@ ul, li {
   margin-right: 30px;
 }
 
-.pjt_nm { 
+.server_model { 
   width: 100%;
 }
 
@@ -125,4 +122,9 @@ ul, li {
 
 .submitBtn:hover {
   background-color: lightgray;
+}
+
+.selectZone div {
+	display: inline-block;
+	width: 24%;
 }

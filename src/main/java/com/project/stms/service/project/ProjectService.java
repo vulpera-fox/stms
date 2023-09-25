@@ -73,9 +73,15 @@ public interface ProjectService {
 	
 	public void modifyProject(ProjectVO vo);
 	
+	public void registServer(ServerVO vo);
+	
+	public void modifyServer(ServerVO vo);
+	
+	public void deleteServer(int server_id);
+	
+	public ServerVO getMyServerDetail(int server_id);
 	
 	
 	
-	public String getMyId(String user_email);
 	
 }
