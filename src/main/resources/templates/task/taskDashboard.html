@@ -33,9 +33,14 @@
 <body>
   <!-- calendar 태그 -->
   <div id='calendar-container'>
-    <div id='calendar'></div>
+    <div id='calendar'>
+	</div>
   </div>
   
+  <div>	  
+	  <input type="hidden" id="hiddenuUserRole" name="user_role" th:value="${session.user_role}">
+	  <input type="hidden" id="hiddenuUserId" name="user_id" th:value="${session.user_id}">
+  </div>
   
   <script>
 	  
