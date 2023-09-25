@@ -135,10 +135,10 @@ public class TaskRestController {
 	
 	//템플릿 적용하기
 	@GetMapping("applyTemp")
-	public ResponseEntity<TaskVO> applyTemp(@RequestParam("tem_nm") String tem_nm) {
+	public ResponseEntity<TaskVO> applyTemp(@RequestParam("tem_id") int tem_id) {
 		
 		
-		TaskVO taskVO = taskService.applyTemp(tem_nm);
+		TaskVO taskVO = taskService.applyTemp(tem_id);
 		
 		System.out.println("템플릿 적용값 : " + taskVO.toString());
 		

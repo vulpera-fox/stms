@@ -48,7 +48,7 @@ public interface TaskService {
 	public ArrayList<TaskVO> getTaskTemp();
 	
 	//템플릿 적용
-	public TaskVO applyTemp(String tem_nm);
+	public TaskVO applyTemp(int tem_id);
 	
 	
 	//작업등록(관리자)
