@@ -861,7 +861,9 @@
 							str += '</tr>';
 							str += '</table>';
 							str += '<!--작업버튼영역-->';
+
 							str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="' + pjtId + '">등록</a>';
+
 							str += '</div>';
 							str += '</div>';
 
@@ -1045,8 +1047,8 @@
 								str4 = '';
 
 								str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="' + data.task_nm + '">';
-								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="">';
-								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
+								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="'+ data.task_date +'">';
+								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="'+ data.task_st_dt +'">';
 								str4 += '<textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl">' + data.task_dtl + '</textarea>';
 
 								newTaskNmBox.innerHTML = str;
@@ -1177,6 +1179,7 @@
 							str += '</table>';
 							str += '<!--수정,삭제버튼영역-->';
 							str += '<div class="taskSearchBtnBox" name="user_id" value="' + user_id + '">';
+
 							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
 							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
 							str += '</div>';
