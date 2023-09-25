@@ -21,7 +21,6 @@ public interface TaskService {
 	//작업상세페이지
 	public TaskVO getTaskDetail(int task_id);
 	
-	
 	//템플릿등록
 	public int getTemplate(TaskVO vo);
 	//템플릿조회
@@ -49,7 +48,7 @@ public interface TaskService {
 	public ArrayList<TaskVO> getTaskTemp();
 	
 	//템플릿 적용
-	public TaskVO applyTemp(Integer tem_id);
+	public TaskVO applyTemp(String tem_nm);
 	
 	
 	//작업등록(관리자)
@@ -60,7 +59,6 @@ public interface TaskService {
 	
 	//작업 변경 요청(작업자)
 	public void changeMember(int task_id);
-	
 	
 	//작업시작시간 체크
 	public void checkStartTime(TaskVO vo);

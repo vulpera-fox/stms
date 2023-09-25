@@ -6,7 +6,7 @@
 <mapper namespace="com.project.stms.service.task.TaskMapper">
 
 	<select id="getTaskList" resultType="TaskVO">
-				
+
 		select t.task_id,
 			   t.pjt_id,
 			   t.server_id,
@@ -31,12 +31,12 @@
                t.change_req_yn
 		from task t
 		left join
-				(select *
-				 from project p
-				 left join
-				 user u
-				 on p.req_user_id = u.user_id) pu
-		on t.pjt_id = pu.pjt_id 
+		(select *
+		from project p
+		left join
+		user u
+		on p.req_user_id = u.user_id) pu
+		on t.pjt_id = pu.pjt_id
 		left join
 		task_status ts
 		on t.status_id = ts.status_id
@@ -57,10 +57,10 @@
 			and t.change_req_yn = 1
 		</if>
 		order by task_id desc
-				
+
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
-	
+
 	<select id="getTotal" resultType="int">
 		select count(*) as total,
 			   t.task_nm,
@@ -95,7 +95,7 @@
 			and t.change_req_yn = 1
 		</if>
 	</select>
-	
+
 	<delete id="deleteTaskList">
 		delete from task where task_id = #{task_id}
 	</delete>
@@ -139,35 +139,35 @@
         on t.user_id = u.user_id
 		where t.task_id = #{task_id};
 	</select>
-	
+
 	<insert id="getTemplate" parameterType="TaskVO">
-	
+
 		insert into template (user_id,
-							  tem_nm,
-                 		  	  task_nm,
-                 		  	  task_dtl,
-                 		  	  pred_time)
+		tem_nm,
+		task_nm,
+		task_dtl,
+		pred_time)
 		values(#{user_id}, #{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
-	
+
 	</insert>
 
 	<select id="getTemplateList" resultType="TaskVO">
 		select * from template
 	</select>
-	
-	
+
+
 	<delete id="deleteTemplate">
 		delete from template where tem_id = #{tem_id}
 	</delete>
-	
+
 	<select id="getPjtList" resultType="ProjectVO">
 		select * from project
 		<if test="cri.searchPjtName != '' and cri.searchPjtName != null">
 			where pjt_nm like concat('%', #{cri.searchPjtName}, '%')
 		</if>
 	</select>
-	
-	
+
+
 	<select id="getTaskSearch" resultType="TaskVO">
 		select *
 		from project p
@@ -176,51 +176,53 @@
 		on p.pjt_id = t.pjt_id
 		where t.pjt_id = #{pjt_id};
 	</select>
-	
+
 	<select id="getTaskDetailSearch" resultType="TaskVO">
 		select t.pjt_id,
-			   t.task_id,
-			   t.task_nm,
-		       t.task_dtl,
-		       t.status_id,
-		       date_format(t.task_date, '%Y-%m-%d') as task_date,
-		       date_format(t.task_st_dt, '%H:%i') as task_st_dt,
-			   t.server_id,
-			   u.user_nm,
-		       u.user_group,
-		       u.user_adr,
-		       u.user_id,
-		       ts.status_dtl,
-		       ts.status_color
+		t.task_id,
+		t.task_nm,
+		t.task_dtl,
+		t.status_id,
+		date_format(t.task_date, '%Y-%m-%d') as task_date,
+		date_format(t.task_st_dt, '%H:%i') as task_st_dt,
+		t.server_id,
+		u.user_nm,
+		u.user_group,
+		u.user_adr,
+		u.user_id,
+		ts.status_dtl,
+		ts.status_color
 		from task t
 		left join user u
 		on t.user_id = u.user_id
-		left join task_status ts
+		left join
+		task_status ts
 		on t.status_id = ts.status_id
 		where task_id = #{task_id};
 	</select>
-	
+
 	<update id="updateTask">
 		update task set task_nm = #{task_nm},
-					 	task_dtl = #{task_dtl},
-					 	status_id = #{status_id},
-					 	task_date = #{task_date},
-					 	task_st_dt = #{task_st_dt},
-					 	user_id = #{user_id}
-					where task_id = #{task_id}
+		task_dtl = #{task_dtl},
+		status_id = #{status_id},
+		task_date = #{task_date},
+		task_st_dt = #{task_st_dt},
+		user_id = #{user_id}
+		where task_id = #{task_id}
 	</update>
-	
-	
+
+
 	<select id="getRegBoxA" resultType="TaskVO">
 		select t.*,
-			   u.*
+		u.*
 		from task t
 		left join
 		user u
 		on t.user_id = u.user_id
-		where t.pjt_id = #{pjt_id}
+		where t.pjt_id =
+		#{pjt_id}
 	</select>
-	
+
 	<select id="getPjtMembers" resultType="TaskVO">
 		select *
 		from pjt_mem pm
@@ -229,36 +231,38 @@
 		on pm.user_id = u.user_id
 		where pm.pjt_id = #{pjt_id}
 	</select>
-	
+
 	<select id="getTaskTemp" resultType="TaskVO">
 		select * from template
-		
 	</select>
-	
+
 	<insert id="taskRegist" parameterType="TaskVO">
 		insert into task (task_nm,
-						  task_date,
-						  task_st_dt,
-						  user_id,
-						  task_dtl,
-						  pjt_id,
-						  server_id)
-				values(#{task_nm},
-					   #{task_date},
-					   #{task_st_dt},
-					   #{user_id},
-					   #{task_dtl},
-					   #{pjt_id},
-					   #{server_id})
+		task_date,
+		task_st_dt,
+		task_end_dt,
+		user_id,
+		task_dtl,
+		pjt_id,
+		server_id)
+		values(#{task_nm},
+		#{task_date},
+		#{task_st_dt},
+		#{task_end_dt},
+		#{user_id},
+		#{task_dtl},
+		#{pjt_id},
+		#{server_id})
 	</insert>
-	
+
 	<select id="applyTemp" resultType="TaskVO">
 		select task_nm,
-			   task_dtl,
-			   date_format(pred_time, '%Y-%m-%d') as task_date,
-		       date_format(pred_time, '%H:%i') as task_st_dt 
+		task_dtl,
+		date_format(pred_time, '%Y-%m-%d') as task_date,
+		date_format(pred_time, '%H:%i') as task_st_dt,
+		pred_time as task_end_dt
 		from template
-		where tem_id = #{tem_id}
+		where tem_nm = #{tem_nm}
 	</select>
 	
 	<update id="modiTask" parameterType="TaskVO">
@@ -274,6 +278,10 @@
 		update task set change_req_yn = 1
 		where task_id = #{task_id}
 	</update>
+	<update id="changeMember">
+update task set change_req_yn = 1
+where task_id = #{task_id}
+</update>
 
 	<select id="getTaskDetail" resultType="TaskVO">
 		select t.task_id,

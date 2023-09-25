@@ -129,33 +129,32 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public TaskVO applyTemp(Integer tem_id) {
+	public TaskVO applyTemp(String tem_nm) {
 		
-		return taskMapper.applyTemp(tem_id);
+		return taskMapper.applyTemp(tem_nm);
 	}
-
 
 	@Override
 	public int modiTask(TaskVO vo) {
 		
 		return taskMapper.modiTask(vo);
-	}
 
+	}
 
 	@Override
 	public void changeMember(int task_id) {
-		
-		taskMapper.changeMember(task_id);
-		
+
+	taskMapper.changeMember(task_id);
+
 	}
 
 
 	@Override
 	public TaskVO getTaskDetail(int task_id) {
-		
-		return taskMapper.getTaskDetail(task_id);
-	}
 
+	return taskMapper.getTaskDetail(task_id);
+	}
+	
 
 	@Override
 	public void checkStartTime(TaskVO vo) {

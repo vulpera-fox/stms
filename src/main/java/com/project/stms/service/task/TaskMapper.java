@@ -54,7 +54,7 @@ public interface TaskMapper {
 	public ArrayList<TaskVO> getTaskTemp();
 	
 	//템플릿 적용
-		public TaskVO applyTemp(Integer tem_id);
+		public TaskVO applyTemp(@Param("tem_nm")String tem_nm);
 	
 	//작업등록(관리자)
 	public int taskRegist(TaskVO vo);

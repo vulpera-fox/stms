@@ -1,4 +1,4 @@
-																																			package com.project.stms.controller;
+package com.project.stms.controller;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.stms.command.UserVO;
 import com.project.stms.service.user.UserService;
+
 
 @Controller
 public class UserController {
@@ -61,7 +61,7 @@ public class UserController {
 			return "/user/log"; //실패시 원래 화면으로
 
 		} //err end
-		
+
 		//userService.insertProfile(null, null);
 		System.out.println(userVO.toString());
 
@@ -96,12 +96,18 @@ public class UserController {
 	}
 
 
-	@GetMapping("user/mypage")
+	@GetMapping("/user/mypage")
 	public String myPage() {
 
 		return "/user/mypage";
 	}
 	
+	@GetMapping("/user/mypageE")
+	public String myPageE() {
+
+		return "/user/mypageE";
+	}
+
 	//로그아웃
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -118,13 +124,22 @@ public class UserController {
 				if(autho.getName().equals("Authorization")) {
 					autho.setValue(""); 
 					autho.setMaxAge(0); 
-					autho.setPath("/"); //이거 넣어주닌까 쿠키가 지워지네요
-					response.addCookie(autho);
+					autho.setPath("/"); //이거 넣어주닌까 쿠키가 
 
-					return "redirect:/";
+					response.addCookie(autho);
+				}
+				if(autho.getName().equals("Refreshtoken")) {
+					autho.setValue(""); 
+					autho.setMaxAge(0); 
+					autho.setPath("/"); //이거 넣어주닌까 쿠키가
+
+					response.addCookie(autho);
 				}
 			}
+
+			return "redirect:/";
 		}
+
 		return "redirect:/";
 	}
 
@@ -140,7 +155,7 @@ public class UserController {
 			session.invalidate();
 
 			Cookie[] list = request.getCookies();
-			
+
 			for (Cookie autho : list) {
 				if(autho.getName().equals("Authorization")) {
 					autho.setValue(""); 
@@ -155,15 +170,37 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
-	@PostMapping("/updateForm")
-	public String update(@RequestParam("userVO")UserVO userVo) {
-		
-		
-		
+
+	@PostMapping("/user/updateForm")
+	public String update(HttpServletRequest request, HttpServletResponse response, UserVO userVO) {
+		HttpSession session = request.getSession();
+
+
+		System.out.println(userVO.toString());
+
+		if(!userVO.getUser_pw().equals("")) {
+
+			String pw = bCryptPasswordEncoder.encode(userVO.getUser_pw());
+			userVO.setUser_pw(pw);
+			System.out.println(userVO.getUser_pw()+"이것도 찍히냐");
+		}
+
+
+		int result = userService.update(userVO);
+
+		if(result==1) {
+
+			UserVO userVO2 = (UserVO)session.getAttribute("userVO");
+			userVO2.setOrg_file_nm(userVO.getOrg_file_nm());
+			userVO2.setUser_group(userVO.getUser_group());
+			session.setAttribute("userVO", userVO2);
+
+		} else {
+			System.out.println("수정안됨");
+		}
+
+
 		return "/user/mypage";
 	}
-	
-	
-	
+
 }

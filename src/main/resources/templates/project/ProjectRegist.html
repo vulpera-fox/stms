@@ -16,10 +16,9 @@
 <script src="/js/jquery-3.7.0.min.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 
-<th:block th:replace=" ~{/include/layout_customer :: setContent(~{ :: .container})}">
+<th:block th:replace=" ~{/include/layout_customer :: setContent(~{ :: #container})}">
 
-	<div>
-		<div class="container">
+		<div id="container">
 			<form method="post" action="registForm" enctype="multipart/form-data">
 				<input type="text" hidden name="req_user_id" th:value="${session.user_id}" />
 
@@ -121,7 +120,6 @@
 </div>
 </form>
 
-</div>
 
 <script th:inline="javascript">
 
@@ -176,11 +174,14 @@
 			$('.pjt_nm').focus().attr('placeholder', "제목은 필수입니다.");
 		}
 	});
+	
+	
+	
 
 
 
 	// 오늘 날짜 가져오기
-
+	
 	function getToday() {
 		const today = new Date();
 		const year = today.getFullYear();
@@ -211,6 +212,7 @@
 			endDateInput.value = '';
 		}
 	});
+
 
 	var maxFileNameLength = 10;
 
