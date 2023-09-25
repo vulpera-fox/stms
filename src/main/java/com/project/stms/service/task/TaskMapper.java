@@ -2,6 +2,7 @@ package com.project.stms.service.task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -50,7 +51,7 @@ public interface TaskMapper {
 	
 	
 	//작업등록시 템플릿 리스트 조회
-	public ArrayList<TaskVO> getTaskTemp(String user_id);
+	public ArrayList<TaskVO> getTaskTemp();
 	
 	//템플릿 적용
 		public TaskVO applyTemp(Integer tem_id);
@@ -63,6 +64,19 @@ public interface TaskMapper {
 	
 	//작업 변경 요청(작업자)
 	public void changeMember(int task_id);
+	
+	//작업시작시간 체크
+	public void checkStartTime(TaskVO vo);
+	
+	//작업종료시간 체크
+	public void checkEndTime(TaskVO vo);
+	
+	//캘린더뷰 조회
+	public List<TaskVO> getCalendar();
+	
+	//작업결과 등록
+	public void registComment(@Param("task_id") int task_id,
+							  @Param("comment_dtl") String comment_dtl);
 	
 	//작업삭제
 	//public void delTask(int task_id);
