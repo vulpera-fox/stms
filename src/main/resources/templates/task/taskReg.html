@@ -814,7 +814,7 @@
 						data: {"pjt_id": pjtId},
 						success: function (data) {
 							console.log(data);
-							alert("등록박스A타입 로딩 성공");
+							//alert("등록박스A타입 로딩 성공");
 
 							str = '';
 
@@ -937,7 +937,7 @@
 							console.log(status);
 							console.log(error);
 
-							alert("신규등록화면B타입 에러")
+							alert("신규등록화면 에러")
 						}
 
 					})
@@ -981,7 +981,7 @@
 							error: function (status, error) {
 								console.log(status);
 								console.log(error);
-								alert("리스트 에러났어요");
+								alert("리스트 로딩 에러");
 							}
 
 						})
@@ -1111,7 +1111,7 @@
 						}),
 						success: function (data) {
 							console.log(data);
-							//alert("성공적으로 작업내용이 수정되었습니다");
+							alert("작업내용이 성공적으로 수정되었습니다");
 
 							str = '';
 
@@ -1265,7 +1265,7 @@
 						}),
 						success: function (data) {
 							console.log(data);
-							alert("등록성공!")
+							alert("작업이 성공적으로 등록되었습니다")
 
 							resetLists();
 						},
@@ -1293,7 +1293,7 @@
 						data: JSON.stringify({task_id: taskId}),
 						success: function (data) {
 
-							alert("성공적으로 삭제되었습니다");
+							alert("작업이 성공적으로 삭제되었습니다");
 
 							resetLists();
 						},

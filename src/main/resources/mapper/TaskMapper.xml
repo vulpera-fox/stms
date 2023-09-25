@@ -262,7 +262,7 @@
 		date_format(pred_time, '%H:%i') as task_st_dt,
 		pred_time as task_end_dt
 		from template
-		where tem_nm = #{tem_nm}
+		where tem_id = #{tem_id}
 	</select>
 	
 	<update id="modiTask" parameterType="TaskVO">
