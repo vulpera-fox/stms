@@ -129,9 +129,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public TaskVO applyTemp(String tem_nm) {
+	public TaskVO applyTemp(int tem_id) {
 		
-		return taskMapper.applyTemp(tem_nm);
+		return taskMapper.applyTemp(tem_id);
 	}
 
 	@Override
