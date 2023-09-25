@@ -12,6 +12,6 @@ public interface UserMapper {
 	public UserVO checkId(String user_email);
 	public UserVO changePE(String user_email);
 	public int delete(String user_id);
-	public UserVO update(UserVO userVO);
+	public int update(UserVO userVO);
 	//public void insertProfile(List<MultipartFile> list, String originalName);
 }
