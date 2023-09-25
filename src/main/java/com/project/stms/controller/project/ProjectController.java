@@ -84,7 +84,7 @@ public class ProjectController {
 		}
 
 
-		return "/project/projectMain";
+		return "project/projectMain";
 	}
 
 	@GetMapping("/projectRegist")
@@ -102,7 +102,7 @@ public class ProjectController {
 
 		mo.addAttribute("sList", sList);
 
-		return "/project/projectRegist";
+		return "project/projectRegist";
 	}
 
 	@PostMapping("/registForm")
@@ -177,7 +177,7 @@ public class ProjectController {
 
 		mo.addAttribute("ins_user_id", (String) session.getAttribute("user_id"));
 
-		return "/project/projectCreate";
+		return "project/projectCreate";
 	}
 
 	@GetMapping("/getDetail")
@@ -310,7 +310,7 @@ public class ProjectController {
 
 		mo.addAttribute("fList", fList);
 
-		return "/project/projectDetail";
+		return "project/projectDetail";
 	}
 
 	@PostMapping("/submitForm")
@@ -395,7 +395,7 @@ public class ProjectController {
 	@GetMapping("/serverRegist")
 	public String serverRegist(ServerVO vo, HttpSession session, Model mo) {
 		
-		return "/project/serverRegist";
+		return "project/serverRegist";
 	}
 	
 	@PostMapping("/serverRegistForm")
@@ -415,7 +415,7 @@ public class ProjectController {
 		
 		mo.addAttribute("sList", sList);
 		
-		return "/project/serverList";
+		return "project/serverList";
 	}
 	
 	@GetMapping("/modifyServer")
@@ -426,7 +426,7 @@ public class ProjectController {
 		mo.addAttribute("sVO", sVO);
 		
 		
-		return "/project/serverModify";
+		return "project/serverModify";
 	}
 	
 	

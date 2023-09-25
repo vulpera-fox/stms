@@ -88,7 +88,7 @@
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(15deg);"></i>
 					</div>
 					<!--<div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>-->
-					<div class="sidebar-brand-text mx-3" style="margin-left: 0.5rem !important;">LOGO</div>
+					<div class="sidebar-brand-text mx-3" style="margin-left: 0.5rem !important;">CSS</div>
 				</a>
 
 				<!-- Divider -->
@@ -193,7 +193,7 @@
 										value="">
 								</div>
 
-								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
+								<th:block th:replace="~{./notification/notificationBasic :: notification}"></th:block>
 						
 								<div class="topbar-divider d-none d-sm-block"></div>
 
@@ -204,7 +204,7 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 										<img class="img-profile rounded-circle" 
-										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
+										th:src="@{'https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
 										<th:block th:if="${session.user_role} != null">
 										<span
 											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]

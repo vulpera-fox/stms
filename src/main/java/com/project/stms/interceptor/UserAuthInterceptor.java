@@ -24,13 +24,13 @@ public class UserAuthInterceptor implements HandlerInterceptor {
 				
 				if (session.getAttribute("user_role").equals("ROLE_ADMIN")) {
 
-					response.sendRedirect("/project/projectMain");
+					response.sendRedirect( request.getContextPath()+ "project/projectMain");
 					
 					return false;
 			
 				} else if (session.getAttribute("user_role").equals("ROLE_ENGINEER")) {
 
-					response.sendRedirect("/task/taskDashboard");
+					response.sendRedirect(request.getContextPath()+ "task/taskDashboard");
 					
 					return false;
 				}

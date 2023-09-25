@@ -16,7 +16,7 @@
 <script src="/js/jquery-3.7.0.min.js"></script>
 
 
-<th:block th:replace=" ${session.user_role} == 'ROLE_ADMIN' ? ~{/include/layout_admin :: setContent(~{ :: #container})} : ~{/include/layout_engineer :: setContent(~{ :: #container})}">
+<th:block th:replace=" ${session.user_role} == 'ROLE_ADMIN' ? ~{./include/layout_admin :: setContent(~{ :: #container})} : ~{./include/layout_engineer :: setContent(~{ :: #container})}">
 
 	<div>
 	

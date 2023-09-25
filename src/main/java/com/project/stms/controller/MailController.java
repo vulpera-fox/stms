@@ -121,7 +121,7 @@ public class MailController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<>("응답데이터는 여러분이 알아서 처리", HttpStatus.OK);
+		return new ResponseEntity<>("프로필이 등록 되었습니다.", HttpStatus.OK);
 	}
 
 	@PostMapping("/refreshToken")

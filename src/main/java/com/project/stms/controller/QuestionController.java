@@ -67,7 +67,7 @@ public class QuestionController {
 		NewsPageVO mpageVO = new NewsPageVO(cri, total);
 		model.addAttribute("mpageVO", mpageVO);
 
-		return "/question/customer_myQuestion";
+		return "question/customer_myQuestion";
 
 	}
 

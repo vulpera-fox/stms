@@ -3,7 +3,7 @@ let second = 0;
 let minutes = 0;
 let seconds = 0;
 const timeFunction = function() {
-	fetch("http://localhost:8181/timeOut")
+	fetch("http://43.200.202.17:8181/timeOut")
 		.then((response) => {
 			return response.json();
 		})
@@ -22,7 +22,7 @@ const timeFunction = function() {
 				var result = confirm("로그인 시간을 연장 하시겠습니까?")
 
 				if (result === true) {
-					fetch("http://localhost:8181/refreshToken", {
+					fetch("http://43.200.202.17/refreshToken", {
 						method: "POST",
 					}).then((response) => {
 						console.log(response);
@@ -34,7 +34,7 @@ const timeFunction = function() {
 
 				timeOut.value = "00:00";
 
-				fetch("http://localhost:8181/user/logout")
+				fetch("http://43.200.202.17/user/logout")
 				clearInterval(intervalId);
 				window.location.reload();
 			}

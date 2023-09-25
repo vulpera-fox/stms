@@ -3,9 +3,9 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="../css/login.css">
-	<link rel="stylesheet" href="../css/modal.css">
+	<title>서버관리</title>
+	<link rel="stylesheet" th:href="@{/css/login.css}">
+	<link rel="stylesheet" th:href="@{/css/modal.css}">
 
 </head>
 
@@ -18,7 +18,7 @@
 		</div>
 		<div class="wrap2">
 			<div class="titleBox">
-				<a href="#"><img src="../img/logo2.png" alt="로고"></a>
+				<a href="#"><img th:src="@{/img/logo2.png}" alt="로고"></a>
 			</div>
 			<form action="login" method="post"><!--UsernamePasswordAuthenticationFilter를 이용할려고 login경로로 post요청 보냄-->
 				<div class="int-area">
@@ -55,7 +55,7 @@
 			<div class="wrap">
 
 				<div class="titleBox">
-					<a href="#"><img src="../img/logo2.png" alt="로고"></a>
+					<a href="#"><img th:src="@{/img/logo2.png}" alt="로고"></a>
 				</div>
 
 				<form action="mail" method="post">
@@ -108,7 +108,7 @@
 					<form action="joinForm" method="post">
 						<div class="file_box">
 							<div class="file_name" name="org_file_nm" data-value=""><img class="profileImg"
-									src="../img/profile.png" target="_self"
+									th:src="@{/img/profile.png}" target="_self"
 									style="width: 100%; border-radius: 10px; opacity: 0.5;"></div>
 							<input type="hidden" name="org_file_nm" id="org_file_nm" value="">
 						</div>
@@ -202,8 +202,8 @@
 
 
 </body>
-<script src="/js/modal.js"></script>
-<script src="/js/login.js"></script>
+<script th:src="@{/js/modal.js}"></script>
+<script th:src="@{/js/login.js}"></script>
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

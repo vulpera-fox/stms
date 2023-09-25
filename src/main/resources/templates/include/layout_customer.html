@@ -62,7 +62,7 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
 			<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px;">
-			<a class="navbar-brand" th:href=@{/}>LOGO</a>
+			<a class="navbar-brand" th:href=@{/}>CSS</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -72,9 +72,9 @@
 							style="font-size: 18px;">Home</a></li>
 
 					<th:block th:if="${session.user_role}=='ROLE_CUSTOMER'">
-						<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"
+						<!--<li class="nav-item"><a class="nav-link active" aria-current="page" href="#!"
 								style="font-size: 18px;">작업 조회</a>
-						</li>
+						</li>-->
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;">작업 관리</a>
@@ -84,7 +84,7 @@
 									<hr class="dropdown-divider" />
 								</li>
 
-								<li><a class="dropdown-item" th:href="@{/project/taskDashboard}">일정 조회</a></li>
+								<li><a class="dropdown-item" th:href="@{/task/taskDashboard}">일정 조회</a></li>
 								<li><a class="dropdown-item" th:href="@{/project/projectRegist}">프로젝트 신청</a></li>
 
 							</ul>
@@ -110,7 +110,7 @@
 						<th:block th:if="${session.user_role}!=null">
 							<ul class="navbar-nav ml-auto">
 
-								<th:block th:replace="~{/notification/notificationBasic :: notification}"></th:block>
+								<th:block th:replace="~{./notification/notificationBasic :: notification}"></th:block>
 
 								<div class="topbar-divider d-none d-sm-block"></div>
 						</th:block>
@@ -134,14 +134,16 @@
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<div style="text-align: center;">
-											<img class="img-profile rounded-circle"
-												th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
-												target="_self">
-										</div>
-										<div class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
-											님
-											<br />[[${#strings.replace(session.user_role, 'ROLE_' ,'')}]]
-										</div>
+											<th:block th:if="${session.userVO.org_file_nm} != null">
+												<img class="img-profile rounded-circle profile"
+													th:src="@{'https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
+													target="_self">
+											</th:block>
+
+											<th:block th:unless="${session.userVO.org_file_nm} != null">
+												<img class="img-profile rounded-circle profile"
+													th:src="@{/img/undraw_profile.svg}" target="_self">
+											</th:block>
 									</a>
 									<!-- Dropdown - User Information-->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -9,7 +9,7 @@ group = 'com.project'
 version = '0.0.1'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '11'
 }
 
 configurations {
@@ -58,9 +58,7 @@ dependencies {
 
 	//aws 
 	implementation 'software.amazon.awssdk:aws-sdk-java:2.20.43'
-	
-	//스프링클라우드 모듈
-	implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs:3.0.2'
+
 	
 	//캘린더뷰
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'

@@ -614,6 +614,7 @@
 				//작업 상세 띄우기
 				$(document).on("click", ".taskResults", function (e) {
 
+
 					e.preventDefault();
 
 
@@ -992,7 +993,7 @@
 								let str = '';
 
 								for (let i = 0; i < data.length; i++) {
-									str += '<option value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
+									str += '<option value="' + data[i].tem_id + '">' + data[i].tem_nm + '</option>';
 								}
 
 								let firstChild = $(".tempSelect").children().first();
