@@ -96,12 +96,6 @@ public class SecurityConfig {
 	      return firewall;
 	   }
 
-	@Bean
-	public HttpFirewall allowSemicolonHttpFirewall() {
-		StrictHttpFirewall firewall = new StrictHttpFirewall();
-		firewall.setAllowSemicolon(true); //세미콜론 허용
-		return firewall;
-	}
 
 }
 
