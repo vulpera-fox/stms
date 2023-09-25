@@ -421,8 +421,6 @@
 			input[type=time] {
 				width: 100px;
 			}
-			
-			
 		</style>
 
 		<body>
@@ -549,6 +547,9 @@
 
 				$(".searchTask").on("click", function (e) {
 
+
+					resetLists();
+
 					e.preventDefault();
 					let target = e.target;
 
@@ -614,6 +615,7 @@
 
 					e.preventDefault();
 
+
 					let target = e.target;
 					console.log(target);
 
@@ -622,6 +624,7 @@
 
 					let user_id = $(".searchTask").closest("div").attr("value");
 					console.log(user_id);
+
 
 					$.ajax({
 						url: "../taskDetailSearch",
@@ -673,14 +676,17 @@
 							str += '<tr class="taskRegRow">';
 							str += '<th class="taskRegHeads">담당자</th>';
 							str += '<td class="taskRegBodies">';
+
 							str += '<select onChange="handleEngChange(this)" class="engSelectBox">';
 							str += '<option value="' + data.user_id + '">' + data.user_nm + '</option>';
+
 							str += '</select>';
 							str += '</td>';
 
 							str += '<td class="taskRegBodies">';
 							str += '<div id="engineerNameBox">' + data.user_nm + '</div>';
 							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
+
 							str += '</td>';
 
 							str += '</tr>';
@@ -700,6 +706,7 @@
 							str += '</div>';
 							str += '</div>';
 							str += '</div>';
+
 
 
 							console.log(str);
@@ -811,7 +818,9 @@
 							str += '<select onChange="handleChangeTemp(this)" class="tempSelect" name="user_id" value="' + userId + '">';
 							str += '<option name="none" value="none">템플릿 선택</option>';
 							str += '</select>';
+
 							str += '<a href="#" id="tempSelectBtn" value="">선택</a>';
+
 							str += '</td>';
 							str += '</tr>';
 							str += '<tr class="taskRegRow">';
@@ -853,7 +862,9 @@
 							str += '</tr>';
 							str += '</table>';
 							str += '<!--작업버튼영역-->';
+
 							str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="' + pjtId + '">등록</a>';
+
 							str += '</div>';
 							str += '</div>';
 
@@ -907,7 +918,6 @@
 								})
 							})
 
-
 							getEngMembers();
 							getTemp();
 
@@ -956,6 +966,7 @@
 								//let firstChild = $(".engSelectBox").children().first();
 								let firstChild = $(".engSelectBox");
 								firstChild.html(str2);
+
 							},
 							error: function (status, error) {
 								console.log(status);
@@ -985,7 +996,9 @@
 								let str = '';
 
 								for (let i = 0; i < data.length; i++) {
-									str += '<option value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
+
+									str += '<option class="selectedTempId" name="tem_id" value="' + data[i].tem_id + '">' + data[i].tem_nm + '</option>';
+                  
 								}
 
 								let firstChild = $(".tempSelect").children().first();
@@ -1013,7 +1026,7 @@
 					let tempSelectBtn = document.getElementById("tempSelectBtn");
 
 					let taskReg_searchMinContainer = document.querySelector(".taskReg_searchMinContainer");
-
+					
 
 					tempSelectBtn.addEventListener("click", function (e) {
 
@@ -1023,7 +1036,7 @@
 							url: "../applyTemp",
 							type: "get",
 							contentType: "application/json",
-							data: {"tem_nm": selectedTemp},
+							data: {"tem_id": selectedTemp},
 							success: function (data) {
 								console.log(data);
 
@@ -1038,8 +1051,9 @@
 								str4 = '';
 
 								str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="' + data.task_nm + '">';
-								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="">';
-								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
+
+								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="'+ data.task_date +'">';
+								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="'+ data.task_st_dt +'">';
 								str4 += '<textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl">' + data.task_dtl + '</textarea>';
 
 								newTaskNmBox.innerHTML = str;
@@ -1155,6 +1169,7 @@
 
 							str += '<td class="taskRegBodies">';
 							str += '<div id="engineerNameBox"></div>';
+
 							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
 							str += '</td>';
 
@@ -1169,7 +1184,10 @@
 							str += '</tr>';
 							str += '</table>';
 							str += '<!--수정,삭제버튼영역-->';
+
 							str += '<div class="taskSearchBtnBox" name="user_id" value="' + user_id + '">';
+
+							//str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data.pjt_id + '">신규</a>';
 							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
 							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
 							str += '</div>';
@@ -1328,7 +1346,6 @@
 												window.open(`/task/taskDetail`, '_blank');
 											});
 										}
-
 
 										// 브라우저 알림 허용 권한
 										let granted = false;

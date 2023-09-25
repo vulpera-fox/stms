@@ -63,9 +63,9 @@ public class SecurityConfig {
 							  .addFilter(new CustomLoginFilter(authenticationManager));
 						
 		//api로 시작하는 요청에만 jwt필터 실행됨
-		http.requestMatchers().antMatchers("/api/question/**")
-							  .antMatchers("/api/engineer/**")
-							  .antMatchers("/api/admin/**")
+		http.requestMatchers().antMatchers("/question/**")
+							  .antMatchers("/engineer/**")
+							  .antMatchers("/admin/**")
 							  .and()
 							  .addFilter(new JwtAuthorizationFilter(authenticationManager));
 		
