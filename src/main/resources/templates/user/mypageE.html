@@ -6,7 +6,7 @@
 <link rel="stylesheet" th:href="@{/css/mypage.css}">
 
 
-<th:block th:replace="~{./include/layout_customer :: setContent(~{:: .wrap})}">
+<th:block th:replace="~{./include/layout_engineer :: setContent(~{:: .wrap})}">
 	<div class="wrap">
 		<div class="col-lg-12 subtop_wrap">
 			<div class="col-lg-8 subtop">
@@ -22,7 +22,7 @@
 
 
 
-			<div class="card text-left" style="width: 81rem; flex-direction: row; 	box-shadow:0px 8px 16px  #020f37;">
+			<div class="card text-left" style="width: 82rem; flex-direction: row; 	box-shadow:0px 8px 16px  #020f37;">
 				<div class="card" style="width: 25rem; margin-left: 20px;">
 					<img class="card-img-top" style="height:90%;"
 						th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"

@@ -61,6 +61,10 @@ dependencies {
 	
 	//스프링클라우드 모듈
 	implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs:3.0.2'
+	
+	//캘린더뷰
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 }
 
 tasks.named('test') {

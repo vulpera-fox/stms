@@ -16,5 +16,5 @@ public interface QuestionService {
 	public ArrayList<NewsVO> getMyQlist(NewsCriteria cri, String user_id);
 	public int getQtotal(NewsCriteria cri);
 	public int updateQ(NewsVO vo);
-	
+	public int regiReply(NewsVO vo);
 }

@@ -71,7 +71,20 @@ public class TaskController {
 		
 		return "task/taskDetail"; 
 	}
-	//바로 위 문제부터 풀 것
+	//작업결과 등록
+	@PostMapping("commentRegForm")
+	public String commentRegForm(TaskVO vo, Model model) {
+		
+		int task_id = vo.getTask_id();
+		String comment_dtl = vo.getComment_dtl();
+		
+		
+		taskService.registComment(task_id, comment_dtl);
+		
+		return "redirect:/task/taskList";
+	}
+	
+	
 	
 	//작업수정페이지
 
@@ -80,7 +93,7 @@ public class TaskController {
 		
 		TaskVO taskVO = taskService.getModify(task_id);
 		
-		//System.out.println("수정페이지 출력값: " + taskVO.toString());
+		System.out.println("수정페이지 출력값: " + taskVO.toString());
 		
 		model.addAttribute("taskVO", taskVO);
 		
@@ -92,7 +105,7 @@ public class TaskController {
 	@PostMapping("taskModForm")
 	public String taskModForm(TaskVO vo, RedirectAttributes ra) {
 		
-		System.out.println(vo.getUser_id());
+		System.out.println(vo.toString());
 		
 		int result = taskService.modiTask(vo);
 		
@@ -176,6 +189,7 @@ public class TaskController {
 	public String taskCalendar() {
 		return "task/taskDashboard";
 	}
+	
 	
 	//작업 리포트
 	@GetMapping("taskReport")

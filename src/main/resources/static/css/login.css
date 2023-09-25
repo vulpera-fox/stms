@@ -58,10 +58,11 @@ li {
 
 .profileText{
 position: absolute;
-  top: 110px;
-  width: 25%;
+  top: 131px;
+  font-size: 10px;
+  width: 27%;
   margin-bottom: 20px;
-  height: 90px;
+  height: 60px;
   background-color: rgb(255, 255, 255);
   color: #999;
   border: none; 

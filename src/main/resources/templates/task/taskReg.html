@@ -421,8 +421,7 @@
 			input[type=time] {
 				width: 100px;
 			}
-			
-			
+
 		</style>
 
 		<body>
@@ -549,6 +548,9 @@
 
 				$(".searchTask").on("click", function (e) {
 
+
+					resetLists();
+
 					e.preventDefault();
 					let target = e.target;
 
@@ -614,6 +616,7 @@
 
 					e.preventDefault();
 
+
 					let target = e.target;
 					console.log(target);
 
@@ -622,6 +625,7 @@
 
 					let user_id = $(".searchTask").closest("div").attr("value");
 					console.log(user_id);
+
 
 					$.ajax({
 						url: "../taskDetailSearch",
@@ -675,12 +679,14 @@
 							str += '<td class="taskRegBodies">';
 							str += '<select onChange="handleEngChange(this)" class="engSelectBox">';
 							str += '<option value="' + data.user_id + '">' + data.user_nm + '</option>';
+
 							str += '</select>';
 							str += '</td>';
 
 							str += '<td class="taskRegBodies">';
 							str += '<div id="engineerNameBox">' + data.user_nm + '</div>';
 							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
+
 							str += '</td>';
 
 							str += '</tr>';
@@ -700,6 +706,7 @@
 							str += '</div>';
 							str += '</div>';
 							str += '</div>';
+
 
 
 							console.log(str);
@@ -812,6 +819,7 @@
 							str += '<option name="none" value="none">템플릿 선택</option>';
 							str += '</select>';
 							str += '<a href="#" id="tempSelectBtn" value="">선택</a>';
+
 							str += '</td>';
 							str += '</tr>';
 							str += '<tr class="taskRegRow">';
@@ -906,7 +914,6 @@
 
 								})
 							})
-
 
 							getEngMembers();
 							getTemp();
@@ -1013,7 +1020,7 @@
 					let tempSelectBtn = document.getElementById("tempSelectBtn");
 
 					let taskReg_searchMinContainer = document.querySelector(".taskReg_searchMinContainer");
-
+					
 
 					tempSelectBtn.addEventListener("click", function (e) {
 
@@ -1023,7 +1030,7 @@
 							url: "../applyTemp",
 							type: "get",
 							contentType: "application/json",
-							data: {"tem_nm": selectedTemp},
+							data: {"tem_id": selectedTemp},
 							success: function (data) {
 								console.log(data);
 
@@ -1299,58 +1306,6 @@
 					})
 				})
 				
-				/*
-				function sendRealTimeNotification() {
-					$(document).on('click', '#taskSearchRegBtn', function () {
-								var session_user_id = `[[${session.user_id}]]`;
-								const eventSource = new EventSource(`/test/subscribe/` + 'ADMIN');
-
-
-								eventSource.addEventListener("sse", function (event) {
-									console.log(event.data);
-									//const data = JSON.stringify(event.data);
-
-
-									(async () => {
-										// 브라우저 알림
-										const showNotification = () => {
-
-											const notification = new Notification('작업 생성 안내', {
-												body: "작업이 생성 되었습니다",
-												badge: `/img/alarm.png`
-											});
-
-											setTimeout(() => {
-												notification.close();
-											}, 10 * 1000);
-
-											notification.addEventListener('click', () => {
-												window.open(`/task/taskDetail`, '_blank');
-											});
-										}
-
-
-										// 브라우저 알림 허용 권한
-										let granted = false;
-
-										if (Notification.permission === 'granted') {
-											granted = true;
-										} else if (Notification.permission !== 'denied') {
-											let permission = await Notification.requestPermission();
-											granted = permission === 'granted';
-										}
-
-										// 알림 보여주기
-										if (granted) {
-											showNotification();
-										}
-									})();
-
-								})
-							})
-				}
-				*/
-			
 			</script>
 
 

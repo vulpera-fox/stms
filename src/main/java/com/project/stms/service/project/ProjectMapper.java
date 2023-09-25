@@ -89,7 +89,15 @@ public interface ProjectMapper {
 	// 프로젝트 수정
 	public void modifyProject(ProjectVO vo);
 	
+	// 서버 등록
+	public void registServer(ServerVO vo);
 	
-	public String getMyId(String user_email);
+	// 서버 수정
+	public void modifyServer(ServerVO vo);
+	
+	// 서버 삭제
+	public void deleteServer(int server_id);
+	
+	public ServerVO getMyServerDetail(int server_id);
 	
 }

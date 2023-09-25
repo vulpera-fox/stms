@@ -58,6 +58,11 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionMapper.updateQ(vo);
 	}
 
+	@Override
+	public int regiReply(NewsVO vo) {
+		return questionMapper.regiReply(vo);
+	}
+
 
 	
 

@@ -195,15 +195,17 @@
 								<li class="nav-item dropdown no-arrow">
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
 										<img class="img-profile rounded-circle" 
 										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
 										<span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님 <br />(ENGINEER)</span>
 									</a>
+									<input type="hidden" th:value="${session.user_role}" id="role">
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" th:href="@{/user/mypageE}">
 											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 											My Page
 										</a>
@@ -306,18 +308,6 @@
 	<script th:src=@{/js/sb-admin-2.min.js}></script>
 	<script th:src=@{/js/timeout.js}></script>
 	<script th:inline="javascript">
-
-
-
-
-
-		$(".out-page").click(function () {
-
-
-
-		})
-
-
 
 	</script>
 
