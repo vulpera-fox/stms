@@ -1,7 +1,9 @@
 package com.project.stms.service.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,9 +114,9 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public ArrayList<TaskVO> getTaskTemp(String user_id) {
+	public ArrayList<TaskVO> getTaskTemp() {
 		
-		return taskMapper.getTaskTemp(user_id);
+		return taskMapper.getTaskTemp();
 	}
 
 
@@ -127,31 +129,58 @@ public class TaskServiceImpl implements TaskService{
 
 
 	@Override
-	public TaskVO applyTemp(Integer tem_id) {
+	public TaskVO applyTemp(String tem_nm) {
 		
-		return taskMapper.applyTemp(tem_id);
+		return taskMapper.applyTemp(tem_nm);
 	}
-
 
 	@Override
 	public int modiTask(TaskVO vo) {
 		
 		return taskMapper.modiTask(vo);
-	}
 
+	}
 
 	@Override
 	public void changeMember(int task_id) {
-		
-		taskMapper.changeMember(task_id);
-		
+
+	taskMapper.changeMember(task_id);
+
 	}
 
 
 	@Override
 	public TaskVO getTaskDetail(int task_id) {
+
+	return taskMapper.getTaskDetail(task_id);
+	}
+	
+
+	@Override
+	public void checkStartTime(TaskVO vo) {
+		taskMapper.checkStartTime(vo);
 		
-		return taskMapper.getTaskDetail(task_id);
+	}
+
+
+	@Override
+	public void checkEndTime(TaskVO vo) {
+		taskMapper.checkEndTime(vo);
+		
+	}
+
+
+	@Override
+	public List<TaskVO> getCalendar() {
+		
+		return taskMapper.getCalendar();
+	}
+
+
+	@Override
+	public void registComment(int task_id, String comment_dtl) {
+		taskMapper.registComment(task_id, comment_dtl);
+		
 	}
 
 

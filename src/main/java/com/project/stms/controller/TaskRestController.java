@@ -1,13 +1,18 @@
 package com.project.stms.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+import java.util.List;
+import java.util.Map;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +30,8 @@ public class TaskRestController {
 	
 	@Autowired
 	private NotificationService notificationService;
+	
+	private static final Logger log = LoggerFactory.getLogger(TaskRestController.class);
 	
 	//프로젝트에 따른 작업목록 조회
 	@GetMapping("taskSearch")
@@ -119,20 +126,19 @@ public class TaskRestController {
 	
 	//작업등록시 템플릿 리스트 불러오기
 	@GetMapping("getTaskTemp")
-	public ResponseEntity<ArrayList<TaskVO>> getTaskTemp(@RequestParam("user_id") String user_id) {
+	public ResponseEntity<ArrayList<TaskVO>> getTaskTemp() {
 		
-		System.out.println("템플릿리스트 매개변수:" + user_id);
-		ArrayList<TaskVO> list = taskService.getTaskTemp(user_id);
+		ArrayList<TaskVO> list = taskService.getTaskTemp();
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	//템플릿 적용하기
 	@GetMapping("applyTemp")
-	public ResponseEntity<TaskVO> applyTemp(@RequestParam("tem_id") Integer tem_id) {
+	public ResponseEntity<TaskVO> applyTemp(@RequestParam("tem_nm") String tem_nm) {
 		
 		
-		TaskVO taskVO = taskService.applyTemp(tem_id);
+		TaskVO taskVO = taskService.applyTemp(tem_nm);
 		
 		System.out.println("템플릿 적용값 : " + taskVO.toString());
 		
@@ -140,5 +146,42 @@ public class TaskRestController {
 	}
 	
 	
+	//작업담당자 변경요청시 알림기능
+	@PostMapping("changeMemberNoti")
+	public ResponseEntity changeMemberNoti(@RequestParam("rcv_id") String rcv_id) {
+		
+		notificationService.createChangeMemberNotification(rcv_id);
+		
+		return new ResponseEntity(HttpStatus.OK);
+	}
 	
+	
+	
+	//작업시작시간 체크
+	@PostMapping("checkStartTaskTime")
+	public ResponseEntity<TaskVO> checkStartTaskTime(@RequestBody TaskVO vo) {
+		
+		taskService.checkStartTime(vo);
+		
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	//작업종료시간 체크
+	@PostMapping("checkEndTaskTime")
+	public ResponseEntity<TaskVO> checkEndTaskTime(@RequestBody TaskVO vo) {
+		
+		taskService.checkEndTime(vo);
+		
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	
+	//캘린더뷰 조회하기
+	@GetMapping("getCalendar")
+	public List<TaskVO> getCalendar() {
+		
+		List<TaskVO> list = taskService.getCalendar();
+		
+		return list;
+	}
 }

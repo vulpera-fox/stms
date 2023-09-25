@@ -47,6 +47,17 @@ public class TaskVO {
 	private String pjt_nm; //프로젝트명
 	private String req_user_id; //프로젝트 신청자(고객사)
 	private Integer change_req_yn; //변경요청 여부
+	
+	private String r_st_dt; //실제 작업시작시간
+	private String r_end_dt; //실제 작업종료시간
+	private Integer time_check_yn; //시간체크 여부
 
+	private String title;
+	private String start;
+	private String end;
+	
+	private String comment_dtl;
+	private String comment_regdate;
+	
 	
 }

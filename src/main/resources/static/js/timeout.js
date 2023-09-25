@@ -3,33 +3,49 @@ let second = 0;
 let minutes = 0;
 let seconds = 0;
 const timeFunction = function() {
-   fetch("http://localhost:8181/timeOut")
-      .then((response) => {
-         return response.json();
-      })
-      .then((result) => {
-         if (result != 0) {
+	fetch("http://localhost:8181/timeOut")
+		.then((response) => {
+			return response.json();
+		})
+		.then((result) => {
+			//console.log(result);
 
-            second = result;
-            minutes = second / 60;
-            seconds = second % 60;
-            timeOut.value = (parseInt(minutes) >= 10 ? parseInt(minutes) : "0" + parseInt(minutes))
-               + " : " + (parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
-         } else if (result == 0) {
+			if (result != 0)
 
-            timeOut.value = "00:00";
+				second = result;
+			minutes = second / 60;
+			seconds = second % 60;
+			timeOut.value = (parseInt(minutes) >= 10 ? parseInt(minutes) : "0" + parseInt(minutes))
+				+ " : " + (parseInt(seconds) >= 10 ? parseInt(seconds) : "0" + parseInt(seconds));
 
-            fetch("http://localhost:8181/user/logout")
-            clearInterval(intervalId);
-            window.location.reload();
-         }
+			if (result == 300) {
+				var result = confirm("로그인 시간을 연장 하시겠습니까?")
 
-         
-      });
-};
+				if (result === true) {
+					fetch("http://localhost:8181/refreshToken", {
+						method: "POST",
+					}).then((response) => {
+						console.log(response);
+					});
+				}
+			}
 
-if ($('#role').val() != '') {
+			else if (second == 1) {
 
-   intervalId = setInterval(timeFunction, 1000);
+				timeOut.value = "00:00";
+
+				fetch("http://localhost:8181/user/logout")
+				clearInterval(intervalId);
+				window.location.reload();
+			}
+
+		})
+
 
 }
+if ($('#role').val() != '') {
+
+	intervalId = setInterval(timeFunction, 1000);
+
+}
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/serverModify.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+	crossorigin="anonymous"></script>
+<script src="/js/jquery-3.7.0.min.js"></script>
+
+<th:block th:replace=" ~{/include/layout_customer :: setContent(~{ :: #container})}">
+
+		<div id="container">
+			<form method="post" action="serverModifyForm">
+				<input type="text" hidden name="user_id" th:value="${session.user_id}" />
+				<input type="text" hidden name="server_id" th:value="${sVO.server_id}" />
+
+				<div class="contentAreaBox">
+					<div class="contentArea">
+						<div class="topArea">
+							<span>서버 정보 수정</span>
+						</div>
+						<div class="shortFormArea">
+							<ul>
+								<li>
+									<p>서버 이름</p><input type="text" name="server_model" class="server_model" th:value="${sVO.server_model}"/>
+								</li>
+								<li class="selectZone">
+									<div>
+										<p>서버 유형</p>
+										<select name="server_type" class="server_type">
+											<option th:selected="${sVO.server_type} == 'web'" value="web">웹 서버</option>
+											<option th:selected="${sVO.server_type} == 'app'" value="app">어플리케이션 서버</option>
+											<option th:selected="${sVO.server_type} == 'proxy'" value="proxy">프록시 서버</option>
+											<option th:selected="${sVO.server_type} == 'mail'" value="mail">메일 서버</option>
+											<option th:selected="${sVO.server_type} == 'db'" value="db">데이터베이스 서버</option>
+											<option th:selected="${sVO.server_type} == 'file'" value="file">파일 서버</option>
+										</select>
+									</div>
+									<div>
+										<p>서버 CPU 코어</p>
+										<select name="server_cpu_core" class="server_cpu_core">
+											<option th:selected="${sVO.server_cpu_core} == 4" value="4">4</option>
+											<option th:selected="${sVO.server_cpu_core} == 8" value="8">8</option>
+											<option th:selected="${sVO.server_cpu_core} == 16" value="16">16</option>
+											<option th:selected="${sVO.server_cpu_core} == 32" value="32">32</option>
+											<option th:selected="${sVO.server_cpu_core} == 64" value="64">64</option>
+											<option th:selected="${sVO.server_cpu_core} == 128" value="128">128</option>
+										</select>
+									</div>
+									<div>
+										<p>서버 메모리</p>
+										<select name="server_memory" class="server_memory">
+											<option th:selected="${sVO.server_memory} == 8" value="8">8 GB</option>
+											<option th:selected="${sVO.server_memory} == 16" value="16">16 GB</option>
+											<option th:selected="${sVO.server_memory} == 32" value="32">32 GB</option>
+											<option th:selected="${sVO.server_memory} == 64" value="64">64 GB</option>
+											<option th:selected="${sVO.server_memory} == 128" value="128">128 GB</option>
+											<option th:selected="${sVO.server_memory} == 254" value="254">254 GB</option>
+										</select>
+									</div>
+									<div>
+										<p>서버 제조사</p>
+										<select name="server_vender" class="server_vender">
+											<option th:selected="${sVO.server_vender} == 'HPE'" value="HPE">HPE</option>
+											<option th:selected="${sVO.server_vender} == 'Dell'" value="Dell">Dell</option>
+											<option th:selected="${sVO.server_vender} == 'Lenovo'" value="Lenovo">Lenovo</option>
+											<option th:selected="${sVO.server_vender} == 'Cisco'" value="Cisco">Cisco</option>
+											<option th:selected="${sVO.server_vender} == 'IBM'" value="IBM">IBM</option>
+											<option th:selected="${sVO.server_vender} == 'Oracle'" value="Oracle">Oracle</option>
+											<option th:selected="${sVO.server_vender} == 'Supermirco'" value="Supermicro">Supermicro</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									<div>
+										<p>서버 제조일</p>
+										<input type="date" id="server_prod_dt" name="server_prod_dt" th:value="${sVO.server_prod_dt}"/>
+									</div>
+									<div>
+										<p>서버 소재지</p>
+										<input type="text" id="server_loca" name="server_loca" style="width: 100px;" th:value="${sVO.server_loca}"/>
+									</div>
+								</li>
+							</ul>
+							
+							<div class="formBtnArea">
+								<div>
+									<button class="submitBtn" type="submit">수정</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+</form>
+			</div>
+</th:block>

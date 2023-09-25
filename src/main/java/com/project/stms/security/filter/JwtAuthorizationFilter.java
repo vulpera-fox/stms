@@ -33,12 +33,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 		Cookie[] list = request.getCookies();
 		
 		String cookie = "";
+		String cookie2 = "";
 		
 		for(Cookie cookies:list) {
 			if(cookies.getName().equals("Authorization")) {//쿠키 네임이 Authorization인 쿠키의 값을 가져옴
 				
 				System.out.println("토큰값 쿠키로 가져옴"+cookies.getValue());
 				cookie = cookies.getValue();
+				
+			} else if(cookies.getName().equals("Refreshtoken")) {
+				cookie2 = cookies.getValue();
 			}
 		}
 		
@@ -52,8 +56,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 		//토큰의 유효성검사
 		try {
 			String token = cookie; //Bearer공백 이후에 진짜 토큰
+			String token2 = cookie2; //Bearer공백 이후에 진짜 토큰
+			
 			boolean result = JWTService.validateToken(token); //토큰검증
-			if(result) { //result == true면 정상토큰
+			boolean result2 = JWTService.validateToken(token2); //refreshtoken
+			
+			if(result || result2) { //result == true면 정상토큰
 				System.out.println("유효성검사 통과");
 				chain.doFilter(request, response); //컨트롤러로 연결
 				

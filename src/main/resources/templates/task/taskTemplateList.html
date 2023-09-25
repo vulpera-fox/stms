@@ -3,333 +3,302 @@
 
 <th:block th:replace="~{./include/layout_admin :: setContent(~{:: .taskTemplateLists})}">
 
-	<div class="taskTemplateLists">
+   <div class="taskTemplateLists">
 
 
-		<style>
-			.task_temp_container {
-				width: 100%;
-				margin: 0 auto;
-				padding : 30px;
-			}
 
-			.task_temp_box {
-				border-radius: 10px;
-				box-shadow: 0 5px 5px #020f37;
-				width: 300px;
-				height: 300px;
-				display: inline-block;
-
-				margin-right: 30px;
-				position: relative;
-
-			}
-
-			.tempTable {
-				height: 300px;
-				margin: 0 auto;
-			}
+      <style>
+         .task_temp_container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px;
+         }
 
 
-			.colInput>input {
-				block-size: 30px;
-				width: 100%;
-			}
+         .task_temp_box {
+            border-radius: 10px;
+            box-shadow: 0 5px 5px #020f37;
+            width: 300px;
+            height: 300px;
+            display: inline-block;
 
-			.tempRow {
-				text-align: center;
-				width: 25px;
-			}
+            margin-right: 30px;
+            position: relative;
 
+         }
 
-			#tempBtnBox {
-				border-radius: 10px;
-				border: 1px dashed #777;
-				width: 450px;
-				height: 300px;
-				display: inline-block;
-			}
+         .tempTable {
+            height: 300px;
+            margin: 0 auto;
+         }
 
-			.tempImgBox {
-				position: relative;
-			}
+         .colInput>input {
+            block-size: 30px;
+            width: 100%;
+         }
 
-			#tempBtn {
-				width: 15%;
-				margin: 0 auto;
-				position: absolute;
-				top: 130px;
-				left: 190px;
-
-			}
+         .tempRow {
+            text-align: center;
+            width: 25px;
+         }
 
 
-			.tempSaveDelBox {
+         #tempBtnBox {
+            border-radius: 10px;
+            border: 1px dashed #777;
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+         }
 
-				position: absolute;
-				top: 20px;
-				right: 10px;
-				width: 8%;
-			}
+         .tempImgBox {
+            position: relative;
+         }
 
-		</style>
+         #tempBtn {
+            width: 20%;
+            margin: 0 auto;
+            position: absolute;
+            top: 130px;
+            left: 120px;
 
-		<div class="task_temp_container">
-
-			<div>
-				<h3>템플릿 관리</h3>
-			</div>
-
-
-			<!--반복 돌릴 것, input태그를 값으로 바꿀 것-->
-
-
-			<!--추가영역-->
-
-			<div id="tempBtnBox">
-				<div class="tempImgBox">
-					<a href="#" class="tempPlus">
-						<img src="/img/add_btn.png" alt="추가" id="tempBtn" class="btn btn-primary" data-toggle="modal"
-							data-target="#registTempModal" style="background-color: initial; border: none;">
-					</a>`
-				</div>
-			</div>
-
-			<!--반복영역-->
-			<form name="actionForm" action="tempDelForm" method="post">					
-				<div class="task_temp_box" th:each="vo, status : ${list}">
-					<input class="identData" type="hidden" name="user_id" th:value="${session.user_id}">
-					<table class="tempTable">
-						<input type="hidden" name="tem_id" th:value="${vo.tem_id}">
-						<tr class="tempRow">
-							<td class="colName">
-								템플릿 이름
-							</td>
-							<td class="colInput">
-								[[${vo.tem_nm}]]
-							</td>
-						</tr>
+         }
 
 
-						<tr class="tempRow">
-							<td class="colName">
-								작업명
-							</td>
-							<td class="colInput">
-								[[${vo.task_nm}]]
-							</td>
-						</tr>
+         .tempSaveDelBox {
+
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            width: 8%;
+         }
+      </style>
+
+      <div class="task_temp_container">
+
+         <div>
+            <h3>템플릿 관리</h3>
+         </div>
 
 
-						<tr class="tempRow">
-							<td class="colName">
-								작업내용
-							</td>
-							<td class="colInput">
-								[[${vo.task_dtl}]]
-							</td>
-						</tr>
+         <!--반복 돌릴 것, input태그를 값으로 바꿀 것-->
 
 
-						<tr class="tempRow">
-							<td class="colName">
-								예상시간
-							</td>
-							<td class="colInput">
-								[[${vo.pred_time}]]
-							</td>
-						</tr>
+         <!--추가영역-->
 
-					</table>
-					<!--수정, 삭제 버튼-->
-					<div class="tempSaveDelBox">
-						<a href="#" class="tempDelBtnA delete" name="tem_id" th:value="${vo.tem_id}">
-							<img src="/img/red-x-cross.png" alt="삭제">
-						</a>
-					</div>
-					
-				</div>
-			</form>
+         <div id="tempBtnBox">
+            <div class="tempImgBox">
+               <a href="#" class="tempPlus">
+                  <img src="/img/add_btn.png" alt="추가" id="tempBtn" class="btn btn-primary" data-toggle="modal"
+                     data-target="#registTempModal" style="background-color: initial; border: none;">
+               </a>`
+            </div>
+         </div>
 
-		</div>
-
-		<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-			crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-			integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-			crossorigin="anonymous"></script>-->
-
-		<div>
-			<!--모달 버튼 영역-->
-			<form name="tempRegForm" action="tempRegForm" method="post">
-				<div class="modal fade" id="registTempModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-					aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">템플릿 등록</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<table class="tempTable">
-									<input class="identDatas" type="hidden" name="user_id" th:value="${session.user_id}">
-									<tr class="tempRow">
-										<td class="colName">
-											템플릿 이름
-										</td>
-										<td class="colInput">
-											<input type="text" name="tem_nm">
-										</td>
-									</tr>
+         <!--반복영역-->
+         <form id="tempDelForm" name="actionForm" action="tempDelForm" method="post">
+            <div class="task_temp_box" th:each="vo, status : ${list}">
+               <input class="identData" type="hidden" name="user_id" th:value="${session.user_id}">
+               <table class="tempTable">
+                  <tr class="tempRow">
+                     <td class="colName">
+                        템플릿 이름
+                     </td>
+                     <td class="colInput">
+                        [[${vo.tem_nm}]]
+                     </td>
+                  </tr>
 
 
-									<tr class="tempRow">
-										<td class="colName">
-											작업명
-										</td>
-										<td class="colInput">
-											<input type="text" name="task_nm">
-										</td>
-									</tr>
+
+                  <tr class="tempRow">
+                     <td class="colName">
+                        작업명
+                     </td>
+                     <td class="colInput">
+                        [[${vo.task_nm}]]
+                     </td>
+                  </tr>
 
 
-									<tr class="tempRow">
-										<td class="colName">
-											작업내용
-										</td>
-										<td class="colInput">
-											<input type="text" name="task_dtl">
-										</td>
-									</tr>
+                  <tr class="tempRow">
+                     <td class="colName">
+                        작업내용
+                     </td>
+                     <td class="colInput">
+                        [[${vo.task_dtl}]]
+                     </td>
+                  </tr>
 
 
-									<tr class="tempRow">
-										<td class="colName">
-											예상시간
-										</td>
-										<td class="colInput">
-											<input type="datetime-local" name="pred_time">
-										</td>
-									</tr>
+                  <tr class="tempRow">
+                     <td class="colName">
+                        예상시간
+                     </td>
+                     <td class="colInput">
+                        [[${vo.pred_time}]]
+                     </td>
+                  </tr>
 
-								</table>
+               </table>
+               <!--수정, 삭제 버튼-->
+               <div class="tempSaveDelBox">
+                  <a href="#" class="tempDelBtnA" th:id="${vo.tem_id}">
+                     <img src="/img/red-x-cross.png" alt="삭제">
+                  </a>
+               </div>
 
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-								<button type="button" class="btn btn-primary" id="tempRegBtn">등록</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+            </div>
+         </form>
 
-	</div>
+      </div>
+
+      <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+         crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+         crossorigin="anonymous"></script>-->
+
+      <div>
+         <!--모달 버튼 영역-->
+         <form name="tempRegForm" action="tempRegForm" method="post">
+            <div class="modal fade" id="registTempModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+               aria-labelledby="staticBackdropLabel" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">템플릿 등록</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <div class="modal-body">
+                        <table class="tempTable">
+                           <input class="identDatas" type="hidden" name="user_id"
+                              th:value="${session.user_id}">
+                           <tr class="tempRow">
+                              <td class="colName">
+                                 템플릿 이름
+                              </td>
+                              <td class="colInput">
+                                 <input type="text" name="tem_nm">
+                              </td>
+                           </tr>
+
+
+                           <tr class="tempRow">
+                              <td class="colName">
+                                 작업명
+                              </td>
+                              <td class="colInput">
+                                 <input type="text" name="task_nm">
+                              </td>
+                           </tr>
+
+
+                           <tr class="tempRow">
+                              <td class="colName">
+                                 작업내용
+                              </td>
+                              <td class="colInput">
+                                 <input type="text" name="task_dtl">
+                              </td>
+                           </tr>
+
+
+                           <tr class="tempRow">
+                              <td class="colName">
+                                 예상 소요시간
+                              </td>
+                              <td class="colInput">
+                                 <select name="pred_time">
+                                    <option th:each="time : ${#numbers.sequence(1,12)}" th:value="${time}" th:text="${time}+'시간'"></option>
+                                 </select>
+                              </td>
+                           </tr>
+
+                        </table>
+
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary" id="tempRegBtn">등록</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
 
 </th:block>
 <script th:inline="javascript">
 
-	var msg = '[[${msg}]]';
-	//console.log(msg);
-	if (msg != 'null') {
-		alert(msg);
-	}
+   var msg = '[[${msg}]]';
+   //console.log(msg);
+   if (msg != 'null') {
+      alert(msg);
+   }
 
-	var delMsg = '[[${delMsg}]]';
-	//console.log(delMsg);
-	if (delMsg != 'null') {
-		alert(delMsg);
-	}
-
-
-	let tempRegBtn = document.getElementById("tempRegBtn");
-
-	tempRegBtn.addEventListener('click', () => {
-		console.log(event.target);
-
-		event.preventDefault();
-		
-		const rcv_id = document.getElementById('rcv_id').value;
-
-        const eventSource = new EventSource(`/test/subscribe/` + rcv_id);
-		
-		var session_user_id = `[[${session.user_id}]]`;
-		
-        eventSource.addEventListener("sse", function (event) {
-            console.log(event.data);
-            //const data = JSON.stringify(event.data);
-
-            
-            (async () => {
-                // 브라우저 알림
-                const showNotification = () => {
-                    
-                    const notification = new Notification('프로젝트 승인 안내', {
-                        body: rcv_id + "님이 요청하신 프로젝트가 승인되었습니다.",
-                        badge: `/img/alarm.png`
-                    });
-                    
-                    setTimeout(() => {
-                        notification.close();
-                    }, 10 * 1000);
-                    
-                    notification.addEventListener('click', () => {
-                        window.open(`/project/ProjectDetail?pjt_id=` + rcv_id, '_blank');
-                    });
-                }
-                
-
-                // 브라우저 알림 허용 권한
-                let granted = false;
-
-                if (Notification.permission === 'granted') {
-                    granted = true;
-                } else if (Notification.permission !== 'denied') {
-                    let permission = await Notification.requestPermission();
-                    granted = permission === 'granted';
-                }
-
-                // 알림 보여주기
-                if (granted) {
-                    showNotification();
-                }
-            })();
-            
-        })
-		
-		document.tempRegForm.submit();
-		
-	})
+   var delMsg = '[[${delMsg}]]';
+   //console.log(delMsg);
+   if (delMsg != 'null') {
+      alert(delMsg);
+   }
 
 
-	//var tempDelBtn = document.querySelectorAll(".tempDelBtnA");
-	//tempDelBtn.addEventListener('click', function() {
 
-	//event.preventDefault();
-	//if(!tempDelBtn.tagName("A")){
+   let tempRegBtn = document.getElementById("tempRegBtn");
 
-	//console.log(1);
-	//return;
-	//}				
+   tempRegBtn.addEventListener('click', () => {
+      console.log(event.target);
 
-	//console.log(event.target);
+      event.preventDefault();
 
-	//})
+      document.tempRegForm.submit();
+
+   })
 
 
-	$(".tempDelBtnA").click(function () {
-		event.preventDefault(); // 클릭 이벤트의 기본 동작을 취소합니다.
+   //var tempDelBtn = document.querySelectorAll(".tempDelBtnA");
+   //tempDelBtn.addEventListener('click', function() {
 
-		//console.log($(this).attr('value'));
+   //event.preventDefault();
+   //if(!tempDelBtn.tagName("A")){
 
-		document.actionForm.action = "tempDelForm";
-		document.actionForm.submit();
-	});
+   //console.log(1);
+   //return;
+   //}            
+
+   //console.log(event.target);
+
+   //})
+
+   $(".tempDelBtnA").click(function () {
+      event.preventDefault(); // 클릭 이벤트의 기본 동작을 취소합니다.
+
+      // 선택한 버튼과 관련된 데이터를 가져옵니다.
+      var temId = $(this).attr('id');
+
+      // 새로운 input 요소를 동적으로 생성하고 폼에 추가합니다.
+      var input = $("<input>")
+         .attr("type", "hidden")
+         .attr("name", "tem_id")
+         .val(temId);
+
+      // 폼에 생성한 input 요소를 추가합니다.
+      $("#tempDelForm").append(input);
+
+      // 폼을 서버로 제출합니다.
+      $("#tempDelForm").submit();
+      
+         alert("삭제되었습니다!");
+   });
+
+
+
+
 
 </script>
 
