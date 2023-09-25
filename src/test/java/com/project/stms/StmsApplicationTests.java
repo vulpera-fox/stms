@@ -11,8 +11,5 @@ import com.project.stms.service.project.ProjectService;
 class StmsApplicationTests {
 	
 
-	@Test
-	void contextLoads() {
-	}
 
 }

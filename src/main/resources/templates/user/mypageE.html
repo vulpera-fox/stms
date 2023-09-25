@@ -25,7 +25,7 @@
 			<div class="card text-left" style="width: 82rem; flex-direction: row; 	box-shadow:0px 8px 16px  #020f37;">
 				<div class="card" style="width: 25rem; margin-left: 20px;">
 					<img class="card-img-top" style="height:90%;"
-						th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
+						th:src="@{'https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
 						target="_self">
 					<h5 style="margin:0 auto; background-color:#ddd; width:100%; text-align: center; font-size: 35px;">
 						나의 프로필</h5>
@@ -52,16 +52,23 @@
 								<span class="pull-right">[[${session.userVO.user_adr}]]</span>주소
 							</li>
 							<li class="list-group-item">
-								<span class="pull-right">[[${session.userVO.user_role}]]</span>권한
+								<th:block th:if="${session.userVO.user_role} == ROLE_CUSTOMER">
+									<span class="pull-right">고객사</span>권한
+								</th:block>
 							</li>
 					</div>
 
 					</ul>
 					<div style="margin-top: 10px; margin-left: 443px;">
-						<button type="button" class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37" onclick="openModal4();">회원정보수정</button>
-						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37" th:href="@{/}">기능없음</a>
-						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37" onclick="myLeave()">탈퇴</a>
-						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37" th:href="@{/user/logout}">로그아웃</a>
+						<button type="button" class="btn btn-primary"
+							style="background-color: #020f37; border: 1px solid #020f37"
+							onclick="openModal4();">회원정보수정</button>
+						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37"
+							th:href="@{/}">기능없음</a>
+						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37"
+							onclick="myLeave()">탈퇴</a>
+						<a class="btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37"
+							th:href="@{/user/logout}">로그아웃</a>
 					</div>
 				</div>
 			</div>
@@ -119,7 +126,8 @@
 
 						</div>
 
-						<button type="submit" class="Btn btn-primary" style="background-color: #020f37; border: 1px solid #020f37">수정하기</button>
+						<button type="submit" class="Btn btn-primary"
+							style="background-color: #020f37; border: 1px solid #020f37">수정하기</button>
 					</form>
 				</div>
 			</div>

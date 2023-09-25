@@ -58,7 +58,7 @@ public class UserController {
 			}
 
 
-			return "/user/log"; //실패시 원래 화면으로
+			return "user/log"; //실패시 원래 화면으로
 
 		} //err end
 
@@ -82,7 +82,7 @@ public class UserController {
 			model.addAttribute("msg", "아이디 비밀번호를 확인하세요");
 		}
 
-		return "/user/log";
+		return "user/log";
 	}
 
 	@PostMapping("/changePW")
@@ -99,13 +99,13 @@ public class UserController {
 	@GetMapping("/user/mypage")
 	public String myPage() {
 
-		return "/user/mypage";
+		return "user/mypage";
 	}
 	
 	@GetMapping("/user/mypageE")
 	public String myPageE() {
 
-		return "/user/mypageE";
+		return "user/mypageE";
 	}
 
 	//로그아웃
@@ -200,7 +200,7 @@ public class UserController {
 		}
 
 
-		return "/user/mypage";
+		return "user/mypage";
 	}
 
 }
