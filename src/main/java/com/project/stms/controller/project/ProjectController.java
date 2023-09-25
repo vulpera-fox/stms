@@ -395,6 +395,7 @@ public class ProjectController {
 	@GetMapping("/deleteTask")
 	public String deleteTask(int task_id) {
 		
+		taskService.deleteTaskList(task_id);
 		
 		return "redirect:/project/projectMain";
 	}

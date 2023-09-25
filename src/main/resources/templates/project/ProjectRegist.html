@@ -14,7 +14,6 @@
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
 <script src="/js/jquery-3.7.0.min.js"></script>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <th:block th:replace=" ~{/include/layout_customer :: setContent(~{ :: #container})}">
 
@@ -44,13 +43,13 @@
 								<li>
 									<div style="position: relative; width: 150px;">
 										<p>시작일</p>
-										<input type="date" id="pjt_st_dt" name="pjt_st_dt" min="" max="" required />
+										<input type="date" id="pjt_st_dt" name="pjt_st_dt" min="" max="" required/>
 										<p id="errorMsg" style="display: none; position: absolute; ">시작일은 오늘 이후여야 합니다.
 										</p>
 									</div>
 									<div>
-										<p>마감일</p><input type="date" id="pjt_end_dt" name="pjt_end_dt" min="" max=""
-											required readonly />
+										<p>마감일</p>
+										<input type="date" id="pjt_end_dt" name="pjt_end_dt" min="" max="" required/>
 									</div>
 								</li>
 							</ul>
@@ -174,10 +173,6 @@
 			$('.pjt_nm').focus().attr('placeholder', "제목은 필수입니다.");
 		}
 	});
-	
-	
-	
-
 
 
 	// 오늘 날짜 가져오기
@@ -193,11 +188,13 @@
 	const startDateInput = document.getElementById('pjt_st_dt');
 	const endDateInput = document.getElementById('pjt_end_dt');
 	const errorMessage = document.getElementById('errorMsg');
+	
 
 	startDateInput.min = getToday();
 
 	// 시작일 선택 시, 마감일은 시작일 이전의 날짜 선택 불가능
 	startDateInput.addEventListener('change', function () {
+		console.log(this);
 		if (this.value) {
 			if (this.value < getToday()) {
 				errorMessage.style.display = 'block';
@@ -218,12 +215,6 @@
 
 	var fileInput = document.getElementById("fileInput");
 	var erm = document.getElementById("errorMessage");
-
-
-
-
-
-
 
 
 </script>
