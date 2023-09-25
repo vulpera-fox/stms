@@ -2,6 +2,9 @@ package com.project.stms.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -22,9 +25,13 @@ public class NotificationController {
 	private NotificationService notificationService;
 	
 	@PostMapping("/getNotiCount")
-	public ResponseEntity<ArrayList<NotificationVO>> getNotiCount(@RequestBody NotificationVO vo) {
+	public ResponseEntity<ArrayList<NotificationVO>> getNotiCount(@RequestBody NotificationVO vo, HttpServletRequest http) {
 		
-		ArrayList<NotificationVO> count = notificationService.getCount(vo.getRcv_id());
+		HttpSession session = http.getSession();
+		
+		String user_role = (String)session.getAttribute("user_role");
+		
+		ArrayList<NotificationVO> count = notificationService.getCount(vo.getRcv_id(), user_role);
 		
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
@@ -63,12 +70,16 @@ public class NotificationController {
 	}
 	
 	@PostMapping("/getPopUpList")
-	public ResponseEntity<ArrayList<NotificationVO>> getPopUpList(@RequestBody NotificationVO vo) {
+	public ResponseEntity<ArrayList<NotificationVO>> getPopUpList(@RequestBody NotificationVO vo, HttpServletRequest http) {
 		
 		String rcv_id = vo.getRcv_id();
 		String category = vo.getCategory();
 		
-		ArrayList<NotificationVO> list = notificationService.getPopUpList(rcv_id, category);
+		HttpSession session = http.getSession();
+		
+		String user_role = (String)session.getAttribute("user_role");
+		
+		ArrayList<NotificationVO> list = notificationService.getPopUpList(rcv_id, category, user_role);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}

@@ -1,11 +1,9 @@
 package com.project.stms.controller.project;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +31,8 @@ import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.service.task.TaskService;
 import com.project.stms.util.Criteria;
-import com.project.stms.util.ProjectPageVO;
 import com.project.stms.util.ProjectCriteria;
+import com.project.stms.util.ProjectPageVO;
 
 @Controller
 @RequestMapping("project")
@@ -85,7 +83,7 @@ public class ProjectController {
 		}
 
 
-		return "/project/projectMain";
+		return "/project/ProjectMain";
 	}
 
 	@GetMapping("/projectRegist")

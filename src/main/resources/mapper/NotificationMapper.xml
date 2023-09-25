@@ -8,13 +8,25 @@
   		SELECT  CASE
 					WHEN RCV_DEL_YN = 'X' THEN 'completeDelete'
 					WHEN RCV_DEL_YN = 'Y' THEN 'deleteList'
+					<if test="user_role == 'ROLE_CUSTOMER'">
 		            WHEN LOCATE('공지', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'noticeList'
-		            WHEN (LOCATE('작업', NOTI_NM) > 0 OR LOCATE('점검', NOTI_NM) > 0) AND RCV_DEL_YN IS NULL THEN 'taskList'
+		            WHEN LOCATE('작업', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'taskList'
 		            WHEN LOCATE('공지', NOTI_NM) = 0 AND LOCATE('작업', NOTI_NM) = 0 AND LOCATE('점검', NOTI_NM) = 0 AND RCV_DEL_YN IS NULL THEN 'etcList'
+		            </if>
+		            <if test="user_role == 'ROLE_ADMIN'">
+		            WHEN LOCATE('공지', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'noticeList'
+		            WHEN LOCATE('요청', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'taskList'
+		            WHEN LOCATE('공지', NOTI_NM) = 0 AND LOCATE('요청', NOTI_NM) = 0 AND RCV_DEL_YN IS NULL THEN 'etcList'
+		            </if>
+		            <if test="user_role == 'ROLE_ENGINEER'">
+		            WHEN LOCATE('공지', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'noticeList'
+		            WHEN LOCATE('할당', NOTI_NM) > 0 AND RCV_DEL_YN IS NULL THEN 'taskList'
+		            WHEN LOCATE('공지', NOTI_NM) = 0 AND LOCATE('할당', NOTI_NM) = 0 AND RCV_DEL_YN IS NULL THEN 'etcList'
+		            </if>
 		        END AS CATEGORY,
 		        COUNT(*) AS COUNT
 		FROM notification
-		WHERE RCV_ID = #{RCV_ID}
+		WHERE RCV_ID = #{rcv_id}
 		GROUP BY CATEGORY
 		UNION ALL
 		SELECT CASE
@@ -22,7 +34,7 @@
 				END AS CATEGORY,
 		        COUNT(*) AS COUNT
 		FROM notification
-		WHERE RCV_ID = #{RCV_ID}
+		WHERE RCV_ID = #{rcv_id}
 		group by CATEGORY
 		UNION ALL
 		SELECT CASE
@@ -31,7 +43,7 @@
 				END AS CATEGORY,
 		        COUNT(*) AS COUNT
 		FROM notification
-		WHERE RCV_ID = #{RCV_ID}
+		WHERE RCV_ID = #{rcv_id}
 		group by CATEGORY;
   	</select>
 	
@@ -138,11 +150,29 @@
 			<if test="category == 'noticeList'">
 				and NOTI_NM like concat('%', '공지', '%') AND RCV_DEL_YN is null
 			</if>
-			<if test="category == 'taskList'">
-				and (NOTI_NM like concat('%', '작업', '%') or NOTI_NM like concat('%', '점검', '%')) AND RCV_DEL_YN is null
+			<if test="user_role == 'ROLE_CUSTOMER'">
+				<if test="category == 'taskList'">
+					and (NOTI_NM like concat('%', '작업', '%') or NOTI_NM like concat('%', '점검', '%')) AND RCV_DEL_YN is null
+				</if>
+				<if test="category == 'etcList'">
+					and NOTI_NM not like concat('%', '작업', '%') and NOTI_NM not like concat('%', '점검', '%') and NOTI_NM not like concat('%', '공지', '%') AND RCV_DEL_YN is null
+				</if>
 			</if>
-			<if test="category == 'etcList'">
-				and NOTI_NM not like concat('%', '작업', '%') and NOTI_NM not like concat('%', '점검', '%') and NOTI_NM not like concat('%', '공지', '%') AND RCV_DEL_YN is null
+			<if test="user_role == 'ROLE_ADMIN'">
+				<if test="category == 'taskList'">
+					and NOTI_NM like concat('%', '요청', '%') AND RCV_DEL_YN is null
+				</if>
+				<if test="category == 'etcList'">
+					and NOTI_NM not like concat('%', '요청', '%') and NOTI_NM not like concat('%', '공지', '%') AND RCV_DEL_YN is null
+				</if>
+			</if>
+			<if test="user_role == 'ROLE_ENGINEER'">
+				<if test="category == 'taskList'">
+					and NOTI_NM like concat('%', '할당', '%') AND RCV_DEL_YN is null
+				</if>
+				<if test="category == 'etcList'">
+					and NOTI_NM not like concat('%', '할당', '%') and NOTI_NM not like concat('%', '공지', '%') AND RCV_DEL_YN is null
+				</if>
 			</if>
 			<if test="category == 'deleteList'">
 				AND RCV_DEL_YN = "Y"
@@ -200,7 +230,7 @@
 				   #{task_date}),
 			(#{rcv_id},
 				   'ADMIN',
-				   concat(#{task_nm}, " 작업 등록 알림"),
+				   concat(#{task_nm}, " 작업 할당 알림"),
 				   concat(#{task_date},"에 " ,#{task_nm}, " 작업이 할당 되었습니다."),
 				   #{task_date})
 	</insert>		

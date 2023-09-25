@@ -59,7 +59,7 @@ public class SseServiceImple implements SseService{
                     .id(eventId)
                     .name("sse")
                     .data(data, MediaType.APPLICATION_JSON));
-            System.out.println(data + "머 머라고");
+            System.out.println(data.toString() + "머 머라고");
         } catch (IOException exception) {
             emitterRepository.deleteById(emitterId);
             emitter.completeWithError(exception);
