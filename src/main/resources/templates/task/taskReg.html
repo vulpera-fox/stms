@@ -141,7 +141,7 @@
 				top: 0px;
 				left: 500px;
 			}
-
+			
 			#taskSearchDelBtn {
 				width: 40px;
 				height: 30px;
@@ -151,11 +151,11 @@
 				color: #fff;
 				font-weight: bold;
 				position: absolute;
-				top: 0;
+				top: 0px;
 				left: 550px;
 			}
 
-			#taskSearchNewBtn {
+			.taskSearchNewBtn {
 				width: 110px;
 				height: 30px;
 				text-align: center;
@@ -164,7 +164,7 @@
 				color: #fff;
 				font-weight: bold;
 				position: absolute;
-				top: 180px;
+				top: 65px;
 				left: 100px;
 			}
 
@@ -178,7 +178,7 @@
 				font-weight: bold;
 				position: absolute;
 				top: 60px;
-				left: 220px;
+				left: 125px;
 			}
 
 			#pjtListSearchBtn {
@@ -311,6 +311,7 @@
 				background-color: blue;
 				color: #fff;
 				font-weight: bold;
+				margin-left: 20px;
 			}
 
 			.taskStatusDefault {
@@ -377,27 +378,31 @@
 			.pjtTreeBox {
 				height: 535px;
 			}
-			
-			.scrollBar { 
-			  width: 298px;
-			  height: 540px;
-			  overflow-y: scroll;
+
+			.scrollBar {
+				width: 298px;
+				height: 540px;
+				overflow-y: scroll;
 			}
-			
+
 			/* 아래의 모든 코드는 영역::코드로 사용 */
 			.scrollBar::-webkit-scrollbar {
-			    width: 10px;  /* 스크롤바의 너비 */
+				width: 10px;
+				/* 스크롤바의 너비 */
 			}
-			
+
 			.scrollBar::-webkit-scrollbar-thumb {
-			    height: 30%; /* 스크롤바의 길이 */
-			    background: rgb(0, 0, 128); /* 스크롤바의 색상 */
-			    
-			    border-radius: 8px;
+				height: 30%;
+				/* 스크롤바의 길이 */
+				background: rgb(0, 0, 128);
+				/* 스크롤바의 색상 */
+
+				border-radius: 8px;
 			}
-			
+
 			.scrollBar::-webkit-scrollbar-track {
-			    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+				background: rgba(33, 122, 244, .1);
+				/*스크롤바 뒷 배경 색상*/
 			}
 
 			.pjtSearch {
@@ -412,6 +417,12 @@
 			.focus {
 				font-weight: 900;
 			}
+
+			input[type=time] {
+				width: 100px;
+			}
+			
+			
 		</style>
 
 		<body>
@@ -459,7 +470,7 @@
 
 						<div class="rightBox">
 							<div class="SearchTitles">작업목록</div>
-							<ul class="task_lists" style="white-space: nowrap;">
+							<ul class="task_lists scrollBar" style="white-space: nowrap;">
 								<!--프로젝트에 따른 작업 목록이 들어가고 있음-->
 							</ul>
 						</div>
@@ -541,10 +552,10 @@
 					e.preventDefault();
 					let target = e.target;
 
-					console.log(target);
+					console.log("프로젝트 선택" + target);
 
 					let pjt_id = $(this).attr("value");
-					console.log(pjt_id);
+					console.log("project아이디" + pjt_id);
 
 					let user_id = $(this).closest("div").attr("value");
 					console.log(user_id);
@@ -559,10 +570,10 @@
 						success: function (data) {
 							console.log(data);
 							//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
-							
+
 							let str = '';
 							if (data.length !== 0) {
-								str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data[0].pjt_id + '">추가</a>';
+								str += '<a href="#" class="taskSearchNewBtn" name="pjt_id" value="' + pjt_id + '">추가</a>';
 
 								for (let i = 0; i < data.length; i++) {
 
@@ -577,7 +588,7 @@
 							} else {
 								str += '<div id="taskNewBtnBox" name="user_id" value="' + user_id + '">';
 								str += '<div>해당 프로젝트 내 작업이 없습니다</div>';
-								str += '<a href="#" id="taskSearchNewBtn" value="' + pjt_id + '">신규 작업 생성</a>';
+								str += '<a href="#" class="taskSearchNewBtn" name="pjt_id" value="' + pjt_id + '">신규 작업 생성</a>';
 								str += '<input type="hidden" name="server_id" class="serverData" value="' + serverId + '">';
 								str += '</div>';
 							}
@@ -662,14 +673,14 @@
 							str += '<tr class="taskRegRow">';
 							str += '<th class="taskRegHeads">담당자</th>';
 							str += '<td class="taskRegBodies">';
-							str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
-							str += '<option name="none" value="none">담당자</option>';
+							str += '<select onChange="handleEngChange(this)" class="engSelectBox">';
+							str += '<option value="' + data.user_id + '">' + data.user_nm + '</option>';
 							str += '</select>';
 							str += '</td>';
 
 							str += '<td class="taskRegBodies">';
-							str += '<div id="engineerNameBoxD">' + data.user_nm + '</div>';
-							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersD">';
+							str += '<div id="engineerNameBox">' + data.user_nm + '</div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
 							str += '</td>';
 
 							str += '</tr>';
@@ -684,7 +695,6 @@
 							str += '</table>';
 							str += '<!--수정,삭제버튼영역-->';
 							str += '<div class="taskSearchBtnBox" name="user_id" value="' + user_id + '">';
-							str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data.pjt_id + '">신규</a>';
 							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
 							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
 							str += '</div>';
@@ -747,7 +757,7 @@
 
 
 
-				//작업자 option onChange(작업목록 없을 때 신규카드!)
+				//작업자 option onChange
 				function handleEngChange(e) {
 
 					let selectedEngineer = e.options[e.selectedIndex].innerHTML;
@@ -755,61 +765,25 @@
 					let selectedEngId = e.options[e.selectedIndex].value;
 
 					console.log("찾아야할 작업자 값:", selectedEngId);
+					console.log(selectedEngineer);
 
 					let engineerNameBox = document.getElementById("engineerNameBox")
 					let hiddenEngineers = document.getElementById("hiddenEngineers")
 
-					console.log(selectedEngineer);
 
 					engineerNameBox.innerHTML = selectedEngineer;
 					hiddenEngineers.value = selectedEngId;
 
-
-
 				}
 
-				//작업자 option onChange(작업목록 있을 때 신규카드!?)
-				function handleEngChangeS(e) {
 
-					let selectedEngineerS = e.options[e.selectedIndex].innerHTML;
-
-					let selectedEngIdS = e.options[e.selectedIndex].value;
-
-					console.log("찾아야할 작업자 값 S :", selectedEngIdS);
-
-					let engineerNameBoxS = document.getElementById("engineerNameBoxS")
-					let hiddenEngineersS = document.getElementById("hiddenEngineersS")
-
-					engineerNameBoxS.innerHTML = selectedEngineerS;
-					hiddenEngineersS.value = selectedEngIdS;
-
-				}
-				//작업자 option onChange(상세카드)
-				function handleEngChangeD(e) {
-
-					let selectedEngineerD = e.options[e.selectedIndex].innerHTML;
-
-					let selectedEngIdD = e.options[e.selectedIndex].value;
-
-					console.log("찾아야할 작업자 값 D :", selectedEngIdD);
-
-					let engineerNameBoxD = document.getElementById("engineerNameBoxD")
-					let hiddenEngineersD = document.getElementById("hiddenEngineersD")
-
-					engineerNameBoxD.innerHTML = selectedEngineerD;
-					hiddenEngineersD.value = selectedEngIdD;
-				}
-				
-				//작업등록박스 불러내기(프로젝트에 작업목록이 없을 경우)
-				$(document).on("click", "#taskSearchNewBtn", function (e) {
+				//작업등록박스 불러내기
+				$(document).on("click", ".taskSearchNewBtn", function (e) {
 
 					e.preventDefault();
 
-					let target = e.target;
-					console.log(target);
-
 					let pjtId = $(this).attr("value");
-					console.log(pjtId);
+					console.log("프로젝트아이디" + pjtId);
 
 					let userId = $(".searchTask").closest("div").attr("value");
 
@@ -837,7 +811,7 @@
 							str += '<select onChange="handleChangeTemp(this)" class="tempSelect" name="user_id" value="' + userId + '">';
 							str += '<option name="none" value="none">템플릿 선택</option>';
 							str += '</select>';
-							str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
+							str += '<a href="#" id="tempSelectBtn" value="">선택</a>';
 							str += '</td>';
 							str += '</tr>';
 							str += '<tr class="taskRegRow">';
@@ -879,108 +853,7 @@
 							str += '</tr>';
 							str += '</table>';
 							str += '<!--작업버튼영역-->';
-							str += '<a href="#" id="taskSearchRegBtnB" name="pjt_id" value="' + pjtId + '">등록</a>';
-							str += '</div>';
-							str += '</div>';
-
-							$(".taskReg_searchMinContainer").html(str);
-
-							getEngMembersB();
-							getTempB();
-
-						},
-						error: function (status, error) {
-							console.log(status);
-							console.log(error);
-							alert("신규등록화면B타입 에러")
-						}
-
-					})
-
-				})
-
-
-
-				//작업등록박스 불러내기(프로젝트에 작업목록이 있을 경우O)
-				$(document).on("click", ".taskSearchNewBtnA", function (e) {
-
-					e.preventDefault();
-
-					let target = e.target;
-					console.log(target);
-
-					//let pjtId = $("#taskSearchSaveBtn").val();
-					var pjtId = $(event.target).attr('value');
-					console.log(pjtId);
-
-					let serverId = $(".taskHiddenData").attr("value");
-
-					let userId = $(".searchTask").closest("div").attr("value");
-
-					
-					$.ajax({
-						url: "../getRegBoxA",
-						type: "get",
-						contentType: "application/json",
-						data: {"pjt_id": pjtId},
-						success: function (data) {
-							console.log(data);
-							alert("등록박스A타입 로딩 성공");
-
-							str = '';
-
-							str += '<div class="task_searchRegBox">';
-							str += '<div class="taskRegTable-wrap">';
-							str += '<input type="hidden" name="server_id" class="serverData" value="' + serverId + '">';
-							str += '<table class="taskRegTable">';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">템플릿 선택</th>';
-							str += '<td class="taskRegBodies" colspan="3">';
-							str += '<select onChange="handleChangeTemp(this)" class="tempSelectB" name="user_id" value="' + userId + '">';
-							str += '<option name="none" value="none">템플릿 선택</option>';
-							str += '</select>';
-							str += '<a href="#" id="tempSelectBtn" value="####">선택</a>';
-							str += '</td>';
-							str += '</tr>';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">작업상태</th>';
-
-							str += '<td class="taskRegBodies"><div class="taskStatusDefault" name="status" value=100  style="backgroundColor:blue">작업대기</div></td>';
-
-							str += '</tr>';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">작업이름</th>';
-							str += '<td class="taskRegBodies" id="newTaskNmBox" colspan="3"><input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value=""></td>';
-							str += '</tr>';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">작업일</th>';
-							str += '<td class="taskRegBodies" id="newTaskDateBox"><input type="date" name="task_date" class="colspanInput newTaskDate" value=""></td>';
-							str += '<th class="taskRegHeads">작업시작시간</th>';
-							str += '<td class="taskRegBodies" id="newTaskStDtBox">';
-							str += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
-							str += '</td>';
-							str += '</tr>';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">담당자</th>';
-							str += '<td class="taskRegBodies selectBoxTd">';
-							str += '<select class="engSelectBoxS" onChange="handleEngChangeS(this)">';
-							str += '<option name="none" value="none">담당자</option>';
-							str += '</select>';
-							str += '</td>';
-
-							str += '<td class="taskRegBodies">';
-							str += '<div id="engineerNameBoxS" name="user_id" value="' + data.user_id + '"></div>';
-							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersS">';
-							str += '</td>';
-
-							str += '</tr>';
-							str += '<tr class="taskRegRow">';
-							str += '<th class="taskRegHeads">작업내용</th>';
-							str += '<td class="taskRegBodies" id="newTaskDtlBox" colspan="3"><textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl"></textarea></td>';
-							str += '</tr>';
-							str += '</table>';
-							str += '<!--작업버튼영역-->';
-							str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="' + data[0].pjt_id + '">등록</a>';
+							str += '<a href="#" id="taskSearchRegBtn" name="pjt_id" value="' + pjtId + '">등록</a>';
 							str += '</div>';
 							str += '</div>';
 
@@ -1033,113 +906,24 @@
 
 								})
 							})
-							getEngMembersS();
 
+
+							getEngMembers();
 							getTemp();
-
 
 						},
 						error: function (status, error) {
 							console.log(status);
 							console.log(error);
-							alert("등록박스A타입 로딩 실패")
+							alert("신규등록화면B타입 에러")
 						}
 
 					})
-					
+
 				})
 
-
-				//작업자리스트를 select태그 안에 넣기(타입A:기존작업목록이있을 경우)
-				function getEngMembersS() {
-
-					$(".engSelectBoxS").one("click", function (e) {
-
-						e.preventDefault();
-						let target = e.target;
-						console.log(target); //select태그 걸림
-
-						let pjtId = $(".taskSearchNewBtnA").attr("value");
-						let userId = $(".searchTask").closest("div").attr("value");
-
-						$.ajax({
-							url: "../getPjtMembers",
-							type: "get",
-							contentType: "application/json",
-							data: {"pjt_id": pjtId},
-							success: function (data) {
-
-								console.log(data);
-								//alert("리스트가 잘 들어갔습니다");
-
-								let str2 = '';
-
-								for (let i = 0; i < data.length; i++) {
-									str2 += '<option name="담당자' + i + '" onClick="handleClickMember(this)" id="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
-
-								}
-
-								let firstChild = $(".engSelectBoxS").children().first();
-
-								firstChild.after(str2);
-							},
-							error: function (status, error) {
-								console.log(status);
-								console.log(error);
-								alert("리스트 에러났어요");
-							}
-
-						})
-
-					})
-				}
-
-				//멤버 불러오기(상세카드)
+				//작업자리스트를 select태그 안에 넣기
 				function getEngMembers() {
-
-					$(".engSelectBoxD").one("click", function (e) {
-
-						e.preventDefault();
-						let target = e.target;
-						console.log(target); //select태그 걸림
-
-						let pjtId = $(".taskSearchNewBtnA").attr("value");
-						//let userId = $(".searchTask").closest("div").attr("value");
-
-						$.ajax({
-							url: "../getPjtMembers",
-							type: "get",
-							contentType: "application/json",
-							data: {"pjt_id": pjtId},
-							success: function (data) {
-
-								console.log(data);
-								//alert("리스트가 잘 들어갔습니다");
-
-								let str2 = '';
-
-								for (let i = 0; i < data.length; i++) {
-									str2 += '<option name="담당자' + i + '" id="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
-
-								}
-
-								let firstChild = $(".engSelectBoxD").children().first();
-
-								firstChild.after(str2);
-							},
-							error: function (status, error) {
-								console.log(status);
-								console.log(error);
-								alert("리스트 에러났어요");
-							}
-
-						})
-
-					})
-				}
-
-				//작업자리스트를 select태그 안에 넣기(기존 작업목록 없을 경우)
-				function getEngMembersB() {
 
 					$(".engSelectBox").one("click", function (e) {
 
@@ -1147,7 +931,8 @@
 						let target = e.target;
 						console.log(target); //select태그 걸림
 
-						let pjtId = $("#taskSearchNewBtn").attr("value");
+						let pjtId = $(".taskSearchNewBtn").attr("value");
+						console.log(pjtId);
 						//let userId = $(".searchTask").closest("div").attr("value");
 
 						$.ajax({
@@ -1161,17 +946,16 @@
 								//alert("리스트가 잘 들어갔습니다");
 
 								let str2 = '';
+								str2 += '<option name="none" value="none">담당자</option>';
 
 								for (let i = 0; i < data.length; i++) {
-									str2 += '<option name="담당자' + i + '" class="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
+									str2 += '<option name="담당자' + i + '" id="option' + i + '" value="' + data[i].user_id + '">' + data[i].user_nm + '</option>';
 
 								}
 
-								console.log(data.user_id);
-
-								let firstChild = $(".engSelectBox").children().first();
-
-								firstChild.after(str2);
+								//let firstChild = $(".engSelectBox").children().first();
+								let firstChild = $(".engSelectBox");
+								firstChild.html(str2);
 							},
 							error: function (status, error) {
 								console.log(status);
@@ -1184,15 +968,10 @@
 					})
 				}
 
-
-				//템플릿 불러오기(작업목록이 없을 경우)
-				function getTempB() {
+				//템플릿 불러오기
+				function getTemp() {
 
 					$(".tempSelect").one("click", function (e) {
-
-						e.preventDefault();
-						let target = e.target;
-						console.log(target);
 
 						let user_id = $("#taskNewBtnBox").attr("value");
 						console.log("템플릿아이디: ", user_id);
@@ -1203,12 +982,9 @@
 							contentType: "application/json",
 							success: function (data) {
 
-								console.log(data);
-
 								let str = '';
 
 								for (let i = 0; i < data.length; i++) {
-									//str += '<option name="템플릿' + i + '" id="option' + i + '" value="' + data[i].tem_id + '">' + data[i].tem_nm + '</option>';
 									str += '<option value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
 								}
 
@@ -1227,50 +1003,7 @@
 
 				}
 
-				//템플릿 불러오기(작업목록이 이미 존재할 경우)
-				function getTemp() {
-
-					$(".tempSelectB").one("click", function (e) {
-
-						e.preventDefault();
-						let target = e.target;
-						console.log(target);
-
-						let user_id = $(".taskSearchBtnBox").attr("value");
-						console.log("템플릿아이디: ", user_id);
-
-						$.ajax({
-							url: "../getTaskTemp",
-							type: "get",
-							contentType: "application/json",
-							data: {user_id: user_id},
-							success: function (data) {
-
-								console.log(data);
-
-								let str = '';
-
-								for (let i = 0; i < data.length; i++) {
-									str += '<option name="템플릿' + i + '" id="option' + i + '" value="' + data[i].tem_nm + '">' + data[i].tem_nm + '</option>';
-								}
-
-								let firstChild = $(".tempSelectB").children().first();
-								firstChild.after(str);
-
-							},
-							error: function (status, error) {
-								console.log(status);
-								console.log(error);
-								alert("템플릿 불러오지 못했습니다. 확인해주세요")
-							}
-						})
-
-					})
-
-				}
-
-
-				//템플릿 적용하기(작업목록 있을 경우)
+				//템플릿 적용하기
 
 				function handleChangeTemp(e) {
 
@@ -1292,8 +1025,8 @@
 							contentType: "application/json",
 							data: {"tem_nm": selectedTemp},
 							success: function (data) {
-								console.log(data);								
-											
+								console.log(data);
+
 								let newTaskNmBox = document.getElementById("newTaskNmBox");
 								let newTaskDateBox = document.getElementById("newTaskDateBox");
 								let newTaskStDtBox = document.getElementById("newTaskStDtBox");
@@ -1304,7 +1037,7 @@
 								str3 = '';
 								str4 = '';
 
-								str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="'+data.task_nm+'">';
+								str += '<input type="text" class="colspanInput" id="newTaskNm" name="task_nm" value="' + data.task_nm + '">';
 								str2 += '<input type="date" name="task_date" class="colspanInput newTaskDate" value="">';
 								str3 += '<input type="time" name="task_st_dt" id="newTaskStDt" value="">';
 								str4 += '<textarea class="colspanTextarea" id="newTaskDtl" name="task_dtl">' + data.task_dtl + '</textarea>';
@@ -1334,14 +1067,28 @@
 
 					let taskId = $(this).closest("div").find("#taskSearchDelBtn").attr("value");
 					let taskNm = $("#taskNm").val();
-					let taskDtl = $("#taskDtl").html();
+					let taskDtl = $("#taskDtl").val();
 					let status_id = $("#hiddenStatus").val();
 					let taskDate = $("#taskDate").val();
-					let taskStDt = $("#taskStDt").val();
-					let user_id = $("#hiddenEngineersD").val();
-
+					let user_id = $("#hiddenEngineers").val();
 					let serverId = $(".taskHiddenData").attr("value");
 
+					let taskStDt = $("#taskStDt").val();
+					
+					//종료시간 설정
+					var parts = taskStDt.split(':');
+					var hours = parseInt(parts[0]);
+					var minutes = parseInt(parts[1]);
+
+					// 시간을 2시간 추가
+					hours += 2;
+
+					// 24시간 형식으로 시간을 포맷
+					var formattedHours = hours < 10 ? "0" + hours : hours;
+					var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+					var taskEndDt = formattedHours + ":" + formattedMinutes;
+					
 					$.ajax({
 						url: "../taskModifyForm",
 						type: "post",
@@ -1353,6 +1100,7 @@
 							"status_id": status_id,
 							"task_date": taskDate,
 							"task_st_dt": taskStDt,
+							"task_end_dt" : taskEndDt,
 							"user_id": user_id
 						}),
 						success: function (data) {
@@ -1400,14 +1148,14 @@
 							str += '<tr class="taskRegRow">';
 							str += '<th class="taskRegHeads">담당자</th>';
 							str += '<td class="taskRegBodies">';
-							str += '<select onChange="handleEngChangeD(this)" class="engSelectBoxD">';
+							str += '<select onChange="handleEngChange(this)" class="engSelectBox">';
 							str += '<option name="none" value="none">담당자</option>';
 							str += '</select>';
 							str += '</td>';
 
 							str += '<td class="taskRegBodies">';
-							str += '<div id="engineerNameBoxD"></div>';
-							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineersD">';
+							str += '<div id="engineerNameBox"></div>';
+							str += '<input type="hidden" name="user_id" value="' + data.user_id + '" id="hiddenEngineers">';
 							str += '</td>';
 
 							str += '</tr>';
@@ -1421,8 +1169,7 @@
 							str += '</tr>';
 							str += '</table>';
 							str += '<!--수정,삭제버튼영역-->';
-							str += '<div class="taskSearchBtnBox">';
-							str += '<a href="#" class="taskSearchNewBtnA" name="pjt_id" value="' + data.pjt_id + '">신규</a>';
+							str += '<div class="taskSearchBtnBox" name="user_id" value="' + user_id + '">';
 							str += '<a href="#" id="taskSearchSaveBtn" value="' + data.pjt_id + '">수정</a>';
 							str += '<a href="#" id="taskSearchDelBtn" name="task_id" value="' + data.task_id + '">삭제</a>';
 							str += '</div>';
@@ -1433,7 +1180,9 @@
 							console.log(str);
 
 							$(".taskDetail_searchMinContainer").html(str);
-
+							
+							alert("수정 성공!");
+							
 							resetLists();
 
 						},
@@ -1457,47 +1206,9 @@
 					$(".task_lists").html(str2);
 					$(".taskReg_searchMinContainer").html(str);
 
-					let pjt_id = $(".searchTask").attr("value");
-					console.log(pjt_id);
-
-					$.ajax({
-						url: "../taskSearch",
-						type: "get",
-						contentType: "application/json",
-						data: {"pjt_id": pjt_id},
-						success: function (data) {
-							console.log(data);
-							//alert("잘 읽어왔습니다. 이제 화면에 적용하세요")
-
-							let str3 = '';
-
-							for (let i = 0; i < data.length; i++) {
-
-								str3 += '<li>';
-								str3 += '<a href="#" class="taskResults" name="task_id" value="' + data[i].task_id + '">' + data[i].task_nm + '</a>';
-								str3 += '</li>';
-
-							}
-
-							console.log(str3);
-
-							$(".task_lists").html(str3);
-
-
-						},
-						error: function (status, error) {
-							console.log(status);
-							console.log(error);
-							alert("작업정보를 읽어들일 수 없습니다. 다시 확인해주세요");
-						}
-					})
-
 				}
 
-
-
-
-				//등록 기능(기존 작업목록 있는 경우)
+				//등록 기능
 				$(document).on("click", "#taskSearchRegBtn", function (e) {
 
 					e.preventDefault();
@@ -1506,14 +1217,13 @@
 					let status = $(".taskStatusDefault").attr("value");
 					let task_nm = $("#newTaskNm").val();
 					let task_date = $(".newTaskDate").val();
-					let user_id = $("#hiddenEngineersS").val();
-					let task_dtl = $("#newTaskDtl").html();
+					let user_id = $("#hiddenEngineers").val();
+					let task_dtl = $("#newTaskDtl").val();
 					let pjt_id = $(this).attr("value");
-					let server_id = $(".serverData").attr("value");
+					let server_id = $(".taskHiddenData").attr("value");
 					let task_st_dt = $("#newTaskStDt").val();
-					
-					//종료시간 설정
 
+					//종료시간 설정
 					var parts = task_st_dt.split(':');
 					var hours = parseInt(parts[0]);
 					var minutes = parseInt(parts[1]);
@@ -1523,15 +1233,16 @@
 					//var options = {hour: '2-digit', minute: '2-digit'};
 					//let formattedTime = newTime.toLocaleTimeString([], options);
 					//let task_end_dt = formattedTime.substring(3, formattedTime.length);
-					
+
 					// 시간을 2시간 추가
 					hours += 2;
-					
+
 					// 24시간 형식으로 시간을 포맷
 					var formattedHours = hours < 10 ? "0" + hours : hours;
 					var formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-					
+
 					var task_end_dt = formattedHours + ":" + formattedMinutes;
+
 
 					$.ajax({
 						url: "../newTaskRegA",
@@ -1549,50 +1260,7 @@
 						}),
 						success: function (data) {
 							console.log(data);
-							//alert("등록성공!")
-
-							resetLists();
-						},
-						error: function (status, error) {
-							console.log(status);
-							console.log(error);
-							alert("등록실패")
-						}
-					})
-				});
-
-				//등록 기능(기존 작업목록 없는 경우)
-				$(document).on("click", "#taskSearchRegBtnB", function (e) {
-
-					e.preventDefault();
-
-
-					let status = $(".taskStatusDefault").attr("value");
-					let task_nm = $("#newTaskNm").val();
-					let task_date = $(".newTaskDate").val();
-					let task_st_dt = $("#newTaskStDt").val();
-					let user_id = $("#hiddenEngineers").val();
-					let task_dtl = $("#newTaskDtl").html();
-					let pjt_id = $(this).attr("value");
-
-					let server_id = $(".serverData").attr("value");
-
-					$.ajax({
-						url: "../newTaskRegA",
-						type: "post",
-						contentType: "application/json",
-						data: JSON.stringify({
-							"task_nm": task_nm,
-							"task_date": task_date,
-							"task_st_dt": task_st_dt,
-							"user_id": user_id,
-							"task_dtl": task_dtl,
-							"pjt_id": pjt_id,
-							"server_id": server_id,
-						}),
-						success: function (data) {
-							console.log(data);
-							//alert("등록성공!")
+							alert("등록성공!")
 
 							resetLists();
 						},
@@ -1621,7 +1289,6 @@
 						success: function (data) {
 
 							alert("성공적으로 삭제되었습니다");
-
 							resetLists();
 						},
 						error: function (status, error) {
@@ -1631,8 +1298,59 @@
 						}
 					})
 				})
+				
+				/*
+				function sendRealTimeNotification() {
+					$(document).on('click', '#taskSearchRegBtn', function () {
+								var session_user_id = `[[${session.user_id}]]`;
+								const eventSource = new EventSource(`/test/subscribe/` + 'ADMIN');
 
 
+								eventSource.addEventListener("sse", function (event) {
+									console.log(event.data);
+									//const data = JSON.stringify(event.data);
+
+
+									(async () => {
+										// 브라우저 알림
+										const showNotification = () => {
+
+											const notification = new Notification('작업 생성 안내', {
+												body: "작업이 생성 되었습니다",
+												badge: `/img/alarm.png`
+											});
+
+											setTimeout(() => {
+												notification.close();
+											}, 10 * 1000);
+
+											notification.addEventListener('click', () => {
+												window.open(`/task/taskDetail`, '_blank');
+											});
+										}
+
+
+										// 브라우저 알림 허용 권한
+										let granted = false;
+
+										if (Notification.permission === 'granted') {
+											granted = true;
+										} else if (Notification.permission !== 'denied') {
+											let permission = await Notification.requestPermission();
+											granted = permission === 'granted';
+										}
+
+										// 알림 보여주기
+										if (granted) {
+											showNotification();
+										}
+									})();
+
+								})
+							})
+				}
+				*/
+			
 			</script>
 
 

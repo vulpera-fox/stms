@@ -147,7 +147,7 @@
 		task_nm,
 		task_dtl,
 		pred_time)
-		values(#{user_id}, #{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time});
+		values(#{user_id}, #{tem_nm}, #{task_nm}, #{task_dtl}, #{pred_time})
 
 	</insert>
 
@@ -207,6 +207,7 @@
 		status_id = #{status_id},
 		task_date = #{task_date},
 		task_st_dt = #{task_st_dt},
+		task_end_dt = #{task_end_dt},
 		user_id = #{user_id}
 		where task_id = #{task_id}
 	</update>
@@ -267,7 +268,7 @@
 	
 	<update id="modiTask" parameterType="TaskVO">
 		update task set user_id = #{user_id},
-						task_date = #{task_date},
+						task_date = STR_TO_DATE(#{task_date}, '%Y-%m-%d %H:%i:%s'),
 						task_st_dt = #{task_st_dt},
 						task_end_dt = #{task_end_dt},
 						change_req_yn = 2
@@ -278,10 +279,6 @@
 		update task set change_req_yn = 1
 		where task_id = #{task_id}
 	</update>
-	<update id="changeMember">
-update task set change_req_yn = 1
-where task_id = #{task_id}
-</update>
 
 	<select id="getTaskDetail" resultType="TaskVO">
 		select t.task_id,
