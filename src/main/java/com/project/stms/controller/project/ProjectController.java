@@ -56,7 +56,7 @@ public class ProjectController {
 	TaskService taskService;
 
 	
-	@GetMapping("/ProjectMain")
+	@GetMapping("/projectMain")
 	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
 
 		String myRole = (String) session.getAttribute("user_role");
@@ -84,7 +84,7 @@ public class ProjectController {
 		}
 
 
-		return "/project/ProjectMain";
+		return "/project/projectMain";
 	}
 
 	@GetMapping("/projectRegist")
