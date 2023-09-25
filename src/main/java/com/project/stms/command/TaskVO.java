@@ -58,5 +58,4 @@ public class TaskVO {
 	private String comment_dtl;
 	private String comment_regdate;
 	
-	
 }

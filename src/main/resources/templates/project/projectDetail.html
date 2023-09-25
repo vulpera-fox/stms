@@ -40,20 +40,10 @@
       <div class="taskInfoArea">
         <div class="taskProgressArea">
           <div class="taskProgress" style="line-height: 400px; position: relative;">
-<<<<<<< HEAD
 			 <th:block th:if="${errMsg} != null">
 			 	 <p class="errMsg" style="position: absolute; top: 0; left: 550px; font-size: 26px;">[[${errMsg}]]</p>
 			 </th:block>
 			  <div id="taskGraph" style="height: 350px;">
-=======
-			  <div class="errMsg" style="position: absolute; top: 170px; left: 570px; text-align: center;">
-				<th:block th:if="${errMsg} != null">
-			  		<p style="line-height: 30px; margin: 0; font-size: 26px; padding-bottom: 30px;">[[${errMsg}]]</p>
-			 		 <p style="line-height: 30px; margin: 0; font-size: 26px;">작업 생성하러 가기</p>				  
-				</th:block>
-			  </div>
-			  <div id="taskGraph" style="height: 350px; width: 1300px;">
->>>>>>> 2a8147e (수정)
 			  </div>
           </div>
         </div>
@@ -66,13 +56,8 @@
                 <p class="taskTitle" style="margin: 0;">[[${tVO.task_nm}]]</p>
                 <a class="taskOption"><i class="bi bi-three-dots-vertical"></i></a>
                 <div class="taskOptionMenu hidden">
-<<<<<<< HEAD
-                  <p style="border-bottom: 1px solid rgb(230, 235, 241); margin: 0;"><a th:href="@{/task/taskModify(task_id=${tVO.task_id})}" class="moBtn">작업 수정</a></p>
-                  <p style="margin: 0; color: black;"> <a th:href="@{/project/deleteTask(task_id=${tVO.task_id})}" class="delBtn">작업 삭제</a></p>
-=======
                   <p style="border-bottom: 1px solid rgb(230, 235, 241); margin: 0;"><a th:href="@{/task/taskModify(task_id=${tVO.task_id})}">작업 수정</a></p>
                   <p style="margin: 0;"><a th:href="@{/project/deleteTask(task_id=${tVO.task_id}, pjt_id=${pVO.pjt_id})}">작업 삭제</a></p>
->>>>>>> 2a8147e (수정)
                 </div>
               </div>
               <div class="taskContentArea">
