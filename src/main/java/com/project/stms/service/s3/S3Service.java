@@ -155,7 +155,7 @@ public class S3Service {
             byte[] data = objectBytes.asByteArray();
 
             // Write the data to a local file.
-            File myFile = new File(home + "/Downloads/" + keyName );
+            File myFile = new File(home + File.separator + "Downloads" + File.separator + keyName);
             OutputStream os = new FileOutputStream(myFile);
             os.write(data);
             System.out.println("Successfully obtained bytes from an S3 object");

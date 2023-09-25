@@ -1,11 +1,9 @@
 package com.project.stms.controller.project;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +31,8 @@ import com.project.stms.service.project.ProjectService;
 import com.project.stms.service.s3.S3Service;
 import com.project.stms.service.task.TaskService;
 import com.project.stms.util.Criteria;
-import com.project.stms.util.ProjectPageVO;
 import com.project.stms.util.ProjectCriteria;
+import com.project.stms.util.ProjectPageVO;
 
 @Controller
 @RequestMapping("project")
@@ -57,8 +55,9 @@ public class ProjectController {
 	@Autowired
 	TaskService taskService;
 
+	
 	@GetMapping("/projectMain")
-	public String projectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
+	public String ProjectMain(ProjectVO vo, Model mo, HttpSession session, ProjectCriteria cri) {
 
 		String myRole = (String) session.getAttribute("user_role");
 
@@ -392,13 +391,6 @@ public class ProjectController {
 		return "redirect:/project/projectMain";
 	}
 	
-	@GetMapping("/deleteTask")
-	public String deleteTask(int task_id) {
-		
-		
-		return "redirect:/project/projectMain";
-	}
-	
 	
 	@GetMapping("/serverRegist")
 	public String serverRegist(ServerVO vo, HttpSession session, Model mo) {
@@ -445,6 +437,14 @@ public class ProjectController {
 		
 		
 		return "redirect:/project/serverList";
+	}
+	
+	@GetMapping("/deleteTask")
+	public String deleteTask(@RequestParam("task_id") int task_id, @RequestParam("pjt_id") int pjt_id) {
+		
+		taskService.deleteTaskList(task_id);
+		
+		return "redirect:/project/getDetail?pjt_id=" + pjt_id;
 	}
 
 	

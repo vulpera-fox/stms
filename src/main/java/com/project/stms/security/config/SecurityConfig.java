@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -35,8 +37,6 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		
-		
 		
 		//기본로그인 방식, 세션, 베이직인증, csrf토큰 전부 사용하지 않음
 		http.csrf().disable();
@@ -88,7 +88,20 @@ public class SecurityConfig {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+	
+	 @Bean
+	   public HttpFirewall allowSemicolonHttpFirewall() {
+	      StrictHttpFirewall firewall = new StrictHttpFirewall();
+	      firewall.setAllowSemicolon(true); //세미콜론 허용
+	      return firewall;
+	   }
 
+	@Bean
+	public HttpFirewall allowSemicolonHttpFirewall() {
+		StrictHttpFirewall firewall = new StrictHttpFirewall();
+		firewall.setAllowSemicolon(true); //세미콜론 허용
+		return firewall;
+	}
 
 }
 

@@ -183,6 +183,7 @@
 				</form>
 			</div>
 			<div id="title-bottom">
+				<th:block th:if="${session.user_role}=='ROLE_CUSTOMER'">
 				<ul>
 					<li class="list" data-value="all"><a>전체&nbsp;<span id="all"></span></a></li>
 					<li class="list" data-value="noticeList"><a>공지&nbsp;<span id="noticeList"></span></a></li>
@@ -191,9 +192,30 @@
 					<li class="list" data-value="deleteList" style="width: 130px;"><a>지운편지함&nbsp;<span
 								id="deleteList"></span></a></li>
 					<i class="fas fa-sync-alt" type="button" id="refresh_btn"></i>
-
 				</ul>
-
+				</th:block>				
+				<th:block th:if="${session.user_role}=='ROLE_ADMIN'">
+				<ul>
+					<li class="list" data-value="all"><a>전체&nbsp;<span id="all"></span></a></li>
+					<li class="list" data-value="noticeList"><a>공지&nbsp;<span id="noticeList"></span></a></li>
+					<li class="list" data-value="taskList"><a>요청&nbsp;<span id="taskList"></span></a></li>
+					<li class="list" data-value="etcList"><a>기타&nbsp;<span id="etcList"></span></a></li>
+					<li class="list" data-value="deleteList" style="width: 130px;"><a>지운편지함&nbsp;<span
+								id="deleteList"></span></a></li>
+					<i class="fas fa-sync-alt" type="button" id="refresh_btn"></i>
+				</ul>
+				</th:block>				
+				<th:block th:if="${session.user_role}=='ROLE_ENGINEER'">
+				<ul>
+					<li class="list" data-value="all"><a>전체&nbsp;<span id="all"></span></a></li>
+					<li class="list" data-value="noticeList"><a>공지&nbsp;<span id="noticeList"></span></a></li>
+					<li class="list" data-value="taskList"><a>작업&nbsp;<span id="taskList"></span></a></li>
+					<li class="list" data-value="etcList"><a>기타&nbsp;<span id="etcList"></span></a></li>
+					<li class="list" data-value="deleteList" style="width: 130px;"><a>지운편지함&nbsp;<span
+								id="deleteList"></span></a></li>
+					<i class="fas fa-sync-alt" type="button" id="refresh_btn"></i>
+				</ul>
+				</th:block>
 			</div>
 		</div>
 		<div id="content-wrap">

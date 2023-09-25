@@ -5,19 +5,19 @@
 
 	<style>
 		/* 임의의 영역 생성 */
-		.scrollBar {
+		.notiscrollBar {
 			width: 320px;
 			height: 500px;
 			overflow-y: scroll;
 		}
 
 		/* 아래의 모든 코드는 영역::코드로 사용 */
-		.scrollBar::-webkit-scrollbar {
+		.notiscrollBar::-webkit-scrollbar {
 			width: 10px;
 			/* 스크롤바의 너비 */
 		}
 
-		.scrollBar::-webkit-scrollbar-thumb {
+		.notiscrollBar::-webkit-scrollbar-thumb {
 			height: 30%;
 			/* 스크롤바의 길이 */
 			background: rgb(192, 192, 192);
@@ -26,7 +26,7 @@
 			border-radius: 10px;
 		}
 
-		.scrollBar::-webkit-scrollbar-track {
+		.notiscrollBar::-webkit-scrollbar-track {
 			background: rgba(33, 122, 244, .1);
 			/*스크롤바 뒷 배경 색상*/
 		}
@@ -83,7 +83,7 @@
 			<h6 class="dropdown-header" style="font-size: 15px;">
 				Notification
 			</h6>
-			<div class="scrollBar" style="position: relative;">
+			<div class="notiscrollBar" style="position: relative;">
 				<div id="unRead">
 					<div style="padding: 5px 10px; color: black; font-size: 15px; font-weight:bold; background-color: aliceblue;"
 						id="unReadTitle">
