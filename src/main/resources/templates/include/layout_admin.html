@@ -83,7 +83,7 @@
 			<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 				<!-- Sidebar - Brand -->
-				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/project/ProjectMain}">
+				<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/project/projectMain}">
 					<div class="sidebar-brand-icon rotate-n-15">
 						<img th:src=@{/img/logo2.png} style="width: 30px; height: 30px; transform: rotate(15deg);"></i>
 					</div>
@@ -96,7 +96,7 @@
 
 				<!-- Nav Item - Dashboard -->
 				<li class="nav-item">
-					<a class="nav-link" th:href="@{/project/ProjectMain}">
+					<a class="nav-link" th:href="@{/project/projectMain}">
 						<img th:src=@{/img/home.png} style="width: 20px; height: 20px;">
 						<span style="margin: 2px">홈으로 돌아가기</span></a>
 				</li>
@@ -141,24 +141,6 @@
 							<a class="collapse-item" th:href="@{/task/taskList}">작업 조회</a>
 							<a class="collapse-item" th:href="@{/task/taskReg}">작업 등록</a>
 							<a class="collapse-item" th:href="@{/task/taskTemplateList}">작업 템플릿</a>
-						</div>
-					</div>
-				</li>
-
-				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
-					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-						aria-expanded="true" aria-controls="collapsePages">
-						<img th:src=@{/img/add_member.png} style="width: 20px; height: 20px;" />
-						<span>사용자 관리</span>
-					</a>
-					<div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-						data-parent="#accordionSidebar">
-						<div class="bg-white py-2 collapse-inner rounded">
-							<h6 class="collapse-header">MEMBER MANAGEMENT :</h6>
-							<a class="collapse-item" href="#">직원 관리</a>
-							<a class="collapse-item" href="#">고객 관리</a>
-
 						</div>
 					</div>
 				</li>
@@ -220,14 +202,16 @@
 								<li class="nav-item dropdown no-arrow">
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<!--<img class="img-profile rounded-circle" 
-										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">-->
+
+										<img class="img-profile rounded-circle" 
+										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
 										<th:block th:if="${session.user_role} != null">
 										<span
 											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님
 											<br />(ADMIN)</span>
 										</th:block>	
+										<input type="hidden" th:value="${session.user_role}" id="role">
 
 									</a>
 									<!-- Dropdown - User Information -->

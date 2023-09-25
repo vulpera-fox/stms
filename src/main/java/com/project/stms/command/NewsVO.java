@@ -23,7 +23,9 @@ public class NewsVO { // post 테이블..
 	private Integer post_hits;
 	private char post_delete_yn;
 	private Integer org_id;
-	
+	private Integer depth;
+	private Integer order_no;
+	private Integer post_grp_no;
 	
 	
 }

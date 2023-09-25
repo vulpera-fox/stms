@@ -121,7 +121,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 			response.sendRedirect("/");
 			
 		} else if(principal.getUser_role().equals("ROLE_ADMIN")) {
-			response.sendRedirect("/project/ProjectMain");
+			response.sendRedirect("/project/projectMain");
 			
 		}
 	}

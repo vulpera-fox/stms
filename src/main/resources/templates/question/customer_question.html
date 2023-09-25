@@ -80,28 +80,33 @@
 
 					<!--비번 모달창 -->
 					<script>
+						var realPw;
+						var realId;
+						
 						function modalOpen(e) {
-
-							e.preventDefault();
-							$('.modal_content').fadeIn();
-							$('#background').addClass('modal_layer');
+								console.log(1)
+								e.preventDefault();	
+								$('.modal_content').fadeIn();
+								$('#background').addClass('modal_layer');
 							
-						}
-
+								realPw = $(e.target).closest('tr').find('.pw').val();
+								realId = $(e.target).closest('tr').find('.no').val();
+									
+							}
+							
 						function modalClose(e) {
 
 							$('.modal_content').fadeOut();
+							$('#background').removeClass('modal_layer');
+							$('#post_pw').val('');
 						}
 
 						function modalSubmit(e) {
-
-								//console.log($('#post_pw').val());
-								//console.log($('#pw').val());
 							
-								if ($('#post_pw').val() == $('#pw').val()) {
-									/* 수정중!! */
-
-									location.href = '/question/customer_questionDetail?post_id=' + $('#no').val();
+								if ($('#post_pw').val() == realPw) {
+									
+									
+									location.href = '/question/customer_questionDetail?post_id=' +realId;
 
 								} else {
 
@@ -115,19 +120,26 @@
 					<tbody>
 
 						<tr th:each="vo,status :${list}">
-
-							<td>[[${status.count}]]</td>
+							<input type="hidden" th:value="${session.user_role}" id="role">
+							<td>[[(${qpageVO.page}-1 )* ${qpageVO.amount} + ${status.count} ]]</td>
 							<td class="title">
 								<th:block th:if="${vo.post_secret_yn} == 'N'">
+									<img th:if="${vo.org_id} !=null and ${vo.depth} >  0" th:src="@{/img/reply.png}" style="width: 20px;height: 20px">
 									<a th:href="@{customer_questionDetail(post_id=${vo.post_id})}">[[${vo.post_title}]]
 								</th:block>
 								<th:block th:unless="${vo.post_secret_yn} == 'N'">
+									<img th:if="${vo.org_id} !=null and ${vo.depth} >  0" th:src="@{/img/reply.png}" style="width: 20px;height: 20px">
+									<th:block th:if="${session.user_role} == 'ROLE_CUSTOMER' or ''">
 									<a href="javascript:void(0)" id="open"
 										onclick="modalOpen(event)">[[${vo.post_title}]]</a>
 									<img th:if="${vo.post_secret_yn} == 'Y'" th:src="@{/img/lock.png}"
 										style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
-									<input type="hidden" th:value="${vo.post_pw}" id="pw">
-									<input type="hidden" th:value="${vo.post_id}" id="no">
+									</th:block>
+									<th:block th:unless="${session.user_role} == 'ROLE_CUSTOMER' or ''">
+									<a th:href="@{customer_questionDetail(post_id=${vo.post_id})}">[[${vo.post_title}]]</a>
+									<img th:if="${vo.post_secret_yn} == 'Y'" th:src="@{/img/lock.png}"
+										style="width:20px; height:20px; margin-left:3px;margin-bottom: 2px;"></a>
+									</th:block>
 								</th:block>
 							</td>
 
@@ -136,9 +148,12 @@
 							<td><img th:if="${vo.file_id} != null" th:src="@{/img/file.png}"
 									style="width: 20px; height: 20px;"></td>
 							<td>[[${vo.post_hits}]]</td>
+							<input type="hidden" th:value="${vo.post_id}" class="no">
+							<input type="hidden" th:value="${vo.post_pw}" class="pw">
 						<tr>
 							<td colspan="6" th:if="${#lists.isEmpty(list)}">검색 결과가 없습니다.</td>
 						</tr>
+						
 						</tr>
 
 					</tbody>
@@ -154,6 +169,8 @@
 						<button type="button" id="cnxl" onclick="modalClose(event)">x</button>
 						<p>비밀번호를 입력해주세요</p>
 						<input type="password" id="post_pw">
+						
+						
 						<button id="confirm_modal" onclick="modalSubmit(event)">확인</button>
 
 					</div>
@@ -184,6 +201,14 @@
 	if (msg != null) {
 
 		alert(msg);
+	};
+	
+	/*답변글 등록 성공*/
+	var reply = JSON.parse('[[${reply}]]');
+
+	if (reply != null) {
+
+		alert(reply);
 	};
 
 	/* 검색 */

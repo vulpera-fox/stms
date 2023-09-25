@@ -27,11 +27,13 @@
  
  	<select id="getQlist" resultType="NewsVO">
  	
- 		select * from post where board_id = 4 
+ 		select ifnull(org_id, post_id) as id, post.* from post where board_id = 4 
  		
  		<include refid="searchCondition"></include>
  		
- 		order by post_id desc limit #{pageStart}, #{amount}
+ 		order by id desc, order_no asc
+ 		
+ 		limit #{pageStart}, #{amount}
  	
  	</select>
  
@@ -74,7 +76,10 @@
  					 		  #{post_regdate},
  					 		  #{post_contents},
  					 		  #{file_id})
+ 					 		  
  	</insert>
+ 	
+ 	
  
  
  	<delete id="deleteQ">
@@ -85,20 +90,42 @@
  
  	<select id="getMyQlist">
  	
- 		select * from post p 
- 		inner join user u 
- 		on p.user_id = u.user_email 
- 		where p.board_id = 4 and p.user_id = #{user_id}
- 		order by post_id desc limit #{cri.pageStart}, #{cri.amount}
+ 	select ifnull(p1.org_id, p1.post_id) as id, p1.*
+	from post p1
+	inner join user u1 on p1.user_id = u1.user_email
+	where p1.board_id = 4
+	and (
+    p1.user_id = #{user_id} or
+    (p1.org_id is not null and p1.org_id in (
+        select post_id
+        from post p2
+        where p2.board_id = 4
+        and p2.user_id = #{user_id}
+    ))
+)
+order by id desc, p1.order_no asc
+
+ 		limit #{cri.pageStart}, #{cri.amount}
+ 	
  	
  	</select>
  	
  	<select id="getQtotal" resultType="int">
  	
- 		select count(*) from post p 
- 		inner join user u 
- 		on p.user_id = u.user_email 
- 		where p.board_id = 4 and p.user_id = #{user_id}
+ 		select count(*)
+	from post p1
+	inner join user u1 on p1.user_id = u1.user_email
+	where p1.board_id = 4
+	and (
+    p1.user_id = #{user_id} or
+    (p1.org_id is not null and p1.org_id in (
+        select post_id
+        from post p2
+        where p2.board_id = 4
+        and p2.user_id = #{user_id}
+    ))
+)
+
  	
  	</select>
  	
@@ -111,7 +138,33 @@
  						
  	</update>
  
- 
+ 	<insert id="regiReply" parameterType="NewsVO">
+ 	
+ 		insert into post ( board_id, 
+ 						   post_secret_yn, 
+ 						   post_pw,
+ 						   post_title,
+ 						   user_id,
+ 						   post_regdate,
+ 						   post_contents,
+ 						   file_id,
+ 						   org_id,
+ 						   depth,
+ 						   order_no
+ 						   ) 
+ 					 values ( 4,
+ 					 		  #{post_secret_yn},
+ 					 		  #{post_pw},
+ 					 		  #{post_title},
+ 					 		  #{user_id},
+ 					 		  #{post_regdate},
+ 					 		  #{post_contents},
+ 					 		  #{file_id},
+ 					 		  #{org_id},
+ 							  #{depth},
+ 							  #{order_no}	)
+ 	
+ 	</insert>
  
  
  
