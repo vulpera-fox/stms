@@ -42,7 +42,7 @@
 			</div>
 
 			<div class="joinWrap">
-				<button type="button" onclick="openModal()" ; class="joinBtn">회원가입</button>
+				<button type="button" onclick="openModal1()" ; class="joinBtn">회원가입</button>
 			</div>
 		</div>
 	</div>
@@ -81,12 +81,12 @@
 					<form action="changePW" method="post">
 						<div class="int-area">
 							<input class="hidden1" type="hidden" name="user_pw" autocomplete="off" required>
-							<label class="pw_label" display:"none;" for="user_pw"></label>
+							<!--<label class="pw_label" display:"none;" for="user_pw"></label>-->
 						</div>
 						<div class="int-area">
 							<input class="hidden2" type="hidden" id="user_pw2" name="user_pw2" autocomplete="off"
 								required>
-							<label class="pw_label2" display:"none;" for="user_pw2"></label>
+							<!--<label class="pw_label2" display:"none;" for="user_pw2"></label>-->
 						</div>
 						<input type="hidden" class="cp_email" name="user_email" value="">
 						<div class="changeWrap">
@@ -99,25 +99,29 @@
 	</div>
 
 	<!-- 모달로 회원가입창 -->
-	<div class="modal" tabindex="0">
-		<div class="modal-content">
-			<a class="btn-close" href="#none" onclick="closeModal();">X</a>
+	<div class="modal1" tabindex="0">
+		<div class="modal1-content">
+			<a class="btn-close" href="#none" onclick="closeModal1();">X</a>
 			<div class="wrap">
 				<div class="profileBox">
 					<h3>회원가입</h3>
-					<div class="file_box">
-						<div class="file_name" name="org_file_nm" data-value=""><img src="../img/profile.png"
-								style="width: 100%; border-radius: 10px; opacity: 0.5;"></div>
-					</div>
-					<div>
-						<textarea class="profileText" id="file_id" name="file_id" rows="4" cols="15" readonly>
-						 프로필로 사용할 사진을 드로그해서 왼쪽 상자안에 넣어주세요.
+					<form action="joinForm" method="post">
+						<div class="file_box">
+							<div class="file_name" name="org_file_nm" data-value=""><img class="profileImg"
+									src="../img/profile.png" target="_self"
+									style="width: 100%; border-radius: 10px; opacity: 0.5;"></div>
+							<input type="hidden" name="org_file_nm" id="org_file_nm" value="">
+						</div>
+						<div>
+							<textarea class="profileText" id="file_id" name="file_id" rows="4" cols="15" readonly> 프로필로 사용할 사진을 드로그해서 왼쪽 상자안에 넣어주시거나, 이미지 파일을 선택해 주세요.
 					    </textarea>
-						<!--<button type="button" class="upload_btn regBtn">등록하기</button>-->
-					</div>
+							<!--<button type="button" class="upload_btn regBtn">등록하기</button>-->
+							<div>
+								<input type="file" style="margin:0 auto; width: 76%;" class="selectFile">
+							</div>
+						</div>
 				</div>
-
-				<form action="joinForm" method="post">
+				<div style="padding-top: 30px;">
 					<div class="int-area">
 						<input class="email" type="text" id="join_email" name="user_email" autocomplete="off" required
 							placeholder="">
@@ -159,17 +163,19 @@
 						<label for="address_kakao">주소</label>
 					</div>
 					<div class="int-area">
-						<input type="text" class="address_detail" name="address_detail" autocomplete="off" required>
+						<input type="text" class="address_detail" id="address_detail" name="address_detail"
+							autocomplete="off" required>
 						<label for="address_detail">상세주소</label>
 					</div>
+
 
 					<input type="hidden" class="user_adr" name="user_adr">
 
 
 					<button type="submit" class="joinBtn">가입하기</button>
 
-				</form>
-
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -181,7 +187,8 @@
 			<div class="mail-check">
 				<h3>메일로 인증 번호를 보냈습니다.</h3>
 				<div class="int-area">
-					<input class="inputText authInput" type="text" name="authInput" autocomplete="off" required>
+					<input class="inputText authInput" type="text" id="authInput" name="authInput" autocomplete="off"
+						required>
 					<label for="authInput">인증번호를 입력해주세요</label>
 				</div>
 				<button type="submit" class="joinBtn authBtn">인증하기</button>

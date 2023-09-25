@@ -1,13 +1,15 @@
-const modal = document.querySelector(".modal");
+const modal1 = document.querySelector(".modal1");
 const modal2 = document.querySelector(".modal2");
 const modal3 = document.querySelector(".modal3");
+const modal4 = document.querySelector(".modal4");
 
-function openModal() {
-	modal.classList.add('active');
+function openModal1() {
+	modal1.classList.add('active');
 }
 
-function closeModal() {
-	modal.classList.remove('active');
+function closeModal1() {
+	modal1.classList.remove('active');
+	window.location.reload();
 }
 
 
@@ -17,6 +19,7 @@ function openModal2() {
 
 function closeModal2() {
 	modal2.classList.remove('active');
+	window.location.reload();
 }
 
 
@@ -32,11 +35,20 @@ function closeModal3() {
 	}
 }
 
+function openModal4() {
+	modal4.classList.add('active');
+}
 
-document.querySelector(".modal").addEventListener("keydown", function(e) {
+function closeModal4() {
+	modal4.classList.remove('active');
+}
+
+
+
+document.querySelector(".modal1").addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
     // 모달창 닫기
-    closeModal();
+    closeModal1();
   }
 });
 
@@ -51,5 +63,12 @@ document.querySelector(".modal3").addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
     // 모달창 닫기
     closeModal3();
+  }
+});
+
+document.querySelector(".modal4").addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    // 모달창 닫기
+    closeModal4();
   }
 });

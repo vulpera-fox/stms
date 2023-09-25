@@ -76,13 +76,21 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		//토큰발행, 헤더말고 쿠키에 담고 클라이언트로 전달
 		System.out.println("로그인 성공 이후 인증객체" + authResult);
 		MyUserDetails principal = (MyUserDetails) authResult.getPrincipal();
+		
 		String token = JWTService.createToken(principal.getUsername()); //회원 아이디
-		System.out.println(token);
+		String refreshToken = JWTService.refreshToken(principal.getUsername());
+		
+		
+		//System.out.println(token);
 		
 		Cookie cookie = new Cookie("Authorization", token);
-		cookie.setHttpOnly(true); //자바스크립트로 쿠키를 탈취할 수 있는데 못하게 할려면 setHttpOnly 해주면됨
-		response.addCookie(cookie);//jwt를 쿠키에 저장했음 
+		Cookie cookie2 = new Cookie("Refreshtoken", refreshToken);
 		
+		cookie.setHttpOnly(true); //자바스크립트로 쿠키를 탈취할 수 있는데 못하게 할려면 setHttpOnly 해주면됨
+		cookie2.setHttpOnly(true);
+		
+		response.addCookie(cookie);//jwt를 쿠키에 저장했음 
+		response.addCookie(cookie2);
 		
 		HttpSession session = request.getSession();//아이디를 세션에 저장해서 넘겼음
 
@@ -100,6 +108,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter{
 		userVO.setUser_adr(principal.getUser_adr());
 		userVO.setUser_nm(principal.getUser_nm());
 		userVO.setUser_group(principal.getUser_group());
+		userVO.setOrg_file_nm(principal.org_file_nm());
 		
 		
 		

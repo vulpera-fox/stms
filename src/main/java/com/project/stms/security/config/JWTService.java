@@ -34,11 +34,31 @@ public class JWTService {
 				.withExpiresAt(new Date(expire))//만료시간
 				.withIssuer("junhee") //발행자
 				.withClaim("admin", "공개클레임~ 부가적으로 원하는거 설정"); // +공개클레임
-
+		
 		return builder.sign(alg); //객체 생성
 
 	}
-
+	
+	//리프레쉬토큰
+	public static String refreshToken(String user_email) {
+		
+		//알고리즘생성
+		Algorithm alg =  Algorithm.HMAC256(secretKey);
+		
+		//만료시간
+		long expire = System.currentTimeMillis() + 3600000 * 24; // 24시간 뒤
+		
+		//토튼 생성
+		Builder builder = JWT.create().withSubject(user_email)//주제
+				.withIssuedAt(new Date())//발행일
+				.withExpiresAt(new Date(expire))//만료시간
+				.withIssuer("junhee") //발행자
+				.withClaim("admin", "공개클레임~ 부가적으로 원하는거 설정"); // +공개클레임
+		
+		return builder.sign(alg); //객체 생성
+		
+	}
+	
 
 	//토큰복호화
 	public static int decodeJwt(HttpServletRequest request) {

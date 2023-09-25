@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: rgb(250, 250, 251);
+  background-color: white;
 }
 
 ::-webkit-scrollbar {
@@ -29,10 +29,13 @@ a {
 }
 
 #container {
+	width: 95%;
+	margin: 0 auto;
   border: 1px solid rgb(230, 235, 241);
   padding: 20px;
   width: 95%;
   margin: 0 auto;
+  background-color: rgb(250, 250, 251);
 }
 
 .titleArea {
@@ -174,7 +177,7 @@ a {
   line-height: 40px;
 }
 
-.taskStatus, .taskDate {
+#taskStatus, .taskDate {
   display: inline-block;
 }
 
@@ -438,6 +441,3 @@ a {
 .작업중지 {
 	background-color: red;
 }
-
-
-

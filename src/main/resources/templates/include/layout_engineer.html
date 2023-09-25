@@ -69,7 +69,6 @@
 			overflow-x: scroll;
 			width: 100%;
 		}
-
 	</style>
 
 	<body id="page-top">
@@ -196,16 +195,15 @@
 								<li class="nav-item dropdown no-arrow">
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<img class="img-profile rounded-circle" th:src=@{/img/undraw_profile.svg}>
-										<span
-
-											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
+										<!--<img class="img-profile rounded-circle" 
+										th:src="@{'https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">-->
+										<span class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
 											님 <br />(ENGINEER)</span>
 									</a>
 									<!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" th:href="@{/user/mypageE}">
 											<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 											My Page
 										</a>
@@ -296,13 +294,13 @@
 					</div>
 
 					<div class="modal-body">정말로 로그아웃 하시겠습니까?</div>
-				  <div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
 
-					<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+						<a class="btn btn-primary" th:href="@{/user/logout}">로그아웃</a>
+					</div>
 				</div>
 			</div>
-		</div>
 	</body>
 
 	<script th:src=@{/js/sb-admin-2.min.js}></script>
@@ -324,4 +322,3 @@
 	</script>
 
 </html>
-

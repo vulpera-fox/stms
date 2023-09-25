@@ -41,15 +41,13 @@
 									</select>
 								</li>
 								<li>
-									<div style="position: relative; width: 150px;">
+									<div>
 										<p>시작일</p>
-										<input type="date" id="pjt_st_dt" name="pjt_st_dt" min="" max="" required/>
-										<p id="errorMsg" style="display: none; position: absolute; ">시작일은 오늘 이후여야 합니다.
+										<input type="date" id="pjt_st_dt" name="pjt_st_dt" required />
 										</p>
 									</div>
 									<div>
-										<p>마감일</p>
-										<input type="date" id="pjt_end_dt" name="pjt_end_dt" min="" max="" required/>
+										<p>마감일</p><input type="date" id="pjt_end_dt" name="pjt_end_dt" required />
 									</div>
 								</li>
 							</ul>
@@ -177,6 +175,7 @@
 
 	// 오늘 날짜 가져오기
 	
+<<<<<<< HEAD
 	function getToday() {
 		const today = new Date();
 		const year = today.getFullYear();
@@ -209,6 +208,8 @@
 			endDateInput.value = '';
 		}
 	});
+=======
+>>>>>>> master
 
 
 	var maxFileNameLength = 10;

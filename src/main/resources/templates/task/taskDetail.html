@@ -9,7 +9,7 @@
 	
 	/* 공통사항 */
 	.taskDtlContainer {
-		width: 1800px;
+		
 		
 	}
 	
@@ -17,10 +17,11 @@
 	  width: 800px;
 	  height: auto;
 	  text-align: center;
-	  border: 1px solid #777;
-	  box-shadow: 0 8px 10px #020f37;
-	  margin: 30px 0;
-	  position: relative;
+	  
+	  box-shadow: 0 2px 3px #999;
+	  margin: 30px auto;
+	  
+	  
 	}
 
 	.taskDtlRow {
@@ -97,9 +98,17 @@
 	  text-align: center;
 	}
 	
-	.saveBtn, .listBtn {
+	#toListBtn {
 	  width: 100px;
-	  height: 40px;
+	  height: 100px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
+	}
+	
+	#commentSaveBtn {
+	  width: 100px;
+	  height: 100px;
 	  background-color: #020f37;
       color: #fff;
       font-weight: bold;
@@ -137,16 +146,30 @@
 		resize: none;
 	}
 	
-	.stateBtn {
+	#taskDetailStatus {
 		width: 100px;
 		text-align: center;
 		border-radius: 20px;
-		background-color: blue;
 		color: #fff;
 		font-weight: bold;
-		position: absolute;
-		top: 55px;
-		left: 650px;
+	
+	}
+	
+	#enginnerBtn {
+		width: 70px;
+		text-align: center;
+		border-radius: 20px;
+		color: #fff;
+		font-weight: bold;
+		background-color: rgb(72, 175, 148);
+	}
+	
+	.taskStartToggleBtn {
+	  width: 60px;
+	  height: 40px;
+	  background-color: #020f37;
+      color: #fff;
+      font-weight: bold;
 	}
 	
 	</style>	
@@ -154,85 +177,83 @@
 	<body>
 	  <div class="taskDtlContainer">
 	    
-      <h3>작업 수정</h3>
-      
+      <h3>작업 상세</h3>
+      <form name="actionForm" action="commentRegForm" method="post">		  
 	    <div class="taskDtlBox">
-			
-			  <input type="button" class="stateBtn" value="작업대기" style="line-height: initial;">
-			  <!--<input type="button" class="stateBtn" value="작업중" style="line-height: initial; background-color: green;">-->
-			  <!--<input type="button" class="stateBtn" value="작업완료" style="line-height: initial; background-color: gray;">-->
-			  <!--<input type="button" class="stateBtn" value="작업중단" style="line-height: initial; background-color: red;">-->
 			  
 		      <table class="taskDtlTable">
 				  
 				  <tr class="taskDtlRow">
-					  <th class="taskDtlHeads">프로젝트</th>
-					  <td colspan="2" class="taskDtlBodies">
-						  <!--반복 돌려서 프로젝트 리스트(프로젝트 ID)를 불러올 예정(고객사, 작업장소 자동으로 찍히고, 담당자 검색할 수 있게끔..)-->
-						  <select class="projectSelectBox" readonly>
-							  <option>프로젝트A</option>
-							  <option>프로젝트B</option>
-							  <option>프로젝트C</option>
-							  <option>프로젝트D</option>
-						  </select>
-					  </td>
+					  <th class="taskDtlHeads">프로젝트명</th>
+					  <td class="taskDtlBodies" name="pjt_nm">[[${taskVO.pjt_nm}]]</td> <!--프로젝트이름-->
+						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 1}">
+							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: blue;" readonly>
+						  </td> <!--작업상태표시 1-->
+						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 2}">
+							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: green;" readonly>
+						  </td> <!--작업상태표시-->
+						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 3}">
+							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: gray;" readonly>
+						  </td> <!--작업상태표시-->
+						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 4}">
+							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: orange;" readonly>
+						  </td> <!--작업상태표시-->
+						  <td class="taskDtlBodies" name="status_id" th:if="${taskVO.status_id == 5}">
+							  <input type="button" id="taskDetailStatus" name="status_dtl" th:value="${taskVO.status_dtl}" style="background-color: red;" readonly>
+						  </td> <!--작업상태표시-->
+					  <td class="taskDtlBodies"><input type="button" class="taskStartToggleBtn" value="시작"></td> <!--시작버튼-->
 				  </tr>
 				  		  
 		          <tr class="taskDtlRow">
 		            <th class="taskDtlHeads">고객사</th>
-		            <td class="taskDtlBodies"><input type="text" class="taskDtlInputL" readonly></td>
+		            <td class="taskDtlBodies" name="user_group">[[${taskVO.user_group}]]</td> <!--고객사 이름-->
 		          	<th class="taskDtlHeads">담당자</th>
 		            <td class="taskDtlBodiesS">
-						<input type="text" class="taskDtlInputR" readonly>
-						<input type="button" class="taskDtlBtn" value="검색" style="line-height: initial;">
-					</td>
+						<input type="button" id="enginnerBtn" name="user_nm" th:value="${taskVO.user_nm}" readonly>
+					</td> <!--담당자이름표시-->
 				  </tr>
 		          
 		          <tr class="taskDtlRow">
-		            <th class="taskDtlHeads">작업기간</th>
-		            <td colspan="3" class="taskDtlDates">
-						
-						시작일시 <input type="datetime-local" id="startDateTime" name="startDateTime" style="outline: none;" readonly>
-						종료일시 <input type="datetime-local" id="endDateTime" name="endDateTime" style="outline: none;" readonly>
-						
-		            </td>
+		            <th class="taskDtlHeads">작업일</th>
+		            <td class="taskDtlDates">
+						[[${taskVO.task_date}]]
+						</td>
+		            <th class="taskDtlHeads">작업시간</th>
+		            <td class="taskDtlDates">
+						[[${taskVO.task_st_dt}]] ~ [[${taskVO.task_end_dt}]]
+					</td>
 		          </tr>
 		  
 		  		  
 		          <tr class="taskDtlRow">
 		            <th class="taskDtlHeads">작업장소</th>
-		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
+		            <td colspan="3" name="user_adr" class="taskDtlBodies">[[${taskVO.user_adr}]]</td> <!--작업장소-->
 		          </tr>
 		  
 		          <tr class="taskDtlRow">
 		            <th class="taskDtlHeads">작업명</th>
-		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
+		            <td colspan="3" name="task_nm" class="taskDtlBodies">[[${taskVO.task_nm}]]</td> <!--작업명-->
 		          </tr>
 		  
 		          <tr class="taskDtlRow">
 		            <th class="taskDtlHeads">작업내용</th>
-		            <td colspan="3" class="taskDtlBodies"><input type="text" class="colspanInput" readonly></td>
+		            <td colspan="3" name="task_dtl" class="taskDtlBodies">[[${taskVO.task_dtl}]]</td> <!--작업내용-->
 		          </tr>
 		          
 		          <tr class="taskDtlRow">
 					  <th class="taskDtlHeads">작업결과</th>
-					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" placeholder="작업결과를 입력해주세요"></textarea></td>
+					  <td colspan="3" class="taskDtlBodies"><textarea class="textInput" id="task_result" name="task_result" placeholder="작업결과를 입력해주세요"></textarea></td>
 				  </tr>
-		    </div>
 		    </table>
-		
-		
-		
-		<!--댓글 기능-->
-		<div>
-			댓글 기능 들어갈거야
 		</div>
 		
 	
 	    <!-- 버튼 기능 -->
 	    <div class="DtlBtnBox">
-	      <input type="button" class="listBtn" value="목록">
+		  <a href="#" id="commentSaveBtn">결과저장</a>
+	      <a th:href="@{taskList}" id="toListBtn">목록</a>
 	    </div>
+	  </form>
 	
 	  </div>
 	  
@@ -265,6 +286,17 @@
 		startDateTimeInput.addEventListener("change", function () {
             endDateTimeInput.min = startDateTimeInput.value;
         });
+        
+        
+        //목록으로 가기
+		//let toListBtn = document.getElementById("toListBtn");
+		
+		//toListBtn.addEventListener("click", function(e) {
+			//e.preventDefault();
+			
+			//location.href = "/task/taskList";
+		//})
+		
 			
 	</script>
 	  
