@@ -92,11 +92,15 @@ public class NotificationController {
 //		return ResponseEntity.ok(1);
 //	}
 	
-	@PostMapping("/getSearchResult")
-	public ResponseEntity<ArrayList<NotificationVO>> getSearchResult(@RequestBody Criteria cri) {		
-		
-		ArrayList<NotificationVO> list = notificationService.getSearchResult(cri, "CUSTOMER");
-		
-		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
+	 @PostMapping("/getSearchResult")
+	   public ResponseEntity<ArrayList<NotificationVO>> getSearchResult(@RequestBody Criteria cri, HttpServletRequest http) {      
+	      
+	      HttpSession session = http.getSession();
+	      
+	      String user_id = (String)session.getAttribute("user_id");
+	      
+	      ArrayList<NotificationVO> list = notificationService.getSearchResult(cri, user_id);
+	      
+	      return new ResponseEntity<>(list, HttpStatus.OK);
+	   }
 }

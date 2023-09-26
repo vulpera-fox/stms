@@ -102,7 +102,7 @@ join_email.addEventListener('focusout', async function() {
 		user_email: join_email.value,
 	};
 
-	await fetch("http://localhost:8181/checkId", {
+	await fetch("http://43.200.202.17/checkId", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -135,7 +135,7 @@ join_email.addEventListener('focusout', async function() {
 			openModal3();
 
 
-			await fetch("http://localhost:8181/random")
+			await fetch("http://43.200.202.17/random")
 
 				.then((response) => {
 					return response.json();
@@ -160,7 +160,7 @@ join_email.addEventListener('focusout', async function() {
 			};
 
 
-			fetch("http://localhost:8181/mail", {
+			fetch("http://43.200.202.17/mail", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -248,7 +248,7 @@ address.addEventListener('focusout', function() {
 	};
 
 
-	fetch("http://localhost:8181/changePE", {
+	fetch("http://43.200.202.17/changePE", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -272,7 +272,7 @@ address.addEventListener('focusout', function() {
 //난수 받아오기
 random.addEventListener('click', async function() {
 
-	await fetch("http://localhost:8181/random")
+	await fetch("http://43.200.202.17/random")
 
 		.then((response) => {
 			return response.json();
@@ -291,7 +291,7 @@ random.addEventListener('click', async function() {
 	};
 
 
-	await fetch("http://localhost:8181/mail", {
+	await fetch("http://43.200.202.17/mail", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
