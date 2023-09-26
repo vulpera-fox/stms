@@ -104,7 +104,7 @@
 	                  </div>
 	                </li>
 	              </ul>
-            	</form>
+            	
             </div>
               <div class="detailFormArea">
                 <div class="upperDetailFormArea">
@@ -117,6 +117,7 @@
                 <textarea name="pjt_dtl" class="pjt_dtl" th:readonly="${session.user_role != 'ROLE_ADMIN'}">[[${pVO.pjt_dtl}]]</textarea>
     
               </div>
+              </form>
 	          <div class="attachment">
 				  <p style="font-size: 20px;">첨부파일</p>
 				  <div class="attachmentZone">

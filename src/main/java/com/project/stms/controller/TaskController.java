@@ -93,7 +93,7 @@ public class TaskController {
 		
 		TaskVO taskVO = taskService.getModify(task_id);
 		
-		System.out.println("수정페이지 출력값: " + taskVO.toString());
+		//System.out.println("수정페이지 출력값: " + taskVO.toString());
 		
 		model.addAttribute("taskVO", taskVO);
 		

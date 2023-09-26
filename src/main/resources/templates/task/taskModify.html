@@ -131,34 +131,44 @@
 		block-size: 30px;
 		margin-left: 10px;
 		margin-right: 30px;
-		width:90px;
+		width:100px;
 	}
 	
 	.endDateTime {
 		block-size: 30px;
 		margin-left: 10px;
-		width:90px;
+		width:100px;
 	}
 	
 	.taskDateTime {
 		block-size: 30px;
 		margin: 0 0 5px 10px;
-		width:90px;
+		width:100px;
 	}
 	
 	#engineerNameBox {
-		width:70px;
+		width:100px;
 		text-align: center;
 		border-radius: 20px;
 		background-color: rgb(72, 175, 148);
 		color: #fff;
 		font-weight: bold;
+		margin-left:10px;
 	}
 	
 	.modiTitle {
 		margin:0 auto;
 		width:800px;
 	}
+	
+	.req_change {
+		width: 60px;
+	    height: 30px;
+	    background-color: #020f37;
+        color: #fff;
+        font-weight: bold;
+	}
+	
 	
 	</style>	
 	
@@ -187,13 +197,15 @@
 						<select id="changeMemberSelect" onChange="handleChangeMember(this)" name="pjt_id" th:value="${taskVO.pjt_id}">
 							<option>[[${taskVO.user_nm}]]</option>
 						</select>
-					</td>
-					<td>						
 						<input type="button" id="engineerNameBox" name="user_nm" th:value="${taskVO.user_nm}" style="line-height: initial;">
 						<input type="hidden" id="hiddenEngineers" name="user_id" th:value="${taskVO.user_id}">
 					</td>
+					<!--<td>						
+						<input type="button" id="engineerNameBox" name="user_nm" th:value="${taskVO.user_nm}" style="line-height: initial;">
+						<input type="hidden" id="hiddenEngineers" name="user_id" th:value="${taskVO.user_id}">
+					</td>-->
 			
-		            <td><input type="button" name="req_change" class="req_change" value="변경요청"></td>
+		            <td><input type="button" name="req_change" class="req_change" value="변경요청" style="line-height: initial;"></td>
 				  </tr>
 		          
 		          <tr class="taskModRow">

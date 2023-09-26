@@ -144,6 +144,11 @@
 												<img class="img-profile rounded-circle profile"
 													th:src="@{/img/undraw_profile.svg}" target="_self">
 											</th:block>
+										</div>
+										<div class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]
+											님
+											<br />[[${#strings.replace(session.user_role, 'ROLE_' ,'')}]]
+										</div>
 									</a>
 									<!-- Dropdown - User Information-->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
