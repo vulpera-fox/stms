@@ -190,6 +190,12 @@ public class TaskController {
 		return "task/taskDashboard";
 	}
 	
+	//고객 캘린더뷰
+	@GetMapping("taskDashboardCustomer")
+	public String taskDashboardCus() {
+		return "task/taskDashboardCustomer";
+	}
+	
 	
 	//작업 리포트
 	@GetMapping("taskReport")

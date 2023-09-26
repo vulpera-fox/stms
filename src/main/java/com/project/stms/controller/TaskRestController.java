@@ -1,10 +1,10 @@
 package com.project.stms.controller;
 
 import java.util.ArrayList;
-
 import java.util.List;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.stms.command.TaskVO;
+import com.project.stms.command.UserVO;
 import com.project.stms.service.notification.NotificationService;
 import com.project.stms.service.task.TaskService;
 
@@ -184,4 +184,26 @@ public class TaskRestController {
 		
 		return list;
 	}
+
+	
+	//캘린더뷰 조회하기
+	@GetMapping("getCalendarCus")
+	public List<TaskVO> getCalendarCus(HttpServletRequest request) {
+		
+		
+		HttpSession session = request.getSession();
+		
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+		
+		String user_id =  userVO.getUser_id();
+		
+		System.out.println(user_id);
+		
+		List<TaskVO> list = taskService.getCalendarCus(user_id);
+		
+		return list;
+	}
+	
+	
+	
 }

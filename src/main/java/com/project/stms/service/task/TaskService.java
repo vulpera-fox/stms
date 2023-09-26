@@ -69,8 +69,13 @@ public interface TaskService {
 	//캘린더뷰 조회
 	public List<TaskVO> getCalendar();
 	
+	//캘린더뷰(고객사)
+	public List<TaskVO> getCalendarCus(String user_id);
+	
 	//작업결과 등록
 	public void registComment(int task_id, String comment_dtl);
+	
+	
 	
 	//작업삭제
 	//public void delTask(int task_id);
