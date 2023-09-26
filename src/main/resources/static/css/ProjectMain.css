@@ -309,23 +309,27 @@ a {
 	width: 50px;
 	height: 30px;
 	display: inline-block;
-	border: 1px solid black;
-	color: black;
+	border: 1px solid #020f37;
+	background-color: #020f37;
+	color: #fff;
 	line-height: 30px;
 }
 
 .submitBtn:hover {
-	text-decoration: none;
+	background-color: rgb(247, 235, 237);
 	cursor: pointer;
+	text-decoration: none;
 	color: black;
+	
 }
 
 .resetBtn {
 	width: 50px;
 	height: 30px;
 	display: inline-block;
-	border: 1px solid black;
-	color: black;
+	border: 1px solid #020f37;
+	background-color: #020f37;
+	color: #fff;
 	line-height: 30px;
 }
 
@@ -334,17 +338,19 @@ a {
 }
 
 .createBtn {
-	width: 60px;
+	width: 80px;
 	height: 30px;
 	display: inline-block;
-	border: 1px solid black;
-	color: black;
+	border: 1px solid #020f37;
+	background-color: #020f37;
+	color: #fff;
 	line-height: 30px;
 }
 
 .createBtn:hover {
-	text-decoration: none;
+	background-color: rgb(247, 235, 237);
 	cursor: pointer;
+	text-decoration: none;
 	color: black;
 }
 
