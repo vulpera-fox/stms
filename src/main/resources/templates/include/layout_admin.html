@@ -203,8 +203,16 @@
 									<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-										<img class="img-profile rounded-circle" 
-										th:src="@{'https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}" target="_self">
+										<th:block th:if="${session.userVO.org_file_nm} != null">
+												<img class="img-profile rounded-circle profile"
+													th:src="@{'https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/' + ${session.userVO.org_file_nm}}"
+													target="_self">
+											</th:block>
+
+											<th:block th:unless="${session.userVO.org_file_nm} != null">
+												<img class="img-profile rounded-circle profile"
+													th:src="@{/img/undraw_profile.svg}" target="_self">
+											</th:block>
 										<th:block th:if="${session.user_role} != null">
 										<span
 											class="mr-2 d-none d-lg-inline text-gray-600 small">[[${session.user_nm}]]

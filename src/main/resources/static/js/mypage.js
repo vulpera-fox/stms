@@ -59,7 +59,7 @@ dropbox.addEventListener('drop', async function(e) {
 
 
 	}
-	profileImg.src = "https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
+	profileImg.src = "https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
 	org_file_nm.value = file_data.name;
 });
 
@@ -95,7 +95,7 @@ selectFile.addEventListener('change', async function(e) {
 
 
 	}
-	profileImg.src = "https://demo-jun-hee2.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
+	profileImg.src = "https://ash-project-stms.s3.ap-northeast-2.amazonaws.com/" + file_data.name;
 	org_file_nm.value = file_data.name;
 });
 

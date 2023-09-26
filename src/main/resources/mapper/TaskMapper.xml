@@ -271,6 +271,7 @@
 						task_date = STR_TO_DATE(#{task_date}, '%Y-%m-%d %H:%i:%s'),
 						task_st_dt = #{task_st_dt},
 						task_end_dt = #{task_end_dt},
+						task_dtl = #{task_dtl},
 						change_req_yn = 2
 		where task_id = #{task_id}
 	</update>

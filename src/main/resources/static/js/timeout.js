@@ -3,7 +3,7 @@ let second = 0;
 let minutes = 0;
 let seconds = 0;
 const timeFunction = function() {
-	fetch("http://43.200.202.17:8181/timeOut")
+	fetch("http://43.200.202.17/timeOut")
 		.then((response) => {
 			return response.json();
 		})
