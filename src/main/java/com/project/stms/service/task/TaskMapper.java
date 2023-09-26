@@ -74,6 +74,9 @@ public interface TaskMapper {
 	//캘린더뷰 조회
 	public List<TaskVO> getCalendar();
 	
+	//캘린더뷰(고객사)
+	public List<TaskVO> getCalendarCus(String user_id);
+	
 	//작업결과 등록
 	public void registComment(@Param("task_id") int task_id,
 							  @Param("comment_dtl") String comment_dtl);
