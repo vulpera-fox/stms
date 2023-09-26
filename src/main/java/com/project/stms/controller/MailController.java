@@ -20,7 +20,7 @@ import com.project.stms.command.MailVO;
 import com.project.stms.command.UserVO;
 import com.project.stms.security.config.JWTService;
 import com.project.stms.service.mail.MailService;
-import com.project.stms.service.s3.S3Service;
+import com.project.stms.service.s3.S3Service2;
 import com.project.stms.service.user.UserService;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ import lombok.AllArgsConstructor;
 public class MailController {
 	private MailService mailService;
 	private UserService userService;
-	private S3Service s3;
+	private S3Service2 s3;
 
 
 	@PostMapping("/mail")
@@ -110,7 +110,7 @@ public class MailController {
 			//파일데이터
 			byte[] originData = file.getBytes();
 
-			s3.uploadFiles(originName, originData);
+			s3.uploadProfile(originName, originData);
 
 			//System.out.println("--------------------");
 			//System.out.println(originName);

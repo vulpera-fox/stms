@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 public class S3Service {
 
 	@Autowired
+	@Qualifier("s3Client")
 	private S3Client s3;
 
 	@Value("${aws_mybucket_name}")
